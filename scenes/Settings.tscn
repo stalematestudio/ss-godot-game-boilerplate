@@ -1,0 +1,219 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scripts/Settings.gd" type="Script" id=1]
+
+[node name="Settings_Menu" type="Panel"]
+self_modulate = Color( 1, 1, 1, 0.501961 )
+anchor_left = 0.3
+anchor_right = 0.7
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBC" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 20.0
+margin_top = 20.0
+margin_right = -20.0
+margin_bottom = -20.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Menu_Title" type="Label" parent="VBC"]
+margin_right = 301.0
+margin_bottom = 14.0
+text = "settings"
+align = 1
+
+[node name="Settings_Tabs" type="TabContainer" parent="VBC"]
+margin_top = 18.0
+margin_right = 301.0
+margin_bottom = 392.0
+size_flags_vertical = 3
+use_hidden_tabs_for_min_size = true
+
+[node name="AV_Settings" type="Tabs" parent="VBC/Settings_Tabs"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="VBC" type="VBoxContainer" parent="VBC/Settings_Tabs/AV_Settings"]
+anchor_right = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Video" type="Label" parent="VBC/Settings_Tabs/AV_Settings/VBC"]
+margin_right = 293.0
+margin_bottom = 14.0
+text = "Video"
+
+[node name="FullScreen_CheckButton" type="CheckButton" parent="VBC/Settings_Tabs/AV_Settings/VBC"]
+margin_top = 18.0
+margin_right = 293.0
+margin_bottom = 58.0
+text = "Fullscreen"
+
+[node name="VSync_CheckButton" type="CheckButton" parent="VBC/Settings_Tabs/AV_Settings/VBC"]
+margin_top = 62.0
+margin_right = 293.0
+margin_bottom = 102.0
+text = "V-Sync"
+
+[node name="Borderless_CheckButton" type="CheckButton" parent="VBC/Settings_Tabs/AV_Settings/VBC"]
+margin_top = 106.0
+margin_right = 293.0
+margin_bottom = 146.0
+text = "Borderless"
+
+[node name="ResolutionAuto_CheckButton" type="CheckButton" parent="VBC/Settings_Tabs/AV_Settings/VBC"]
+margin_top = 150.0
+margin_right = 293.0
+margin_bottom = 190.0
+text = "Auto Resolution"
+
+[node name="Resolution_HBC" type="HBoxContainer" parent="VBC/Settings_Tabs/AV_Settings/VBC"]
+margin_top = 194.0
+margin_right = 293.0
+margin_bottom = 214.0
+
+[node name="Resolution_Label" type="Label" parent="VBC/Settings_Tabs/AV_Settings/VBC/Resolution_HBC"]
+margin_top = 3.0
+margin_right = 96.0
+margin_bottom = 17.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+text = "Resolution : "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Resolution_Option" type="OptionButton" parent="VBC/Settings_Tabs/AV_Settings/VBC/Resolution_HBC"]
+margin_left = 100.0
+margin_right = 293.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+
+[node name="Audio" type="Label" parent="VBC/Settings_Tabs/AV_Settings/VBC"]
+margin_top = 218.0
+margin_right = 293.0
+margin_bottom = 232.0
+text = "Audio"
+
+[node name="Music_HBC" type="HBoxContainer" parent="VBC/Settings_Tabs/AV_Settings/VBC"]
+margin_top = 236.0
+margin_right = 293.0
+margin_bottom = 276.0
+size_flags_horizontal = 3
+
+[node name="Music_CheckButton" type="CheckButton" parent="VBC/Settings_Tabs/AV_Settings/VBC/Music_HBC"]
+margin_right = 118.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+text = "Music"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Music_Slider" type="HSlider" parent="VBC/Settings_Tabs/AV_Settings/VBC/Music_HBC"]
+margin_left = 122.0
+margin_right = 273.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+step = 2.0
+value = 50.0
+rounded = true
+tick_count = 50
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Music_Value" type="Label" parent="VBC/Settings_Tabs/AV_Settings/VBC/Music_HBC"]
+margin_left = 277.0
+margin_right = 293.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.1
+text = "50"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FX_HBC" type="HBoxContainer" parent="VBC/Settings_Tabs/AV_Settings/VBC"]
+margin_top = 280.0
+margin_right = 293.0
+margin_bottom = 320.0
+
+[node name="FX_CheckButton" type="CheckButton" parent="VBC/Settings_Tabs/AV_Settings/VBC/FX_HBC"]
+margin_right = 95.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+text = "FX"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FX_Slider" type="HSlider" parent="VBC/Settings_Tabs/AV_Settings/VBC/FX_HBC"]
+margin_left = 99.0
+margin_right = 271.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+step = 2.0
+value = 50.0
+rounded = true
+tick_count = 50
+
+[node name="FX_Value" type="Label" parent="VBC/Settings_Tabs/AV_Settings/VBC/FX_HBC"]
+margin_left = 275.0
+margin_right = 293.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.1
+text = "50"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Controls" type="Tabs" parent="VBC/Settings_Tabs"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="Apply" type="Button" parent="VBC"]
+margin_top = 396.0
+margin_right = 301.0
+margin_bottom = 416.0
+text = "Apply"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Cancel" type="Button" parent="VBC"]
+margin_top = 420.0
+margin_right = 301.0
+margin_bottom = 440.0
+text = "Cancel"
+__meta__ = {
+"_edit_use_anchors_": false
+}
