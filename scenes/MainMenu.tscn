@@ -46,7 +46,7 @@ __meta__ = {
 [node name="Game_Title" type="Label" parent="Start_Menu/VBC"]
 margin_right = 130.0
 margin_bottom = 14.0
-text = "iter astrum"
+text = "game title"
 align = 1
 uppercase = true
 

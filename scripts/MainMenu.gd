@@ -1,5 +1,6 @@
 extends Control
 
+var game_title
 var continue_button
 var new_game_button
 var settings_button
@@ -15,12 +16,14 @@ func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	
 	# Set element references
+	game_title = $Start_Menu/VBC/Game_Title
 	continue_button = $Start_Menu/VBC/Continue
 	new_game_button = $Start_Menu/VBC/New_Game
 	settings_button = $Start_Menu/VBC/Settings
 	quit_button = $Start_Menu/VBC/Quit
 	
 	# Set Start Menu
+	game_title.text = ProjectSettings.get_setting("application/config/name")
 	if profiles_exist:
 		continue_button.grab_focus()
 		continue_button.connect("pressed", self, "start_menu_button_pressed", ["continue"])

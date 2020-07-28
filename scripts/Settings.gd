@@ -4,6 +4,10 @@ var config_manager
 var screen_size
 var return_focus_target
 
+var gui_tabs
+var gui_av_tab
+var gui_controls_tab
+
 var gui_apply
 var gui_cancel
 
@@ -28,6 +32,10 @@ func _ready():
 	config_manager = get_node("/root/ConfigManager")
 	
 	# Set gui elements
+	gui_tabs = $VBC/Settings_Tabs
+	gui_av_tab = $VBC/Tab_Buttons/AV_Settings_Button
+	gui_controls_tab = $VBC/Tab_Buttons/Controls
+	
 	gui_apply = $VBC/Apply
 	gui_cancel = $VBC/Cancel
 	
@@ -48,6 +56,8 @@ func _ready():
 	gui_fx_display = $VBC/Settings_Tabs/AV_Settings/VBC/FX_HBC/FX_Value
 	
 	# Set Settings Menu
+	gui_av_tab.connect("pressed", self, "settings_menu_tab_switch", [0])
+	gui_controls_tab.connect("pressed", self, "settings_menu_tab_switch", [1])
 	gui_apply.connect("pressed", self, "settings_menu_apply_cancel", ["apply"])
 	gui_cancel.connect("pressed", self, "settings_menu_apply_cancel", ["cancel"])
 	
@@ -152,6 +162,10 @@ func fx_adjust():
 func fx_volume_adjust(new_val):
 	config_manager.config_data.audio.fx_volume = new_val
 	gui_fx_display.text = String(new_val)
+
+# Tabs Switching
+func settings_menu_tab_switch(tab_index):
+	gui_tabs.set_current_tab(tab_index)
 
 # Apply and Cancel
 func settings_menu_apply_cancel(button_name):

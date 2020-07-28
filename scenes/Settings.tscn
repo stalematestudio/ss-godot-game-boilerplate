@@ -29,18 +29,40 @@ margin_bottom = 14.0
 text = "settings"
 align = 1
 
-[node name="Settings_Tabs" type="TabContainer" parent="VBC"]
+[node name="Tab_Buttons" type="HBoxContainer" parent="VBC"]
 margin_top = 18.0
+margin_right = 301.0
+margin_bottom = 38.0
+
+[node name="AV_Settings_Button" type="Button" parent="VBC/Tab_Buttons"]
+margin_right = 89.0
+margin_bottom = 20.0
+text = "Audio Video"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Controls" type="Button" parent="VBC/Tab_Buttons"]
+margin_left = 93.0
+margin_right = 158.0
+margin_bottom = 20.0
+text = "Controls"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Settings_Tabs" type="TabContainer" parent="VBC"]
+margin_top = 42.0
 margin_right = 301.0
 margin_bottom = 392.0
 size_flags_vertical = 3
+tabs_visible = false
 use_hidden_tabs_for_min_size = true
 
 [node name="AV_Settings" type="Tabs" parent="VBC/Settings_Tabs"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
-margin_top = 32.0
 margin_right = -4.0
 margin_bottom = -4.0
 
@@ -196,7 +218,6 @@ visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
-margin_top = 32.0
 margin_right = -4.0
 margin_bottom = -4.0
 
