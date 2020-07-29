@@ -63,52 +63,76 @@ use_hidden_tabs_for_min_size = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
+margin_top = 8.0
 margin_right = -4.0
 margin_bottom = -4.0
 
-[node name="VBC" type="VBoxContainer" parent="VBC/Settings_Tabs/AV_Settings"]
+[node name="AV_Scroll" type="ScrollContainer" parent="VBC/Settings_Tabs/AV_Settings"]
 anchor_right = 1.0
+anchor_bottom = 1.0
+follow_focus = true
+scroll_horizontal_enabled = false
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Video" type="Label" parent="VBC/Settings_Tabs/AV_Settings/VBC"]
-margin_right = 293.0
+[node name="AV_VBC" type="VBoxContainer" parent="VBC/Settings_Tabs/AV_Settings/AV_Scroll"]
+margin_right = 281.0
+margin_bottom = 382.0
+size_flags_horizontal = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Game" type="Label" parent="VBC/Settings_Tabs/AV_Settings/AV_Scroll/AV_VBC"]
+margin_right = 281.0
 margin_bottom = 14.0
+text = "Game"
+
+[node name="Debug_CheckButton" type="CheckButton" parent="VBC/Settings_Tabs/AV_Settings/AV_Scroll/AV_VBC"]
+margin_top = 18.0
+margin_right = 281.0
+margin_bottom = 58.0
+text = "Debug"
+
+[node name="Video" type="Label" parent="VBC/Settings_Tabs/AV_Settings/AV_Scroll/AV_VBC"]
+margin_top = 62.0
+margin_right = 281.0
+margin_bottom = 76.0
 text = "Video"
 
-[node name="FullScreen_CheckButton" type="CheckButton" parent="VBC/Settings_Tabs/AV_Settings/VBC"]
-margin_top = 18.0
-margin_right = 293.0
-margin_bottom = 58.0
+[node name="FullScreen_CheckButton" type="CheckButton" parent="VBC/Settings_Tabs/AV_Settings/AV_Scroll/AV_VBC"]
+margin_top = 80.0
+margin_right = 281.0
+margin_bottom = 120.0
 text = "Fullscreen"
 
-[node name="VSync_CheckButton" type="CheckButton" parent="VBC/Settings_Tabs/AV_Settings/VBC"]
-margin_top = 62.0
-margin_right = 293.0
-margin_bottom = 102.0
+[node name="VSync_CheckButton" type="CheckButton" parent="VBC/Settings_Tabs/AV_Settings/AV_Scroll/AV_VBC"]
+margin_top = 124.0
+margin_right = 281.0
+margin_bottom = 164.0
 text = "V-Sync"
 
-[node name="Borderless_CheckButton" type="CheckButton" parent="VBC/Settings_Tabs/AV_Settings/VBC"]
-margin_top = 106.0
-margin_right = 293.0
-margin_bottom = 146.0
+[node name="Borderless_CheckButton" type="CheckButton" parent="VBC/Settings_Tabs/AV_Settings/AV_Scroll/AV_VBC"]
+margin_top = 168.0
+margin_right = 281.0
+margin_bottom = 208.0
 text = "Borderless"
 
-[node name="ResolutionAuto_CheckButton" type="CheckButton" parent="VBC/Settings_Tabs/AV_Settings/VBC"]
-margin_top = 150.0
-margin_right = 293.0
-margin_bottom = 190.0
+[node name="ResolutionAuto_CheckButton" type="CheckButton" parent="VBC/Settings_Tabs/AV_Settings/AV_Scroll/AV_VBC"]
+margin_top = 212.0
+margin_right = 281.0
+margin_bottom = 252.0
 text = "Auto Resolution"
 
-[node name="Resolution_HBC" type="HBoxContainer" parent="VBC/Settings_Tabs/AV_Settings/VBC"]
-margin_top = 194.0
-margin_right = 293.0
-margin_bottom = 214.0
+[node name="Resolution_HBC" type="HBoxContainer" parent="VBC/Settings_Tabs/AV_Settings/AV_Scroll/AV_VBC"]
+margin_top = 256.0
+margin_right = 281.0
+margin_bottom = 276.0
 
-[node name="Resolution_Label" type="Label" parent="VBC/Settings_Tabs/AV_Settings/VBC/Resolution_HBC"]
+[node name="Resolution_Label" type="Label" parent="VBC/Settings_Tabs/AV_Settings/AV_Scroll/AV_VBC/Resolution_HBC"]
 margin_top = 3.0
-margin_right = 96.0
+margin_right = 92.0
 margin_bottom = 17.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.5
@@ -117,25 +141,25 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Resolution_Option" type="OptionButton" parent="VBC/Settings_Tabs/AV_Settings/VBC/Resolution_HBC"]
-margin_left = 100.0
-margin_right = 293.0
+[node name="Resolution_Option" type="OptionButton" parent="VBC/Settings_Tabs/AV_Settings/AV_Scroll/AV_VBC/Resolution_HBC"]
+margin_left = 96.0
+margin_right = 281.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 
-[node name="Audio" type="Label" parent="VBC/Settings_Tabs/AV_Settings/VBC"]
-margin_top = 218.0
-margin_right = 293.0
-margin_bottom = 232.0
+[node name="Audio" type="Label" parent="VBC/Settings_Tabs/AV_Settings/AV_Scroll/AV_VBC"]
+margin_top = 280.0
+margin_right = 281.0
+margin_bottom = 294.0
 text = "Audio"
 
-[node name="Music_HBC" type="HBoxContainer" parent="VBC/Settings_Tabs/AV_Settings/VBC"]
-margin_top = 236.0
-margin_right = 293.0
-margin_bottom = 276.0
+[node name="Music_HBC" type="HBoxContainer" parent="VBC/Settings_Tabs/AV_Settings/AV_Scroll/AV_VBC"]
+margin_top = 298.0
+margin_right = 281.0
+margin_bottom = 338.0
 size_flags_horizontal = 3
 
-[node name="Music_CheckButton" type="CheckButton" parent="VBC/Settings_Tabs/AV_Settings/VBC/Music_HBC"]
+[node name="Music_CheckButton" type="CheckButton" parent="VBC/Settings_Tabs/AV_Settings/AV_Scroll/AV_VBC/Music_HBC"]
 margin_right = 118.0
 margin_bottom = 40.0
 size_flags_horizontal = 3
@@ -145,9 +169,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Music_Slider" type="HSlider" parent="VBC/Settings_Tabs/AV_Settings/VBC/Music_HBC"]
+[node name="Music_Slider" type="HSlider" parent="VBC/Settings_Tabs/AV_Settings/AV_Scroll/AV_VBC/Music_HBC"]
 margin_left = 122.0
-margin_right = 273.0
+margin_right = 261.0
 margin_bottom = 40.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -159,9 +183,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Music_Value" type="Label" parent="VBC/Settings_Tabs/AV_Settings/VBC/Music_HBC"]
-margin_left = 277.0
-margin_right = 293.0
+[node name="Music_Value" type="Label" parent="VBC/Settings_Tabs/AV_Settings/AV_Scroll/AV_VBC/Music_HBC"]
+margin_left = 265.0
+margin_right = 281.0
 margin_bottom = 40.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -173,12 +197,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="FX_HBC" type="HBoxContainer" parent="VBC/Settings_Tabs/AV_Settings/VBC"]
-margin_top = 280.0
-margin_right = 293.0
-margin_bottom = 320.0
+[node name="FX_HBC" type="HBoxContainer" parent="VBC/Settings_Tabs/AV_Settings/AV_Scroll/AV_VBC"]
+margin_top = 342.0
+margin_right = 281.0
+margin_bottom = 382.0
 
-[node name="FX_CheckButton" type="CheckButton" parent="VBC/Settings_Tabs/AV_Settings/VBC/FX_HBC"]
+[node name="FX_CheckButton" type="CheckButton" parent="VBC/Settings_Tabs/AV_Settings/AV_Scroll/AV_VBC/FX_HBC"]
 margin_right = 95.0
 margin_bottom = 40.0
 size_flags_horizontal = 3
@@ -188,9 +212,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="FX_Slider" type="HSlider" parent="VBC/Settings_Tabs/AV_Settings/VBC/FX_HBC"]
+[node name="FX_Slider" type="HSlider" parent="VBC/Settings_Tabs/AV_Settings/AV_Scroll/AV_VBC/FX_HBC"]
 margin_left = 99.0
-margin_right = 271.0
+margin_right = 260.0
 margin_bottom = 40.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -199,9 +223,9 @@ value = 50.0
 rounded = true
 tick_count = 50
 
-[node name="FX_Value" type="Label" parent="VBC/Settings_Tabs/AV_Settings/VBC/FX_HBC"]
-margin_left = 275.0
-margin_right = 293.0
+[node name="FX_Value" type="Label" parent="VBC/Settings_Tabs/AV_Settings/AV_Scroll/AV_VBC/FX_HBC"]
+margin_left = 264.0
+margin_right = 281.0
 margin_bottom = 40.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -218,8 +242,15 @@ visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
+margin_top = 8.0
 margin_right = -4.0
 margin_bottom = -4.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBC/Settings_Tabs/Controls"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBC/Settings_Tabs/Controls/ScrollContainer"]
 
 [node name="Apply" type="Button" parent="VBC"]
 margin_top = 396.0

@@ -14,6 +14,9 @@ const resolutions = [
 		]
 
 var config_data = {
+		"game":{
+			"debug":false
+		},
 		"video":{
 				"fullscreen": false,
 				"borderless": false,

@@ -40,20 +40,20 @@ func _ready():
 	gui_cancel = $VBC/Cancel
 	
 	# Video
-	gui_fullscreen = $VBC/Settings_Tabs/AV_Settings/VBC/FullScreen_CheckButton
-	gui_vsync = $VBC/Settings_Tabs/AV_Settings/VBC/VSync_CheckButton
-	gui_borderless = $VBC/Settings_Tabs/AV_Settings/VBC/Borderless_CheckButton
-	gui_resolution_auto = $VBC/Settings_Tabs/AV_Settings/VBC/ResolutionAuto_CheckButton
-	gui_resolution_label = $VBC/Settings_Tabs/AV_Settings/VBC/Resolution_HBC/Resolution_Label
-	gui_resolution_option = $VBC/Settings_Tabs/AV_Settings/VBC/Resolution_HBC/Resolution_Option
+	gui_fullscreen = $VBC/Settings_Tabs/AV_Settings/AV_Scroll/AV_VBC/FullScreen_CheckButton
+	gui_vsync = $VBC/Settings_Tabs/AV_Settings/AV_Scroll/AV_VBC/VSync_CheckButton
+	gui_borderless = $VBC/Settings_Tabs/AV_Settings/AV_Scroll/AV_VBC/Borderless_CheckButton
+	gui_resolution_auto = $VBC/Settings_Tabs/AV_Settings/AV_Scroll/AV_VBC/ResolutionAuto_CheckButton
+	gui_resolution_label = $VBC/Settings_Tabs/AV_Settings/AV_Scroll/AV_VBC/Resolution_HBC/Resolution_Label
+	gui_resolution_option = $VBC/Settings_Tabs/AV_Settings/AV_Scroll/AV_VBC/Resolution_HBC/Resolution_Option
 	
 	# Audio
-	gui_music = $VBC/Settings_Tabs/AV_Settings/VBC/Music_HBC/Music_CheckButton
-	gui_music_slider = $VBC/Settings_Tabs/AV_Settings/VBC/Music_HBC/Music_Slider
-	gui_music_display = $VBC/Settings_Tabs/AV_Settings/VBC/Music_HBC/Music_Value
-	gui_fx = $VBC/Settings_Tabs/AV_Settings/VBC/FX_HBC/FX_CheckButton
-	gui_fx_slider = $VBC/Settings_Tabs/AV_Settings/VBC/FX_HBC/FX_Slider
-	gui_fx_display = $VBC/Settings_Tabs/AV_Settings/VBC/FX_HBC/FX_Value
+	gui_music = $VBC/Settings_Tabs/AV_Settings/AV_Scroll/AV_VBC/Music_HBC/Music_CheckButton
+	gui_music_slider = $VBC/Settings_Tabs/AV_Settings/AV_Scroll/AV_VBC/Music_HBC/Music_Slider
+	gui_music_display = $VBC/Settings_Tabs/AV_Settings/AV_Scroll/AV_VBC/Music_HBC/Music_Value
+	gui_fx = $VBC/Settings_Tabs/AV_Settings/AV_Scroll/AV_VBC/FX_HBC/FX_CheckButton
+	gui_fx_slider = $VBC/Settings_Tabs/AV_Settings/AV_Scroll/AV_VBC/FX_HBC/FX_Slider
+	gui_fx_display = $VBC/Settings_Tabs/AV_Settings/AV_Scroll/AV_VBC/FX_HBC/FX_Value
 	
 	# Set Settings Menu
 	gui_av_tab.connect("pressed", self, "settings_menu_tab_switch", [0])
