@@ -17,7 +17,7 @@ _global_script_class_icons={
 
 config/name="ss-godot-game-boilerplate"
 config/description="Boilerplate code for developing godot games"
-run/main_scene="res://scenes/MainMenu.tscn"
+run/main_scene="res://scenes/main_menu/MainMenu.tscn"
 boot_splash/fullsize=false
 boot_splash/use_filter=false
 boot_splash/bg_color=Color( 0.141176, 0.141176, 0.141176, 1 )
@@ -34,6 +34,10 @@ window/size/width=854
 window/size/height=480
 window/size/resizable=false
 window/energy_saving/keep_screen_on=false
+
+[logging]
+
+file_logging/enable_file_logging=true
 
 [memory]
 

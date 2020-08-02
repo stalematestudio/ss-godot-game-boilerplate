@@ -1,42 +1,50 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scripts/Settings.gd" type="Script" id=1]
+[ext_resource path="res://scenes/settings/settings_tabs_buttongroup.tres" type="ButtonGroup" id=2]
+[ext_resource path="res://themes/base.tres" type="Theme" id=3]
 
-[node name="Settings_Menu" type="Panel"]
+[node name="Settings_Menu" type="PanelContainer"]
 self_modulate = Color( 1, 1, 1, 0.501961 )
 anchor_left = 0.3
 anchor_right = 0.7
 anchor_bottom = 1.0
+theme = ExtResource( 3 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="VBC" type="VBoxContainer" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 20.0
-margin_top = 20.0
-margin_right = -20.0
-margin_bottom = -20.0
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 334.6
+margin_bottom = 473.0
+theme = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Menu_Title" type="Label" parent="VBC"]
-margin_right = 301.0
+margin_right = 327.0
 margin_bottom = 14.0
+theme = ExtResource( 3 )
 text = "settings"
 align = 1
 
 [node name="Tab_Buttons" type="HBoxContainer" parent="VBC"]
 margin_top = 18.0
-margin_right = 301.0
+margin_right = 327.0
 margin_bottom = 38.0
+theme = ExtResource( 3 )
 
 [node name="Settings_Tab_Button" type="Button" parent="VBC/Tab_Buttons"]
 margin_right = 63.0
 margin_bottom = 20.0
+theme = ExtResource( 3 )
+toggle_mode = true
+pressed = true
+group = ExtResource( 2 )
 text = "Settings"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -46,6 +54,9 @@ __meta__ = {
 margin_left = 67.0
 margin_right = 132.0
 margin_bottom = 20.0
+theme = ExtResource( 3 )
+toggle_mode = true
+group = ExtResource( 2 )
 text = "Controls"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -53,9 +64,10 @@ __meta__ = {
 
 [node name="Settings_Tabs" type="TabContainer" parent="VBC"]
 margin_top = 42.0
-margin_right = 301.0
-margin_bottom = 392.0
+margin_right = 327.0
+margin_bottom = 418.0
 size_flags_vertical = 3
+theme = ExtResource( 3 )
 tabs_visible = false
 use_hidden_tabs_for_min_size = true
 
@@ -66,10 +78,12 @@ margin_left = 4.0
 margin_top = 8.0
 margin_right = -4.0
 margin_bottom = -4.0
+theme = ExtResource( 3 )
 
 [node name="Settings_Scroll" type="ScrollContainer" parent="VBC/Settings_Tabs/Settings_Tab"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+theme = ExtResource( 3 )
 follow_focus = true
 scroll_horizontal_enabled = false
 __meta__ = {
@@ -77,93 +91,107 @@ __meta__ = {
 }
 
 [node name="Settings_VBC" type="VBoxContainer" parent="VBC/Settings_Tabs/Settings_Tab/Settings_Scroll"]
-margin_right = 281.0
+margin_right = 307.0
 margin_bottom = 382.0
 size_flags_horizontal = 3
+theme = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Game" type="Label" parent="VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC"]
-margin_right = 281.0
+margin_right = 307.0
 margin_bottom = 14.0
+theme = ExtResource( 3 )
 text = "Game"
 
 [node name="Debug_CheckButton" type="CheckButton" parent="VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC"]
 margin_top = 18.0
-margin_right = 281.0
+margin_right = 307.0
 margin_bottom = 58.0
+theme = ExtResource( 3 )
 text = "Debug"
 
 [node name="Video" type="Label" parent="VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC"]
 margin_top = 62.0
-margin_right = 281.0
+margin_right = 307.0
 margin_bottom = 76.0
+theme = ExtResource( 3 )
 text = "Video"
 
 [node name="FullScreen_CheckButton" type="CheckButton" parent="VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC"]
 margin_top = 80.0
-margin_right = 281.0
+margin_right = 307.0
 margin_bottom = 120.0
+theme = ExtResource( 3 )
 text = "Fullscreen"
 
 [node name="VSync_CheckButton" type="CheckButton" parent="VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC"]
 margin_top = 124.0
-margin_right = 281.0
+margin_right = 307.0
 margin_bottom = 164.0
+theme = ExtResource( 3 )
 text = "V-Sync"
 
 [node name="Borderless_CheckButton" type="CheckButton" parent="VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC"]
 margin_top = 168.0
-margin_right = 281.0
+margin_right = 307.0
 margin_bottom = 208.0
+theme = ExtResource( 3 )
 text = "Borderless"
 
 [node name="ResolutionAuto_CheckButton" type="CheckButton" parent="VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC"]
 margin_top = 212.0
-margin_right = 281.0
+margin_right = 307.0
 margin_bottom = 252.0
+theme = ExtResource( 3 )
 text = "Auto Resolution"
 
 [node name="Resolution_HBC" type="HBoxContainer" parent="VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC"]
 margin_top = 256.0
-margin_right = 281.0
+margin_right = 307.0
 margin_bottom = 276.0
+theme = ExtResource( 3 )
 
 [node name="Resolution_Label" type="Label" parent="VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC/Resolution_HBC"]
 margin_top = 3.0
-margin_right = 92.0
+margin_right = 101.0
 margin_bottom = 17.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.5
+theme = ExtResource( 3 )
 text = "Resolution : "
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Resolution_Option" type="OptionButton" parent="VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC/Resolution_HBC"]
-margin_left = 96.0
-margin_right = 281.0
+margin_left = 105.0
+margin_right = 307.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
+theme = ExtResource( 3 )
 
 [node name="Audio" type="Label" parent="VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC"]
 margin_top = 280.0
-margin_right = 281.0
+margin_right = 307.0
 margin_bottom = 294.0
+theme = ExtResource( 3 )
 text = "Audio"
 
 [node name="Music_HBC" type="HBoxContainer" parent="VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC"]
 margin_top = 298.0
-margin_right = 281.0
+margin_right = 307.0
 margin_bottom = 338.0
 size_flags_horizontal = 3
+theme = ExtResource( 3 )
 
 [node name="Music_CheckButton" type="CheckButton" parent="VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC/Music_HBC"]
 margin_right = 118.0
 margin_bottom = 40.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.5
+theme = ExtResource( 3 )
 text = "Music"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -171,10 +199,11 @@ __meta__ = {
 
 [node name="Music_Slider" type="HSlider" parent="VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC/Music_HBC"]
 margin_left = 122.0
-margin_right = 261.0
+margin_right = 286.0
 margin_bottom = 40.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
+theme = ExtResource( 3 )
 step = 2.0
 value = 50.0
 rounded = true
@@ -184,12 +213,13 @@ __meta__ = {
 }
 
 [node name="Music_Value" type="Label" parent="VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC/Music_HBC"]
-margin_left = 265.0
-margin_right = 281.0
+margin_left = 290.0
+margin_right = 307.0
 margin_bottom = 40.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
 size_flags_stretch_ratio = 0.1
+theme = ExtResource( 3 )
 text = "50"
 align = 1
 valign = 1
@@ -199,14 +229,16 @@ __meta__ = {
 
 [node name="FX_HBC" type="HBoxContainer" parent="VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC"]
 margin_top = 342.0
-margin_right = 281.0
+margin_right = 307.0
 margin_bottom = 382.0
+theme = ExtResource( 3 )
 
 [node name="FX_CheckButton" type="CheckButton" parent="VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC/FX_HBC"]
 margin_right = 95.0
 margin_bottom = 40.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.5
+theme = ExtResource( 3 )
 text = "FX"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -214,22 +246,24 @@ __meta__ = {
 
 [node name="FX_Slider" type="HSlider" parent="VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC/FX_HBC"]
 margin_left = 99.0
-margin_right = 260.0
+margin_right = 284.0
 margin_bottom = 40.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
+theme = ExtResource( 3 )
 step = 2.0
 value = 50.0
 rounded = true
 tick_count = 50
 
 [node name="FX_Value" type="Label" parent="VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC/FX_HBC"]
-margin_left = 264.0
-margin_right = 281.0
+margin_left = 288.0
+margin_right = 307.0
 margin_bottom = 40.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
 size_flags_stretch_ratio = 0.1
+theme = ExtResource( 3 )
 text = "50"
 align = 1
 valign = 1
@@ -245,26 +279,31 @@ margin_left = 4.0
 margin_top = 8.0
 margin_right = -4.0
 margin_bottom = -4.0
+theme = ExtResource( 3 )
 
 [node name="Controls_Scroll" type="ScrollContainer" parent="VBC/Settings_Tabs/Controls"]
 margin_right = 40.0
 margin_bottom = 40.0
+theme = ExtResource( 3 )
 
 [node name="Controls_VBC" type="VBoxContainer" parent="VBC/Settings_Tabs/Controls/Controls_Scroll"]
+theme = ExtResource( 3 )
 
 [node name="Apply" type="Button" parent="VBC"]
-margin_top = 396.0
-margin_right = 301.0
-margin_bottom = 416.0
+margin_top = 422.0
+margin_right = 327.0
+margin_bottom = 442.0
+theme = ExtResource( 3 )
 text = "Apply"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Cancel" type="Button" parent="VBC"]
-margin_top = 420.0
-margin_right = 301.0
-margin_bottom = 440.0
+margin_top = 446.0
+margin_right = 327.0
+margin_bottom = 466.0
+theme = ExtResource( 3 )
 text = "Cancel"
 __meta__ = {
 "_edit_use_anchors_": false

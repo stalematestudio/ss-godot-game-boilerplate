@@ -1,4 +1,4 @@
-extends Panel
+extends Node
 
 var config_manager
 var screen_size
