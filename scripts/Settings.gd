@@ -18,10 +18,17 @@ var gui_resolution_auto
 var gui_resolution_label
 var gui_resolution_option
 
+var audio_bus_master
+var gui_master
+var gui_master_slider
+var gui_master_display
+
+var audio_bus_music
 var gui_music
 var gui_music_slider
 var gui_music_display
 
+var audio_bus_fx
 var gui_fx
 var gui_fx_slider
 var gui_fx_display
@@ -48,6 +55,9 @@ func _ready():
 	gui_resolution_option = $VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC/Resolution_HBC/Resolution_Option
 	
 	# Audio
+	gui_master = $VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC/Master_HBC/Master_CheckButton
+	gui_master_slider = $VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC/Master_HBC/Master_Slider
+	gui_master_display = $VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC/Master_HBC/Master_Value
 	gui_music = $VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC/Music_HBC/Music_CheckButton
 	gui_music_slider = $VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC/Music_HBC/Music_Slider
 	gui_music_display = $VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC/Music_HBC/Music_Value
@@ -74,6 +84,9 @@ func _ready():
 	gui_resolution_option.connect("item_selected", self, "resolution_option_adjust")
 	
 	# Audio
+	gui_master.connect("pressed", self, "master_adjust")
+	gui_master_slider.connect("value_changed", self, "master_volume_adjust")
+	
 	gui_music.connect("pressed", self, "music_adjust")
 	gui_music_slider.connect("value_changed", self, "music_volume_adjust")
 	
@@ -94,11 +107,20 @@ func _ready():
 	gui_resolution_option.select(config_manager.config_data.video.resolution_option)
 	
 	# Audio
+	audio_bus_master = AudioServer.get_bus_index("Master")
+	gui_master.set_pressed(config_manager.config_data.audio.master_enabled)
+	gui_master_slider.set_value(config_manager.config_data.audio.master_volume)
+	master_volume_adjust(config_manager.config_data.audio.master_volume)
+	
+	audio_bus_music = AudioServer.get_bus_index("Music")
 	gui_music.set_pressed(config_manager.config_data.audio.music_enabled)
 	gui_music_slider.set_value(config_manager.config_data.audio.music_volume)
+	music_volume_adjust(config_manager.config_data.audio.music_volume)
 	
+	audio_bus_fx = AudioServer.get_bus_index("FX")
 	gui_fx.set_pressed(config_manager.config_data.audio.fx_enabled)
 	gui_fx_slider.set_value(config_manager.config_data.audio.fx_volume)
+	fx_volume_adjust(config_manager.config_data.audio.fx_volume)
 	
 	set_elements_disabled()
 
@@ -117,6 +139,13 @@ func set_elements_disabled():
 		gui_resolution_label.set_self_modulate(Color("#ffffffff"))
 	
 	# Audio
+	if gui_master.is_pressed():
+		gui_master_slider.set_editable(true)
+		gui_master_display.set_self_modulate(Color("#ffffffff"))
+	else:
+		gui_master_slider.set_editable(false)
+		gui_master_display.set_self_modulate(Color("#40ffffff"))
+	
 	if gui_music.is_pressed():
 		gui_music_slider.set_editable(true)
 		gui_music_display.set_self_modulate(Color("#ffffffff"))
@@ -150,21 +179,35 @@ func resolution_option_adjust(new_val):
 	config_manager.config_data.video.resolution_option = new_val
 
 # Audio
+func master_adjust():
+	config_manager.config_data.audio.master_enabled = gui_master.is_pressed()
+	AudioServer.set_bus_mute(audio_bus_master, !config_manager.config_data.audio.master_enabled)
+	set_elements_disabled()
+
+func master_volume_adjust(new_val):
+	config_manager.config_data.audio.master_volume = new_val
+	AudioServer.set_bus_volume_db(audio_bus_master, config_manager.config_data.audio.master_volume)
+	gui_master_display.text = String(config_manager.config_data.audio.master_volume)+"dB"
+
 func music_adjust():
 	config_manager.config_data.audio.music_enabled = gui_music.is_pressed()
+	AudioServer.set_bus_mute(audio_bus_music, !config_manager.config_data.audio.music_enabled)
 	set_elements_disabled()
 
 func music_volume_adjust(new_val):
 	config_manager.config_data.audio.music_volume = new_val
-	gui_music_display.text = String(new_val)
+	AudioServer.set_bus_volume_db(audio_bus_music, config_manager.config_data.audio.music_volume)
+	gui_music_display.text = String(config_manager.config_data.audio.music_volume)+"dB"
 
 func fx_adjust():
 	config_manager.config_data.audio.fx_enabled = gui_fx.is_pressed()
+	AudioServer.set_bus_mute(audio_bus_fx, !config_manager.config_data.audio.fx_enabled)
 	set_elements_disabled()
 
 func fx_volume_adjust(new_val):
 	config_manager.config_data.audio.fx_volume = new_val
-	gui_fx_display.text = String(new_val)
+	AudioServer.set_bus_volume_db(audio_bus_fx, config_manager.config_data.audio.fx_volume)
+	gui_fx_display.text = String(config_manager.config_data.audio.fx_volume)+"dB"
 
 # Tabs Switching
 func settings_menu_tab_switch(tab_index):

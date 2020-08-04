@@ -25,10 +25,12 @@ var config_data = {
 				"vsync": true,
 		},
 		"audio":{
+				"master_enabled":true,
+				"master_volume": -40,
 				"music_enabled": true,
-				"music_volume": 50,
+				"music_volume": -40,
 				"fx_enabled": true,
-				"fx_volume": 50
+				"fx_volume": -40
 				}
 		}
 

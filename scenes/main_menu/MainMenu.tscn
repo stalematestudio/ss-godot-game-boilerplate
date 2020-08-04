@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://themes/base.tres" type="Theme" id=1]
 [ext_resource path="res://scripts/MainMenu.gd" type="Script" id=2]
 [ext_resource path="res://scenes/settings/Settings.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/sounds/accept.wav" type="AudioStream" id=4]
 
 [node name="MainMenu" type="Control"]
 self_modulate = Color( 1, 1, 1, 0.501961 )
@@ -16,6 +17,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 settings_menu = ExtResource( 3 )
+focus_entered_audio = ExtResource( 4 )
 
 [node name="Start_Menu" type="PanelContainer" parent="."]
 anchor_bottom = 1.0
@@ -80,3 +82,9 @@ text = "Quit"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Music_Player" type="AudioStreamPlayer" parent="."]
+bus = "Music"
+
+[node name="FX_Player" type="AudioStreamPlayer" parent="."]
+bus = "FX"
