@@ -1,3 +1,7 @@
+# Builds
+build
+build/
+build/*
 
 # Godot-specific ignores
 .import/

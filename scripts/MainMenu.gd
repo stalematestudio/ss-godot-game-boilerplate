@@ -42,7 +42,7 @@ func _ready():
 func start_menu_button_pressed(button_name):
 	match button_name:
 		"new":
-			get_tree().change_scene("scenes/Demo.tscn")
+			get_tree().change_scene("scenes/demo/Demo.tscn")
 		"continue":
 			# Open profile select menu
 			pass
