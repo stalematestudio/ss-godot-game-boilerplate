@@ -1,70 +1,44 @@
 extends Node
 
-var config_manager
-var screen_size
 var return_focus_target
 
-var gui_tabs
-var gui_av_tab
-var gui_controls_tab
+# Get ConfigManager
+onready var config_manager = get_node("/root/ConfigManager")
 
-var gui_apply
-var gui_cancel
+# Set gui elements
+onready var gui_tabs = $VBC/Settings_Tabs
+onready var gui_av_tab = $VBC/Tab_Buttons/Settings_Tab_Button
+onready var gui_controls_tab = $VBC/Tab_Buttons/Controls_Tab_Button
 
-var gui_fullscreen
-var gui_vsync
-var gui_borderless
-var gui_resolution_auto
-var gui_resolution_label
-var gui_resolution_option
+onready var gui_apply = $VBC/Apply
+onready var gui_cancel = $VBC/Cancel
 
-var audio_bus_master
-var gui_master
-var gui_master_slider
-var gui_master_display
+# Video
+onready var gui_fullscreen = $VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC/FullScreen_CheckButton
+onready var gui_vsync = $VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC/VSync_CheckButton
+onready var gui_borderless = $VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC/Borderless_CheckButton
+onready var gui_resolution_auto = $VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC/ResolutionAuto_CheckButton
+onready var gui_resolution_label = $VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC/Resolution_HBC/Resolution_Label
+onready var gui_resolution_option = $VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC/Resolution_HBC/Resolution_Option
 
-var audio_bus_music
-var gui_music
-var gui_music_slider
-var gui_music_display
+# Audio
+onready var audio_bus_master = AudioServer.get_bus_index("Master")
+onready var gui_master = $VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC/Master_HBC/Master_CheckButton
+onready var gui_master_slider = $VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC/Master_HBC/Master_Slider
+onready var gui_master_display = $VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC/Master_HBC/Master_Value
 
-var audio_bus_fx
-var gui_fx
-var gui_fx_slider
-var gui_fx_display
+onready var audio_bus_music = AudioServer.get_bus_index("Music")
+onready var gui_music = $VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC/Music_HBC/Music_CheckButton
+onready var gui_music_slider = $VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC/Music_HBC/Music_Slider
+onready var gui_music_display = $VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC/Music_HBC/Music_Value
+
+onready var audio_bus_fx = AudioServer.get_bus_index("FX")
+onready var gui_fx = $VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC/FX_HBC/FX_CheckButton
+onready var gui_fx_slider = $VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC/FX_HBC/FX_Slider
+onready var gui_fx_display = $VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC/FX_HBC/FX_Value
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	# Get ConfigManager
-	config_manager = get_node("/root/ConfigManager")
-	
-	# Set gui elements
-	gui_tabs = $VBC/Settings_Tabs
-	gui_av_tab = $VBC/Tab_Buttons/Settings_Tab_Button
-	gui_controls_tab = $VBC/Tab_Buttons/Controls_Tab_Button
-	
-	gui_apply = $VBC/Apply
-	gui_cancel = $VBC/Cancel
-	
-	# Video
-	gui_fullscreen = $VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC/FullScreen_CheckButton
-	gui_vsync = $VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC/VSync_CheckButton
-	gui_borderless = $VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC/Borderless_CheckButton
-	gui_resolution_auto = $VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC/ResolutionAuto_CheckButton
-	gui_resolution_label = $VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC/Resolution_HBC/Resolution_Label
-	gui_resolution_option = $VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC/Resolution_HBC/Resolution_Option
-	
-	# Audio
-	gui_master = $VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC/Master_HBC/Master_CheckButton
-	gui_master_slider = $VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC/Master_HBC/Master_Slider
-	gui_master_display = $VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC/Master_HBC/Master_Value
-	gui_music = $VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC/Music_HBC/Music_CheckButton
-	gui_music_slider = $VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC/Music_HBC/Music_Slider
-	gui_music_display = $VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC/Music_HBC/Music_Value
-	gui_fx = $VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC/FX_HBC/FX_CheckButton
-	gui_fx_slider = $VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC/FX_HBC/FX_Slider
-	gui_fx_display = $VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC/FX_HBC/FX_Value
-	
 	# Set Settings Menu
 	gui_av_tab.connect("pressed", self, "settings_menu_tab_switch", [0])
 	gui_controls_tab.connect("pressed", self, "settings_menu_tab_switch", [1])
@@ -77,9 +51,8 @@ func _ready():
 	gui_borderless.connect("pressed", self, "borderless_adjust")
 	gui_resolution_auto.connect("pressed", self, "resolution_auto_adjust")
 	
-	screen_size = OS.get_screen_size()
 	for resolution in config_manager.resolutions:
-		if resolution.value[0] <= screen_size[0]:
+		if resolution.value[0] <= OS.get_screen_size()[0]:
 			gui_resolution_option.add_item(resolution.name)
 	gui_resolution_option.connect("item_selected", self, "resolution_option_adjust")
 	
@@ -98,7 +71,6 @@ func _ready():
 	
 	# Game
 	
-	
 	# Video
 	gui_fullscreen.set_pressed(config_manager.config_data.video.fullscreen)
 	gui_vsync.set_pressed(config_manager.config_data.video.vsync)
@@ -107,17 +79,14 @@ func _ready():
 	gui_resolution_option.select(config_manager.config_data.video.resolution_option)
 	
 	# Audio
-	audio_bus_master = AudioServer.get_bus_index("Master")
 	gui_master.set_pressed(config_manager.config_data.audio.master_enabled)
 	gui_master_slider.set_value(config_manager.config_data.audio.master_volume)
 	master_volume_adjust(config_manager.config_data.audio.master_volume)
 	
-	audio_bus_music = AudioServer.get_bus_index("Music")
 	gui_music.set_pressed(config_manager.config_data.audio.music_enabled)
 	gui_music_slider.set_value(config_manager.config_data.audio.music_volume)
 	music_volume_adjust(config_manager.config_data.audio.music_volume)
 	
-	audio_bus_fx = AudioServer.get_bus_index("FX")
 	gui_fx.set_pressed(config_manager.config_data.audio.fx_enabled)
 	gui_fx_slider.set_value(config_manager.config_data.audio.fx_volume)
 	fx_volume_adjust(config_manager.config_data.audio.fx_volume)

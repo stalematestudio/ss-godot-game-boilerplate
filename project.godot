@@ -27,6 +27,7 @@ config/icon="res://icon.png"
 
 ConfigManager="*res://scripts/ConfigManager.gd"
 Globals="*res://scripts/Globals.gd"
+Audio="*res://scripts/Audio.gd"
 
 [display]
 
