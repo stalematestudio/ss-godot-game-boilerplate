@@ -84,3 +84,6 @@ text = "Quit"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="FX_Player" type="AudioStreamPlayer" parent="."]
+bus = "FX"

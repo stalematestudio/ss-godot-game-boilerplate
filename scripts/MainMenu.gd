@@ -48,14 +48,13 @@ func _ready():
 #	pass
 
 func focus_entered_effect():
-	#$FX_Player.set_stream(focus_entered_audio)
-	#$FX_Player.play()
-	pass
+	$FX_Player.set_stream(focus_entered_audio)
+	$FX_Player.play()
 
 # Called every time a button in the start menu is pressed
 func start_menu_button_pressed(button_name):
-	#$FX_Player.set_stream(accept_audio)
-	#$FX_Player.play()
+	$FX_Player.set_stream(accept_audio)
+	$FX_Player.play()
 	match button_name:
 		"new":
 			get_tree().change_scene("scenes/demo/Demo.tscn")
