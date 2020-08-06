@@ -24,33 +24,28 @@ func _ready():
 	if profiles_exist:
 		continue_button.grab_focus()
 		continue_button.connect("pressed", self, "start_menu_button_pressed", ["continue"])
-		continue_button.connect("focus_entered", self, "focus_entered_effect")
+		#continue_button.connect("focus_entered", self, "focus_entered_effect")
 	else:
 		continue_button.set_disabled(true)
 		new_game_button.grab_focus()
 	
 	new_game_button.connect("pressed", self, "start_menu_button_pressed", ["new"])
-	new_game_button.connect("focus_entered", self, "focus_entered_effect")
+	#new_game_button.connect("focus_entered", self, "focus_entered_effect")
 	
 	settings_button.connect("pressed", self, "start_menu_button_pressed", ["settings"])
-	settings_button.connect("focus_entered", self, "focus_entered_effect")
+	#settings_button.connect("focus_entered", self, "focus_entered_effect")
 	
 	quit_button.connect("pressed", self, "start_menu_button_pressed", ["quit"])
-	quit_button.connect("focus_entered", self, "focus_entered_effect")
-	
-	# Loop through buttons
-	for button in get_tree().get_nodes_in_group('main_menu_button_group'):
-		print(button.name)
-		button.connect("focus_entered", self, "focus_entered_effect")
+	#quit_button.connect("focus_entered", self, "focus_entered_effect")
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _input(event):
+	if ( event is InputEventJoypadButton ) or ( event is InputEventJoypadMotion ):
+		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 
 func focus_entered_effect():
 	$FX_Player.set_stream(focus_entered_audio)
 	$FX_Player.play()
-
+#
 # Called every time a button in the start menu is pressed
 func start_menu_button_pressed(button_name):
 	$FX_Player.set_stream(accept_audio)
