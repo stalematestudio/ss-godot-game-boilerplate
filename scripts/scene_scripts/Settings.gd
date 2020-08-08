@@ -1,9 +1,11 @@
 extends Node
 
-var return_focus_target
-
-# Get ConfigManager
+# Get Globals
+onready var globals = get_node("/root/Globals")
 onready var config_manager = get_node("/root/ConfigManager")
+onready var audio_manager = get_node("/root/AudioManager")
+
+var return_focus_target
 
 # Set gui elements
 onready var gui_tabs = $VBC/Settings_Tabs
@@ -24,17 +26,14 @@ onready var gui_resolution_label = $VBC/Settings_Tabs/Video_Tab/Settings_Scroll/
 onready var gui_resolution_option = $VBC/Settings_Tabs/Video_Tab/Settings_Scroll/Settings_VBC/Resolution_HBC/Resolution_Option
 
 # Audio
-onready var audio_bus_master = AudioServer.get_bus_index("Master")
 onready var gui_master = $VBC/Settings_Tabs/Audio_Tab/Settings_Scroll/Settings_VBC/Master_CheckButton
 onready var gui_master_slider = $VBC/Settings_Tabs/Audio_Tab/Settings_Scroll/Settings_VBC/Master_HBC/Master_Slider
 onready var gui_master_display = $VBC/Settings_Tabs/Audio_Tab/Settings_Scroll/Settings_VBC/Master_HBC/Master_Value
 
-onready var audio_bus_music = AudioServer.get_bus_index("Music")
 onready var gui_music = $VBC/Settings_Tabs/Audio_Tab/Settings_Scroll/Settings_VBC/Music_CheckButton
 onready var gui_music_slider = $VBC/Settings_Tabs/Audio_Tab/Settings_Scroll/Settings_VBC/Music_HBC/Music_Slider
 onready var gui_music_display = $VBC/Settings_Tabs/Audio_Tab/Settings_Scroll/Settings_VBC/Music_HBC/Music_Value
 
-onready var audio_bus_fx = AudioServer.get_bus_index("FX")
 onready var gui_fx = $VBC/Settings_Tabs/Audio_Tab/Settings_Scroll/Settings_VBC/FX_CheckButton
 onready var gui_fx_slider = $VBC/Settings_Tabs/Audio_Tab/Settings_Scroll/Settings_VBC/FX_HBC/FX_Slider
 onready var gui_fx_display = $VBC/Settings_Tabs/Audio_Tab/Settings_Scroll/Settings_VBC/FX_HBC/FX_Value
@@ -154,32 +153,32 @@ func resolution_option_adjust(new_val):
 # Audio
 func master_adjust():
 	config_manager.config_data.audio.master_enabled = gui_master.is_pressed()
-	AudioServer.set_bus_mute(audio_bus_master, !config_manager.config_data.audio.master_enabled)
+	AudioServer.set_bus_mute(audio_manager.audio_bus_master, !config_manager.config_data.audio.master_enabled)
 	set_elements_disabled()
 
 func master_volume_adjust(new_val):
 	config_manager.config_data.audio.master_volume = new_val
-	AudioServer.set_bus_volume_db(audio_bus_master, config_manager.config_data.audio.master_volume)
+	AudioServer.set_bus_volume_db(audio_manager.audio_bus_master, config_manager.config_data.audio.master_volume)
 	gui_master_display.text = String(config_manager.config_data.audio.master_volume)+"dB"
 
 func music_adjust():
 	config_manager.config_data.audio.music_enabled = gui_music.is_pressed()
-	AudioServer.set_bus_mute(audio_bus_music, !config_manager.config_data.audio.music_enabled)
+	AudioServer.set_bus_mute(audio_manager.audio_bus_music, !config_manager.config_data.audio.music_enabled)
 	set_elements_disabled()
 
 func music_volume_adjust(new_val):
 	config_manager.config_data.audio.music_volume = new_val
-	AudioServer.set_bus_volume_db(audio_bus_music, config_manager.config_data.audio.music_volume)
+	AudioServer.set_bus_volume_db(audio_manager.audio_bus_music, config_manager.config_data.audio.music_volume)
 	gui_music_display.text = String(config_manager.config_data.audio.music_volume)+"dB"
 
 func fx_adjust():
 	config_manager.config_data.audio.fx_enabled = gui_fx.is_pressed()
-	AudioServer.set_bus_mute(audio_bus_fx, !config_manager.config_data.audio.fx_enabled)
+	AudioServer.set_bus_mute(audio_manager.audio_bus_fx, !config_manager.config_data.audio.fx_enabled)
 	set_elements_disabled()
 
 func fx_volume_adjust(new_val):
 	config_manager.config_data.audio.fx_volume = new_val
-	AudioServer.set_bus_volume_db(audio_bus_fx, config_manager.config_data.audio.fx_volume)
+	AudioServer.set_bus_volume_db(audio_manager.audio_bus_fx, config_manager.config_data.audio.fx_volume)
 	gui_fx_display.text = String(config_manager.config_data.audio.fx_volume)+"dB"
 
 # Tabs Switching
