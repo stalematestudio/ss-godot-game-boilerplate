@@ -5,7 +5,6 @@ onready var globals = get_node("/root/Globals")
 onready var config_manager = get_node("/root/ConfigManager")
 onready var audio_manager = get_node("/root/AudioManager")
 
-
 # Set element references
 onready var game_title = $Start_Menu/VBC/Game_Title
 onready var continue_button = $Start_Menu/VBC/Continue

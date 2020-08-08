@@ -1,6 +1,7 @@
 extends Node
 
 onready var config_path = "user://config.ini"
+onready var audio_manager = get_node("/root/AudioManager")
 
 const resolutions = [
 		{"name": "854x480", "value": Vector2(854, 480)},
@@ -52,6 +53,16 @@ func apply_config():
 		else:
 			OS.set_window_size(config_size)
 		OS.center_window()
+	# Audio
+	# Master
+	AudioServer.set_bus_mute(audio_manager.audio_bus_master, !config_data.audio.master_enabled)
+	AudioServer.set_bus_volume_db(audio_manager.audio_bus_master, config_data.audio.master_volume)
+	# Music
+	AudioServer.set_bus_mute(audio_manager.audio_bus_music, !config_data.audio.music_enabled)
+	AudioServer.set_bus_volume_db(audio_manager.audio_bus_music, config_data.audio.music_volume)
+	# FX
+	AudioServer.set_bus_mute(audio_manager.audio_bus_fx, !config_data.audio.fx_enabled)
+	AudioServer.set_bus_volume_db(audio_manager.audio_bus_fx, config_data.audio.fx_volume)
 
 func save_config():
 	var config = ConfigFile.new()

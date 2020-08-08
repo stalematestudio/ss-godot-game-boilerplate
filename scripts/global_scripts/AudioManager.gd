@@ -12,9 +12,6 @@ onready var deny_audio = preload("res://assets/sounds/deny.wav")
 onready var accept_audio = preload("res://assets/sounds/accept.wav")
 onready var cancel_audio = preload("res://assets/sounds/cancel.wav")
 
-func _ready():
-	pass
-
 func ui_focus_entered_audio_effect():
 	FX_Player.set_stream(navigate_audio)
 	FX_Player.play()
