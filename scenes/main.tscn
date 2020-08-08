@@ -10,7 +10,9 @@ intro_scene = ExtResource( 3 )
 title_scene = ExtResource( 2 )
 
 [node name="FX_Player" type="AudioStreamPlayer" parent="."]
+mix_target = 1
 bus = "FX"
 
 [node name="Music_Player" type="AudioStreamPlayer" parent="."]
+mix_target = 1
 bus = "Music"
