@@ -1,5 +1,7 @@
 extends Node
 
+onready var root = get_node("/root")
+
 onready var Music_Player = get_node("/root/main/Music_Player")
 onready var FX_Player = get_node("/root/main/FX_Player")
 
@@ -12,7 +14,10 @@ onready var deny_audio = preload("res://assets/sounds/deny.wav")
 onready var accept_audio = preload("res://assets/sounds/accept.wav")
 onready var cancel_audio = preload("res://assets/sounds/cancel.wav")
 
-func ui_focus_entered_audio_effect():
+func _ready():
+	root.connect("gui_focus_changed", self, "ui_focus_entered_audio_effect")
+
+func ui_focus_entered_audio_effect(target=null):
 	FX_Player.set_stream(navigate_audio)
 	FX_Player.play()
 

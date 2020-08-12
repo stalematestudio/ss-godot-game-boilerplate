@@ -27,17 +27,13 @@ func _ready():
 	if profiles_exist:
 		continue_button.grab_focus()
 		continue_button.connect("pressed", self, "start_menu_button_pressed", ["continue"])
-		continue_button.connect("focus_entered", audio_manager, "ui_focus_entered_audio_effect")
 	else:
 		continue_button.set_disabled(true)
 		new_game_button.grab_focus()
 	
 	new_game_button.connect("pressed", self, "start_menu_button_pressed", ["new"])
-	new_game_button.connect("focus_entered", audio_manager, "ui_focus_entered_audio_effect")
 	settings_button.connect("pressed", self, "start_menu_button_pressed", ["settings"])
-	settings_button.connect("focus_entered", audio_manager, "ui_focus_entered_audio_effect")
 	quit_button.connect("pressed", self, "start_menu_button_pressed", ["quit"])
-	quit_button.connect("focus_entered", audio_manager, "ui_focus_entered_audio_effect")
 
 func _input(event):
 	if ( event is InputEventJoypadButton ) or ( event is InputEventJoypadMotion ):

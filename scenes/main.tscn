@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scripts/main.gd" type="Script" id=1]
 [ext_resource path="res://scenes/title_scene/title_scene.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/intro_scene/intro_scene.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/sounds/test_music.ogg" type="AudioStream" id=4]
 
 [node name="main" type="Node"]
 script = ExtResource( 1 )
@@ -14,5 +15,7 @@ mix_target = 1
 bus = "FX"
 
 [node name="Music_Player" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+autoplay = true
 mix_target = 1
 bus = "Music"
