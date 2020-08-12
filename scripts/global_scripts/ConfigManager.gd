@@ -27,11 +27,11 @@ var config_data = {
 		},
 		"audio":{
 				"master_enabled":true,
-				"master_volume": -40,
+				"master_volume": -12,
 				"music_enabled": true,
-				"music_volume": -40,
+				"music_volume": -12,
 				"fx_enabled": true,
-				"fx_volume": -40
+				"fx_volume": -12
 				}
 		}
 
