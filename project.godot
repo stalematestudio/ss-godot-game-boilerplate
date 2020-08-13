@@ -29,6 +29,10 @@ AudioManager="*res://scripts/global_scripts/AudioManager.gd"
 ConfigManager="*res://scripts/global_scripts/ConfigManager.gd"
 Globals="*res://scripts/global_scripts/Globals.gd"
 
+[debug]
+
+settings/stdout/verbose_stdout=true
+
 [display]
 
 window/size/width=854
@@ -36,9 +40,9 @@ window/size/height=480
 window/size/resizable=false
 window/energy_saving/keep_screen_on=false
 
-[logging]
+[gui]
 
-file_logging/enable_file_logging=true
+theme/custom="res://themes/base.tres"
 
 [memory]
 

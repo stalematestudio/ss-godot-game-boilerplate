@@ -25,4 +25,4 @@ func next_slide():
 		screen_display.texture = screens[event_counter]
 	else:
 		yield(get_tree().create_timer(2), "timeout")
-		get_parent().change_scene("title_scene")
+		get_parent().change_current_scene("title_scene")

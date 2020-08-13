@@ -44,7 +44,7 @@ func start_menu_button_pressed(button_name):
 	audio_manager.ui_pressed_audio_effect()
 	match button_name:
 		"new":
-			get_tree().change_scene("scenes/demo/Demo.tscn")
+			get_parent().change_current_scene("demo_scene")
 		"continue":
 			# Open profile select menu
 			pass
