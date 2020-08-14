@@ -18,6 +18,7 @@ func _ready():
 	root.connect("gui_focus_changed", self, "ui_focus_entered_audio_effect")
 
 func ui_focus_entered_audio_effect(target=null):
+	print(target)
 	FX_Player.set_stream(navigate_audio)
 	FX_Player.play()
 
