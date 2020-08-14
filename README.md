@@ -12,8 +12,8 @@ Boilerplate code for developing godot games
     - [ ] Start a new or load a saved game
     - [x] Change game settings
     - [ ] View credits
-    - [ ] Open developer website
     - [x] Quit the game
+    - [x] Open developer website 
   - [ ] Settings scene
     - [ ] Game
     - [ ] Video

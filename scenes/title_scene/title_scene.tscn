@@ -15,6 +15,7 @@ script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+web_link_url = "https://your_website.something"
 settings_menu = ExtResource( 3 )
 
 [node name="Start_Menu" type="PanelContainer" parent="."]
@@ -71,12 +72,36 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Quit" type="Button" parent="Start_Menu/VBC"]
+[node name="Credits" type="Button" parent="Start_Menu/VBC"]
 margin_top = 98.0
 margin_right = 82.0
 margin_bottom = 118.0
+theme = ExtResource( 1 )
+text = "Credits"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Quit" type="Button" parent="Start_Menu/VBC"]
+margin_top = 122.0
+margin_right = 82.0
+margin_bottom = 142.0
 theme = ExtResource( 1 )
 text = "Quit"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="HSeparator2" type="HSeparator" parent="Start_Menu/VBC"]
+margin_top = 146.0
+margin_right = 82.0
+margin_bottom = 150.0
+
+[node name="Developer_LinkButton" type="LinkButton" parent="Start_Menu/VBC"]
+margin_top = 154.0
+margin_right = 82.0
+margin_bottom = 168.0
+focus_mode = 2
+theme = ExtResource( 1 )
+enabled_focus_mode = 2
+text = "Visit website"
