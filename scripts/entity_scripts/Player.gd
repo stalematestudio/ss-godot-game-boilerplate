@@ -46,7 +46,7 @@ var grabbed_object = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _physics_process(delta):
 	process_input(delta)
@@ -81,7 +81,7 @@ func process_input(delta):
 
 	# Walking
 	direction = Vector3()
-	var cam_xfrom = player_head.get_global_transform()
+	var head_x_form = player_head.get_global_transform()
 	var input_movement_vector = Vector2()
 	
 	# Movement from kayboard
@@ -113,8 +113,8 @@ func process_input(delta):
 	# 
 	input_movement_vector = input_movement_vector.normalized()
 	# Basis vectors are normalized
-	direction += cam_xfrom.basis.z * input_movement_vector.y
-	direction += cam_xfrom.basis.x * input_movement_vector.x
+	direction += head_x_form.basis.z * input_movement_vector.y
+	direction += head_x_form.basis.x * input_movement_vector.x
 	
 	# Sprinting
 	if Input.is_action_pressed("movement_sprint"):
@@ -160,9 +160,9 @@ func process_view_input(delta):
 
 	player_head.rotate_x(deg2rad( joypad_vec.y * JOYPAD_SENSITIVITY ))
 	rotate_y(deg2rad( joypad_vec.x * JOYPAD_SENSITIVITY * -1 ))
-	var camera_rot = player_head.rotation_degrees
-	camera_rot.x = clamp(camera_rot.x, -70, 70)
-	player_head.rotation_degrees = camera_rot
+	var player_head_rotation = player_head.rotation_degrees
+	player_head_rotation.x = clamp(player_head_rotation.x, -70, 70)
+	player_head.rotation_degrees = player_head_rotation
 
 func process_movement(delta):
 	direction.y = 0
@@ -198,9 +198,9 @@ func _input(event):
 		if event is InputEventMouseMotion:
 			player_head.rotate_x(deg2rad(event.relative.y * config_manager.config_data.mouse.mouse_sensitivity_x))
 			self.rotate_y(deg2rad(event.relative.x * config_manager.config_data.mouse.mouse_sensitivity_y * -1))
-			var camera_rot = player_head.rotation_degrees
-			camera_rot.x = clamp(camera_rot.x, -70, 70)
-			player_head.rotation_degrees = camera_rot
+			var player_head_rotation = player_head.rotation_degrees
+			player_head_rotation.x = clamp(player_head_rotation.x, -55, 55)
+			player_head.rotation_degrees = player_head_rotation
 		if event is InputEventMouseButton:
 			if event.button_index == BUTTON_WHEEL_UP or event.button_index == BUTTON_WHEEL_DOWN:
 				if event.button_index == BUTTON_WHEEL_UP:

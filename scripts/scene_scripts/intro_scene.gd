@@ -7,6 +7,7 @@ onready var event_counter = 0
 export (Array, Resource) var screens
 
 func _ready():
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	event_timer.connect("timeout", self, "_on_event_timer_timeout")
 	next_slide()
 

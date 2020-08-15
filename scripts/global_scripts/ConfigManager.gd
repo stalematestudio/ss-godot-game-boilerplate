@@ -79,7 +79,7 @@ func save_config():
 	var err = config.save(config_path)
 	if err == OK:
 		return true
-	
+
 func load_config():
 	var config = ConfigFile.new()
 	var err = config.load(config_path)
