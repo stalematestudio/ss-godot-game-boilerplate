@@ -16,15 +16,15 @@ const resolutions = [
 
 var config_data = {
 		"game":{
-			"debug":false
-		},
+				"debug":false
+				},
 		"video":{
 				"fullscreen": false,
 				"borderless": false,
 				"resolution_auto": false,
 				"resolution_option": 0,
 				"vsync": true,
-		},
+				},
 		"audio":{
 				"master_enabled":true,
 				"master_volume": -12,
@@ -32,6 +32,13 @@ var config_data = {
 				"music_volume": -12,
 				"fx_enabled": true,
 				"fx_volume": -12
+				},
+		"mouse":{
+				"mouse_inverted_x": false,
+				"mouse_sensitivity_x": 0.05,
+				"mouse_inverted_y": false,
+				"mouse_sensitivity_y": 0.05,
+				"mouse_sensitivity_scroll": 0.08
 				}
 		}
 
