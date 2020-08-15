@@ -44,7 +44,6 @@ const OBJECT_GRAB_DISTANCE = 7
 const OBJECT_GRAB_RAY_DISTANCE = 10
 var grabbed_object = null
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
@@ -83,7 +82,7 @@ func process_input(delta):
 	direction = Vector3()
 	var head_x_form = player_head.get_global_transform()
 	var input_movement_vector = Vector2()
-	
+
 	# Movement from kayboard
 	if Input.is_action_pressed("movement_forward"):
 		input_movement_vector.y += 1
@@ -93,7 +92,7 @@ func process_input(delta):
 		input_movement_vector.x += 1
 	if Input.is_action_pressed("movement_right"):
 		input_movement_vector.x -= 1
-	
+
 	# Movement from joystick
 	#if Input.get_connected_joypads().size() > 0:
 	#	var joypad_vec = Vector2(0,0)
@@ -108,32 +107,31 @@ func process_input(delta):
 	#		joypad_vec = Vector2(0,0)
 	#	else:
 	#		joypad_vec = joypad_vec.normalized() * ((joypad_vec.length() - JOYPAD_DEADZONE)/(1 - JOYPAD_DEADZONE))
-	#	input_movement_vector += joypad_vec
-	
-	# 
+	#		input_movement_vector += joypad_vec
+
+	# Basis vectors are normalized 
 	input_movement_vector = input_movement_vector.normalized()
-	# Basis vectors are normalized
 	direction += head_x_form.basis.z * input_movement_vector.y
 	direction += head_x_form.basis.x * input_movement_vector.x
-	
+
 	# Sprinting
 	if Input.is_action_pressed("movement_sprint"):
 		is_sprinting = true
 	else:
 		is_sprinting = false
-		
+
 	# Flashlight
 	if Input.is_action_just_pressed("flashlight"):
 		if player_light.is_visible_in_tree():
 			player_light.hide()
 		else:
 			player_light.show()
-	
+
 	# Jumping
 	if is_on_floor():
 		if Input.is_action_just_pressed("movement_jump"):
 			velocity.y = JUMP_SPEED
-	
+
 	# Capturing / Freeing cursor
 	if Input.is_action_just_pressed("ui_cancel"):
 		if Input.get_mouse_mode() == Input.MOUSE_MODE_VISIBLE:
@@ -142,7 +140,7 @@ func process_input(delta):
 func process_view_input(delta):
 	if Input.get_mouse_mode() != Input.MOUSE_MODE_CAPTURED:
 		return
-	
+
 	var joypad_vec = Vector2()
 	if Input.get_connected_joypads().size() > 0:
 		match globals.OS_NAME:
