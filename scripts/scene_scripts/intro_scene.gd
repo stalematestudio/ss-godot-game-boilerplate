@@ -11,7 +11,7 @@ func _ready():
 	next_slide()
 
 func _input(event): 
-	if event is InputEventKey and event.pressed:
+	if ( event is InputEventKey and event.is_pressed() ) or ( event is InputEventJoypadButton and event.is_pressed() ) or ( event is InputEventMouseButton and event.is_pressed() ) :
 		event_timer.start()
 		event_counter += 1
 		next_slide()

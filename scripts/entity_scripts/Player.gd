@@ -82,40 +82,38 @@ func process_input(delta):
 	# Walking
 	direction = Vector3()
 	var cam_xfrom = player_head.get_global_transform()
-	
 	var input_movement_vector = Vector2()
 	
+	# Movement from kayboard
 	if Input.is_action_pressed("movement_forward"):
 		input_movement_vector.y += 1
 	if Input.is_action_pressed("movement_backward"):
 		input_movement_vector.y -= 1
-	if Input.is_action_pressed("movement_right"):
-		input_movement_vector.x += 1
 	if Input.is_action_pressed("movement_left"):
+		input_movement_vector.x += 1
+	if Input.is_action_pressed("movement_right"):
 		input_movement_vector.x -= 1
 	
-	if Input.get_connected_joypads().size() > 0:
-		var joypad_vec = Vector2(0,0)
-		
-		match globals.OS_NAME:
-			"Windows":
-				joypad_vec = Vector2(Input.get_joy_axis(0,0), -Input.get_joy_axis(0,1))
-			"X11":
-				joypad_vec = Vector2(Input.get_joy_axis(0,1), Input.get_joy_axis(0,2))
-			"OSX":
-				joypad_vec = Vector2(Input.get_joy_axis(0,1), Input.get_joy_axis(0,2))
-		
-		if joypad_vec.length() < JOYPAD_DEADZONE:
-			joypad_vec = Vector2(0,0)
-		else:
-			joypad_vec = joypad_vec.normalized() * ((joypad_vec.length() - JOYPAD_DEADZONE)/(1 - JOYPAD_DEADZONE))
-		
-		input_movement_vector += joypad_vec
-		
-	input_movement_vector = input_movement_vector.normalized()
+	# Movement from joystick
+	#if Input.get_connected_joypads().size() > 0:
+	#	var joypad_vec = Vector2(0,0)
+	#	match globals.OS_NAME:
+	#		"Windows":
+	#			joypad_vec = Vector2(Input.get_joy_axis(0,0), -Input.get_joy_axis(0,1))
+	#		"X11":
+	#			joypad_vec = Vector2(Input.get_joy_axis(0,1), Input.get_joy_axis(0,2))
+	#		"OSX":
+	#			joypad_vec = Vector2(Input.get_joy_axis(0,1), Input.get_joy_axis(0,2))
+	#	if joypad_vec.length() < JOYPAD_DEADZONE:
+	#		joypad_vec = Vector2(0,0)
+	#	else:
+	#		joypad_vec = joypad_vec.normalized() * ((joypad_vec.length() - JOYPAD_DEADZONE)/(1 - JOYPAD_DEADZONE))
+	#	input_movement_vector += joypad_vec
 	
+	# 
+	input_movement_vector = input_movement_vector.normalized()
 	# Basis vectors are normalized
-	direction += -cam_xfrom.basis.z * input_movement_vector.y
+	direction += cam_xfrom.basis.z * input_movement_vector.y
 	direction += cam_xfrom.basis.x * input_movement_vector.x
 	
 	# Sprinting
