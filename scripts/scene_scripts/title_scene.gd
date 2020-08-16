@@ -1,6 +1,7 @@
 extends Control
 
 # Get Globals
+onready var root = get_node("/root")
 onready var globals = get_node("/root/Globals")
 onready var config_manager = get_node("/root/ConfigManager")
 onready var audio_manager = get_node("/root/AudioManager")
@@ -19,13 +20,12 @@ onready var joypad_control = true
 onready var profiles_exist = false # This will be changed when the save load functionality is ready
 
 export (String) var web_link_url
-
-var settings_menu_instance
 export (PackedScene) var settings_menu
 
-# Called when the node enters the scene tree for the first time.
+var sub_scene_instance
+
 func _ready():
-	# Set Start Menu
+	root.connect("gui_focus_changed", audio_manager, "ui_navigate_audio_effect")
 	game_title.text = ProjectSettings.get_setting("application/config/name")
 	if profiles_exist:
 		continue_button.grab_focus()
@@ -33,12 +33,14 @@ func _ready():
 	else:
 		continue_button.set_disabled(true)
 		new_game_button.grab_focus()
-	
 	new_game_button.connect("pressed", self, "start_menu_button_pressed", ["new"])
 	settings_button.connect("pressed", self, "start_menu_button_pressed", ["settings"])
 	credits_button.connect("pressed", self, "start_menu_button_pressed", ["credits"])
 	quit_button.connect("pressed", self, "start_menu_button_pressed", ["quit"])
 	web_link.connect("pressed", self, "start_menu_button_pressed", ["website"])
+
+func _tree_exiting():
+	root.disconnect("gui_focus_changed")
 
 func _input(event):
 	if ( event is InputEventJoypadButton ) or ( event is InputEventJoypadMotion ):
@@ -49,17 +51,20 @@ func _input(event):
 		if joypad_control:
 			joypad_control = false
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	if event.is_action_pressed("ui_accept") or event.is_action_pressed("ui_select"):
+		audio_manager.ui_accept_audio_effect()
+	elif event.is_action_pressed("ui_cancel"):
+		audio_manager.ui_cancel_audio_effect()
 
 # Called every time a button in the start menu is pressed
 func start_menu_button_pressed(button_name):
-	audio_manager.ui_pressed_audio_effect()
 	match button_name:
 		"new":
 			get_parent().change_current_scene("demo_scene")
 		"continue":
 			pass
 		"settings":
-			toggle_settings_menu()
+			instantiate_sub_scene(settings_menu, settings_button)
 		"credits":
 			pass
 		"quit":
@@ -68,10 +73,10 @@ func start_menu_button_pressed(button_name):
 			var result = OS.shell_open(web_link_url)
 			print(result)
 
-func toggle_settings_menu():
-	if is_instance_valid(settings_menu_instance):
-		settings_menu_instance.queue_free()
-	else:
-		settings_menu_instance = settings_menu.instance()
-		settings_menu_instance.return_focus_target = settings_button
-		add_child(settings_menu_instance)
+func instantiate_sub_scene(sub_scene, return_focus_target):
+	if is_instance_valid(sub_scene_instance):
+		sub_scene_instance.queue_free()
+	
+	sub_scene_instance = sub_scene.instance()
+	sub_scene_instance.return_focus_target = return_focus_target
+	add_child(sub_scene_instance)

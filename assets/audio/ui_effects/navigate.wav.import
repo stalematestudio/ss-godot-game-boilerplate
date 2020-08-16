@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/navigate.wav-516f7e8e7d3711f01187bb50e4461e48.sample"
+path="res://.import/navigate.wav-9d03f81e290f93f711dc117c496cfa0d.sample"
 
 [deps]
 
-source_file="res://assets/sounds/navigate.wav"
-dest_files=[ "res://.import/navigate.wav-516f7e8e7d3711f01187bb50e4461e48.sample" ]
+source_file="res://assets/audio/ui_effects/navigate.wav"
+dest_files=[ "res://.import/navigate.wav-9d03f81e290f93f711dc117c496cfa0d.sample" ]
 
 [params]
 

@@ -30,3 +30,4 @@ cast_to = Vector3( 0, 0, 3 )
 collide_with_areas = true
 
 [node name="PlayerStepsAudio3D" type="AudioStreamPlayer3D" parent="."]
+bus = "FX"

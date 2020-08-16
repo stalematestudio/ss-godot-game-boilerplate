@@ -5,8 +5,6 @@ onready var globals = get_node("/root/Globals")
 onready var config_manager = get_node("/root/ConfigManager")
 onready var audio_manager = get_node("/root/AudioManager")
 
-var return_focus_target
-
 # Set gui elements
 onready var gui_tabs = $VBC/Settings_Tabs
 onready var gui_setting_tab = $VBC/Tab_Buttons/Settings_Tab_Button
@@ -16,6 +14,9 @@ onready var gui_controls_tab = $VBC/Tab_Buttons/Controls_Tab_Button
 
 onready var gui_apply = $VBC/Apply
 onready var gui_cancel = $VBC/Cancel
+
+# Return focus
+var return_focus_target
 
 # Video
 onready var gui_fullscreen = $VBC/Settings_Tabs/Video_Tab/Settings_Scroll/Settings_VBC/FullScreen_CheckButton
@@ -40,6 +41,8 @@ onready var gui_fx_display = $VBC/Settings_Tabs/Audio_Tab/Settings_Scroll/Settin
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	connect("tree_exiting", self, "_on_tree_exiting")
+
 	# Set Settings Menu
 	gui_setting_tab.connect("pressed", self, "settings_menu_tab_switch", [0])
 	gui_video_tab.connect("pressed", self, "settings_menu_tab_switch", [1])
@@ -95,6 +98,11 @@ func _ready():
 	fx_volume_adjust(config_manager.config_data.audio.fx_volume)
 	
 	set_elements_disabled()
+
+func _on_tree_exiting():
+	print(return_focus_target)
+	if is_instance_valid(return_focus_target):
+		return_focus_target.grab_focus()
 
 func set_elements_disabled():
 	# Video
@@ -193,7 +201,4 @@ func settings_menu_apply_cancel(button_name):
 			config_manager.apply_config()
 		"cancel":
 			config_manager.load_config()
-	# Unset Settings Menu
-	if is_instance_valid(return_focus_target):
-		return_focus_target.grab_focus()
 	self.queue_free()

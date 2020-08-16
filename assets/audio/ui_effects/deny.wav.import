@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/accept.wav-27afe54ac067e86a92c018df69e3afbb.sample"
+path="res://.import/deny.wav-1ed6be478937fc09901d707914e638a8.sample"
 
 [deps]
 
-source_file="res://assets/sounds/accept.wav"
-dest_files=[ "res://.import/accept.wav-27afe54ac067e86a92c018df69e3afbb.sample" ]
+source_file="res://assets/audio/ui_effects/deny.wav"
+dest_files=[ "res://.import/deny.wav-1ed6be478937fc09901d707914e638a8.sample" ]
 
 [params]
 

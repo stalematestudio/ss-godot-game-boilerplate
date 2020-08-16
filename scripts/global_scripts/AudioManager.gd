@@ -9,18 +9,24 @@ onready var audio_bus_master = AudioServer.get_bus_index("Master")
 onready var audio_bus_music = AudioServer.get_bus_index("Music")
 onready var audio_bus_fx = AudioServer.get_bus_index("FX")
 
-onready var navigate_audio = preload("res://assets/sounds/navigate.wav")
-onready var deny_audio = preload("res://assets/sounds/deny.wav")
-onready var accept_audio = preload("res://assets/sounds/accept.wav")
-onready var cancel_audio = preload("res://assets/sounds/cancel.wav")
+onready var navigate_audio = preload("res://assets/audio/ui_effects/navigate.wav")
+onready var deny_audio = preload("res://assets/audio/ui_effects/deny.wav")
+onready var accept_audio = preload("res://assets/audio/ui_effects/accept.wav")
+onready var cancel_audio = preload("res://assets/audio/ui_effects/cancel.wav")
 
-func _ready():
-	root.connect("gui_focus_changed", self, "ui_focus_entered_audio_effect")
-
-func ui_focus_entered_audio_effect(target=null):
+func ui_navigate_audio_effect(target=null):
+	print(target)
 	FX_Player.set_stream(navigate_audio)
 	FX_Player.play()
 
-func ui_pressed_audio_effect():
+func ui_deny_audio_effect():
+	FX_Player.set_stream(deny_audio)
+	FX_Player.play()
+
+func ui_accept_audio_effect():
 	FX_Player.set_stream(accept_audio)
+	FX_Player.play()
+
+func ui_cancel_audio_effect():
+	FX_Player.set_stream(cancel_audio)
 	FX_Player.play()

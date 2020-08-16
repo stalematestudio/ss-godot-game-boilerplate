@@ -1,13 +1,15 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://levels/demo/surface_boxshape.tres" type="Shape" id=1]
 [ext_resource path="res://levels/demo/surface_cubemesh.tres" type="CubeMesh" id=2]
 [ext_resource path="res://entity/player/Player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://levels/demo/surface_physicsmaterial.tres" type="PhysicsMaterial" id=4]
 
 [node name="Demo" type="Spatial"]
 
 [node name="SurfaceStaticBody" type="StaticBody" parent="."]
 input_ray_pickable = false
+physics_material_override = ExtResource( 4 )
 
 [node name="SurfaceMesh" type="MeshInstance" parent="SurfaceStaticBody"]
 transform = Transform( 20, 0, 0, 0, 0.1, 0, 0, 0, 20, 0, -0.1, 0 )
