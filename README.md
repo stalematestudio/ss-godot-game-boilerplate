@@ -5,9 +5,9 @@ Boilerplate code for developing godot games
 ## Features
 
  - [ ] Persistent main scene to handle game state and sub-scene instantiations
- - [ ] Intro scene working as a slideshow for disclaimer ident etc
+ - [x] Intro scene working as a slideshow for disclaimer ident etc
     - [x] Slideshow array
-    - [ ] Slide delay
+    - [x] Slide delay controlled by event_timer
  - [ ] Title scene
     - [ ] Start a new or load a saved game
     - [x] Change game settings

@@ -43,5 +43,5 @@ margin_bottom = 67.0
 text = "PRESS ANY KEY"
 
 [node name="event_timer" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 3.0
 autostart = true

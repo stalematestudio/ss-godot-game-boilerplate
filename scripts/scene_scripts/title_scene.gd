@@ -14,7 +14,9 @@ onready var credits_button = $Start_Menu/VBC/Credits
 onready var quit_button = $Start_Menu/VBC/Quit
 onready var web_link = $Start_Menu/VBC/Developer_LinkButton
 
-var profiles_exist = false
+# State
+onready var joypad_control = true
+onready var profiles_exist = false # This will be changed when the save load functionality is ready
 
 export (String) var web_link_url
 
@@ -23,9 +25,6 @@ export (PackedScene) var settings_menu
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	# Set Mouse Mode
-	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	
 	# Set Start Menu
 	game_title.text = ProjectSettings.get_setting("application/config/name")
 	if profiles_exist:
@@ -43,8 +42,14 @@ func _ready():
 
 func _input(event):
 	if ( event is InputEventJoypadButton ) or ( event is InputEventJoypadMotion ):
-		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
-#
+		if not joypad_control:
+			joypad_control = true
+			Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+	elif ( event is InputEventMouseButton ) or ( event is InputEventMouseMotion ) :
+		if joypad_control:
+			joypad_control = false
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+
 # Called every time a button in the start menu is pressed
 func start_menu_button_pressed(button_name):
 	audio_manager.ui_pressed_audio_effect()
@@ -52,18 +57,21 @@ func start_menu_button_pressed(button_name):
 		"new":
 			get_parent().change_current_scene("demo_scene")
 		"continue":
-			# Open profile select menu
 			pass
 		"settings":
-			if is_instance_valid(settings_menu_instance):
-				settings_menu_instance.queue_free()
-			else:
-				settings_menu_instance = settings_menu.instance()
-				settings_menu_instance.return_focus_target = settings_button
-				add_child(settings_menu_instance)
+			toggle_settings_menu()
 		"credits":
 			pass
 		"quit":
 			get_tree().quit()
 		"website":
-			OS.shell_open(web_link_url)
+			var result = OS.shell_open(web_link_url)
+			print(result)
+
+func toggle_settings_menu():
+	if is_instance_valid(settings_menu_instance):
+		settings_menu_instance.queue_free()
+	else:
+		settings_menu_instance = settings_menu.instance()
+		settings_menu_instance.return_focus_target = settings_button
+		add_child(settings_menu_instance)
