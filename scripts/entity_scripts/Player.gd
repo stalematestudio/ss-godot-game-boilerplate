@@ -85,13 +85,13 @@ func process_input(delta):
 
 	# Movement from kayboard
 	if Input.is_action_pressed("movement_forward"):
-		input_movement_vector.y += 1
+		input_movement_vector.y += Input.get_action_strength("movement_forward")
 	if Input.is_action_pressed("movement_backward"):
-		input_movement_vector.y -= 1
+		input_movement_vector.y -= Input.get_action_strength("movement_backward")
 	if Input.is_action_pressed("movement_left"):
-		input_movement_vector.x += 1
+		input_movement_vector.x += Input.get_action_strength("movement_left")
 	if Input.is_action_pressed("movement_right"):
-		input_movement_vector.x -= 1
+		input_movement_vector.x -= Input.get_action_strength("movement_right")
 
 	# Movement from joystick
 	#if Input.get_connected_joypads().size() > 0:
