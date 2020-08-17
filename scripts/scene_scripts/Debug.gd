@@ -1,4 +1,6 @@
-extends Panel
+extends Container
 
-func _ready():
-	pass # Replace with function body.
+onready var fps_display = $HBoxContainer/FPS_Display
+
+func _process(delta):
+	fps_display.text = String(Engine.get_frames_per_second())

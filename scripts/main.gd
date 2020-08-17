@@ -9,20 +9,33 @@ onready var audio_manager = get_node("/root/AudioManager")
 export (PackedScene) var intro_scene 
 export (PackedScene) var title_scene
 export (PackedScene) var demo_scene
+export (PackedScene) var debug_scene
 
-var current_scene
+var current_scene_instance
+var debug_scene_instance
 
 func _ready():
+	set_debug_display()
 	change_current_scene("intro_scene")
 
+func set_debug_display():
+	if is_instance_valid(audio_manager):
+		if config_manager.config_data.game.debug:
+			if not is_instance_valid(debug_scene_instance):
+				debug_scene_instance = debug_scene.instance()
+				add_child(debug_scene_instance)
+		else:
+			if is_instance_valid(debug_scene_instance):
+				debug_scene_instance.queue_free()
+
 func change_current_scene(new_scene):
-	if is_instance_valid(current_scene):
-		current_scene.queue_free()
+	if is_instance_valid(current_scene_instance):
+		current_scene_instance.queue_free()
 	match new_scene:
 		"intro_scene":
-			current_scene = intro_scene.instance()
+			current_scene_instance = intro_scene.instance()
 		"title_scene":
-			current_scene = title_scene.instance()
+			current_scene_instance = title_scene.instance()
 		"demo_scene":
-			current_scene = demo_scene.instance()
-	add_child(current_scene)
+			current_scene_instance = demo_scene.instance()
+	add_child(current_scene_instance)

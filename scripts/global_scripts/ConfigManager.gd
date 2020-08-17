@@ -2,6 +2,7 @@ extends Node
 
 onready var config_path = "user://config.ini"
 onready var audio_manager = get_node("/root/AudioManager")
+onready var main_scene = get_node("/root/main")
 
 const resolutions = [
 		{"name": "854x480", "value": Vector2(854, 480)},
@@ -48,6 +49,9 @@ func _ready():
 	apply_config()
 
 func apply_config():
+	# Game
+	main_scene.set_debug_display()
+	
 	# Video
 	OS.set_window_fullscreen(config_data.video.fullscreen)
 	OS.set_use_vsync(config_data.video.vsync)

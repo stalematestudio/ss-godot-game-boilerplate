@@ -18,6 +18,9 @@ onready var gui_cancel = $VBC/Cancel
 # Return focus
 var return_focus_target
 
+# Game
+onready var gui_debug = $VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC/Debug_CheckButton
+
 # Video
 onready var gui_fullscreen = $VBC/Settings_Tabs/Video_Tab/Settings_Scroll/Settings_VBC/FullScreen_CheckButton
 onready var gui_vsync = $VBC/Settings_Tabs/Video_Tab/Settings_Scroll/Settings_VBC/VSync_CheckButton
@@ -51,6 +54,9 @@ func _ready():
 	gui_apply.connect("pressed", self, "settings_menu_apply_cancel", ["apply"])
 	gui_cancel.connect("pressed", self, "settings_menu_apply_cancel", ["cancel"])
 	
+	# Game
+	gui_debug.connect("pressed", self, "debug_adjust")
+	
 	# Video
 	gui_fullscreen.connect("pressed", self, "fullscreen_adjust")
 	gui_vsync.connect("pressed", self, "vsync_adjust")
@@ -76,6 +82,7 @@ func _ready():
 	config_manager.load_config()
 	
 	# Game
+	gui_debug.set_pressed(config_manager.config_data.game.debug)
 	
 	# Video
 	gui_fullscreen.set_pressed(config_manager.config_data.video.fullscreen)
@@ -139,6 +146,10 @@ func set_elements_disabled():
 	else:
 		gui_fx_slider.set_editable(false)
 		gui_fx_display.set_self_modulate(Color("#40ffffff"))
+
+# Game
+func debug_adjust():
+	config_manager.config_data.game.debug = gui_debug.is_pressed()
 
 # Video
 func fullscreen_adjust():
