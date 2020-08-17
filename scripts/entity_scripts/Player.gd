@@ -6,7 +6,7 @@ onready var config_manager = get_node("/root/ConfigManager")
 onready var audio_manager = get_node("/root/AudioManager")
 
 # Environmental Variables
-const GRAVITY = -24.8 # this variable goes to the level or game state
+const GRAVITY = -9.8 # this variable goes to the level or game state
 
 # Player stats
 const MAX_WALK_SPEED = 20
@@ -21,7 +21,7 @@ const CROUCH_ACCEL = 4.5
 const DEACCEL = 16
 const MAX_SLOPE_ANGLE = 40
 
-const JUMP_SPEED = 18
+const JUMP_SPEED = 6
 
 var JOYPAD_SENSITIVITY = 2
 const JOYPAD_DEADZONE = 0.15
@@ -39,6 +39,8 @@ onready var player_ray_cast = $PlayerHead/PlayerRayCast
 onready var player_camera = $PlayerHead/PlayerCamera
 onready var player_light = $PlayerHead/PlayerLight
 
+var raycast_target = false
+
 const OBJECT_THROW_FORCE = 120
 const OBJECT_GRAB_DISTANCE = 7
 const OBJECT_GRAB_RAY_DISTANCE = 10
@@ -47,11 +49,13 @@ var grabbed_object = null
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
-func _physics_process(delta):
+func _process(delta):
 	process_input(delta)
+	process_ray_cast()
+
+func _physics_process(delta):
 	process_view_input(delta)
 	process_movement(delta)
-	process_ray_cast()
 
 func process_input(delta):
 	# Grabbin and throwing objects
@@ -78,59 +82,12 @@ func process_input(delta):
 	if grabbed_object != null:
 		grabbed_object.global_transform.origin = player_camera.global_transform.origin + ( -player_camera.global_transform.basis.z.normalized() * OBJECT_GRAB_DISTANCE )
 
-	# Walking
-	direction = Vector3()
-	var head_x_form = player_head.get_global_transform()
-	var input_movement_vector = Vector2()
-
-	# Movement from kayboard
-	if Input.is_action_pressed("movement_forward"):
-		input_movement_vector.y += Input.get_action_strength("movement_forward")
-	if Input.is_action_pressed("movement_backward"):
-		input_movement_vector.y -= Input.get_action_strength("movement_backward")
-	if Input.is_action_pressed("movement_left"):
-		input_movement_vector.x += Input.get_action_strength("movement_left")
-	if Input.is_action_pressed("movement_right"):
-		input_movement_vector.x -= Input.get_action_strength("movement_right")
-
-	# Movement from joystick
-	#if Input.get_connected_joypads().size() > 0:
-	#	var joypad_vec = Vector2(0,0)
-	#	match globals.OS_NAME:
-	#		"Windows":
-	#			joypad_vec = Vector2(Input.get_joy_axis(0,0), -Input.get_joy_axis(0,1))
-	#		"X11":
-	#			joypad_vec = Vector2(Input.get_joy_axis(0,1), Input.get_joy_axis(0,2))
-	#		"OSX":
-	#			joypad_vec = Vector2(Input.get_joy_axis(0,1), Input.get_joy_axis(0,2))
-	#	if joypad_vec.length() < JOYPAD_DEADZONE:
-	#		joypad_vec = Vector2(0,0)
-	#	else:
-	#		joypad_vec = joypad_vec.normalized() * ((joypad_vec.length() - JOYPAD_DEADZONE)/(1 - JOYPAD_DEADZONE))
-	#		input_movement_vector += joypad_vec
-
-	# Basis vectors are normalized 
-	input_movement_vector = input_movement_vector.normalized()
-	direction += head_x_form.basis.z * input_movement_vector.y
-	direction += head_x_form.basis.x * input_movement_vector.x
-
-	# Sprinting
-	if Input.is_action_pressed("movement_sprint"):
-		is_sprinting = true
-	else:
-		is_sprinting = false
-
 	# Flashlight
 	if Input.is_action_just_pressed("flashlight"):
 		if player_light.is_visible_in_tree():
 			player_light.hide()
 		else:
 			player_light.show()
-
-	# Jumping
-	if is_on_floor():
-		if Input.is_action_just_pressed("movement_jump"):
-			velocity.y = JUMP_SPEED
 
 	# Capturing / Freeing cursor
 	if Input.is_action_just_pressed("ui_cancel"):
@@ -141,28 +98,55 @@ func process_view_input(delta):
 	if Input.get_mouse_mode() != Input.MOUSE_MODE_CAPTURED:
 		return
 
-	var joypad_vec = Vector2()
-	if Input.get_connected_joypads().size() > 0:
-		match globals.OS_NAME:
-			"Windows":
-				joypad_vec = Vector2(Input.get_joy_axis(0,2), Input.get_joy_axis(0,3))
-			"X11":
-				joypad_vec = Vector2(Input.get_joy_axis(0,3), Input.get_joy_axis(0,4))
-			"OSX":
-				joypad_vec = Vector2(Input.get_joy_axis(0,3), Input.get_joy_axis(0,4))
-		
-		if joypad_vec.length() < JOYPAD_DEADZONE:
-			joypad_vec = Vector2(0,0)
-		else:
-			joypad_vec = joypad_vec.normalized() * (( joypad_vec.length() - JOYPAD_DEADZONE ) / ( 1 - JOYPAD_DEADZONE ))
+	var input_look_vector = Vector2()
+	# Movement from kayboard
+	if Input.is_action_pressed("player_look_up"):
+		input_look_vector.y -= Input.get_action_strength("player_look_up")
+	if Input.is_action_pressed("player_look_down"):
+		input_look_vector.y += Input.get_action_strength("player_look_down")
+	if Input.is_action_pressed("player_look_left"):
+		input_look_vector.x += Input.get_action_strength("player_look_left")
+	if Input.is_action_pressed("player_look_right"):
+		input_look_vector.x -= Input.get_action_strength("player_look_right")
 
-	player_head.rotate_x(deg2rad( joypad_vec.y * JOYPAD_SENSITIVITY ))
-	rotate_y(deg2rad( joypad_vec.x * JOYPAD_SENSITIVITY * -1 ))
+	player_head.rotate_x(deg2rad( input_look_vector.y * JOYPAD_SENSITIVITY ))
+	rotate_y(deg2rad( input_look_vector.x * JOYPAD_SENSITIVITY ))
 	var player_head_rotation = player_head.rotation_degrees
 	player_head_rotation.x = clamp(player_head_rotation.x, -70, 70)
 	player_head.rotation_degrees = player_head_rotation
 
 func process_movement(delta):
+	print(delta)
+	# Walking
+	direction = Vector3()
+	var head_x_form = player_head.get_global_transform()
+	var input_movement_vector = Vector2()
+
+	# Movement from kayboard
+	if is_on_floor():
+		if Input.is_action_pressed("player_movement_forward"):
+			input_movement_vector.y += Input.get_action_strength("player_movement_forward")
+		if Input.is_action_pressed("player_movement_backward"):
+			input_movement_vector.y -= Input.get_action_strength("player_movement_backward")
+		if Input.is_action_pressed("player_movement_left"):
+			input_movement_vector.x += Input.get_action_strength("player_movement_left")
+		if Input.is_action_pressed("player_movement_right"):
+			input_movement_vector.x -= Input.get_action_strength("player_movement_right")
+		# Jumping
+		if Input.is_action_just_pressed("player_movement_jump"):
+			velocity.y = JUMP_SPEED * Input.get_action_strength("player_movement_jump")
+
+	# Basis vectors are normalized 
+	input_movement_vector = input_movement_vector.normalized()
+	direction += head_x_form.basis.z * input_movement_vector.y
+	direction += head_x_form.basis.x * input_movement_vector.x
+
+	# Sprinting
+	if Input.is_action_pressed("player_movement_sprint"):
+		is_sprinting = true
+	else:
+		is_sprinting = false
+
 	direction.y = 0
 	direction = direction.normalized()
 	
@@ -186,10 +170,12 @@ func process_movement(delta):
 	else:
 		accel = DEACCEL
 	
-	horizontal_velocity = horizontal_velocity.linear_interpolate(target, accel * delta)
+	if is_on_floor():
+		horizontal_velocity = horizontal_velocity.linear_interpolate(target, accel * delta)
 	velocity.x = horizontal_velocity.x
 	velocity.z = horizontal_velocity.z
-	velocity = move_and_slide(velocity, Vector3(0,1,0), 0.5, 4, deg2rad(MAX_SLOPE_ANGLE))
+	#velocity = move_and_slide(velocity, Vector3(0,1,0), true, 4, deg2rad(MAX_SLOPE_ANGLE), false)
+	velocity = move_and_slide_with_snap(velocity, Vector3(0,1,0), Vector3(0,1,0), true, 4, deg2rad(MAX_SLOPE_ANGLE), false)
 
 func _input(event):
 	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
@@ -209,4 +195,6 @@ func _input(event):
 
 func process_ray_cast():
 	if player_ray_cast.is_colliding():
-		print(player_ray_cast.get_collider())
+		raycast_target = player_ray_cast.get_collider()
+	else:
+		raycast_target = false
