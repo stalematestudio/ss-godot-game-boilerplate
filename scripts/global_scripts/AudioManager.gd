@@ -15,7 +15,6 @@ onready var accept_audio = preload("res://assets/audio/ui_effects/accept.wav")
 onready var cancel_audio = preload("res://assets/audio/ui_effects/cancel.wav")
 
 func ui_navigate_audio_effect(target=null):
-	print(target)
 	FX_Player.set_stream(navigate_audio)
 	FX_Player.play()
 

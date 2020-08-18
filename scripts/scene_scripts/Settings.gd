@@ -107,7 +107,6 @@ func _ready():
 	set_elements_disabled()
 
 func _on_tree_exiting():
-	print(return_focus_target)
 	if is_instance_valid(return_focus_target):
 		return_focus_target.grab_focus()
 

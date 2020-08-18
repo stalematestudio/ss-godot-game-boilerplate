@@ -116,7 +116,6 @@ func process_view_input(delta):
 	player_head.rotation_degrees = player_head_rotation
 
 func process_movement(delta):
-	print(delta)
 	# Walking
 	direction = Vector3()
 	var head_x_form = player_head.get_global_transform()
@@ -191,7 +190,6 @@ func _input(event):
 					mouse_scroll_value += config_manager.config_data.mouse.mouse_sensitivity_scroll
 				elif event.button_index == BUTTON_WHEEL_DOWN:
 					mouse_scroll_value -= config_manager.config_data.mouse.mouse_sensitivity_scroll
-				print(mouse_scroll_value, int(round(mouse_scroll_value)))
 
 func process_ray_cast():
 	if player_ray_cast.is_colliding():
