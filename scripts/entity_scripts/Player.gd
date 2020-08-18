@@ -9,16 +9,16 @@ onready var audio_manager = get_node("/root/AudioManager")
 const GRAVITY = -9.8 # this variable goes to the level or game state
 
 # Player stats
-const MAX_WALK_SPEED = 20
-const WALK_ACCEL = 4.5
+const MAX_WALK_SPEED = 4.5
+const WALK_ACCEL = 0.8
 
-const MAX_SPRINT_SPEED = 30
-const SPRINT_ACCEL = 18
+const MAX_SPRINT_SPEED = 4.5
+const SPRINT_ACCEL = 0.8
 
-const MAX_CROUCH_SPEED = 10
-const CROUCH_ACCEL = 4.5
+const MAX_CROUCH_SPEED = 4.5
+const CROUCH_ACCEL = 0.8
 
-const DEACCEL = 16
+const DEACCEL = 2.4
 const MAX_SLOPE_ANGLE = 40
 
 const JUMP_SPEED = 6

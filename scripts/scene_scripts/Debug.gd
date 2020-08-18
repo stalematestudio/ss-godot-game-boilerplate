@@ -12,7 +12,10 @@ onready var l_down = $player/VBoxContainer/sticks/look/down
 onready var l_left = $player/VBoxContainer/sticks/look/HBoxContainer/left
 onready var l_right = $player/VBoxContainer/sticks/look/HBoxContainer/right
 
-onready var player_target = $player/VBoxContainer/player_target
+onready var player_target_name = $player/VBoxContainer/player_target/player_target_name
+onready var player_target_distance = $player/VBoxContainer/player_target/player_target_distance
+onready var player_target_velocity = $player/VBoxContainer/player_velocity
+onready var player_target_direction = $player/VBoxContainer/player_direction
 
 func _process(delta):
 	fps_display.text = String(Engine.get_frames_per_second())
@@ -28,7 +31,13 @@ func _process(delta):
 	l_right.text = String(Input.get_action_strength("player_look_right"))
 
 	var player_instance = get_node_or_null("/root/main/Demo/Player")
-	if is_instance_valid(player_instance) and player_instance.raycast_target :
-		player_target.text = player_instance.raycast_target.name
+	if is_instance_valid(player_instance):
+		if player_instance.raycast_target:
+			player_target_name.text = player_instance.raycast_target.name
+		else:
+			player_target_name.text = ""
+		player_target_velocity.text = " x " + String(stepify(player_instance.velocity.x, 0.2)) + " y " + String(stepify(player_instance.velocity.y, 0.2)) + " z " + String(stepify(player_instance.velocity.z, 0.2))
+		player_target_direction.text = " x " + String(stepify(player_instance.direction.x, 0.2)) + " y " + String(stepify(player_instance.direction.y, 0.2)) + " z " + String(stepify(player_instance.direction.z, 0.2))
 	else:
-		player_target.text = ""
+		player_target_velocity.text = ""
+		player_target_direction.text = ""
