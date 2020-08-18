@@ -1,4 +1,4 @@
-extends Control
+extends Node
 
 onready var fps_display = $VBoxContainer/HBoxContainer/FPS_Display
 
@@ -16,6 +16,20 @@ onready var player_target_name = $player/VBoxContainer/player_target/player_targ
 onready var player_target_distance = $player/VBoxContainer/player_target/player_target_distance
 onready var player_target_velocity = $player/VBoxContainer/player_velocity
 onready var player_target_direction = $player/VBoxContainer/player_direction
+
+onready var input_display = $input_display
+
+onready var input_map_dictionary = Dictionary()
+
+func _ready():
+	for action in InputMap.get_actions():
+		input_map_dictionary[action] = []
+		input_display.add_text(action)
+		input_display.newline()
+		for inev in InputMap.get_action_list(action):
+			input_display.add_text(inev.as_text())
+			input_display.newline()
+		input_display.newline()
 
 func _process(delta):
 	fps_display.text = String(Engine.get_frames_per_second())
