@@ -3,7 +3,6 @@
 [ext_resource path="res://entity/player/player_capsuleshape.tres" type="Shape" id=1]
 [ext_resource path="res://scripts/entity_scripts/player.gd" type="Script" id=2]
 
-
 [node name="player" type="KinematicBody"]
 input_ray_pickable = false
 script = ExtResource( 2 )
@@ -29,6 +28,7 @@ spot_angle = 30.0
 spot_angle_attenuation = 0.45
 
 [node name="PlayerRayCast" type="RayCast" parent="PlayerHead"]
+visible = false
 enabled = true
 cast_to = Vector3( 0, 0, 3 )
 collide_with_areas = true

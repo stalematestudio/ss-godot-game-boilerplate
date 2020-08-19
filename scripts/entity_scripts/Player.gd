@@ -10,7 +10,6 @@ const GRAVITY = 9.8
 const GRAVITY_VECTOR = Vector3(0,1,0)
 
 # Player stats
-
 const MAX_WALK_SPEED = 4.5
 const WALK_ACCEL = 0.8
 
@@ -183,7 +182,15 @@ func process_movement(delta):
 		horizontal_velocity = horizontal_velocity.linear_interpolate(target, accel * delta)
 	velocity.x = horizontal_velocity.x
 	velocity.z = horizontal_velocity.z
-	#velocity = move_and_slide(velocity, player_move_up_direction, player_move_stop_on_slope, player_move_max_slides, player_move_floor_max_angle, player_move_infinite_inertia)
+	
+	#velocity = move_and_slide(
+	#		velocity, 
+	#		player_move_up_direction, 
+	#		player_move_stop_on_slope, 
+	#		player_move_max_slides, 
+	#		player_move_floor_max_angle, 
+	#		player_move_infinite_inertia)
+	
 	velocity = move_and_slide_with_snap(
 			velocity, 
 			player_move_snap, 

@@ -44,7 +44,7 @@ func _process(delta):
 	l_left.text = String(Input.get_action_strength("player_look_left"))
 	l_right.text = String(Input.get_action_strength("player_look_right"))
 
-	var player_instance = get_node_or_null("/root/main/Demo/Player")
+	var player_instance = get_node_or_null("/root/main/game_scene/player")
 	if is_instance_valid(player_instance):
 		if player_instance.raycast_target:
 			player_target_name.text = player_instance.raycast_target.name

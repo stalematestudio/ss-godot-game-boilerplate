@@ -2,7 +2,6 @@
 
 [ext_resource path="res://scripts/scene_scripts/debug_scene.gd" type="Script" id=1]
 
-
 [node name="debug_scene" type="Node"]
 script = ExtResource( 1 )
 

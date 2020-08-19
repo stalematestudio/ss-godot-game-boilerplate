@@ -60,7 +60,7 @@ func _input(event):
 func start_menu_button_pressed(button_name):
 	match button_name:
 		"new":
-			get_parent().change_current_scene("demo_scene")
+			get_parent().change_current_scene("game_scene")
 		"continue":
 			pass
 		"settings":

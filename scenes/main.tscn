@@ -22,5 +22,6 @@ bus = "FX"
 
 [node name="Music_Player" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
+autoplay = true
 mix_target = 1
 bus = "Music"
