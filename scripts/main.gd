@@ -8,8 +8,9 @@ onready var audio_manager = get_node("/root/AudioManager")
 # Scenes
 export (PackedScene) var intro_scene 
 export (PackedScene) var title_scene
-export (PackedScene) var demo_scene
+export (PackedScene) var settings_scene
 export (PackedScene) var debug_scene
+export (PackedScene) var game_scene
 
 var current_scene_instance
 var debug_scene_instance
@@ -36,6 +37,6 @@ func change_current_scene(new_scene):
 			current_scene_instance = intro_scene.instance()
 		"title_scene":
 			current_scene_instance = title_scene.instance()
-		"demo_scene":
-			current_scene_instance = demo_scene.instance()
+		"game_scene":
+			current_scene_instance = game_scene.instance()
 	add_child(current_scene_instance)

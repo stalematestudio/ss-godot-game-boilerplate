@@ -2,7 +2,7 @@
 
 [ext_resource path="res://levels/demo/surface_boxshape.tres" type="Shape" id=1]
 [ext_resource path="res://levels/demo/surface_cubemesh.tres" type="CubeMesh" id=2]
-[ext_resource path="res://entity/player/Player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://entity/player/player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://levels/demo/surface_physicsmaterial.tres" type="PhysicsMaterial" id=4]
 [ext_resource path="res://levels/demo/wall_physicsmaterial.tres" type="PhysicsMaterial" id=5]
 [ext_resource path="res://levels/demo/wall_cubemesh.tres" type="CubeMesh" id=6]
@@ -10,7 +10,8 @@
 [ext_resource path="res://levels/demo/roof_boxshape.tres" type="Shape" id=8]
 [ext_resource path="res://levels/demo/roof_cubemesh.tres" type="CubeMesh" id=9]
 
-[node name="Demo" type="Spatial"]
+
+[node name="demo" type="Spatial"]
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
 
