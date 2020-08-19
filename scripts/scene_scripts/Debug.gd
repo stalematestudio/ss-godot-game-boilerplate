@@ -48,8 +48,10 @@ func _process(delta):
 	if is_instance_valid(player_instance):
 		if player_instance.raycast_target:
 			player_target_name.text = player_instance.raycast_target.name
+			player_target_distance.text = String(stepify(player_instance.raycast_target_distance, 0.1))
 		else:
 			player_target_name.text = ""
+			player_target_distance.text = ""
 		player_target_velocity.text = " x " + String(stepify(player_instance.velocity.x, 0.2)) + " y " + String(stepify(player_instance.velocity.y, 0.2)) + " z " + String(stepify(player_instance.velocity.z, 0.2))
 		player_target_direction.text = " x " + String(stepify(player_instance.direction.x, 0.2)) + " y " + String(stepify(player_instance.direction.y, 0.2)) + " z " + String(stepify(player_instance.direction.z, 0.2))
 	else:

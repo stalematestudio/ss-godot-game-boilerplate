@@ -5,10 +5,12 @@ onready var globals = get_node("/root/Globals")
 onready var config_manager = get_node("/root/ConfigManager")
 onready var audio_manager = get_node("/root/AudioManager")
 
-# Environmental Variables
-const GRAVITY = -9.8 # this variable goes to the level or game state
+# Environmental Variables will be moved to level scene or game state
+const GRAVITY = 9.8
+const GRAVITY_VECTOR = Vector3(0,1,0)
 
 # Player stats
+
 const MAX_WALK_SPEED = 4.5
 const WALK_ACCEL = 0.8
 
@@ -22,6 +24,13 @@ const DEACCEL = 2.4
 const MAX_SLOPE_ANGLE = 40
 
 const JUMP_SPEED = 6
+
+var player_move_snap = Vector3(0,1,0)
+var player_move_up_direction = GRAVITY_VECTOR
+var player_move_stop_on_slope = true 
+var player_move_max_slides = 4
+var player_move_floor_max_angle = deg2rad(MAX_SLOPE_ANGLE)
+var player_move_infinite_inertia = false
 
 var JOYPAD_SENSITIVITY = 2
 const JOYPAD_DEADZONE = 0.15
@@ -40,6 +49,7 @@ onready var player_camera = $PlayerHead/PlayerCamera
 onready var player_light = $PlayerHead/PlayerLight
 
 var raycast_target = false
+var raycast_target_distance = false
 
 const OBJECT_THROW_FORCE = 120
 const OBJECT_GRAB_DISTANCE = 7
@@ -149,7 +159,7 @@ func process_movement(delta):
 	direction.y = 0
 	direction = direction.normalized()
 	
-	velocity.y += delta * GRAVITY
+	velocity.y += delta * GRAVITY * -1
 	
 	var horizontal_velocity = velocity
 	horizontal_velocity.y = 0
@@ -173,8 +183,16 @@ func process_movement(delta):
 		horizontal_velocity = horizontal_velocity.linear_interpolate(target, accel * delta)
 	velocity.x = horizontal_velocity.x
 	velocity.z = horizontal_velocity.z
-	#velocity = move_and_slide(velocity, Vector3(0,1,0), true, 4, deg2rad(MAX_SLOPE_ANGLE), false)
-	velocity = move_and_slide_with_snap(velocity, Vector3(0,1,0), Vector3(0,1,0), true, 4, deg2rad(MAX_SLOPE_ANGLE), false)
+	#velocity = move_and_slide(velocity, player_move_up_direction, player_move_stop_on_slope, player_move_max_slides, player_move_floor_max_angle, player_move_infinite_inertia)
+	velocity = move_and_slide_with_snap(
+			velocity, 
+			player_move_snap, 
+			player_move_up_direction, 
+			player_move_stop_on_slope, 
+			player_move_max_slides, 
+			player_move_floor_max_angle, 
+			player_move_infinite_inertia
+			)
 
 func _input(event):
 	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
@@ -194,5 +212,7 @@ func _input(event):
 func process_ray_cast():
 	if player_ray_cast.is_colliding():
 		raycast_target = player_ray_cast.get_collider()
+		raycast_target_distance = player_ray_cast.get_global_transform().origin.distance_to(player_ray_cast.get_collision_point())
 	else:
 		raycast_target = false
+		raycast_target_distance = false
