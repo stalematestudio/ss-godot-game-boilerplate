@@ -13,11 +13,11 @@ onready var game_states = {
 			"in_game": false
 		},
 		"CREDITS":{
-			"scene": "title_scene",
+			"scene": "credits_scene",
 			"in_game": false
 		},
 		"IN_GAME":{
-			"scene": "title_scene",
+			"scene": "game_scene",
 			"in_game": true
 		}
 		}

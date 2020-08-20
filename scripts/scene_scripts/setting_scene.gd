@@ -1,7 +1,7 @@
 extends Node
 
 # Get Globals
-onready var globals = get_node("/root/Globals")
+onready var globals = get_node("/root/GameManager")
 onready var config_manager = get_node("/root/ConfigManager")
 onready var audio_manager = get_node("/root/AudioManager")
 
@@ -45,7 +45,7 @@ onready var gui_fx_display = $VBC/Settings_Tabs/Audio_Tab/Settings_Scroll/Settin
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	connect("tree_exiting", self, "_on_tree_exiting")
-
+	
 	# Set Settings Menu
 	gui_setting_tab.connect("pressed", self, "settings_menu_tab_switch", [0])
 	gui_video_tab.connect("pressed", self, "settings_menu_tab_switch", [1])

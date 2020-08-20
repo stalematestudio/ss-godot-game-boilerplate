@@ -14,10 +14,12 @@ export (PackedScene) var game_scene
 # Sub Scenes
 export (PackedScene) var debug_scene
 export (PackedScene) var settings_scene
+export (PackedScene) var pause_scene
 
 var current_scene_instance
 var debug_scene_instance
 var settings_scene_instance
+var pause_scene_instance
 
 func _ready():
 	set_debug_display()
