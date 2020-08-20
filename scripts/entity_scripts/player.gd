@@ -1,7 +1,7 @@
 extends KinematicBody
 
 # Get Globals
-onready var globals = get_node("/root/GameManager")
+onready var game_manager = get_node("/root/GameManager")
 onready var config_manager = get_node("/root/ConfigManager")
 onready var audio_manager = get_node("/root/AudioManager")
 
@@ -13,13 +13,13 @@ const GRAVITY_VECTOR = Vector3(0,1,0)
 const MAX_WALK_SPEED = 4.5
 const WALK_ACCEL = 0.8
 
-const MAX_SPRINT_SPEED = 4.5
-const SPRINT_ACCEL = 0.8
+const MAX_SPRINT_SPEED = 9
+const SPRINT_ACCEL = 1.6
 
-const MAX_CROUCH_SPEED = 4.5
-const CROUCH_ACCEL = 0.8
+const MAX_CROUCH_SPEED = 2
+const CROUCH_ACCEL = 0.4
 
-const DEACCEL = 2.4
+const DEACCEL = 4.5
 const MAX_SLOPE_ANGLE = 40
 
 const JUMP_SPEED = 6
@@ -154,7 +154,7 @@ func process_movement(delta):
 		is_sprinting = true
 	else:
 		is_sprinting = false
-
+	
 	direction.y = 0
 	direction = direction.normalized()
 	
@@ -177,23 +177,16 @@ func process_movement(delta):
 			accel = WALK_ACCEL
 	else:
 		accel = DEACCEL
-	
+		
 	if is_on_floor():
 		horizontal_velocity = horizontal_velocity.linear_interpolate(target, accel * delta)
 	velocity.x = horizontal_velocity.x
 	velocity.z = horizontal_velocity.z
 	
-	#velocity = move_and_slide(
-	#		velocity, 
-	#		player_move_up_direction, 
-	#		player_move_stop_on_slope, 
-	#		player_move_max_slides, 
-	#		player_move_floor_max_angle, 
-	#		player_move_infinite_inertia)
-	
 	velocity = move_and_slide_with_snap(
+	#velocity = move_and_slide(
 			velocity, 
-			player_move_snap, 
+			player_move_snap, # Coment out for move and slide
 			player_move_up_direction, 
 			player_move_stop_on_slope, 
 			player_move_max_slides, 

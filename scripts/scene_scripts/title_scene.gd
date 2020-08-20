@@ -23,6 +23,8 @@ export (String) var web_link_url
 
 func _ready():
 	root.connect("gui_focus_changed", audio_manager, "ui_navigate_audio_effect")
+	.connect("tree_exiting", self, "_on_tree_exiting")
+
 	game_title.text = ProjectSettings.get_setting("application/config/name")
 	if profiles_exist:
 		continue_button.grab_focus()
@@ -36,8 +38,8 @@ func _ready():
 	quit_button.connect("pressed", self, "start_menu_button_pressed", ["quit"])
 	web_link.connect("pressed", self, "start_menu_button_pressed", ["website"])
 
-func _tree_exiting():
-	root.disconnect("gui_focus_changed")
+func _on_tree_exiting():
+	root.disconnect("gui_focus_changed", audio_manager, "ui_navigate_audio_effect")
 
 func _input(event):
 	if ( event is InputEventJoypadButton ) or ( event is InputEventJoypadMotion ):

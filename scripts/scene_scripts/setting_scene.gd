@@ -10,7 +10,7 @@ onready var gui_tabs = $VBC/Settings_Tabs
 onready var gui_setting_tab = $VBC/Tab_Buttons/Settings_Tab_Button
 onready var gui_video_tab = $VBC/Tab_Buttons/Video_Tab_Button
 onready var gui_audio_tab = $VBC/Tab_Buttons/Audio_Tab_Button
-onready var gui_controls_tab = $VBC/Tab_Buttons/Controls_Tab_Button
+onready var gui_mouse_tab = $VBC/Tab_Buttons/Mouse_Tab_Button
 
 onready var gui_apply = $VBC/Apply
 onready var gui_cancel = $VBC/Cancel
@@ -42,15 +42,28 @@ onready var gui_fx = $VBC/Settings_Tabs/Audio_Tab/Settings_Scroll/Settings_VBC/F
 onready var gui_fx_slider = $VBC/Settings_Tabs/Audio_Tab/Settings_Scroll/Settings_VBC/FX_HBC/FX_Slider
 onready var gui_fx_display = $VBC/Settings_Tabs/Audio_Tab/Settings_Scroll/Settings_VBC/FX_HBC/FX_Value
 
-# Called when the node enters the scene tree for the first time.
+# Mouse
+onready var gui_mouse_horizontal_invert = $Settings_Tabs/Mouse/Settings_Scroll/Settings_VBC/Horizontal_CheckButton
+onready var gui_mouse_horizontal_sensitivity_slider = $VBC/Settings_Tabs/Mouse/Settings_Scroll/Settings_VBC/Horizontal_HBC/Horizontal_Slider
+onready var gui_mouse_horizontal_sensitivity_display = $VBC/Settings_Tabs/Mouse/Settings_Scroll/Settings_VBC/Horizontal_HBC/Horizontal_Value
+
+onready var gui_mouse_vertical_invert = $VBC/Settings_Tabs/Mouse/Settings_Scroll/Settings_VBC/Vertical_CheckButton
+onready var gui_mouse_vertical_sensitivity_slider = $VBC/Settings_Tabs/Mouse/Settings_Scroll/Settings_VBC/Vertical_HBC/Vertical_Slider
+onready var gui_mouse_vertical_sensitivity_display = $VBC/Settings_Tabs/Mouse/Settings_Scroll/Settings_VBC/Vertical_HBC/Vertical_Value
+
+onready var gui_mouse_scroll_sensitivity_slider = $VBC/Settings_Tabs/Mouse/Settings_Scroll/Settings_VBC/Scroll_HBC/Scroll_Slider
+onready var gui_mouse_scroll_sensitivity_display = $VBC/Settings_Tabs/Mouse/Settings_Scroll/Settings_VBC/Scroll_HBC/Scroll_Value
+
 func _ready():
-	connect("tree_exiting", self, "_on_tree_exiting")
-	
+	.connect("tree_exiting", self, "_on_tree_exiting")
+	gui_setting_tab.grab_focus()
 	# Set Settings Menu
 	gui_setting_tab.connect("pressed", self, "settings_menu_tab_switch", [0])
 	gui_video_tab.connect("pressed", self, "settings_menu_tab_switch", [1])
 	gui_audio_tab.connect("pressed", self, "settings_menu_tab_switch", [2])
-	gui_controls_tab.connect("pressed", self, "settings_menu_tab_switch", [3])
+	gui_mouse_tab.connect("pressed", self, "settings_menu_tab_switch", [3])
+	
+	# Apply cancel
 	gui_apply.connect("pressed", self, "settings_menu_apply_cancel", ["apply"])
 	gui_cancel.connect("pressed", self, "settings_menu_apply_cancel", ["cancel"])
 	
