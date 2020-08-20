@@ -2,7 +2,7 @@ extends Control
 
 # Get Globals
 onready var root = get_node("/root")
-onready var globals = get_node("/root/Globals")
+onready var game_manager = get_node("/root/GameManager")
 onready var config_manager = get_node("/root/ConfigManager")
 onready var audio_manager = get_node("/root/AudioManager")
 
@@ -20,9 +20,6 @@ onready var joypad_control = true
 onready var profiles_exist = false # This will be changed when the save load functionality is ready
 
 export (String) var web_link_url
-export (PackedScene) var settings_menu
-
-var sub_scene_instance
 
 func _ready():
 	root.connect("gui_focus_changed", audio_manager, "ui_navigate_audio_effect")
@@ -59,24 +56,15 @@ func _input(event):
 # Called every time a button in the start menu is pressed
 func start_menu_button_pressed(button_name):
 	match button_name:
-		"new":
-			get_parent().change_current_scene("game_scene")
 		"continue":
 			pass
+		"new":
+			get_parent().change_current_scene("game_scene")
 		"settings":
-			instantiate_sub_scene(settings_menu, settings_button)
+			get_parent().set_settings_display(settings_button)
 		"credits":
-			pass
+			get_parent().change_current_scene("credits_scene")
 		"quit":
 			get_tree().quit()
 		"website":
-			var result = OS.shell_open(web_link_url)
-			print(result)
-
-func instantiate_sub_scene(sub_scene, return_focus_target):
-	if is_instance_valid(sub_scene_instance):
-		sub_scene_instance.queue_free()
-	
-	sub_scene_instance = sub_scene.instance()
-	sub_scene_instance.return_focus_target = return_focus_target
-	add_child(sub_scene_instance)
+			OS.shell_open(web_link_url)

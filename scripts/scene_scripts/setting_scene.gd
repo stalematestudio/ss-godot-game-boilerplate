@@ -89,7 +89,10 @@ func _ready():
 	gui_vsync.set_pressed(config_manager.config_data.video.vsync)
 	gui_borderless.set_pressed(config_manager.config_data.video.borderless)
 	gui_resolution_auto.set_pressed(config_manager.config_data.video.resolution_auto)
-	gui_resolution_option.select(config_manager.config_data.video.resolution_option)
+	if ( gui_resolution_option.get_item_count() - 1 ) < config_manager.config_data.video.resolution_option:
+		gui_resolution_option.select( gui_resolution_option.get_item_count() - 1 )
+	else:
+		gui_resolution_option.select(config_manager.config_data.video.resolution_option)
 	
 	# Audio
 	gui_master.set_pressed(config_manager.config_data.audio.master_enabled)

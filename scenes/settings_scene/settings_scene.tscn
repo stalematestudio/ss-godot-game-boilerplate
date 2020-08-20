@@ -4,7 +4,6 @@
 [ext_resource path="res://scenes/settings_scene/settings_tabs_buttongroup.tres" type="ButtonGroup" id=2]
 [ext_resource path="res://scripts/scene_scripts/setting_scene.gd" type="Script" id=3]
 
-
 [node name="settings_scene" type="PanelContainer"]
 self_modulate = Color( 1, 1, 1, 0.501961 )
 anchor_left = 0.3

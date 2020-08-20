@@ -1,7 +1,5 @@
 extends Node
 
-onready var root = get_node("/root")
-
 onready var Music_Player = get_node("/root/main/Music_Player")
 onready var FX_Player = get_node("/root/main/FX_Player")
 

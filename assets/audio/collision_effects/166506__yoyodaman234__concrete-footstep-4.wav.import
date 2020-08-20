@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/166506__yoyodaman234__concrete-footstep-4.wav-f107db6e8e5b3bbcc3f8481873570f1b.sample"
+
+[deps]
+
+source_file="res://assets/audio/collision_effects/166506__yoyodaman234__concrete-footstep-4.wav"
+dest_files=[ "res://.import/166506__yoyodaman234__concrete-footstep-4.wav-f107db6e8e5b3bbcc3f8481873570f1b.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

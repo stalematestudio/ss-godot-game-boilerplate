@@ -27,7 +27,7 @@ config/icon="res://icon.png"
 
 AudioManager="*res://scripts/global_scripts/AudioManager.gd"
 ConfigManager="*res://scripts/global_scripts/ConfigManager.gd"
-Globals="*res://scripts/global_scripts/Globals.gd"
+GameManager="*res://scripts/global_scripts/GameManager.gd"
 
 [debug]
 

@@ -1,33 +1,26 @@
 extends Node
 
 # Get Globals
-onready var globals = get_node("/root/Globals")
+onready var game_manager = get_node("/root/GameManager")
 onready var config_manager = get_node("/root/ConfigManager")
 onready var audio_manager = get_node("/root/AudioManager")
 
 # Scenes
 export (PackedScene) var intro_scene 
 export (PackedScene) var title_scene
-export (PackedScene) var settings_scene
-export (PackedScene) var debug_scene
+export (PackedScene) var credits_scene
 export (PackedScene) var game_scene
+
+# Sub Scenes
+export (PackedScene) var debug_scene
+export (PackedScene) var settings_scene
 
 var current_scene_instance
 var debug_scene_instance
+var settings_scene_instance
 
 func _ready():
 	set_debug_display()
-	change_current_scene("intro_scene")
-
-func set_debug_display():
-	if is_instance_valid(audio_manager):
-		if config_manager.config_data.game.debug:
-			if not is_instance_valid(debug_scene_instance):
-				debug_scene_instance = debug_scene.instance()
-				add_child(debug_scene_instance)
-		else:
-			if is_instance_valid(debug_scene_instance):
-				debug_scene_instance.queue_free()
 
 func change_current_scene(new_scene):
 	if is_instance_valid(current_scene_instance):
@@ -37,6 +30,26 @@ func change_current_scene(new_scene):
 			current_scene_instance = intro_scene.instance()
 		"title_scene":
 			current_scene_instance = title_scene.instance()
+		"credits_scene":
+			current_scene_instance = credits_scene.instance()
 		"game_scene":
 			current_scene_instance = game_scene.instance()
 	add_child(current_scene_instance)
+
+func set_debug_display():
+	if is_instance_valid(config_manager):
+		if config_manager.config_data.game.debug:
+			if not is_instance_valid(debug_scene_instance):
+				debug_scene_instance = debug_scene.instance()
+				add_child(debug_scene_instance)
+		else:
+			if is_instance_valid(debug_scene_instance):
+				debug_scene_instance.queue_free()
+
+func set_settings_display(return_focus_target):
+	if is_instance_valid(settings_scene_instance):
+		settings_scene_instance.queue_free()
+	else:
+		settings_scene_instance = settings_scene.instance()
+		settings_scene_instance.return_focus_target = return_focus_target
+		add_child(settings_scene_instance)
