@@ -12,6 +12,7 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+web_link_url = "https://your_website.something"
 
 [node name="Pause_Menu" type="PanelContainer" parent="."]
 anchor_bottom = 1.0

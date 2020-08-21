@@ -54,9 +54,11 @@ func set_settings_display(return_focus_target):
 		settings_scene_instance.return_focus_target = return_focus_target
 		add_child(settings_scene_instance)
 
-func set_pause_display():
-	if is_instance_valid(pause_scene_instance):
-		pause_scene_instance.queue_free()
+func set_pause_display(set_paused):
+	if set_paused:
+		if not is_instance_valid(pause_scene_instance):
+			pause_scene_instance = pause_scene.instance()
+			add_child(pause_scene_instance)
 	else:
-		pause_scene_instance = pause_scene.instance()
-		add_child(pause_scene_instance)
+		if is_instance_valid(pause_scene_instance):
+			pause_scene_instance.queue_free()

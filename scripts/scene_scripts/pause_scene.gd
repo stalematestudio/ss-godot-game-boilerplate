@@ -3,6 +3,7 @@ extends Control
 # Get Globals
 onready var root = get_node("/root")
 onready var audio_manager = get_node("/root/AudioManager")
+onready var game_manager = get_node("/root/GameManager")
 
 # Set element references
 onready var game_title = $Pause_Menu/VBC/Game_Title
@@ -30,6 +31,9 @@ func _on_tree_exiting():
 	root.disconnect("gui_focus_changed", audio_manager, "ui_navigate_audio_effect")
 
 func _input(event):
+	# Pause game
+	if Input.is_action_just_released("ui_cancel"):
+		game_manager.pause_game()
 	if ( event is InputEventJoypadButton ) or ( event is InputEventJoypadMotion ):
 		if not joypad_control:
 			joypad_control = true
@@ -46,15 +50,11 @@ func _input(event):
 # Called every time a button in the start menu is pressed
 func pause_menu_button_pressed(button_name):
 	match button_name:
-		"continue":
-			pass
-		"new":
-			get_parent().change_current_scene("game_scene")
 		"settings":
 			get_parent().set_settings_display(settings_button)
-		"credits":
-			get_parent().change_current_scene("credits_scene")
-		"quit":
+		"quit_to_title":
+			game_manager.change_state("TITLE")
+		"quit_game":
 			get_tree().quit()
 		"website":
 			OS.shell_open(web_link_url)

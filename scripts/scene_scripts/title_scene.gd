@@ -3,6 +3,7 @@ extends Control
 # Get Globals
 onready var root = get_node("/root")
 onready var audio_manager = get_node("/root/AudioManager")
+onready var game_manager = get_node("/root/GameManager")
 
 # Set element references
 onready var game_title = $Start_Menu/VBC/Game_Title
@@ -59,11 +60,11 @@ func start_menu_button_pressed(button_name):
 		"continue":
 			pass
 		"new":
-			get_parent().change_current_scene("game_scene")
+			game_manager.change_state("IN_GAME")
 		"settings":
 			get_parent().set_settings_display(settings_button)
 		"credits":
-			get_parent().change_current_scene("credits_scene")
+			game_manager.change_state("CREDITS")
 		"quit":
 			get_tree().quit()
 		"website":
