@@ -39,31 +39,38 @@ margin_top = 18.0
 margin_right = 91.0
 margin_bottom = 22.0
 
-[node name="Settings" type="Button" parent="Pause_Menu/VBC"]
+[node name="Resume" type="Button" parent="Pause_Menu/VBC"]
 margin_top = 26.0
 margin_right = 91.0
 margin_bottom = 46.0
-text = "Settings"
+theme = ExtResource( 2 )
+text = "Resume"
 
-[node name="Quit_To_Title" type="Button" parent="Pause_Menu/VBC"]
+[node name="Settings" type="Button" parent="Pause_Menu/VBC"]
 margin_top = 50.0
 margin_right = 91.0
 margin_bottom = 70.0
-text = "Quit To Title"
+text = "Settings"
 
-[node name="Quit_Game" type="Button" parent="Pause_Menu/VBC"]
+[node name="Quit_To_Title" type="Button" parent="Pause_Menu/VBC"]
 margin_top = 74.0
 margin_right = 91.0
 margin_bottom = 94.0
+text = "Quit To Title"
+
+[node name="Quit_Game" type="Button" parent="Pause_Menu/VBC"]
+margin_top = 98.0
+margin_right = 91.0
+margin_bottom = 118.0
 text = "Quit Game"
 
 [node name="HSeparator_2" type="HSeparator" parent="Pause_Menu/VBC"]
-margin_top = 98.0
+margin_top = 122.0
 margin_right = 91.0
-margin_bottom = 102.0
+margin_bottom = 126.0
 
 [node name="Developer_LinkButton" type="LinkButton" parent="Pause_Menu/VBC"]
-margin_top = 106.0
+margin_top = 130.0
 margin_right = 91.0
-margin_bottom = 120.0
+margin_bottom = 144.0
 text = "Visir Website"

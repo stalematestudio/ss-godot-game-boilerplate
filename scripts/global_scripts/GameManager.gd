@@ -22,13 +22,23 @@ onready var game_states = {
 		}
 		}
 
+onready var game_paused = false
+
 func _ready():
 	change_state("INTRO")
 
 func pause_game():
-	get_tree().paused = !get_tree().paused
-	main_scene.set_pause_display(get_tree().paused)
+	game_paused = true
+	get_tree().paused = game_paused
+	main_scene.set_pause_display(game_paused)
+
+func resume_game():
+	game_paused = false
+	get_tree().paused = game_paused
+	main_scene.set_pause_display(game_paused)
 
 func change_state(state):
 	game_state = game_states[state].duplicate(true)
+	if not game_state.in_game:
+		resume_game()
 	main_scene.change_current_scene(game_state.scene)

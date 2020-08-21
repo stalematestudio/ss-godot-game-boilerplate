@@ -7,6 +7,7 @@ onready var game_manager = get_node("/root/GameManager")
 
 # Set element references
 onready var game_title = $Pause_Menu/VBC/Game_Title
+onready var resume_game = $Pause_Menu/VBC/Resume
 onready var settings_button = $Pause_Menu/VBC/Settings
 onready var quit_to_title_button = $Pause_Menu/VBC/Quit_To_Title
 onready var quit_game_button = $Pause_Menu/VBC/Quit_Game
@@ -22,6 +23,8 @@ func _ready():
 	.connect("tree_exiting", self, "_on_tree_exiting")
 	
 	game_title.text = ProjectSettings.get_setting("application/config/name")
+	resume_game.connect("pressed", self, "pause_menu_button_pressed", ["resume"])
+	resume_game.grab_focus ()
 	settings_button.connect("pressed", self, "pause_menu_button_pressed", ["settings"])
 	quit_to_title_button.connect("pressed", self, "pause_menu_button_pressed", ["quit_to_title"])
 	quit_game_button.connect("pressed", self, "pause_menu_button_pressed", ["quit_game"])
@@ -50,6 +53,8 @@ func _input(event):
 # Called every time a button in the start menu is pressed
 func pause_menu_button_pressed(button_name):
 	match button_name:
+		"resume":
+			game_manager.resume_game()
 		"settings":
 			get_parent().set_settings_display(settings_button)
 		"quit_to_title":

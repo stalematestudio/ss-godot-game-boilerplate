@@ -26,8 +26,8 @@ func _ready():
 
 	game_title.text = ProjectSettings.get_setting("application/config/name")
 	if profiles_exist:
-		continue_button.grab_focus()
 		continue_button.connect("pressed", self, "start_menu_button_pressed", ["continue"])
+		continue_button.grab_focus()
 	else:
 		continue_button.set_disabled(true)
 		new_game_button.grab_focus()
