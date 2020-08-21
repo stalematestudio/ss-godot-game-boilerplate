@@ -1,9 +1,8 @@
 extends KinematicBody
 
 # Get Globals
-onready var game_manager = get_node("/root/GameManager")
 onready var config_manager = get_node("/root/ConfigManager")
-onready var audio_manager = get_node("/root/AudioManager")
+onready var game_manager = get_node("/root/GameManager")
 
 # Environmental Variables will be moved to level scene or game state
 const GRAVITY = 9.8
@@ -67,6 +66,10 @@ func _physics_process(delta):
 	process_movement(delta)
 
 func process_input(delta):
+	# Pause game
+	if Input.is_action_just_released("player_pause"):
+		game_manager.pause_game()
+	
 	# Grabbin and throwing objects
 	if Input.is_action_just_pressed("fire"):
 		if grabbed_object == null:

@@ -40,7 +40,7 @@ text = "game title"
 align = 1
 uppercase = true
 
-[node name="HSeparator" type="HSeparator" parent="Start_Menu/VBC"]
+[node name="HSeparator_1" type="HSeparator" parent="Start_Menu/VBC"]
 margin_top = 18.0
 margin_right = 82.0
 margin_bottom = 22.0
@@ -90,7 +90,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HSeparator2" type="HSeparator" parent="Start_Menu/VBC"]
+[node name="HSeparator_2" type="HSeparator" parent="Start_Menu/VBC"]
 margin_top = 146.0
 margin_right = 82.0
 margin_bottom = 150.0

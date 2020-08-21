@@ -1,9 +1,7 @@
 extends Node
 
 # Get Globals
-onready var game_manager = get_node("/root/GameManager")
 onready var config_manager = get_node("/root/ConfigManager")
-onready var audio_manager = get_node("/root/AudioManager")
 
 # Scenes
 export (PackedScene) var intro_scene 
@@ -24,10 +22,10 @@ var pause_scene_instance
 func _ready():
 	set_debug_display()
 
-func change_current_scene(new_scene):
+func change_current_scene(scene):
 	if is_instance_valid(current_scene_instance):
 		current_scene_instance.queue_free()
-	match new_scene:
+	match scene:
 		"intro_scene":
 			current_scene_instance = intro_scene.instance()
 		"title_scene":
@@ -55,3 +53,10 @@ func set_settings_display(return_focus_target):
 		settings_scene_instance = settings_scene.instance()
 		settings_scene_instance.return_focus_target = return_focus_target
 		add_child(settings_scene_instance)
+
+func set_pause_display():
+	if is_instance_valid(pause_scene_instance):
+		pause_scene_instance.queue_free()
+	else:
+		pause_scene_instance = pause_scene.instance()
+		add_child(pause_scene_instance)

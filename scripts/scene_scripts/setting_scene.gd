@@ -1,7 +1,6 @@
 extends Node
 
 # Get Globals
-onready var globals = get_node("/root/GameManager")
 onready var config_manager = get_node("/root/ConfigManager")
 onready var audio_manager = get_node("/root/AudioManager")
 

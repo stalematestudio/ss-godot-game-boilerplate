@@ -5,36 +5,26 @@ onready var root = get_node("/root")
 onready var audio_manager = get_node("/root/AudioManager")
 
 # Set element references
-onready var game_title = $Start_Menu/VBC/Game_Title
-onready var continue_button = $Start_Menu/VBC/Continue
-onready var new_game_button = $Start_Menu/VBC/New_Game
-onready var settings_button = $Start_Menu/VBC/Settings
-onready var credits_button = $Start_Menu/VBC/Credits
-onready var quit_button = $Start_Menu/VBC/Quit
-onready var web_link = $Start_Menu/VBC/Developer_LinkButton
+onready var game_title = $Pause_Menu/VBC/Game_Title
+onready var settings_button = $Pause_Menu/VBC/Settings
+onready var quit_to_title_button = $Pause_Menu/VBC/Quit_To_Title
+onready var quit_game_button = $Pause_Menu/VBC/Quit_Game
+onready var web_link = $Pause_Menu/VBC/Developer_LinkButton
 
 # State
 onready var joypad_control = true
-onready var profiles_exist = false # This will be changed when the save load functionality is ready
 
 export (String) var web_link_url
 
 func _ready():
 	root.connect("gui_focus_changed", audio_manager, "ui_navigate_audio_effect")
 	.connect("tree_exiting", self, "_on_tree_exiting")
-
+	
 	game_title.text = ProjectSettings.get_setting("application/config/name")
-	if profiles_exist:
-		continue_button.grab_focus()
-		continue_button.connect("pressed", self, "start_menu_button_pressed", ["continue"])
-	else:
-		continue_button.set_disabled(true)
-		new_game_button.grab_focus()
-	new_game_button.connect("pressed", self, "start_menu_button_pressed", ["new"])
-	settings_button.connect("pressed", self, "start_menu_button_pressed", ["settings"])
-	credits_button.connect("pressed", self, "start_menu_button_pressed", ["credits"])
-	quit_button.connect("pressed", self, "start_menu_button_pressed", ["quit"])
-	web_link.connect("pressed", self, "start_menu_button_pressed", ["website"])
+	settings_button.connect("pressed", self, "pause_menu_button_pressed", ["settings"])
+	quit_to_title_button.connect("pressed", self, "pause_menu_button_pressed", ["quit_to_title"])
+	quit_game_button.connect("pressed", self, "pause_menu_button_pressed", ["quit_game"])
+	web_link.connect("pressed", self, "pause_menu_button_pressed", ["website"])
 
 func _on_tree_exiting():
 	root.disconnect("gui_focus_changed", audio_manager, "ui_navigate_audio_effect")
@@ -54,7 +44,7 @@ func _input(event):
 		audio_manager.ui_cancel_audio_effect()
 
 # Called every time a button in the start menu is pressed
-func start_menu_button_pressed(button_name):
+func pause_menu_button_pressed(button_name):
 	match button_name:
 		"continue":
 			pass
