@@ -20,6 +20,7 @@ var return_focus_target
 
 # Game
 onready var gui_debug = $VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC/Debug_CheckButton
+onready var gui_game_reset = $VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC/Reset_Button
 
 # Video
 onready var gui_fullscreen = $VBC/Settings_Tabs/Video_Tab/Settings_Scroll/Settings_VBC/FullScreen_CheckButton
@@ -28,6 +29,7 @@ onready var gui_borderless = $VBC/Settings_Tabs/Video_Tab/Settings_Scroll/Settin
 onready var gui_resolution_auto = $VBC/Settings_Tabs/Video_Tab/Settings_Scroll/Settings_VBC/ResolutionAuto_CheckButton
 onready var gui_resolution_label = $VBC/Settings_Tabs/Video_Tab/Settings_Scroll/Settings_VBC/Resolution_HBC/Resolution_Label
 onready var gui_resolution_option = $VBC/Settings_Tabs/Video_Tab/Settings_Scroll/Settings_VBC/Resolution_HBC/Resolution_Option
+onready var gui_video_reset = $VBC/Settings_Tabs/Video_Tab/Settings_Scroll/Settings_VBC/Reset_Button
 
 # Audio
 onready var gui_master = $VBC/Settings_Tabs/Audio_Tab/Settings_Scroll/Settings_VBC/Master_CheckButton
@@ -42,18 +44,22 @@ onready var gui_fx = $VBC/Settings_Tabs/Audio_Tab/Settings_Scroll/Settings_VBC/F
 onready var gui_fx_slider = $VBC/Settings_Tabs/Audio_Tab/Settings_Scroll/Settings_VBC/FX_HBC/FX_Slider
 onready var gui_fx_display = $VBC/Settings_Tabs/Audio_Tab/Settings_Scroll/Settings_VBC/FX_HBC/FX_Value
 
+onready var gui_audio_reset = $VBC/Settings_Tabs/Audio_Tab/Settings_Scroll/Settings_VBC/Reset_Button
+
 # Mouse
-onready var gui_mouse_horizontal_invert = $VBC/Settings_Tabs/Mouse/Settings_Scroll/Settings_VBC/Horizontal_CheckButton
-onready var gui_mouse_horizontal_sensitivity_slider = $VBC/Settings_Tabs/Mouse/Settings_Scroll/Settings_VBC/Horizontal_HBC/Horizontal_Slider
-onready var gui_mouse_horizontal_sensitivity_display = $VBC/Settings_Tabs/Mouse/Settings_Scroll/Settings_VBC/Horizontal_HBC/Horizontal_Value
+onready var gui_mouse_horizontal_invert = $VBC/Settings_Tabs/Mouse_Tab/Settings_Scroll/Settings_VBC/Horizontal_CheckButton
+onready var gui_mouse_horizontal_sensitivity_slider = $VBC/Settings_Tabs/Mouse_Tab/Settings_Scroll/Settings_VBC/Horizontal_HBC/Horizontal_Slider
+onready var gui_mouse_horizontal_sensitivity_display = $VBC/Settings_Tabs/Mouse_Tab/Settings_Scroll/Settings_VBC/Horizontal_HBC/Horizontal_Value
 
-onready var gui_mouse_vertical_invert = $VBC/Settings_Tabs/Mouse/Settings_Scroll/Settings_VBC/Vertical_CheckButton
-onready var gui_mouse_vertical_sensitivity_slider = $VBC/Settings_Tabs/Mouse/Settings_Scroll/Settings_VBC/Vertical_HBC/Vertical_Slider
-onready var gui_mouse_vertical_sensitivity_display = $VBC/Settings_Tabs/Mouse/Settings_Scroll/Settings_VBC/Vertical_HBC/Vertical_Value
+onready var gui_mouse_vertical_invert = $VBC/Settings_Tabs/Mouse_Tab/Settings_Scroll/Settings_VBC/Vertical_CheckButton
+onready var gui_mouse_vertical_sensitivity_slider = $VBC/Settings_Tabs/Mouse_Tab/Settings_Scroll/Settings_VBC/Vertical_HBC/Vertical_Slider
+onready var gui_mouse_vertical_sensitivity_display = $VBC/Settings_Tabs/Mouse_Tab/Settings_Scroll/Settings_VBC/Vertical_HBC/Vertical_Value
 
-onready var gui_mouse_scroll_invert = $VBC/Settings_Tabs/Mouse/Settings_Scroll/Settings_VBC/Scroll_CheckButton
-onready var gui_mouse_scroll_sensitivity_slider = $VBC/Settings_Tabs/Mouse/Settings_Scroll/Settings_VBC/Scroll_HBC/Scroll_Slider
-onready var gui_mouse_scroll_sensitivity_display = $VBC/Settings_Tabs/Mouse/Settings_Scroll/Settings_VBC/Scroll_HBC/Scroll_Value
+onready var gui_mouse_scroll_invert = $VBC/Settings_Tabs/Mouse_Tab/Settings_Scroll/Settings_VBC/Scroll_CheckButton
+onready var gui_mouse_scroll_sensitivity_slider = $VBC/Settings_Tabs/Mouse_Tab/Settings_Scroll/Settings_VBC/Scroll_HBC/Scroll_Slider
+onready var gui_mouse_scroll_sensitivity_display = $VBC/Settings_Tabs/Mouse_Tab/Settings_Scroll/Settings_VBC/Scroll_HBC/Scroll_Value
+
+onready var gui_mouse_reset = $VBC/Settings_Tabs/Mouse_Tab/Settings_Scroll/Settings_VBC/Reset_Button
 
 func _ready():
 	.connect("tree_exiting", self, "_on_tree_exiting")
@@ -70,6 +76,7 @@ func _ready():
 	
 	# Game
 	gui_debug.connect("pressed", self, "debug_adjust")
+	gui_game_reset.connect("pressed", self, "reset_to_default", ["game"])
 	
 	# Video
 	gui_fullscreen.connect("pressed", self, "fullscreen_adjust")
@@ -82,6 +89,8 @@ func _ready():
 			gui_resolution_option.add_item(resolution.name)
 	gui_resolution_option.connect("item_selected", self, "resolution_option_adjust")
 	
+	gui_video_reset.connect("pressed", self, "reset_to_default", ["video"])
+	
 	# Audio
 	gui_master.connect("pressed", self, "master_adjust")
 	gui_master_slider.connect("value_changed", self, "master_volume_adjust")
@@ -92,16 +101,27 @@ func _ready():
 	gui_fx.connect("pressed", self, "fx_adjust")
 	gui_fx_slider.connect("value_changed", self, "fx_volume_adjust")
 	
+	gui_audio_reset.connect("pressed", self, "reset_to_default", ["audio"])
+	
 	# Mouse
 	gui_mouse_horizontal_invert.connect("pressed", self, "mouse_horizontal_invert_adjust")
 	gui_mouse_horizontal_sensitivity_slider.connect("value_changed", self, "mouse_horizontal_sensitivity_adjust")
-
+	
 	gui_mouse_vertical_invert.connect("pressed", self, "mouse_vertical_invert_adjust")
 	gui_mouse_vertical_sensitivity_slider.connect("value_changed", self, "mouse_vertical_sensitivity_adjust")
-
+	
 	gui_mouse_scroll_invert.connect("pressed", self, "mouse_scroll_invert_adjust")
 	gui_mouse_scroll_sensitivity_slider.connect("value_changed", self, "mouse_scroll_sensitivity_adjust")
+	
+	gui_mouse_reset.connect("pressed", self, "reset_to_default", ["mouse"])
+	
+	set_form_values()
 
+func _on_tree_exiting():
+	if is_instance_valid(return_focus_target):
+		return_focus_target.grab_focus()
+
+func set_form_values():
 	# Set Settings Values
 	config_manager.load_config()
 	
@@ -134,18 +154,14 @@ func _ready():
 	# Mouse
 	gui_mouse_horizontal_invert.set_pressed(config_manager.config_data.mouse.mouse_inverted_x)
 	gui_mouse_horizontal_sensitivity_slider.set_value(config_manager.config_data.mouse.mouse_sensitivity_x)
-
+	
 	gui_mouse_vertical_invert.set_pressed(config_manager.config_data.mouse.mouse_inverted_y)
 	gui_mouse_vertical_sensitivity_slider.set_value(config_manager.config_data.mouse.mouse_sensitivity_y)
-
+	
 	gui_mouse_scroll_invert.set_pressed(config_manager.config_data.mouse.mouse_inverted_scroll)
 	gui_mouse_scroll_sensitivity_slider.set_value(config_manager.config_data.mouse.mouse_sensitivity_scroll)
-
+	
 	set_elements_disabled()
-
-func _on_tree_exiting():
-	if is_instance_valid(return_focus_target):
-		return_focus_target.grab_focus()
 
 func set_elements_disabled():
 	# Video
@@ -175,7 +191,7 @@ func set_elements_disabled():
 	else:
 		gui_music_slider.set_editable(false)
 		gui_music_display.set_self_modulate(Color("#40ffffff"))
-
+	
 	if gui_fx.is_pressed():
 		gui_fx_slider.set_editable(true)
 		gui_fx_display.set_self_modulate(Color("#ffffffff"))
@@ -261,6 +277,12 @@ func mouse_scroll_sensitivity_adjust(new_val):
 # Tabs Switching
 func settings_menu_tab_switch(tab_index):
 	gui_tabs.set_current_tab(tab_index)
+
+# Reset to default
+func reset_to_default(section):
+	print(section)
+	config_manager.reset_to_default(section)
+	set_form_values()
 
 # Apply and Cancel
 func settings_menu_apply_cancel(button_name):

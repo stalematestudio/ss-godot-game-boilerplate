@@ -15,7 +15,7 @@ const resolutions = [
 		{"name": "3840x2160", "value": Vector2(3840, 2160)},
 		]
 
-var config_data_default = {
+onready var config_data_default = {
 		"game":{
 				"debug":false
 				},
@@ -44,12 +44,10 @@ var config_data_default = {
 				}
 		}
 
-var config_data = {}
+onready var config_data = config_data_default.duplicate(true)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	# Load From Default
-	config_data = config_data_default
 	# Update From File
 	load_config()
 	# Apply Config
@@ -104,6 +102,6 @@ func load_config():
 		return false
 
 func reset_to_default(section):
-	config_data[section] = config_data_default[section]
+	config_data[section] = config_data_default[section].duplicate(true)
 	save_config()
 	apply_config()
