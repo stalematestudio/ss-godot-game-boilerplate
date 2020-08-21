@@ -15,7 +15,7 @@ const resolutions = [
 		{"name": "3840x2160", "value": Vector2(3840, 2160)},
 		]
 
-var config_data = {
+var config_data_default = {
 		"game":{
 				"debug":false
 				},
@@ -44,15 +44,20 @@ var config_data = {
 				}
 		}
 
+var config_data = {}
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	# Load From Default
+	config_data = config_data_default
+	# Update From File
 	load_config()
+	# Apply Config
 	apply_config()
 
 func apply_config():
 	# Game
 	main_scene.set_debug_display()
-	
 	# Video
 	OS.set_window_fullscreen(config_data.video.fullscreen)
 	OS.set_use_vsync(config_data.video.vsync)
@@ -77,23 +82,28 @@ func apply_config():
 	AudioServer.set_bus_volume_db(audio_manager.audio_bus_fx, config_data.audio.fx_volume)
 
 func save_config():
-	var config = ConfigFile.new()
+	var config_file = ConfigFile.new()
 	for section in config_data:
 		for setting in config_data[section]:
-			config.set_value(section, setting, config_data[section][setting])
-	var err = config.save(config_path)
+			config_file.set_value(section, setting, config_data[section][setting])
+	var err = config_file.save(config_path)
 	if err == OK:
 		return true
 
 func load_config():
-	var config = ConfigFile.new()
-	var err = config.load(config_path)
+	var config_file = ConfigFile.new()
+	var err = config_file.load(config_path)
 	if err == OK:
 		for section in config_data:
 			for setting in config_data[section]:
-				config_data[section][setting] = config.get_value(section, setting, config_data[section][setting])
+				config_data[section][setting] = config_file.get_value(section, setting, config_data[section][setting])
 		return true
 	elif err == ERR_FILE_NOT_FOUND:
 		return save_config()
 	else:
 		return false
+
+func reset_to_default(section):
+	config_data[section] = config_data_default[section]
+	save_config()
+	apply_config()
