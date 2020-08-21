@@ -156,6 +156,7 @@ input_ray_pickable = false
 physics_material_override = ExtResource( 4 )
 
 [node name="SurfaceMeshInstance" type="MeshInstance" parent="SurfaceStaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.100442, 0 )
 mesh = ExtResource( 2 )
 material/0 = null
 

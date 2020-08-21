@@ -19,7 +19,7 @@ const SPRINT_ACCEL = 1.6
 const MAX_CROUCH_SPEED = 2
 const CROUCH_ACCEL = 0.4
 
-const DEACCEL = 4.5
+const DEACCEL = 9
 const MAX_SLOPE_ANGLE = 40
 
 const JUMP_SPEED = 6
@@ -197,17 +197,30 @@ func process_movement(delta):
 func _input(event):
 	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		if event is InputEventMouseMotion:
-			player_head.rotate_x(deg2rad(event.relative.y * config_manager.config_data.mouse.mouse_sensitivity_x))
-			self.rotate_y(deg2rad(event.relative.x * config_manager.config_data.mouse.mouse_sensitivity_y * -1))
+			if config_manager.config_data.mouse.mouse_inverted_y:
+				player_head.rotate_x(deg2rad(event.relative.y * config_manager.config_data.mouse.mouse_sensitivity_y * -1))
+			else:
+				player_head.rotate_x(deg2rad(event.relative.y * config_manager.config_data.mouse.mouse_sensitivity_y))
+			
+			if config_manager.config_data.mouse.mouse_inverted_x:
+				self.rotate_y(deg2rad(event.relative.x * config_manager.config_data.mouse.mouse_sensitivity_x))
+			else:
+				self.rotate_y(deg2rad(event.relative.x * config_manager.config_data.mouse.mouse_sensitivity_x * -1))
+			
 			var player_head_rotation = player_head.rotation_degrees
 			player_head_rotation.x = clamp(player_head_rotation.x, -55, 55)
 			player_head.rotation_degrees = player_head_rotation
 		if event is InputEventMouseButton:
 			if event.button_index == BUTTON_WHEEL_UP or event.button_index == BUTTON_WHEEL_DOWN:
+				var mouse_scrolled
+				if config_manager.config_data.mouse.mouse_inverted_scroll:
+					mouse_scrolled = config_manager.config_data.mouse.mouse_sensitivity_scroll * -1
+				else:
+					mouse_scrolled = config_manager.config_data.mouse.mouse_sensitivity_scroll				
 				if event.button_index == BUTTON_WHEEL_UP:
-					mouse_scroll_value += config_manager.config_data.mouse.mouse_sensitivity_scroll
+					mouse_scroll_value += mouse_scrolled
 				elif event.button_index == BUTTON_WHEEL_DOWN:
-					mouse_scroll_value -= config_manager.config_data.mouse.mouse_sensitivity_scroll
+					mouse_scroll_value -= mouse_scrolled
 
 func process_ray_cast():
 	if player_ray_cast.is_colliding():

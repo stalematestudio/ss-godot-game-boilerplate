@@ -403,7 +403,7 @@ __meta__ = {
 
 [node name="Settings_VBC" type="VBoxContainer" parent="VBC/Settings_Tabs/Mouse/Settings_Scroll"]
 margin_right = 319.0
-margin_bottom = 214.0
+margin_bottom = 258.0
 size_flags_horizontal = 3
 theme = ExtResource( 1 )
 
@@ -421,6 +421,9 @@ margin_bottom = 34.0
 margin_right = 262.0
 margin_bottom = 16.0
 size_flags_horizontal = 3
+max_value = 5.0
+step = 0.01
+tick_count = 5
 
 [node name="Horizontal_Value" type="Label" parent="VBC/Settings_Tabs/Mouse/Settings_Scroll/Settings_VBC/Horizontal_HBC"]
 margin_left = 266.0
@@ -456,6 +459,9 @@ margin_bottom = 124.0
 margin_right = 262.0
 margin_bottom = 16.0
 size_flags_horizontal = 3
+max_value = 5.0
+step = 0.01
+tick_count = 5
 
 [node name="Vertical_Value" type="Label" parent="VBC/Settings_Tabs/Mouse/Settings_Scroll/Settings_VBC/Vertical_HBC"]
 margin_left = 266.0
@@ -491,6 +497,9 @@ margin_bottom = 214.0
 margin_right = 262.0
 margin_bottom = 16.0
 size_flags_horizontal = 3
+max_value = 5.0
+step = 0.01
+tick_count = 5
 
 [node name="Scroll_Value" type="Label" parent="VBC/Settings_Tabs/Mouse/Settings_Scroll/Settings_VBC/Scroll_HBC"]
 margin_left = 266.0
@@ -499,6 +508,12 @@ margin_right = 319.0
 margin_bottom = 15.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.2
+
+[node name="Scroll_CheckButton" type="CheckButton" parent="VBC/Settings_Tabs/Mouse/Settings_Scroll/Settings_VBC"]
+margin_top = 218.0
+margin_right = 319.0
+margin_bottom = 258.0
+text = "Scroll Invert"
 
 [node name="Apply" type="Button" parent="VBC"]
 margin_top = 422.0

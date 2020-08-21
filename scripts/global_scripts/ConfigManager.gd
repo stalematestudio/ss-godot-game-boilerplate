@@ -36,10 +36,11 @@ var config_data = {
 				},
 		"mouse":{
 				"mouse_inverted_x": false,
-				"mouse_sensitivity_x": 0.05,
+				"mouse_sensitivity_x": 0.5,
 				"mouse_inverted_y": false,
-				"mouse_sensitivity_y": 0.05,
-				"mouse_sensitivity_scroll": 0.08
+				"mouse_sensitivity_y": 0.5,
+				"mouse_inverted_scroll": false,
+				"mouse_sensitivity_scroll": 0.5
 				}
 		}
 
