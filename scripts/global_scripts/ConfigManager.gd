@@ -41,6 +41,9 @@ onready var config_data_default = {
 				"mouse_sensitivity_y": 0.5,
 				"mouse_inverted_scroll": false,
 				"mouse_sensitivity_scroll": 0.5
+				},
+		"joysticks":{
+
 				}
 		}
 

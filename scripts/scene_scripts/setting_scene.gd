@@ -10,6 +10,7 @@ onready var gui_setting_tab = $VBC/Tab_Buttons/Settings_Tab_Button
 onready var gui_video_tab = $VBC/Tab_Buttons/Video_Tab_Button
 onready var gui_audio_tab = $VBC/Tab_Buttons/Audio_Tab_Button
 onready var gui_mouse_tab = $VBC/Tab_Buttons/Mouse_Tab_Button
+onready var gui_joy_sticks_tab = $VBC/Tab_Buttons/Joysticks_Tab_Button
 
 onready var gui_apply = $VBC/Apply
 onready var gui_cancel = $VBC/Cancel
@@ -60,6 +61,10 @@ onready var gui_mouse_scroll_sensitivity_display = $VBC/Settings_Tabs/Mouse_Tab/
 
 onready var gui_mouse_reset = $VBC/Settings_Tabs/Mouse_Tab/Settings_Scroll/Settings_VBC/Reset_Button
 
+# Joy Sticks
+
+onready var gui_joy_sticks_reset = $VBC/Settings_Tabs/Joysticks_Tab/Settings_Scroll/Settings_VBC/Reset_Button
+
 func _ready():
 	.connect("tree_exiting", self, "_on_tree_exiting")
 	gui_setting_tab.grab_focus()
@@ -68,6 +73,7 @@ func _ready():
 	gui_video_tab.connect("pressed", self, "settings_menu_tab_switch", [1])
 	gui_audio_tab.connect("pressed", self, "settings_menu_tab_switch", [2])
 	gui_mouse_tab.connect("pressed", self, "settings_menu_tab_switch", [3])
+	gui_joy_sticks_tab.connect("pressed", self, "settings_menu_tab_switch", [4])
 	
 	# Apply cancel
 	gui_apply.connect("pressed", self, "settings_menu_apply_cancel", ["apply"])
@@ -114,6 +120,10 @@ func _ready():
 	
 	gui_mouse_reset.connect("pressed", self, "reset_to_default", ["mouse"])
 	
+	# Joy Sticks
+
+	gui_joy_sticks_reset.connect("pressed", self, "reset_to_default", ["joysticks"])
+
 	set_form_values()
 
 func _on_tree_exiting():
