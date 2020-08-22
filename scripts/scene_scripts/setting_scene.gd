@@ -279,7 +279,6 @@ func settings_menu_tab_switch(tab_index):
 
 # Reset to default
 func reset_to_default(section):
-	print(section)
 	config_manager.reset_to_default(section)
 	set_form_values()
 

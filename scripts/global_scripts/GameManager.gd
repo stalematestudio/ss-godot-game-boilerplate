@@ -39,6 +39,8 @@ func resume_game():
 
 func change_state(state):
 	game_state = game_states[state].duplicate(true)
-	if not game_state.in_game:
+	if game_state.in_game:
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	else:
 		resume_game()
 	main_scene.change_current_scene(game_state.scene)

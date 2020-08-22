@@ -19,6 +19,7 @@ onready var joypad_control = true
 export (String) var web_link_url
 
 func _ready():
+	Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
 	root.connect("gui_focus_changed", audio_manager, "ui_navigate_audio_effect")
 	.connect("tree_exiting", self, "_on_tree_exiting")
 	
@@ -31,6 +32,7 @@ func _ready():
 	web_link.connect("pressed", self, "pause_menu_button_pressed", ["website"])
 
 func _on_tree_exiting():
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	root.disconnect("gui_focus_changed", audio_manager, "ui_navigate_audio_effect")
 
 func _input(event):
@@ -40,11 +42,11 @@ func _input(event):
 	if ( event is InputEventJoypadButton ) or ( event is InputEventJoypadMotion ):
 		if not joypad_control:
 			joypad_control = true
-			Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	elif ( event is InputEventMouseButton ) or ( event is InputEventMouseMotion ) :
 		if joypad_control:
 			joypad_control = false
-			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+			Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
 	if event.is_action_pressed("ui_accept") or event.is_action_pressed("ui_select"):
 		audio_manager.ui_accept_audio_effect()
 	elif event.is_action_pressed("ui_cancel"):

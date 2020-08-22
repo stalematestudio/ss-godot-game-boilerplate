@@ -20,6 +20,7 @@ var settings_scene_instance
 var pause_scene_instance
 
 func _ready():
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	set_debug_display()
 
 func change_current_scene(scene):

@@ -11,6 +11,7 @@
 [ext_resource path="res://scenes/pause_scene/pause_scene.tscn" type="PackedScene" id=9]
 
 [node name="main" type="Node"]
+pause_mode = 1
 script = ExtResource( 1 )
 intro_scene = ExtResource( 3 )
 title_scene = ExtResource( 2 )
@@ -21,10 +22,12 @@ settings_scene = ExtResource( 5 )
 pause_scene = ExtResource( 9 )
 
 [node name="FX_Player" type="AudioStreamPlayer" parent="."]
+pause_mode = 2
 mix_target = 1
 bus = "FX"
 
 [node name="Music_Player" type="AudioStreamPlayer" parent="."]
+pause_mode = 2
 stream = ExtResource( 4 )
 mix_target = 1
 bus = "Music"
