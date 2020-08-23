@@ -58,14 +58,14 @@ func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _process(delta):
-	process_input(delta)
+	process_input()
 	process_ray_cast()
 
 func _physics_process(delta):
-	process_view_input(delta)
+	process_view_input()
 	process_movement(delta)
 
-func process_input(delta):
+func process_input():
 	# Pause game
 	if Input.is_action_just_released("player_pause"):
 		game_manager.pause_game()
@@ -101,12 +101,7 @@ func process_input(delta):
 		else:
 			player_light.show()
 
-	# Capturing / Freeing cursor
-	if Input.is_action_just_pressed("ui_cancel"):
-		if Input.get_mouse_mode() == Input.MOUSE_MODE_VISIBLE:
-			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-
-func process_view_input(delta):
+func process_view_input():
 	if Input.get_mouse_mode() != Input.MOUSE_MODE_CAPTURED:
 		return
 
@@ -128,12 +123,10 @@ func process_view_input(delta):
 	player_head.rotation_degrees = player_head_rotation
 
 func process_movement(delta):
-	# Walking
 	direction = Vector3()
 	var head_x_form = player_head.get_global_transform()
 	var input_movement_vector = Vector2()
 
-	# Movement from kayboard
 	if is_on_floor():
 		if Input.is_action_pressed("player_movement_forward"):
 			input_movement_vector.y += Input.get_action_strength("player_movement_forward")
@@ -189,7 +182,7 @@ func process_movement(delta):
 	velocity = move_and_slide_with_snap(
 	#velocity = move_and_slide(
 			velocity, 
-			player_move_snap, # Coment out for move and slide
+			player_move_snap, # Coment out for move and slide w/o snap
 			player_move_up_direction, 
 			player_move_stop_on_slope, 
 			player_move_max_slides, 

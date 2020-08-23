@@ -24,6 +24,8 @@ func _ready():
 	set_debug_display()
 
 func change_current_scene(scene):
+	if is_instance_valid(settings_scene_instance):
+		settings_scene_instance.queue_free()
 	if is_instance_valid(current_scene_instance):
 		current_scene_instance.queue_free()
 	match scene:
@@ -61,5 +63,7 @@ func set_pause_display(set_paused):
 			pause_scene_instance = pause_scene.instance()
 			add_child(pause_scene_instance)
 	else:
+		if is_instance_valid(settings_scene_instance):
+			settings_scene_instance.queue_free()
 		if is_instance_valid(pause_scene_instance):
 			pause_scene_instance.queue_free()

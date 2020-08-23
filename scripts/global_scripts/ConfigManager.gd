@@ -36,14 +36,21 @@ onready var config_data_default = {
 				},
 		"mouse":{
 				"mouse_inverted_x": false,
-				"mouse_sensitivity_x": 0.5,
+				"mouse_sensitivity_x": 0.3,
 				"mouse_inverted_y": false,
-				"mouse_sensitivity_y": 0.5,
+				"mouse_sensitivity_y": 0.3,
 				"mouse_inverted_scroll": false,
-				"mouse_sensitivity_scroll": 0.5
+				"mouse_sensitivity_scroll": 0.3
 				},
 		"joysticks":{
-
+				"joystick_sensitivity_move_fb": 1,
+				"joystick_inverted_move_fb": false,
+				"joystick_sensitivity_move_lr": 1,
+				"joystick_inverted_move_lr": false,
+				"joystick_sensitivity_look_ud": 1,
+				"joystick_inverted_look_ud": false,
+				"joystick_sensitivity_look_lr": 1,
+				"joystick_inverted_look_lr": false,
 				}
 		}
 
