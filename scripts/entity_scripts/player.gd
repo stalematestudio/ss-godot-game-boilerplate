@@ -31,7 +31,6 @@ var player_move_floor_max_angle = deg2rad(MAX_SLOPE_ANGLE)
 var player_move_infinite_inertia = false
 
 var JOYPAD_SENSITIVITY = 2
-const JOYPAD_DEADZONE = 0.15
 
 var mouse_scroll_value = 0
 var camera_3d_person = false
@@ -62,7 +61,7 @@ func _process(delta):
 	process_ray_cast()
 
 func _physics_process(delta):
-	process_view_input()
+	process_look()
 	process_movement(delta)
 
 func process_input():
@@ -95,26 +94,26 @@ func process_input():
 		grabbed_object.global_transform.origin = player_camera.global_transform.origin + ( -player_camera.global_transform.basis.z.normalized() * OBJECT_GRAB_DISTANCE )
 
 	# Flashlight
-	if Input.is_action_just_pressed("flashlight"):
+	if Input.is_action_just_pressed("player_flashlight"):
 		if player_light.is_visible_in_tree():
 			player_light.hide()
 		else:
 			player_light.show()
 
-func process_view_input():
+func process_look():
 	if Input.get_mouse_mode() != Input.MOUSE_MODE_CAPTURED:
 		return
 
 	var input_look_vector = Vector2()
 	# Movement from kayboard
 	if Input.is_action_pressed("player_look_up"):
-		input_look_vector.y -= Input.get_action_strength("player_look_up")
+		input_look_vector.y = input_look_vector.y - Input.get_action_strength("player_look_up") 
 	if Input.is_action_pressed("player_look_down"):
-		input_look_vector.y += Input.get_action_strength("player_look_down")
+		input_look_vector.y = input_look_vector.y + Input.get_action_strength("player_look_down")
 	if Input.is_action_pressed("player_look_left"):
-		input_look_vector.x += Input.get_action_strength("player_look_left")
+		input_look_vector.x = input_look_vector.x + Input.get_action_strength("player_look_left")
 	if Input.is_action_pressed("player_look_right"):
-		input_look_vector.x -= Input.get_action_strength("player_look_right")
+		input_look_vector.x = input_look_vector.x - Input.get_action_strength("player_look_right")
 
 	player_head.rotate_x(deg2rad( input_look_vector.y * JOYPAD_SENSITIVITY ))
 	rotate_y(deg2rad( input_look_vector.x * JOYPAD_SENSITIVITY ))
@@ -129,13 +128,13 @@ func process_movement(delta):
 
 	if is_on_floor():
 		if Input.is_action_pressed("player_movement_forward"):
-			input_movement_vector.y += Input.get_action_strength("player_movement_forward")
+			input_movement_vector.y = input_movement_vector.y + Input.get_action_strength("player_movement_forward")
 		if Input.is_action_pressed("player_movement_backward"):
-			input_movement_vector.y -= Input.get_action_strength("player_movement_backward")
+			input_movement_vector.y = input_movement_vector.y - Input.get_action_strength("player_movement_backward")
 		if Input.is_action_pressed("player_movement_left"):
-			input_movement_vector.x += Input.get_action_strength("player_movement_left")
+			input_movement_vector.x = input_movement_vector.x + Input.get_action_strength("player_movement_left")
 		if Input.is_action_pressed("player_movement_right"):
-			input_movement_vector.x -= Input.get_action_strength("player_movement_right")
+			input_movement_vector.x = input_movement_vector.x - Input.get_action_strength("player_movement_right")
 		# Jumping
 		if Input.is_action_just_pressed("player_movement_jump"):
 			velocity.y = JUMP_SPEED * Input.get_action_strength("player_movement_jump")

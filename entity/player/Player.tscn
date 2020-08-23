@@ -19,6 +19,7 @@ transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, 0, 0
 
 [node name="PlayerLight" type="SpotLight" parent="PlayerHead"]
 transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, 0, 0 )
+visible = false
 light_indirect_energy = 2.0
 light_bake_mode = 0
 shadow_enabled = true

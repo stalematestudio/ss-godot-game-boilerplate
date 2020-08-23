@@ -443,6 +443,7 @@ theme = ExtResource( 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 1 )
+follow_focus = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -586,6 +587,7 @@ theme = ExtResource( 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 1 )
+follow_focus = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
