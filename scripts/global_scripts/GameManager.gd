@@ -2,7 +2,7 @@ extends Node
 
 onready var OS_NAME = OS.get_name()
 onready var main_scene = get_node("/root/main")
-onready var game_state
+onready var game_state = false
 onready var game_states = {
 		"INTRO":{
 			"scene": "intro_scene",
@@ -23,6 +23,16 @@ onready var game_states = {
 		}
 
 onready var game_paused = false
+
+func _notification(what):
+	if game_state:
+		match what:
+			NOTIFICATION_WM_FOCUS_IN:
+				if game_state.in_game:
+					resume_game()
+			NOTIFICATION_WM_FOCUS_OUT:
+				if game_state.in_game:
+					pause_game()
 
 func _ready():
 	change_state("INTRO")
