@@ -31,6 +31,10 @@ func _ready():
 			input_display.newline()
 		input_display.newline()
 
+func _input(event):
+	input_display.add_text(event.as_text())
+	input_display.newline()
+
 func _process(delta):
 	fps_display.text = String(Engine.get_frames_per_second())
 

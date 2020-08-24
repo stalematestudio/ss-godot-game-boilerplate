@@ -1,0 +1,10 @@
+[gd_scene format=2]
+
+[node name="settings_key_bind_scene" type="VBoxContainer"]
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Action_Label" type="Label" parent="."]
+margin_right = 47.0
+margin_bottom = 14.0

@@ -4,7 +4,7 @@ extends Node
 onready var config_manager = get_node("/root/ConfigManager")
 
 # Scenes
-export (PackedScene) var intro_scene 
+export (PackedScene) var intro_scene
 export (PackedScene) var title_scene
 export (PackedScene) var credits_scene
 export (PackedScene) var game_scene

@@ -30,8 +30,6 @@ var player_move_max_slides = 4
 var player_move_floor_max_angle = deg2rad(MAX_SLOPE_ANGLE)
 var player_move_infinite_inertia = false
 
-var JOYPAD_SENSITIVITY = 2
-
 var mouse_scroll_value = 0
 var camera_3d_person = false
 
@@ -105,7 +103,6 @@ func process_look():
 		return
 
 	var input_look_vector = Vector2()
-	# Movement from kayboard
 	if Input.is_action_pressed("player_look_up"):
 		input_look_vector.y = input_look_vector.y - Input.get_action_strength("player_look_up") 
 	if Input.is_action_pressed("player_look_down"):
@@ -115,8 +112,15 @@ func process_look():
 	if Input.is_action_pressed("player_look_right"):
 		input_look_vector.x = input_look_vector.x - Input.get_action_strength("player_look_right")
 
-	player_head.rotate_x(deg2rad( input_look_vector.y * JOYPAD_SENSITIVITY ))
-	rotate_y(deg2rad( input_look_vector.x * JOYPAD_SENSITIVITY ))
+	if config_manager.config_data.joysticks.joystick_inverted_look_ud:
+		input_look_vector.y = input_look_vector.y * -1
+	
+	if config_manager.config_data.joysticks.joystick_inverted_look_lr:
+		input_look_vector.x = input_look_vector.x * -1
+
+
+	player_head.rotate_x(deg2rad( input_look_vector.y * config_manager.config_data.joysticks.joystick_sensitivity_look_ud ))
+	rotate_y(deg2rad( input_look_vector.x * config_manager.config_data.joysticks.joystick_sensitivity_look_lr ))
 	var player_head_rotation = player_head.rotation_degrees
 	player_head_rotation.x = clamp(player_head_rotation.x, -70, 70)
 	player_head.rotation_degrees = player_head_rotation
@@ -124,8 +128,8 @@ func process_look():
 func process_movement(delta):
 	direction = Vector3()
 	var head_x_form = player_head.get_global_transform()
-	var input_movement_vector = Vector2()
 
+	var input_movement_vector = Vector2()
 	if is_on_floor():
 		if Input.is_action_pressed("player_movement_forward"):
 			input_movement_vector.y = input_movement_vector.y + Input.get_action_strength("player_movement_forward")
@@ -135,6 +139,13 @@ func process_movement(delta):
 			input_movement_vector.x = input_movement_vector.x + Input.get_action_strength("player_movement_left")
 		if Input.is_action_pressed("player_movement_right"):
 			input_movement_vector.x = input_movement_vector.x - Input.get_action_strength("player_movement_right")
+
+		if config_manager.config_data.joysticks.joystick_inverted_move_fb:
+			input_movement_vector.y = input_movement_vector.y * -1
+		
+		if config_manager.config_data.joysticks.joystick_inverted_move_lr:
+			input_movement_vector.x = input_movement_vector.x * -1
+
 		# Jumping
 		if Input.is_action_just_pressed("player_movement_jump"):
 			velocity.y = JUMP_SPEED * Input.get_action_strength("player_movement_jump")
