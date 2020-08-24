@@ -5,6 +5,7 @@ onready var config_manager = get_node("/root/ConfigManager")
 onready var audio_manager = get_node("/root/AudioManager")
 
 export (PackedScene) var settings_key_bind_scene
+onready var settings_key_bind_values = config_manager.config_data.keybinding.duplicate(true)
 
 # Set gui elements
 onready var gui_tabs = $VBC/Settings_Tabs
@@ -157,15 +158,14 @@ func _ready():
 	gui_joy_stick_look_lr_sensitivity_slider.connect("value_changed", self, "look_lr_sensitivity_adjust")
 	
 	gui_joy_sticks_reset.connect("pressed", self, "reset_to_default", ["joysticks"])
-
-	# Key Binding 
+	
+	# Key Binding
 	for binding in config_manager.config_data.keybinding:
 		var bind = settings_key_bind_scene.instance()
 		bind.name = binding
 		bind.get_node("Action_Label").set_text(binding)
 		gui_key_binding_vbc.add_child(bind)
-
-
+	
 	set_form_values()
 
 func _on_tree_exiting():
@@ -215,16 +215,16 @@ func set_form_values():
 	# Joy Sticks
 	gui_joy_stick_move_fb_invert.set_pressed(config_manager.config_data.joysticks.joystick_inverted_move_fb)
 	gui_joy_stick_move_fb_sensitivity_slider.set_value(config_manager.config_data.joysticks.joystick_sensitivity_move_fb)
-
+	
 	gui_joy_stick_move_lr_invert.set_pressed(config_manager.config_data.joysticks.joystick_inverted_move_lr)
 	gui_joy_stick_move_lr_sensitivity_slider.set_value(config_manager.config_data.joysticks.joystick_sensitivity_move_lr)
-
+	
 	gui_joy_stick_look_ud_invert.set_pressed(config_manager.config_data.joysticks.joystick_inverted_look_ud)
 	gui_joy_stick_look_ud_sensitivity_slider.set_value(config_manager.config_data.joysticks.joystick_sensitivity_look_ud)
-
+	
 	gui_joy_stick_look_lr_invert.set_pressed(config_manager.config_data.joysticks.joystick_inverted_look_lr)
 	gui_joy_stick_look_lr_sensitivity_slider.set_value(config_manager.config_data.joysticks.joystick_sensitivity_look_lr)
-
+	
 	set_elements_disabled()
 
 func set_elements_disabled():

@@ -6,5 +6,25 @@ __meta__ = {
 }
 
 [node name="Action_Label" type="Label" parent="."]
-margin_right = 47.0
+margin_right = 24.0
 margin_bottom = 14.0
+
+[node name="Deadzone_HBC" type="HBoxContainer" parent="."]
+margin_top = 18.0
+margin_right = 24.0
+margin_bottom = 34.0
+
+[node name="Deadzone_Label" type="Label" parent="Deadzone_HBC"]
+margin_top = 1.0
+margin_bottom = 15.0
+
+[node name="Deadzone_Slider" type="HSlider" parent="Deadzone_HBC"]
+margin_left = 4.0
+margin_right = 20.0
+margin_bottom = 16.0
+
+[node name="Deadzone_Display" type="Label" parent="Deadzone_HBC"]
+margin_left = 24.0
+margin_top = 1.0
+margin_right = 24.0
+margin_bottom = 15.0
