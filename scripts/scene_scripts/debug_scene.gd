@@ -21,28 +21,34 @@ onready var input_display = $input_display
 
 onready var input_map_dictionary = Dictionary()
 
-func _ready():
-	for action in InputMap.get_actions():
-		input_map_dictionary[action] = []
-		input_display.add_text(action)
-		input_display.newline()
-		for inev in InputMap.get_action_list(action):
-			input_display.add_text(inev.as_text())
-			input_display.newline()
-		input_display.newline()
+var last_event
+
+#func _ready():
+#	for action in InputMap.get_actions():
+#		input_map_dictionary[action] = []
+#		input_display.add_text(action)
+#		input_display.newline()
+#		for inev in InputMap.get_action_list(action):
+#			input_display.add_text(inev.as_text())
+#			input_display.newline()
+#		input_display.newline()
 
 func _input(event):
-	input_display.add_text(event.as_text())
-	input_display.newline()
+	if event.is_pressed():
+		if not last_event == event.as_text():
+			last_event = event.as_text()
+			if not event is InputEventMouseMotion:
+				input_display.add_text(event.as_text())
+				input_display.newline()
 
 func _process(delta):
 	fps_display.text = String(Engine.get_frames_per_second())
-
+	
 	m_forward.text = String(Input.get_action_strength("player_movement_forward"))
 	m_backward.text = String(Input.get_action_strength("player_movement_backward"))
 	m_left.text = String(Input.get_action_strength("player_movement_left"))
 	m_right.text = String(Input.get_action_strength("player_movement_right"))
-
+	
 	l_up.text = String(Input.get_action_strength("player_look_up"))
 	l_down.text = String(Input.get_action_strength("player_look_down"))
 	l_left.text = String(Input.get_action_strength("player_look_left"))
