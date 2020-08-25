@@ -112,6 +112,11 @@ onready var config_data = config_data_default.duplicate(true)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+#	for action in InputMap.get_actions():
+#		config_data_default.keybinding[action].deadzone = action.deadzone
+#		for inev in InputMap.get_action_list(action):
+#			config_data_default.keybinding[action].events.append(inev)
+	
 	# Update From File
 	load_config()
 	# Apply Config
