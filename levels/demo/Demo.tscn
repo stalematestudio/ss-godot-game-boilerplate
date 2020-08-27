@@ -124,28 +124,28 @@ mesh = ExtResource( 9 )
 material/0 = null
 
 [node name="OmniLight_1" type="OmniLight" parent="Structure"]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 3, 3.3, 3 )
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 3, 2.9, 3 )
 light_energy = 0.2
 light_indirect_energy = 0.2
 light_bake_mode = 2
 shadow_enabled = true
 
 [node name="OmniLight_2" type="OmniLight" parent="Structure"]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, -3, 3.3, 3 )
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, -3, 2.9, 3 )
 light_energy = 0.2
 light_indirect_energy = 0.2
 light_bake_mode = 2
 shadow_enabled = true
 
 [node name="OmniLight_3" type="OmniLight" parent="Structure"]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, -3, 3.3, -3 )
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, -3, 2.9, -3 )
 light_energy = 0.2
 light_indirect_energy = 0.2
 light_bake_mode = 2
 shadow_enabled = true
 
 [node name="OmniLight_4" type="OmniLight" parent="Structure"]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 3, 3.3, -3 )
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 3, 2.9, -3 )
 light_energy = 0.2
 light_indirect_energy = 0.2
 light_bake_mode = 2

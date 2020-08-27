@@ -162,9 +162,9 @@ func _ready():
 	# Key Binding
 	for binding in config_manager.config_data.keybinding:
 		var bind = settings_key_bind_scene.instance()
-		bind.name = binding
-		bind.get_node("Action_Label").set_text(binding)
+		bind.action = binding
 		gui_key_binding_vbc.add_child(bind)
+		bind.element_setup()
 	
 	set_form_values()
 
