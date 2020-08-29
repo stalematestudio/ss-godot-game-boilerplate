@@ -111,6 +111,20 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
 mesh = ExtResource( 6 )
 material/0 = null
 
+[node name="WallStaticBody_8" type="StaticBody" parent="Structure"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -2.25 )
+input_ray_pickable = false
+physics_material_override = ExtResource( 5 )
+
+[node name="WallCollisionShape" type="CollisionShape" parent="Structure/WallStaticBody_8"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
+shape = ExtResource( 7 )
+
+[node name="WallMeshInstance" type="MeshInstance" parent="Structure/WallStaticBody_8"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
+mesh = ExtResource( 6 )
+material/0 = null
+
 [node name="RoofStaticBody" type="StaticBody" parent="Structure"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.4, 0 )
 
