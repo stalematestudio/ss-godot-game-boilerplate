@@ -27,9 +27,9 @@ onready var game_paused = false
 func _notification(what):
 	if game_state:
 		match what:
-			NOTIFICATION_WM_FOCUS_IN:
-				if game_state.in_game:
-					resume_game()
+			#NOTIFICATION_WM_FOCUS_IN:
+			#	if game_state.in_game:
+			#		resume_game()
 			NOTIFICATION_WM_FOCUS_OUT:
 				if game_state.in_game:
 					pause_game()
