@@ -1,9 +1,6 @@
 extends Control
 
-# Get Globals
 onready var root = get_node("/root")
-onready var audio_manager = get_node("/root/AudioManager")
-onready var game_manager = get_node("/root/GameManager")
 
 # Set element references
 onready var game_title = $Pause_Menu/VBC/Game_Title
@@ -20,7 +17,7 @@ export (String) var web_link_url
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
-	root.connect("gui_focus_changed", audio_manager, "ui_navigate_audio_effect")
+	root.connect("gui_focus_changed", AudioManager, "ui_navigate_audio_effect")
 	.connect("tree_exiting", self, "_on_tree_exiting")
 	
 	game_title.text = ProjectSettings.get_setting("application/config/name")
@@ -33,12 +30,12 @@ func _ready():
 
 func _on_tree_exiting():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	root.disconnect("gui_focus_changed", audio_manager, "ui_navigate_audio_effect")
+	root.disconnect("gui_focus_changed", AudioManager, "ui_navigate_audio_effect")
 
 func _input(event):
 	# Pause game
 	if Input.is_action_just_released("ui_cancel"):
-		game_manager.pause_game()
+		GameManager.pause_game()
 	if ( event is InputEventJoypadButton ) or ( event is InputEventJoypadMotion ):
 		if not joypad_control:
 			joypad_control = true
@@ -48,19 +45,19 @@ func _input(event):
 			joypad_control = false
 			Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
 	if event.is_action_pressed("ui_accept") or event.is_action_pressed("ui_select"):
-		audio_manager.ui_accept_audio_effect()
+		AudioManager.ui_accept_audio_effect()
 	elif event.is_action_pressed("ui_cancel"):
-		audio_manager.ui_cancel_audio_effect()
+		AudioManager.ui_cancel_audio_effect()
 
 # Called every time a button in the start menu is pressed
 func pause_menu_button_pressed(button_name):
 	match button_name:
 		"resume":
-			game_manager.resume_game()
+			GameManager.resume_game()
 		"settings":
 			get_parent().set_settings_display(settings_button)
 		"quit_to_title":
-			game_manager.change_state("TITLE")
+			GameManager.change_state("TITLE")
 		"quit_game":
 			get_tree().quit()
 		"website":

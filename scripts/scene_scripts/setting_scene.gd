@@ -1,11 +1,7 @@
 extends Node
 
-# Get Globals
-onready var config_manager = get_node("/root/ConfigManager")
-onready var audio_manager = get_node("/root/AudioManager")
-
 export (PackedScene) var settings_key_bind_scene
-onready var settings_key_bind_values = config_manager.config_data.keybinding.duplicate(true)
+onready var settings_key_bind_values = ConfigManager.config_data.keybinding.duplicate(true)
 
 # Set gui elements
 onready var gui_tabs = $VBC/Settings_Tabs
@@ -113,7 +109,7 @@ func _ready():
 	gui_borderless.connect("pressed", self, "borderless_adjust")
 	gui_resolution_auto.connect("pressed", self, "resolution_auto_adjust")
 	
-	for resolution in config_manager.resolutions:
+	for resolution in ConfigManager.resolutions:
 		if resolution.value[0] <= OS.get_screen_size()[0]:
 			gui_resolution_option.add_item(resolution.name)
 	gui_resolution_option.connect("item_selected", self, "resolution_option_adjust")
@@ -160,7 +156,7 @@ func _ready():
 	gui_joy_sticks_reset.connect("pressed", self, "reset_to_default", ["joysticks"])
 	
 	# Key Binding
-	for binding in config_manager.config_data.keybinding:
+	for binding in ConfigManager.config_data.keybinding:
 		var bind = settings_key_bind_scene.instance()
 		bind.action = binding
 		gui_key_binding_vbc.add_child(bind)
@@ -174,56 +170,56 @@ func _on_tree_exiting():
 
 func set_form_values():
 	# Set Settings Values
-	config_manager.load_config()
+	ConfigManager.load_config()
 	
 	# Game
-	gui_debug.set_pressed(config_manager.config_data.game.debug)
+	gui_debug.set_pressed(ConfigManager.config_data.game.debug)
 	
 	# Video
-	gui_fullscreen.set_pressed(config_manager.config_data.video.fullscreen)
-	gui_vsync.set_pressed(config_manager.config_data.video.vsync)
-	gui_borderless.set_pressed(config_manager.config_data.video.borderless)
-	gui_resolution_auto.set_pressed(config_manager.config_data.video.resolution_auto)
-	if ( gui_resolution_option.get_item_count() - 1 ) < config_manager.config_data.video.resolution_option:
+	gui_fullscreen.set_pressed(ConfigManager.config_data.video.fullscreen)
+	gui_vsync.set_pressed(ConfigManager.config_data.video.vsync)
+	gui_borderless.set_pressed(ConfigManager.config_data.video.borderless)
+	gui_resolution_auto.set_pressed(ConfigManager.config_data.video.resolution_auto)
+	if ( gui_resolution_option.get_item_count() - 1 ) < ConfigManager.config_data.video.resolution_option:
 		gui_resolution_option.select( gui_resolution_option.get_item_count() - 1 )
 	else:
-		gui_resolution_option.select(config_manager.config_data.video.resolution_option)
+		gui_resolution_option.select(ConfigManager.config_data.video.resolution_option)
 	
 	# Audio
-	gui_master.set_pressed(config_manager.config_data.audio.master_enabled)
-	gui_master_slider.set_value(config_manager.config_data.audio.master_volume)
-	master_volume_adjust(config_manager.config_data.audio.master_volume)
+	gui_master.set_pressed(ConfigManager.config_data.audio.master_enabled)
+	gui_master_slider.set_value(ConfigManager.config_data.audio.master_volume)
+	master_volume_adjust(ConfigManager.config_data.audio.master_volume)
 	
-	gui_music.set_pressed(config_manager.config_data.audio.music_enabled)
-	gui_music_slider.set_value(config_manager.config_data.audio.music_volume)
-	music_volume_adjust(config_manager.config_data.audio.music_volume)
+	gui_music.set_pressed(ConfigManager.config_data.audio.music_enabled)
+	gui_music_slider.set_value(ConfigManager.config_data.audio.music_volume)
+	music_volume_adjust(ConfigManager.config_data.audio.music_volume)
 	
-	gui_fx.set_pressed(config_manager.config_data.audio.fx_enabled)
-	gui_fx_slider.set_value(config_manager.config_data.audio.fx_volume)
-	fx_volume_adjust(config_manager.config_data.audio.fx_volume)
+	gui_fx.set_pressed(ConfigManager.config_data.audio.fx_enabled)
+	gui_fx_slider.set_value(ConfigManager.config_data.audio.fx_volume)
+	fx_volume_adjust(ConfigManager.config_data.audio.fx_volume)
 	
 	# Mouse
-	gui_mouse_horizontal_invert.set_pressed(config_manager.config_data.mouse.mouse_inverted_x)
-	gui_mouse_horizontal_sensitivity_slider.set_value(config_manager.config_data.mouse.mouse_sensitivity_x)
+	gui_mouse_horizontal_invert.set_pressed(ConfigManager.config_data.mouse.mouse_inverted_x)
+	gui_mouse_horizontal_sensitivity_slider.set_value(ConfigManager.config_data.mouse.mouse_sensitivity_x)
 	
-	gui_mouse_vertical_invert.set_pressed(config_manager.config_data.mouse.mouse_inverted_y)
-	gui_mouse_vertical_sensitivity_slider.set_value(config_manager.config_data.mouse.mouse_sensitivity_y)
+	gui_mouse_vertical_invert.set_pressed(ConfigManager.config_data.mouse.mouse_inverted_y)
+	gui_mouse_vertical_sensitivity_slider.set_value(ConfigManager.config_data.mouse.mouse_sensitivity_y)
 	
-	gui_mouse_scroll_invert.set_pressed(config_manager.config_data.mouse.mouse_inverted_scroll)
-	gui_mouse_scroll_sensitivity_slider.set_value(config_manager.config_data.mouse.mouse_sensitivity_scroll)
+	gui_mouse_scroll_invert.set_pressed(ConfigManager.config_data.mouse.mouse_inverted_scroll)
+	gui_mouse_scroll_sensitivity_slider.set_value(ConfigManager.config_data.mouse.mouse_sensitivity_scroll)
 	
 	# Joy Sticks
-	gui_joy_stick_move_fb_invert.set_pressed(config_manager.config_data.joysticks.joystick_inverted_move_fb)
-	gui_joy_stick_move_fb_sensitivity_slider.set_value(config_manager.config_data.joysticks.joystick_sensitivity_move_fb)
+	gui_joy_stick_move_fb_invert.set_pressed(ConfigManager.config_data.joysticks.joystick_inverted_move_fb)
+	gui_joy_stick_move_fb_sensitivity_slider.set_value(ConfigManager.config_data.joysticks.joystick_sensitivity_move_fb)
 	
-	gui_joy_stick_move_lr_invert.set_pressed(config_manager.config_data.joysticks.joystick_inverted_move_lr)
-	gui_joy_stick_move_lr_sensitivity_slider.set_value(config_manager.config_data.joysticks.joystick_sensitivity_move_lr)
+	gui_joy_stick_move_lr_invert.set_pressed(ConfigManager.config_data.joysticks.joystick_inverted_move_lr)
+	gui_joy_stick_move_lr_sensitivity_slider.set_value(ConfigManager.config_data.joysticks.joystick_sensitivity_move_lr)
 	
-	gui_joy_stick_look_ud_invert.set_pressed(config_manager.config_data.joysticks.joystick_inverted_look_ud)
-	gui_joy_stick_look_ud_sensitivity_slider.set_value(config_manager.config_data.joysticks.joystick_sensitivity_look_ud)
+	gui_joy_stick_look_ud_invert.set_pressed(ConfigManager.config_data.joysticks.joystick_inverted_look_ud)
+	gui_joy_stick_look_ud_sensitivity_slider.set_value(ConfigManager.config_data.joysticks.joystick_sensitivity_look_ud)
 	
-	gui_joy_stick_look_lr_invert.set_pressed(config_manager.config_data.joysticks.joystick_inverted_look_lr)
-	gui_joy_stick_look_lr_sensitivity_slider.set_value(config_manager.config_data.joysticks.joystick_sensitivity_look_lr)
+	gui_joy_stick_look_lr_invert.set_pressed(ConfigManager.config_data.joysticks.joystick_inverted_look_lr)
+	gui_joy_stick_look_lr_sensitivity_slider.set_value(ConfigManager.config_data.joysticks.joystick_sensitivity_look_lr)
 	
 	set_elements_disabled()
 
@@ -265,107 +261,107 @@ func set_elements_disabled():
 
 # Game
 func debug_adjust():
-	config_manager.config_data.game.debug = gui_debug.is_pressed()
+	ConfigManager.config_data.game.debug = gui_debug.is_pressed()
 
 # Video
 func fullscreen_adjust():
-	config_manager.config_data.video.fullscreen = gui_fullscreen.is_pressed()
+	ConfigManager.config_data.video.fullscreen = gui_fullscreen.is_pressed()
 	set_elements_disabled()
 
 func vsync_adjust():
-	config_manager.config_data.video.vsync = gui_vsync.is_pressed()
+	ConfigManager.config_data.video.vsync = gui_vsync.is_pressed()
 
 func borderless_adjust():
-	config_manager.config_data.video.borderless = gui_borderless.is_pressed()
+	ConfigManager.config_data.video.borderless = gui_borderless.is_pressed()
 
 func resolution_auto_adjust():
-	config_manager.config_data.video.resolution_auto = gui_resolution_auto.is_pressed()
+	ConfigManager.config_data.video.resolution_auto = gui_resolution_auto.is_pressed()
 	set_elements_disabled()
 
 func resolution_option_adjust(new_val):
-	config_manager.config_data.video.resolution_option = new_val
+	ConfigManager.config_data.video.resolution_option = new_val
 
 # Audio
 func master_adjust():
-	config_manager.config_data.audio.master_enabled = gui_master.is_pressed()
-	AudioServer.set_bus_mute(audio_manager.audio_bus_master, !config_manager.config_data.audio.master_enabled)
+	ConfigManager.config_data.audio.master_enabled = gui_master.is_pressed()
+	AudioServer.set_bus_mute(AudioManager.audio_bus_master, !ConfigManager.config_data.audio.master_enabled)
 	set_elements_disabled()
 
 func master_volume_adjust(new_val):
-	config_manager.config_data.audio.master_volume = new_val
-	AudioServer.set_bus_volume_db(audio_manager.audio_bus_master, config_manager.config_data.audio.master_volume)
-	gui_master_display.text = String(config_manager.config_data.audio.master_volume)+"dB"
+	ConfigManager.config_data.audio.master_volume = new_val
+	AudioServer.set_bus_volume_db(AudioManager.audio_bus_master, ConfigManager.config_data.audio.master_volume)
+	gui_master_display.text = String(ConfigManager.config_data.audio.master_volume)+"dB"
 
 func music_adjust():
-	config_manager.config_data.audio.music_enabled = gui_music.is_pressed()
-	AudioServer.set_bus_mute(audio_manager.audio_bus_music, !config_manager.config_data.audio.music_enabled)
+	ConfigManager.config_data.audio.music_enabled = gui_music.is_pressed()
+	AudioServer.set_bus_mute(AudioManager.audio_bus_music, !ConfigManager.config_data.audio.music_enabled)
 	set_elements_disabled()
 
 func music_volume_adjust(new_val):
-	config_manager.config_data.audio.music_volume = new_val
-	AudioServer.set_bus_volume_db(audio_manager.audio_bus_music, config_manager.config_data.audio.music_volume)
-	gui_music_display.text = String(config_manager.config_data.audio.music_volume)+"dB"
+	ConfigManager.config_data.audio.music_volume = new_val
+	AudioServer.set_bus_volume_db(AudioManager.audio_bus_music, ConfigManager.config_data.audio.music_volume)
+	gui_music_display.text = String(ConfigManager.config_data.audio.music_volume)+"dB"
 
 func fx_adjust():
-	config_manager.config_data.audio.fx_enabled = gui_fx.is_pressed()
-	AudioServer.set_bus_mute(audio_manager.audio_bus_fx, !config_manager.config_data.audio.fx_enabled)
+	ConfigManager.config_data.audio.fx_enabled = gui_fx.is_pressed()
+	AudioServer.set_bus_mute(AudioManager.audio_bus_fx, !ConfigManager.config_data.audio.fx_enabled)
 	set_elements_disabled()
 
 func fx_volume_adjust(new_val):
-	config_manager.config_data.audio.fx_volume = new_val
-	AudioServer.set_bus_volume_db(audio_manager.audio_bus_fx, config_manager.config_data.audio.fx_volume)
-	gui_fx_display.text = String(config_manager.config_data.audio.fx_volume)+"dB"
+	ConfigManager.config_data.audio.fx_volume = new_val
+	AudioServer.set_bus_volume_db(AudioManager.audio_bus_fx, ConfigManager.config_data.audio.fx_volume)
+	gui_fx_display.text = String(ConfigManager.config_data.audio.fx_volume)+"dB"
 
 # Mouse
 func mouse_horizontal_invert_adjust():
-	config_manager.config_data.mouse.mouse_inverted_x = gui_mouse_horizontal_invert.is_pressed()
+	ConfigManager.config_data.mouse.mouse_inverted_x = gui_mouse_horizontal_invert.is_pressed()
 
 func mouse_horizontal_sensitivity_adjust(new_val):
-	config_manager.config_data.mouse.mouse_sensitivity_x = new_val
-	gui_mouse_horizontal_sensitivity_display.text = String(config_manager.config_data.mouse.mouse_sensitivity_x)
+	ConfigManager.config_data.mouse.mouse_sensitivity_x = new_val
+	gui_mouse_horizontal_sensitivity_display.text = String(ConfigManager.config_data.mouse.mouse_sensitivity_x)
 
 func mouse_vertical_invert_adjust():
-	config_manager.config_data.mouse.mouse_inverted_y = gui_mouse_vertical_invert.is_pressed()
+	ConfigManager.config_data.mouse.mouse_inverted_y = gui_mouse_vertical_invert.is_pressed()
 
 func mouse_vertical_sensitivity_adjust(new_val):
-	config_manager.config_data.mouse.mouse_sensitivity_y = new_val
-	gui_mouse_vertical_sensitivity_display.text = String(config_manager.config_data.mouse.mouse_sensitivity_y)
+	ConfigManager.config_data.mouse.mouse_sensitivity_y = new_val
+	gui_mouse_vertical_sensitivity_display.text = String(ConfigManager.config_data.mouse.mouse_sensitivity_y)
 
 func mouse_scroll_invert_adjust():
-	config_manager.config_data.mouse.mouse_inverted_scroll = gui_mouse_scroll_invert.is_pressed()
+	ConfigManager.config_data.mouse.mouse_inverted_scroll = gui_mouse_scroll_invert.is_pressed()
 
 func mouse_scroll_sensitivity_adjust(new_val):
-	config_manager.config_data.mouse.mouse_sensitivity_scroll = new_val
-	gui_mouse_scroll_sensitivity_display.text = String(config_manager.config_data.mouse.mouse_sensitivity_scroll)
+	ConfigManager.config_data.mouse.mouse_sensitivity_scroll = new_val
+	gui_mouse_scroll_sensitivity_display.text = String(ConfigManager.config_data.mouse.mouse_sensitivity_scroll)
 
 # Joy Sticks
 func move_fb_invert_adjust():
-	config_manager.config_data.joysticks.joystick_inverted_move_fb = gui_joy_stick_move_fb_invert.is_pressed()
+	ConfigManager.config_data.joysticks.joystick_inverted_move_fb = gui_joy_stick_move_fb_invert.is_pressed()
 
 func move_fb_sensitivity_adjust(new_val):
-	config_manager.config_data.joysticks.joystick_sensitivity_move_fb = new_val
-	gui_joy_stick_move_fb_sensitivity_display.text = String(config_manager.config_data.joysticks.joystick_sensitivity_move_fb)
+	ConfigManager.config_data.joysticks.joystick_sensitivity_move_fb = new_val
+	gui_joy_stick_move_fb_sensitivity_display.text = String(ConfigManager.config_data.joysticks.joystick_sensitivity_move_fb)
 
 func move_lr_invert_adjust():
-	config_manager.config_data.joysticks.joystick_inverted_move_lr = gui_joy_stick_move_lr_invert.is_pressed()
+	ConfigManager.config_data.joysticks.joystick_inverted_move_lr = gui_joy_stick_move_lr_invert.is_pressed()
 
 func move_lr_sensitivity_adjust(new_val):
-	config_manager.config_data.joysticks.joystick_sensitivity_move_lr = new_val
-	gui_joy_stick_move_lr_sensitivity_display.text = String(config_manager.config_data.joysticks.joystick_sensitivity_move_lr)
+	ConfigManager.config_data.joysticks.joystick_sensitivity_move_lr = new_val
+	gui_joy_stick_move_lr_sensitivity_display.text = String(ConfigManager.config_data.joysticks.joystick_sensitivity_move_lr)
 
 func look_ud_invert_adjust():
-	config_manager.config_data.joysticks.joystick_inverted_look_ud = gui_joy_stick_look_ud_invert.is_pressed()
+	ConfigManager.config_data.joysticks.joystick_inverted_look_ud = gui_joy_stick_look_ud_invert.is_pressed()
 
 func look_ud_sensitivity_adjust(new_val):
-	config_manager.config_data.joysticks.joystick_sensitivity_look_ud = new_val
-	gui_joy_stick_look_ud_sensitivity_display.text = String(config_manager.config_data.joysticks.joystick_sensitivity_look_ud)
+	ConfigManager.config_data.joysticks.joystick_sensitivity_look_ud = new_val
+	gui_joy_stick_look_ud_sensitivity_display.text = String(ConfigManager.config_data.joysticks.joystick_sensitivity_look_ud)
 
 func look_lr_invert_adjust():
-	config_manager.config_data.joysticks.joystick_inverted_look_lr = gui_joy_stick_look_lr_invert.is_pressed()
+	ConfigManager.config_data.joysticks.joystick_inverted_look_lr = gui_joy_stick_look_lr_invert.is_pressed()
 
 func look_lr_sensitivity_adjust(new_val):
-	config_manager.config_data.joysticks.joystick_sensitivity_look_lr = new_val
-	gui_joy_stick_look_lr_sensitivity_display.text = String(config_manager.config_data.joysticks.joystick_sensitivity_look_lr)
+	ConfigManager.config_data.joysticks.joystick_sensitivity_look_lr = new_val
+	gui_joy_stick_look_lr_sensitivity_display.text = String(ConfigManager.config_data.joysticks.joystick_sensitivity_look_lr)
 
 # Tabs Switching
 func settings_menu_tab_switch(tab_index):
@@ -373,15 +369,15 @@ func settings_menu_tab_switch(tab_index):
 
 # Reset to default
 func reset_to_default(section):
-	config_manager.reset_to_default(section)
+	ConfigManager.reset_to_default(section)
 	set_form_values()
 
 # Apply and Cancel
 func settings_menu_apply_cancel(button_name):
 	match button_name:
 		"apply":
-			config_manager.save_config()
-			config_manager.apply_config()
+			ConfigManager.save_config()
+			ConfigManager.apply_config()
 		"cancel":
-			config_manager.load_config()
+			ConfigManager.load_config()
 	self.queue_free()

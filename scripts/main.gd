@@ -1,8 +1,5 @@
 extends Node
 
-# Get Globals
-onready var config_manager = get_node("/root/ConfigManager")
-
 # Scenes
 export (PackedScene) var intro_scene
 export (PackedScene) var title_scene
@@ -40,8 +37,8 @@ func change_current_scene(scene):
 	add_child(current_scene_instance)
 
 func set_debug_display():
-	if is_instance_valid(config_manager):
-		if config_manager.config_data.game.debug:
+	if is_instance_valid(ConfigManager):
+		if ConfigManager.config_data.game.debug:
 			if not is_instance_valid(debug_scene_instance):
 				debug_scene_instance = debug_scene.instance()
 				add_child(debug_scene_instance)
