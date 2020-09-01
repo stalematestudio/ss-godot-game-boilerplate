@@ -1,0 +1,69 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scripts/scene_scripts/setting_keybind_action_scene.gd" type="Script" id=1]
+[ext_resource path="res://scenes/settings_scene/setting_keybind_event_scene.tscn" type="PackedScene" id=2]
+[ext_resource path="res://themes/base.tres" type="Theme" id=3]
+
+[node name="settings_keybind_action_scene" type="VBoxContainer"]
+anchor_right = 1.0
+theme = ExtResource( 3 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+setting_keybind_event_scene = ExtResource( 2 )
+
+[node name="HSeparator" type="HSeparator" parent="."]
+margin_right = 854.0
+margin_bottom = 4.0
+
+[node name="Action_Label" type="Label" parent="."]
+margin_top = 8.0
+margin_right = 854.0
+margin_bottom = 22.0
+theme = ExtResource( 3 )
+
+[node name="Deadzone_HBC" type="HBoxContainer" parent="."]
+margin_top = 26.0
+margin_right = 854.0
+margin_bottom = 42.0
+theme = ExtResource( 3 )
+
+[node name="Deadzone_Label" type="Label" parent="Deadzone_HBC"]
+margin_top = 1.0
+margin_right = 72.0
+margin_bottom = 15.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.0
+theme = ExtResource( 3 )
+text = "Deadzone: "
+
+[node name="Deadzone_Slider" type="HSlider" parent="Deadzone_HBC"]
+margin_left = 76.0
+margin_right = 779.0
+margin_bottom = 16.0
+size_flags_horizontal = 3
+theme = ExtResource( 3 )
+max_value = 1.0
+step = 0.01
+tick_count = 10
+
+[node name="Deadzone_Display" type="Label" parent="Deadzone_HBC"]
+margin_left = 783.0
+margin_top = 1.0
+margin_right = 854.0
+margin_bottom = 15.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.1
+
+[node name="Events_VBC" type="VBoxContainer" parent="."]
+margin_top = 46.0
+margin_right = 854.0
+margin_bottom = 46.0
+
+[node name="Event_Add" type="Button" parent="."]
+margin_top = 50.0
+margin_right = 854.0
+margin_bottom = 70.0
+theme = ExtResource( 3 )
+text = "Add Key Binding"

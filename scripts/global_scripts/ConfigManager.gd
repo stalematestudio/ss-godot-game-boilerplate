@@ -58,9 +58,11 @@ onready var config_data
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	# Check for controllers
+	Input.connect("joy_connection_changed", self, "_on_joy_connection_changed")
 	# Set Config Data to Default
 	for action in InputMap.get_actions():
-		if action.begins_with('player'):
+		if not action.begins_with('ui_'):
 			config_data_default['keybinding'][action] = {
 					"deadzone": 0.5,
 					"events": []
@@ -98,6 +100,9 @@ func apply_config():
 	# FX
 	AudioServer.set_bus_mute(AudioManager.audio_bus_fx, !config_data.audio.fx_enabled)
 	AudioServer.set_bus_volume_db(AudioManager.audio_bus_fx, config_data.audio.fx_volume)
+	# Key Binding
+	for binding in config_data.keybinding:
+		InputMap.action_set_deadzone(binding, config_data.keybinding[binding].deadzone)
 
 func save_config():
 	var config_file = ConfigFile.new()
@@ -125,3 +130,6 @@ func reset_to_default(section):
 	config_data[section] = config_data_default[section].duplicate(true)
 	save_config()
 	apply_config()
+
+func _on_joy_connection_changed(device, connected):
+	print(device, connected)

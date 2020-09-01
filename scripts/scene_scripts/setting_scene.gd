@@ -1,7 +1,6 @@
 extends Node
 
-export (PackedScene) var settings_key_bind_scene
-onready var settings_key_bind_values = ConfigManager.config_data.keybinding.duplicate(true)
+export (PackedScene) var setting_keybind_action_scene
 
 # Set gui elements
 onready var gui_tabs = $VBC/Settings_Tabs
@@ -219,12 +218,12 @@ func set_form_values():
 	
 	# Key Binding
 	Helpers.RemoveChildren(gui_key_binding_vbc)
-	for binding in ConfigManager.config_data.keybinding:
-		var bind = settings_key_bind_scene.instance()
-		bind.action = binding
-		bind.action_data = ConfigManager.config_data.keybinding[binding].duplicate(true)
-		gui_key_binding_vbc.add_child(bind)
-		bind.element_setup()
+	for action in ConfigManager.config_data.keybinding:
+		var action_element = setting_keybind_action_scene.instance()
+		gui_key_binding_vbc.add_child(action_element)
+		action_element.action = action
+		action_element.action_data = ConfigManager.config_data.keybinding[action].duplicate(true)
+		action_element.element_setup()
 
 	set_elements_disabled()
 
