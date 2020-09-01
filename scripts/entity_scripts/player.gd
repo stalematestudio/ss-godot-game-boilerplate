@@ -1,9 +1,5 @@
 extends KinematicBody
 
-# Get Globals
-onready var config_manager = get_node("/root/ConfigManager")
-onready var game_manager = get_node("/root/GameManager")
-
 # Environmental Variables will be moved to level scene or game state
 const GRAVITY = 9.8
 const GRAVITY_VECTOR = Vector3(0,1,0)
@@ -65,7 +61,7 @@ func _physics_process(delta):
 func process_input():
 	# Pause game
 	if Input.is_action_just_released("player_pause"):
-		game_manager.pause_game()
+		GameManager.pause_game()
 	
 	# Grabbin and throwing objects
 	if Input.is_action_just_pressed("fire"):
@@ -112,15 +108,15 @@ func process_look():
 	if Input.is_action_pressed("player_look_right"):
 		input_look_vector.x = input_look_vector.x - Input.get_action_strength("player_look_right")
 
-	if config_manager.config_data.joysticks.joystick_inverted_look_ud:
+	if ConfigManager.config_data.joysticks.joystick_inverted_look_ud:
 		input_look_vector.y = input_look_vector.y * -1
 	
-	if config_manager.config_data.joysticks.joystick_inverted_look_lr:
+	if ConfigManager.config_data.joysticks.joystick_inverted_look_lr:
 		input_look_vector.x = input_look_vector.x * -1
 
 
-	player_head.rotate_x(deg2rad( input_look_vector.y * config_manager.config_data.joysticks.joystick_sensitivity_look_ud ))
-	rotate_y(deg2rad( input_look_vector.x * config_manager.config_data.joysticks.joystick_sensitivity_look_lr ))
+	player_head.rotate_x(deg2rad( input_look_vector.y * ConfigManager.config_data.joysticks.joystick_sensitivity_look_ud ))
+	rotate_y(deg2rad( input_look_vector.x * ConfigManager.config_data.joysticks.joystick_sensitivity_look_lr ))
 	var player_head_rotation = player_head.rotation_degrees
 	player_head_rotation.x = clamp(player_head_rotation.x, -70, 70)
 	player_head.rotation_degrees = player_head_rotation
@@ -140,10 +136,10 @@ func process_movement(delta):
 		if Input.is_action_pressed("player_movement_right"):
 			input_movement_vector.x = input_movement_vector.x - Input.get_action_strength("player_movement_right")
 
-		if config_manager.config_data.joysticks.joystick_inverted_move_fb:
+		if ConfigManager.config_data.joysticks.joystick_inverted_move_fb:
 			input_movement_vector.y = input_movement_vector.y * -1
 		
-		if config_manager.config_data.joysticks.joystick_inverted_move_lr:
+		if ConfigManager.config_data.joysticks.joystick_inverted_move_lr:
 			input_movement_vector.x = input_movement_vector.x * -1
 
 		# Jumping
@@ -203,15 +199,15 @@ func process_movement(delta):
 func _input(event):
 	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		if event is InputEventMouseMotion:
-			if config_manager.config_data.mouse.mouse_inverted_y:
-				player_head.rotate_x(deg2rad(event.relative.y * config_manager.config_data.mouse.mouse_sensitivity_y * -1))
+			if ConfigManager.config_data.mouse.mouse_inverted_y:
+				player_head.rotate_x(deg2rad(event.relative.y * ConfigManager.config_data.mouse.mouse_sensitivity_y * -1))
 			else:
-				player_head.rotate_x(deg2rad(event.relative.y * config_manager.config_data.mouse.mouse_sensitivity_y))
+				player_head.rotate_x(deg2rad(event.relative.y * ConfigManager.config_data.mouse.mouse_sensitivity_y))
 			
-			if config_manager.config_data.mouse.mouse_inverted_x:
-				self.rotate_y(deg2rad(event.relative.x * config_manager.config_data.mouse.mouse_sensitivity_x))
+			if ConfigManager.config_data.mouse.mouse_inverted_x:
+				self.rotate_y(deg2rad(event.relative.x * ConfigManager.config_data.mouse.mouse_sensitivity_x))
 			else:
-				self.rotate_y(deg2rad(event.relative.x * config_manager.config_data.mouse.mouse_sensitivity_x * -1))
+				self.rotate_y(deg2rad(event.relative.x * ConfigManager.config_data.mouse.mouse_sensitivity_x * -1))
 			
 			var player_head_rotation = player_head.rotation_degrees
 			player_head_rotation.x = clamp(player_head_rotation.x, -55, 55)
@@ -219,10 +215,10 @@ func _input(event):
 		if event is InputEventMouseButton:
 			if event.button_index == BUTTON_WHEEL_UP or event.button_index == BUTTON_WHEEL_DOWN:
 				var mouse_scrolled
-				if config_manager.config_data.mouse.mouse_inverted_scroll:
-					mouse_scrolled = config_manager.config_data.mouse.mouse_sensitivity_scroll * -1
+				if ConfigManager.config_data.mouse.mouse_inverted_scroll:
+					mouse_scrolled = ConfigManager.config_data.mouse.mouse_sensitivity_scroll * -1
 				else:
-					mouse_scrolled = config_manager.config_data.mouse.mouse_sensitivity_scroll				
+					mouse_scrolled = ConfigManager.config_data.mouse.mouse_sensitivity_scroll				
 				if event.button_index == BUTTON_WHEEL_UP:
 					mouse_scroll_value += mouse_scrolled
 				elif event.button_index == BUTTON_WHEEL_DOWN:

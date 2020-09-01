@@ -51,71 +51,23 @@ onready var config_data_default = {
 				"joystick_sensitivity_look_lr": 1,
 				"joystick_inverted_look_lr": false,
 				},
-		"keybinding":{
-				"player_pause":{
-					"deadzone":0.5,
-					"events":[]
-					},
-				"player_movement_forward":{
-					"deadzone":0.3,
-					"events":[]
-					},
-				"player_movement_backward":{
-					"deadzone":0.3,
-					"events":[]
-					},
-				"player_movement_left":{
-					"deadzone":0.3,
-					"events":[]
-					},
-				"player_movement_right":{
-					"deadzone":0.3,
-					"events":[]
-					},
-				"player_look_up":{
-					"deadzone":0.3,
-					"events":[]
-					},
-				"player_look_down":{
-					"deadzone":0.3,
-					"events":[]
-					},
-				"player_look_left":{
-					"deadzone":0.3,
-					"events":[]
-					},
-				"player_look_right":{
-					"deadzone":0.3,
-					"events":[]
-					},
-				"player_scroll_up":{
-					"deadzone":0.1,
-					"events":[]
-					},
-				"player_scroll_down":{
-					"deadzone":0.1,
-					"events":[]
-					},
-				"player_flashlight":{
-					"deadzone":0.5,
-					"events":[]
-					},
-				"player_movement_jump":{
-					"deadzone":0.5,
-					"events":[]
-					}
-				}
+		"keybinding":{}
 		}
 
-onready var config_data = config_data_default.duplicate(true)
+onready var config_data
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-#	for action in InputMap.get_actions():
-#		config_data_default.keybinding[action].deadzone = action.deadzone
-#		for inev in InputMap.get_action_list(action):
-#			config_data_default.keybinding[action].events.append(inev)
-	
+	# Set Config Data to Default
+	for action in InputMap.get_actions():
+		if action.begins_with('player'):
+			config_data_default['keybinding'][action] = {
+					"deadzone": 0.5,
+					"events": []
+					}
+			for event in InputMap.get_action_list(action):
+				config_data_default['keybinding'][action]['events'].append(event)
+	config_data = config_data_default.duplicate(true)
 	# Update From File
 	load_config()
 	# Apply Config

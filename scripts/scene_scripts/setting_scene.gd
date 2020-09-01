@@ -156,12 +156,8 @@ func _ready():
 	gui_joy_sticks_reset.connect("pressed", self, "reset_to_default", ["joysticks"])
 	
 	# Key Binding
-	for binding in ConfigManager.config_data.keybinding:
-		var bind = settings_key_bind_scene.instance()
-		bind.action = binding
-		gui_key_binding_vbc.add_child(bind)
-		bind.element_setup()
-	
+	gui_key_binding_reset.connect("pressed", self, "reset_to_default", ["keybinding"])
+
 	set_form_values()
 
 func _on_tree_exiting():
@@ -221,6 +217,15 @@ func set_form_values():
 	gui_joy_stick_look_lr_invert.set_pressed(ConfigManager.config_data.joysticks.joystick_inverted_look_lr)
 	gui_joy_stick_look_lr_sensitivity_slider.set_value(ConfigManager.config_data.joysticks.joystick_sensitivity_look_lr)
 	
+	# Key Binding
+	Helpers.RemoveChildren(gui_key_binding_vbc)
+	for binding in ConfigManager.config_data.keybinding:
+		var bind = settings_key_bind_scene.instance()
+		bind.action = binding
+		bind.action_data = ConfigManager.config_data.keybinding[binding].duplicate(true)
+		gui_key_binding_vbc.add_child(bind)
+		bind.element_setup()
+
 	set_elements_disabled()
 
 func set_elements_disabled():
