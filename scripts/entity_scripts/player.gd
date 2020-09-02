@@ -59,10 +59,6 @@ func _physics_process(delta):
 	process_movement(delta)
 
 func process_input():
-	# Pause game
-	if Input.is_action_just_released("player_pause"):
-		GameManager.pause_game()
-	
 	# Grabbin and throwing objects
 	if Input.is_action_just_pressed("fire"):
 		if grabbed_object == null:

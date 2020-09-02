@@ -35,7 +35,17 @@ func _notification(what):
 					pause_game()
 
 func _ready():
+	self.pause_mode = Node.PAUSE_MODE_PROCESS
 	change_state("INTRO")
+
+func _process(delta):
+	# Pause game
+	if Input.is_action_just_released("player_pause") and game_state.in_game:
+		print(game_state, game_paused)
+		if game_paused:
+			GameManager.resume_game()
+		else:
+			GameManager.pause_game()
 
 func pause_game():
 	game_paused = true

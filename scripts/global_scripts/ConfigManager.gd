@@ -2,6 +2,8 @@ extends Node
 
 onready var config_path = "user://config.ini"
 onready var main_scene = get_node("/root/main")
+onready var joypad_present = false
+onready var joypad_device_id = 0
 
 const resolutions = [
 		{"name": "854x480", "value": Vector2(854, 480)},
@@ -58,8 +60,9 @@ onready var config_data
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	# Check for controllers
+	# Handle Controllers
 	Input.connect("joy_connection_changed", self, "_on_joy_connection_changed")
+	controller_setup()
 	# Set Config Data to Default
 	for action in InputMap.get_actions():
 		if not action.begins_with('ui_'):
@@ -132,4 +135,18 @@ func reset_to_default(section):
 	apply_config()
 
 func _on_joy_connection_changed(device, connected):
-	print(device, connected)
+	print(connected, device)
+	if connected:
+		joypad_present = true
+		joypad_device_id = device
+	else:
+		controller_setup()
+
+func controller_setup():
+	var joypads = Input.get_connected_joypads()
+	if joypads.empty():
+		joypad_present = false
+		joypad_device_id = 0
+	else:
+		joypad_present = true
+		joypad_device_id = joypads[0]

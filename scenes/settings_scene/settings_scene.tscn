@@ -8,7 +8,8 @@
 [node name="settings_scene" type="PanelContainer"]
 pause_mode = 2
 self_modulate = Color( 1, 1, 1, 0.501961 )
-anchor_right = 1.0
+anchor_left = 0.1
+anchor_right = 0.9
 anchor_bottom = 1.0
 margin_top = 3.0
 margin_bottom = 3.0
@@ -24,7 +25,7 @@ setting_keybind_action_scene = ExtResource( 4 )
 [node name="VBC" type="VBoxContainer" parent="."]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 847.0
+margin_right = 676.2
 margin_bottom = 473.0
 theme = ExtResource( 1 )
 __meta__ = {
@@ -32,7 +33,7 @@ __meta__ = {
 }
 
 [node name="Menu_Title" type="Label" parent="VBC"]
-margin_right = 840.0
+margin_right = 669.0
 margin_bottom = 14.0
 theme = ExtResource( 1 )
 text = "settings"
@@ -40,7 +41,7 @@ align = 1
 
 [node name="Tab_Buttons" type="HBoxContainer" parent="VBC"]
 margin_top = 18.0
-margin_right = 840.0
+margin_right = 669.0
 margin_bottom = 38.0
 theme = ExtResource( 1 )
 
@@ -118,7 +119,7 @@ __meta__ = {
 
 [node name="Settings_Tabs" type="TabContainer" parent="VBC"]
 margin_top = 42.0
-margin_right = 840.0
+margin_right = 669.0
 margin_bottom = 418.0
 size_flags_vertical = 3
 theme = ExtResource( 1 )
@@ -145,7 +146,7 @@ __meta__ = {
 }
 
 [node name="Settings_VBC" type="VBoxContainer" parent="VBC/Settings_Tabs/Settings_Tab/Settings_Scroll"]
-margin_right = 832.0
+margin_right = 661.0
 margin_bottom = 72.0
 size_flags_horizontal = 3
 theme = ExtResource( 1 )
@@ -154,19 +155,19 @@ __meta__ = {
 }
 
 [node name="Debug_CheckButton" type="CheckButton" parent="VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC"]
-margin_right = 832.0
+margin_right = 661.0
 margin_bottom = 40.0
 theme = ExtResource( 1 )
 text = "Debug"
 
 [node name="RST_HSeparator" type="HSeparator" parent="VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC"]
 margin_top = 44.0
-margin_right = 832.0
+margin_right = 661.0
 margin_bottom = 48.0
 
 [node name="Reset_Button" type="Button" parent="VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC"]
 margin_top = 52.0
-margin_right = 832.0
+margin_right = 661.0
 margin_bottom = 72.0
 text = "Reset To Default"
 
@@ -191,7 +192,7 @@ __meta__ = {
 }
 
 [node name="Settings_VBC" type="VBoxContainer" parent="VBC/Settings_Tabs/Video_Tab/Settings_Scroll"]
-margin_right = 832.0
+margin_right = 661.0
 margin_bottom = 228.0
 size_flags_horizontal = 3
 theme = ExtResource( 1 )
@@ -283,7 +284,7 @@ __meta__ = {
 }
 
 [node name="Settings_VBC" type="VBoxContainer" parent="VBC/Settings_Tabs/Audio_Tab/Settings_Scroll"]
-margin_right = 832.0
+margin_right = 661.0
 margin_bottom = 220.0
 size_flags_horizontal = 3
 theme = ExtResource( 1 )
@@ -464,7 +465,7 @@ __meta__ = {
 }
 
 [node name="Settings_VBC" type="VBoxContainer" parent="VBC/Settings_Tabs/Mouse_Tab/Settings_Scroll"]
-margin_right = 832.0
+margin_right = 661.0
 margin_bottom = 290.0
 size_flags_horizontal = 3
 theme = ExtResource( 1 )
@@ -608,7 +609,7 @@ __meta__ = {
 }
 
 [node name="Settings_VBC" type="VBoxContainer" parent="VBC/Settings_Tabs/Joysticks_Tab/Settings_Scroll"]
-margin_right = 832.0
+margin_right = 661.0
 margin_bottom = 380.0
 size_flags_horizontal = 3
 theme = ExtResource( 1 )
@@ -790,7 +791,7 @@ __meta__ = {
 }
 
 [node name="Settings_VBC" type="VBoxContainer" parent="VBC/Settings_Tabs/Keybinding_Tab/Settings_Scroll"]
-margin_right = 832.0
+margin_right = 661.0
 margin_bottom = 32.0
 size_flags_horizontal = 3
 theme = ExtResource( 1 )
@@ -811,7 +812,7 @@ text = "Reset To Default"
 
 [node name="Apply" type="Button" parent="VBC"]
 margin_top = 422.0
-margin_right = 840.0
+margin_right = 669.0
 margin_bottom = 442.0
 theme = ExtResource( 1 )
 text = "Apply"
@@ -821,7 +822,7 @@ __meta__ = {
 
 [node name="Cancel" type="Button" parent="VBC"]
 margin_top = 446.0
-margin_right = 840.0
+margin_right = 669.0
 margin_bottom = 466.0
 theme = ExtResource( 1 )
 text = "Cancel"

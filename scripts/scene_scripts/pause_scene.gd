@@ -33,9 +33,6 @@ func _on_tree_exiting():
 	root.disconnect("gui_focus_changed", AudioManager, "ui_navigate_audio_effect")
 
 func _input(event):
-	# Pause game
-	if Input.is_action_just_released("ui_cancel"):
-		GameManager.pause_game()
 	if ( event is InputEventJoypadButton ) or ( event is InputEventJoypadMotion ):
 		if not joypad_control:
 			joypad_control = true

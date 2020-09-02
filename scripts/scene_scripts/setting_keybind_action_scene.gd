@@ -5,9 +5,9 @@ export (PackedScene) var setting_keybind_input_scene
 
 var action
 var action_data
-onready var action_label = $Action_Label
-onready var dead_zone_slider = $Deadzone_HBC/Deadzone_Slider
-onready var dead_zone_display = $Deadzone_HBC/Deadzone_Display
+onready var action_label = $Action_HBC/Action_Label
+onready var dead_zone_slider = $Action_HBC/Deadzone_Slider
+onready var dead_zone_display = $Action_HBC/Deadzone_Display
 onready var events_vbc = $Events_VBC
 onready var add_event = $Event_Add
 

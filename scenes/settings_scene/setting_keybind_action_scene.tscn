@@ -17,53 +17,57 @@ setting_keybind_event_scene = ExtResource( 2 )
 margin_right = 854.0
 margin_bottom = 4.0
 
-[node name="Action_Label" type="Label" parent="."]
+[node name="Action_HBC" type="HBoxContainer" parent="."]
 margin_top = 8.0
 margin_right = 854.0
-margin_bottom = 22.0
+margin_bottom = 24.0
 theme = ExtResource( 3 )
 
-[node name="Deadzone_HBC" type="HBoxContainer" parent="."]
-margin_top = 26.0
-margin_right = 854.0
-margin_bottom = 42.0
-theme = ExtResource( 3 )
-
-[node name="Deadzone_Label" type="Label" parent="Deadzone_HBC"]
+[node name="Action_Label" type="Label" parent="Action_HBC"]
 margin_top = 1.0
-margin_right = 72.0
+margin_right = 550.0
 margin_bottom = 15.0
 size_flags_horizontal = 3
+theme = ExtResource( 3 )
+
+[node name="Deadzone_Label" type="Label" parent="Action_HBC"]
+margin_left = 554.0
+margin_right = 626.0
+margin_bottom = 16.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
 size_flags_stretch_ratio = 0.0
 theme = ExtResource( 3 )
 text = "Deadzone: "
 
-[node name="Deadzone_Slider" type="HSlider" parent="Deadzone_HBC"]
-margin_left = 76.0
-margin_right = 779.0
+[node name="Deadzone_Slider" type="HSlider" parent="Action_HBC"]
+margin_left = 630.0
+margin_right = 795.0
 margin_bottom = 16.0
 size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.3
 theme = ExtResource( 3 )
 max_value = 1.0
 step = 0.01
 tick_count = 10
 
-[node name="Deadzone_Display" type="Label" parent="Deadzone_HBC"]
-margin_left = 783.0
-margin_top = 1.0
+[node name="Deadzone_Display" type="Label" parent="Action_HBC"]
+margin_left = 799.0
 margin_right = 854.0
-margin_bottom = 15.0
+margin_bottom = 16.0
 size_flags_horizontal = 3
+size_flags_vertical = 5
 size_flags_stretch_ratio = 0.1
 
 [node name="Events_VBC" type="VBoxContainer" parent="."]
-margin_top = 46.0
+margin_top = 28.0
 margin_right = 854.0
-margin_bottom = 46.0
+margin_bottom = 28.0
 
 [node name="Event_Add" type="Button" parent="."]
-margin_top = 50.0
+margin_top = 32.0
 margin_right = 854.0
-margin_bottom = 70.0
+margin_bottom = 52.0
 theme = ExtResource( 3 )
 text = "Add Key Binding"
