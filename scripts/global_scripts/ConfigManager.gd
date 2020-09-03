@@ -2,6 +2,7 @@ extends Node
 
 onready var config_path = "user://config.ini"
 onready var main_scene = get_node("/root/main")
+onready var main_environment = get_node("/root/main/WorldEnvironment").get_environment()
 onready var joypad_present = false
 onready var joypad_device_id = 0
 
@@ -21,6 +22,10 @@ onready var config_data_default = {
 				"debug":false
 				},
 		"video":{
+				"picture_adjustments": false,
+				"picture_brightnes": 1,
+				"picture_contrast": 1,
+				"picture_saturation": 1,
 				"fullscreen": false,
 				"borderless": false,
 				"resolution_auto": false,
@@ -76,6 +81,7 @@ func apply_config():
 	# Game
 	main_scene.set_debug_display()
 	# Video
+	picture_adjust()
 	OS.set_window_fullscreen(config_data.video.fullscreen)
 	OS.set_use_vsync(config_data.video.vsync)
 	if not OS.is_window_fullscreen():
@@ -158,3 +164,14 @@ func keybind_defaults():
 					"events": []
 					}
 			config_data_default['keybinding'][action]['events'] = InputMap.get_action_list(action).duplicate(true)
+
+func picture_adjust():
+	main_environment.set_adjustment_enable(ConfigManager.config_data.video.picture_adjustments)
+	if ConfigManager.config_data.video.picture_adjustments:
+		main_environment.set_adjustment_brightness(ConfigManager.config_data.video.picture_brightnes)
+		main_environment.set_adjustment_contrast(ConfigManager.config_data.video.picture_contrast)
+		main_environment.set_adjustment_saturation(ConfigManager.config_data.video.picture_saturation)
+	else:
+		main_environment.set_adjustment_brightness(1)
+		main_environment.set_adjustment_contrast(1)
+		main_environment.set_adjustment_saturation(1)
