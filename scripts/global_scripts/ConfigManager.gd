@@ -63,15 +63,9 @@ func _ready():
 	# Handle Controllers
 	Input.connect("joy_connection_changed", self, "_on_joy_connection_changed")
 	controller_setup()
+	# Get keybinding defaults from globals
+	keybind_defaults()
 	# Set Config Data to Default
-	for action in InputMap.get_actions():
-		if not action.begins_with('ui_'):
-			config_data_default['keybinding'][action] = {
-					"deadzone": 0.5,
-					"events": []
-					}
-			for event in InputMap.get_action_list(action):
-				config_data_default['keybinding'][action]['events'].append(event)
 	config_data = config_data_default.duplicate(true)
 	# Update From File
 	load_config()
@@ -104,8 +98,11 @@ func apply_config():
 	AudioServer.set_bus_mute(AudioManager.audio_bus_fx, !config_data.audio.fx_enabled)
 	AudioServer.set_bus_volume_db(AudioManager.audio_bus_fx, config_data.audio.fx_volume)
 	# Key Binding
-	for binding in config_data.keybinding:
-		InputMap.action_set_deadzone(binding, config_data.keybinding[binding].deadzone)
+	for action in config_data.keybinding:
+		InputMap.action_set_deadzone(action, config_data.keybinding[action].deadzone)
+		InputMap.action_erase_events(action)
+		for event in config_data.keybinding[action].events:
+			InputMap.action_add_event(action, event)
 
 func save_config():
 	var config_file = ConfigFile.new()
@@ -130,6 +127,9 @@ func load_config():
 		return false
 
 func reset_to_default(section):
+	if section == "keybinding":
+		InputMap.load_from_globals()
+		keybind_defaults()
 	config_data[section] = config_data_default[section].duplicate(true)
 	save_config()
 	apply_config()
@@ -150,3 +150,12 @@ func controller_setup():
 	else:
 		joypad_present = true
 		joypad_device_id = joypads[0]
+
+func keybind_defaults():
+	for action in InputMap.get_actions():
+		if not ( action.begins_with('ui_') or action.begins_with('util_') ):
+			config_data_default['keybinding'][action] = {
+					"deadzone": 0.5,
+					"events": []
+					}
+			config_data_default['keybinding'][action]['events'] = InputMap.get_action_list(action).duplicate(true)

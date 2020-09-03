@@ -222,7 +222,6 @@ func set_form_values():
 		var action_element = setting_keybind_action_scene.instance()
 		gui_key_binding_vbc.add_child(action_element)
 		action_element.action = action
-		action_element.action_data = ConfigManager.config_data.keybinding[action].duplicate(true)
 		action_element.element_setup()
 
 	set_elements_disabled()

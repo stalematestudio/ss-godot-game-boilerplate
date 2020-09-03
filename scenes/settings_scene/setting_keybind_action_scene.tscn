@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scripts/scene_scripts/setting_keybind_action_scene.gd" type="Script" id=1]
 [ext_resource path="res://scenes/settings_scene/setting_keybind_event_scene.tscn" type="PackedScene" id=2]
 [ext_resource path="res://themes/base.tres" type="Theme" id=3]
+[ext_resource path="res://scenes/settings_scene/setting_keybind_input_scene.tscn" type="PackedScene" id=4]
 
 [node name="settings_keybind_action_scene" type="VBoxContainer"]
 anchor_right = 1.0
@@ -12,6 +13,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 setting_keybind_event_scene = ExtResource( 2 )
+setting_keybind_input_scene = ExtResource( 4 )
 
 [node name="HSeparator" type="HSeparator" parent="."]
 margin_right = 854.0

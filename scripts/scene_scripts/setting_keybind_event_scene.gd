@@ -24,4 +24,6 @@ func element_setup():
 		event_label.set_text(event.as_text())
 
 func remove_self():
-	print(action, event)
+	ConfigManager.config_data.keybinding[action].events.erase(event)
+	get_node("../../Event_Add").grab_focus()
+	.queue_free()
