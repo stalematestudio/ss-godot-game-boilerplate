@@ -4,11 +4,11 @@ export (PackedScene) var setting_keybind_action_scene
 
 # Set gui elements
 onready var gui_tabs = $VBC/Settings_Tabs
-onready var gui_setting_tab = $VBC/Tab_Buttons/Settings_Tab_Button
+onready var gui_setting_tab = $VBC/Tab_Buttons/Game_Tab_Button
 onready var gui_video_tab = $VBC/Tab_Buttons/Video_Tab_Button
 onready var gui_audio_tab = $VBC/Tab_Buttons/Audio_Tab_Button
 onready var gui_mouse_tab = $VBC/Tab_Buttons/Mouse_Tab_Button
-onready var gui_joy_sticks_tab = $VBC/Tab_Buttons/Joysticks_Tab_Button
+onready var gui_controller_tab = $VBC/Tab_Buttons/Controller_Tab_Button
 onready var gui_key_binding_tab = $VBC/Tab_Buttons/Keybinding_Tab_Button
 
 onready var gui_apply = $VBC/Apply
@@ -18,8 +18,8 @@ onready var gui_cancel = $VBC/Cancel
 var return_focus_target
 
 # Game
-onready var gui_debug = $VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC/Debug_CheckButton
-onready var gui_game_reset = $VBC/Settings_Tabs/Settings_Tab/Settings_Scroll/Settings_VBC/Reset_Button
+onready var gui_debug = $VBC/Settings_Tabs/Game_Tab/Settings_Scroll/Settings_VBC/Debug_CheckButton
+onready var gui_game_reset = $VBC/Settings_Tabs/Game_Tab/Settings_Scroll/Settings_VBC/Reset_Button
 
 # Video
 onready var gui_fullscreen = $VBC/Settings_Tabs/Video_Tab/Settings_Scroll/Settings_VBC/FullScreen_CheckButton
@@ -60,24 +60,24 @@ onready var gui_mouse_scroll_sensitivity_display = $VBC/Settings_Tabs/Mouse_Tab/
 
 onready var gui_mouse_reset = $VBC/Settings_Tabs/Mouse_Tab/Settings_Scroll/Settings_VBC/Reset_Button
 
-# Joy Sticks
-onready var gui_joy_stick_move_fb_invert = $VBC/Settings_Tabs/Joysticks_Tab/Settings_Scroll/Settings_VBC/MFB_CheckButton
-onready var gui_joy_stick_move_fb_sensitivity_slider = $VBC/Settings_Tabs/Joysticks_Tab/Settings_Scroll/Settings_VBC/MFB_HBC/MFB_Slider
-onready var gui_joy_stick_move_fb_sensitivity_display = $VBC/Settings_Tabs/Joysticks_Tab/Settings_Scroll/Settings_VBC/MFB_HBC/MFB_Value
+# Controller
+onready var gui_controller_left_y_invert = $VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC/LY_CheckButton
+onready var gui_controller_left_y_sensitivity_slider = $VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC/LY_HBC/LY_Slider
+onready var gui_controller_left_y_sensitivity_display = $VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC/LY_HBC/LY_Value
 
-onready var gui_joy_stick_move_lr_invert = $VBC/Settings_Tabs/Joysticks_Tab/Settings_Scroll/Settings_VBC/MLR_CheckButton
-onready var gui_joy_stick_move_lr_sensitivity_slider = $VBC/Settings_Tabs/Joysticks_Tab/Settings_Scroll/Settings_VBC/MLR_HBC/MLR_Slider
-onready var gui_joy_stick_move_lr_sensitivity_display = $VBC/Settings_Tabs/Joysticks_Tab/Settings_Scroll/Settings_VBC/MLR_HBC/MLR_Value
+onready var gui_controller_left_x_invert = $VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC/LX_CheckButton
+onready var gui_controller_left_x_sensitivity_slider = $VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC/LX_HBC/LX_Slider
+onready var gui_controller_left_x_sensitivity_display = $VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC/LX_HBC/LX_Value
 
-onready var gui_joy_stick_look_ud_invert = $VBC/Settings_Tabs/Joysticks_Tab/Settings_Scroll/Settings_VBC/LUD_CheckButton
-onready var gui_joy_stick_look_ud_sensitivity_slider = $VBC/Settings_Tabs/Joysticks_Tab/Settings_Scroll/Settings_VBC/LUD_HBC/LUD_Slider
-onready var gui_joy_stick_look_ud_sensitivity_display = $VBC/Settings_Tabs/Joysticks_Tab/Settings_Scroll/Settings_VBC/LUD_HBC/LUD_Value
+onready var gui_controller_right_y_invert = $VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC/RY_CheckButton
+onready var gui_controller_right_y_sensitivity_slider = $VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC/RY_HBC/RY_Slider
+onready var gui_controller_right_y_sensitivity_display = $VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC/RY_HBC/RY_Value
 
-onready var gui_joy_stick_look_lr_invert = $VBC/Settings_Tabs/Joysticks_Tab/Settings_Scroll/Settings_VBC/LLR_CheckButton
-onready var gui_joy_stick_look_lr_sensitivity_slider = $VBC/Settings_Tabs/Joysticks_Tab/Settings_Scroll/Settings_VBC/LLR_HBC/LLR_Slider
-onready var gui_joy_stick_look_lr_sensitivity_display = $VBC/Settings_Tabs/Joysticks_Tab/Settings_Scroll/Settings_VBC/LLR_HBC/LLR_Value
+onready var gui_controller_right_x_invert = $VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC/RX_CheckButton
+onready var gui_controller_right_x_sensitivity_slider = $VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC/RX_HBC/RX_Slider
+onready var gui_controller_right_x_sensitivity_display = $VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC/RX_HBC/RX_Value
 
-onready var gui_joy_sticks_reset = $VBC/Settings_Tabs/Joysticks_Tab/Settings_Scroll/Settings_VBC/Reset_Button
+onready var gui_controllers_reset = $VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC/Reset_Button
 
 # Key Binding 
 onready var gui_key_binding_vbc = $VBC/Settings_Tabs/Keybinding_Tab/Settings_Scroll/Settings_VBC/Key_Bind_VBC
@@ -91,7 +91,7 @@ func _ready():
 	gui_video_tab.connect("pressed", self, "settings_menu_tab_switch", [1])
 	gui_audio_tab.connect("pressed", self, "settings_menu_tab_switch", [2])
 	gui_mouse_tab.connect("pressed", self, "settings_menu_tab_switch", [3])
-	gui_joy_sticks_tab.connect("pressed", self, "settings_menu_tab_switch", [4])
+	gui_controller_tab.connect("pressed", self, "settings_menu_tab_switch", [4])
 	gui_key_binding_tab.connect("pressed", self, "settings_menu_tab_switch", [5])
 	
 	# Apply cancel
@@ -139,20 +139,20 @@ func _ready():
 	
 	gui_mouse_reset.connect("pressed", self, "reset_to_default", ["mouse"])
 	
-	# Joy Sticks
-	gui_joy_stick_move_fb_invert.connect("pressed", self, "move_fb_invert_adjust")
-	gui_joy_stick_move_fb_sensitivity_slider.connect("value_changed", self, "move_fb_sensitivity_adjust")
+	# Controller
+	gui_controller_left_y_invert.connect("pressed", self, "left_y_invert_adjust")
+	gui_controller_left_y_sensitivity_slider.connect("value_changed", self, "left_y_sensitivity_adjust")
 	
-	gui_joy_stick_move_lr_invert.connect("pressed", self, "move_lr_invert_adjust")
-	gui_joy_stick_move_lr_sensitivity_slider.connect("value_changed", self, "move_lr_sensitivity_adjust")
+	gui_controller_left_x_invert.connect("pressed", self, "left_x_invert_adjust")
+	gui_controller_left_x_sensitivity_slider.connect("value_changed", self, "left_x_sensitivity_adjust")
 	
-	gui_joy_stick_look_ud_invert.connect("pressed", self, "look_ud_invert_adjust")
-	gui_joy_stick_look_ud_sensitivity_slider.connect("value_changed", self, "look_ud_sensitivity_adjust")
+	gui_controller_right_y_invert.connect("pressed", self, "right_y_invert_adjust")
+	gui_controller_right_y_sensitivity_slider.connect("value_changed", self, "right_y_sensitivity_adjust")
 	
-	gui_joy_stick_look_lr_invert.connect("pressed", self, "look_lr_invert_adjust")
-	gui_joy_stick_look_lr_sensitivity_slider.connect("value_changed", self, "look_lr_sensitivity_adjust")
+	gui_controller_right_x_invert.connect("pressed", self, "right_x_invert_adjust")
+	gui_controller_right_x_sensitivity_slider.connect("value_changed", self, "right_x_sensitivity_adjust")
 	
-	gui_joy_sticks_reset.connect("pressed", self, "reset_to_default", ["joysticks"])
+	gui_controllers_reset.connect("pressed", self, "reset_to_default", ["controller"])
 	
 	# Key Binding
 	gui_key_binding_reset.connect("pressed", self, "reset_to_default", ["keybinding"])
@@ -203,18 +203,18 @@ func set_form_values():
 	gui_mouse_scroll_invert.set_pressed(ConfigManager.config_data.mouse.mouse_inverted_scroll)
 	gui_mouse_scroll_sensitivity_slider.set_value(ConfigManager.config_data.mouse.mouse_sensitivity_scroll)
 	
-	# Joy Sticks
-	gui_joy_stick_move_fb_invert.set_pressed(ConfigManager.config_data.joysticks.joystick_inverted_move_fb)
-	gui_joy_stick_move_fb_sensitivity_slider.set_value(ConfigManager.config_data.joysticks.joystick_sensitivity_move_fb)
+	# Controller
+	gui_controller_left_y_invert.set_pressed(ConfigManager.config_data.controller.left_y_inverted)
+	gui_controller_left_y_sensitivity_slider.set_value(ConfigManager.config_data.controller.left_y_sensitivity)
 	
-	gui_joy_stick_move_lr_invert.set_pressed(ConfigManager.config_data.joysticks.joystick_inverted_move_lr)
-	gui_joy_stick_move_lr_sensitivity_slider.set_value(ConfigManager.config_data.joysticks.joystick_sensitivity_move_lr)
+	gui_controller_left_x_invert.set_pressed(ConfigManager.config_data.controller.left_y_inverted)
+	gui_controller_left_x_sensitivity_slider.set_value(ConfigManager.config_data.controller.left_y_sensitivity)
 	
-	gui_joy_stick_look_ud_invert.set_pressed(ConfigManager.config_data.joysticks.joystick_inverted_look_ud)
-	gui_joy_stick_look_ud_sensitivity_slider.set_value(ConfigManager.config_data.joysticks.joystick_sensitivity_look_ud)
+	gui_controller_right_y_invert.set_pressed(ConfigManager.config_data.controller.right_y_inverted)
+	gui_controller_right_y_sensitivity_slider.set_value(ConfigManager.config_data.controller.right_y_sensitivity)
 	
-	gui_joy_stick_look_lr_invert.set_pressed(ConfigManager.config_data.joysticks.joystick_inverted_look_lr)
-	gui_joy_stick_look_lr_sensitivity_slider.set_value(ConfigManager.config_data.joysticks.joystick_sensitivity_look_lr)
+	gui_controller_right_x_invert.set_pressed(ConfigManager.config_data.controller.right_x_inverted)
+	gui_controller_right_x_sensitivity_slider.set_value(ConfigManager.config_data.controller.right_x_sensitivity)
 	
 	# Key Binding
 	Helpers.RemoveChildren(gui_key_binding_vbc)
@@ -337,34 +337,31 @@ func mouse_scroll_sensitivity_adjust(new_val):
 	ConfigManager.config_data.mouse.mouse_sensitivity_scroll = new_val
 	gui_mouse_scroll_sensitivity_display.text = String(ConfigManager.config_data.mouse.mouse_sensitivity_scroll)
 
-# Joy Sticks
-func move_fb_invert_adjust():
-	ConfigManager.config_data.joysticks.joystick_inverted_move_fb = gui_joy_stick_move_fb_invert.is_pressed()
-
-func move_fb_sensitivity_adjust(new_val):
-	ConfigManager.config_data.joysticks.joystick_sensitivity_move_fb = new_val
-	gui_joy_stick_move_fb_sensitivity_display.text = String(ConfigManager.config_data.joysticks.joystick_sensitivity_move_fb)
-
-func move_lr_invert_adjust():
-	ConfigManager.config_data.joysticks.joystick_inverted_move_lr = gui_joy_stick_move_lr_invert.is_pressed()
-
-func move_lr_sensitivity_adjust(new_val):
-	ConfigManager.config_data.joysticks.joystick_sensitivity_move_lr = new_val
-	gui_joy_stick_move_lr_sensitivity_display.text = String(ConfigManager.config_data.joysticks.joystick_sensitivity_move_lr)
-
-func look_ud_invert_adjust():
-	ConfigManager.config_data.joysticks.joystick_inverted_look_ud = gui_joy_stick_look_ud_invert.is_pressed()
-
-func look_ud_sensitivity_adjust(new_val):
-	ConfigManager.config_data.joysticks.joystick_sensitivity_look_ud = new_val
-	gui_joy_stick_look_ud_sensitivity_display.text = String(ConfigManager.config_data.joysticks.joystick_sensitivity_look_ud)
-
-func look_lr_invert_adjust():
-	ConfigManager.config_data.joysticks.joystick_inverted_look_lr = gui_joy_stick_look_lr_invert.is_pressed()
-
-func look_lr_sensitivity_adjust(new_val):
-	ConfigManager.config_data.joysticks.joystick_sensitivity_look_lr = new_val
-	gui_joy_stick_look_lr_sensitivity_display.text = String(ConfigManager.config_data.joysticks.joystick_sensitivity_look_lr)
+# Controller
+# Left Y
+func left_y_invert_adjust():
+	ConfigManager.config_data.controller.left_y_inverted = gui_controller_left_y_invert.is_pressed()
+func left_y_sensitivity_adjust(new_val):
+	ConfigManager.config_data.controller.left_y_sensitivity = new_val
+	gui_controller_left_y_sensitivity_display.text = String(ConfigManager.config_data.controller.left_y_sensitivity)
+# Left X
+func left_x_invert_adjust():
+	ConfigManager.config_data.controller.left_x_inverted = gui_controller_left_x_invert.is_pressed()
+func left_x_sensitivity_adjust(new_val):
+	ConfigManager.config_data.controller.left_x_sensitivity = new_val
+	gui_controller_left_x_sensitivity_display.text = String(ConfigManager.config_data.controller.left_x_sensitivity)
+# Right Y
+func right_y_invert_adjust():
+	ConfigManager.config_data.controller.right_y_inverted = gui_controller_right_y_invert.is_pressed()
+func right_y_sensitivity_adjust(new_val):
+	ConfigManager.config_data.controller.right_y_sensitivity = new_val
+	gui_controller_right_y_sensitivity_display.text = String(ConfigManager.config_data.controller.right_y_sensitivity)
+# Right X
+func right_x_invert_adjust():
+	ConfigManager.config_data.controller.right_x_inverted = gui_controller_right_x_invert.is_pressed()
+func right_x_sensitivity_adjust(new_val):
+	ConfigManager.config_data.controller.right_x_sensitivity = new_val
+	gui_controller_right_x_sensitivity_display.text = String(ConfigManager.config_data.controller.right_x_sensitivity)
 
 # Tabs Switching
 func settings_menu_tab_switch(tab_index):

@@ -104,15 +104,15 @@ func process_look():
 	if Input.is_action_pressed("player_look_right"):
 		input_look_vector.x = input_look_vector.x - Input.get_action_strength("player_look_right")
 
-	if ConfigManager.config_data.joysticks.joystick_inverted_look_ud:
+	if ConfigManager.config_data.controller.right_y_inverted:
 		input_look_vector.y = input_look_vector.y * -1
 	
-	if ConfigManager.config_data.joysticks.joystick_inverted_look_lr:
+	if ConfigManager.config_data.controller.right_x_inverted:
 		input_look_vector.x = input_look_vector.x * -1
 
 
-	player_head.rotate_x(deg2rad( input_look_vector.y * ConfigManager.config_data.joysticks.joystick_sensitivity_look_ud ))
-	rotate_y(deg2rad( input_look_vector.x * ConfigManager.config_data.joysticks.joystick_sensitivity_look_lr ))
+	player_head.rotate_x(deg2rad( input_look_vector.y * ConfigManager.config_data.controller.right_y_sensitivity ))
+	rotate_y(deg2rad( input_look_vector.x * ConfigManager.config_data.controller.right_x_sensitivity ))
 	var player_head_rotation = player_head.rotation_degrees
 	player_head_rotation.x = clamp(player_head_rotation.x, -70, 70)
 	player_head.rotation_degrees = player_head_rotation
@@ -120,7 +120,6 @@ func process_look():
 func process_movement(delta):
 	direction = Vector3()
 	var head_x_form = player_head.get_global_transform()
-
 	var input_movement_vector = Vector2()
 	if is_on_floor():
 		if Input.is_action_pressed("player_movement_forward"):
@@ -132,10 +131,10 @@ func process_movement(delta):
 		if Input.is_action_pressed("player_movement_right"):
 			input_movement_vector.x = input_movement_vector.x - Input.get_action_strength("player_movement_right")
 
-		if ConfigManager.config_data.joysticks.joystick_inverted_move_fb:
+		if ConfigManager.config_data.controller.left_y_inverted:
 			input_movement_vector.y = input_movement_vector.y * -1
 		
-		if ConfigManager.config_data.joysticks.joystick_inverted_move_lr:
+		if ConfigManager.config_data.controller.left_x_inverted:
 			input_movement_vector.x = input_movement_vector.x * -1
 
 		# Jumping

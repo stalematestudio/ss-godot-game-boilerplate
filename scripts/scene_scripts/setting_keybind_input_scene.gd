@@ -26,12 +26,16 @@ func _input(event):
 			return
 		elif event is InputEventMouseButton:
 			new_event = event
-		elif event is InputEventJoypadMotion and abs(event.axis_value) > 0.5:
-			new_event = event
+		elif event is InputEventJoypadMotion:
+			if abs(event.axis_value) > 0.5:
+				new_event = event
+			else:
+				return
 		elif event is InputEventJoypadButton:
 			new_event = event
 		event_label.set_text(Helpers.event_as_text(new_event))
 		accept.disabled = false
+		accept.grab_focus()
 		reset.disabled = false
 
 func reset_new_event():

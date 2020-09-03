@@ -43,15 +43,15 @@ onready var config_data_default = {
 				"mouse_inverted_scroll": false,
 				"mouse_sensitivity_scroll": 0.3
 				},
-		"joysticks":{
-				"joystick_sensitivity_move_fb": 1,
-				"joystick_inverted_move_fb": false,
-				"joystick_sensitivity_move_lr": 1,
-				"joystick_inverted_move_lr": false,
-				"joystick_sensitivity_look_ud": 1,
-				"joystick_inverted_look_ud": false,
-				"joystick_sensitivity_look_lr": 1,
-				"joystick_inverted_look_lr": false,
+		"controller":{
+				"left_y_sensitivity": 1,
+				"left_y_inverted": false,
+				"left_x_sensitivity": 1,
+				"left_x_inverted": false,
+				"right_y_sensitivity": 1,
+				"right_y_inverted": false,
+				"right_x_sensitivity": 1,
+				"right_x_inverted": false,
 				},
 		"keybinding":{}
 		}
