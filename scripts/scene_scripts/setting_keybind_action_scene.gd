@@ -22,15 +22,10 @@ func element_setup():
 	dead_zone_slider.set_value(ConfigManager.config_data.keybinding[action].deadzone)
 	dead_zone_slider.connect("value_changed", self, "deadzone_adjust")
 	dead_zone_display.set_text(String(ConfigManager.config_data.keybinding[action].deadzone))
-	for event in ConfigManager.config_data.keybinding[action].events:
-		var event_node = setting_keybind_event_scene.instance()
-		events_vbc.add_child(event_node)
-		event_node.action = action
-		event_node.event = event
-		event_node.element_setup()
+	display_events()
 
 func display_events():
-	Helpers.RemoveChildren(self)
+	Helpers.RemoveChildren(events_vbc)
 	for event in ConfigManager.config_data.keybinding[action].events:
 		var event_node = setting_keybind_event_scene.instance()
 		events_vbc.add_child(event_node)
@@ -46,7 +41,8 @@ func add_event():
 	var add_event_node = setting_keybind_input_scene.instance()
 	.add_child(add_event_node)
 	add_event_node.action = action
+	add_event_node.called_from = self
 
 func handle_add_event(event):
 	ConfigManager.config_data.keybinding[action].events.append(event)
-	#display_events()
+	display_events()
