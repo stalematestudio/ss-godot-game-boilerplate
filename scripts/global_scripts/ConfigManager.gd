@@ -135,7 +135,6 @@ func reset_to_default(section):
 	apply_config()
 
 func _on_joy_connection_changed(device, connected):
-	print(connected, device)
 	if connected:
 		joypad_present = true
 		joypad_device_id = device

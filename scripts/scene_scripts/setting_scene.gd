@@ -220,10 +220,10 @@ func set_form_values():
 	Helpers.RemoveChildren(gui_key_binding_vbc)
 	for action in ConfigManager.config_data.keybinding:
 		var action_element = setting_keybind_action_scene.instance()
-		gui_key_binding_vbc.add_child(action_element)
+		action_element.name = action
 		action_element.action = action
-		action_element.element_setup()
-
+		gui_key_binding_vbc.add_child(action_element)
+	
 	set_elements_disabled()
 
 func set_elements_disabled():

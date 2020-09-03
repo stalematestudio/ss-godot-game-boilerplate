@@ -41,7 +41,6 @@ func _ready():
 func _process(delta):
 	# Pause game
 	if Input.is_action_just_released("util_pause") and game_state.in_game:
-		print(game_state, game_paused)
 		if game_paused:
 			GameManager.resume_game()
 		else:
