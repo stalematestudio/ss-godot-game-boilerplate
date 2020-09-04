@@ -25,10 +25,10 @@ config/icon="res://icon.png"
 
 [autoload]
 
+Helpers="*res://scripts/global_scripts/Helpers.gd"
 AudioManager="*res://scripts/global_scripts/AudioManager.gd"
 ConfigManager="*res://scripts/global_scripts/ConfigManager.gd"
 GameManager="*res://scripts/global_scripts/GameManager.gd"
-Helpers="*res://scripts/global_scripts/Helpers.gd"
 
 [debug]
 

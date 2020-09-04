@@ -22,6 +22,9 @@ debug_scene = ExtResource( 6 )
 settings_scene = ExtResource( 5 )
 pause_scene = ExtResource( 9 )
 
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource( 10 )
+
 [node name="Music_Player" type="AudioStreamPlayer" parent="."]
 pause_mode = 2
 stream = ExtResource( 4 )
@@ -37,6 +40,3 @@ bus = "Voice"
 pause_mode = 2
 mix_target = 1
 bus = "FX"
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = ExtResource( 10 )
