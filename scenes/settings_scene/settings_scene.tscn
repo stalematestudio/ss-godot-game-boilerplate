@@ -129,7 +129,6 @@ tabs_visible = false
 use_hidden_tabs_for_min_size = true
 
 [node name="Game_Tab" type="Tabs" parent="VBC/Settings_Tabs"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -150,31 +149,39 @@ __meta__ = {
 
 [node name="Settings_VBC" type="VBoxContainer" parent="VBC/Settings_Tabs/Game_Tab/Settings_Scroll"]
 margin_right = 661.0
-margin_bottom = 72.0
+margin_bottom = 116.0
 size_flags_horizontal = 3
 theme = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Debug_CheckButton" type="CheckButton" parent="VBC/Settings_Tabs/Game_Tab/Settings_Scroll/Settings_VBC"]
+[node name="SubTitles_CheckButton" type="CheckButton" parent="VBC/Settings_Tabs/Game_Tab/Settings_Scroll/Settings_VBC"]
 margin_right = 661.0
 margin_bottom = 40.0
+theme = ExtResource( 1 )
+text = "Subtitles"
+
+[node name="Debug_CheckButton" type="CheckButton" parent="VBC/Settings_Tabs/Game_Tab/Settings_Scroll/Settings_VBC"]
+margin_top = 44.0
+margin_right = 661.0
+margin_bottom = 84.0
 theme = ExtResource( 1 )
 text = "Debug"
 
 [node name="RST_HSeparator" type="HSeparator" parent="VBC/Settings_Tabs/Game_Tab/Settings_Scroll/Settings_VBC"]
-margin_top = 44.0
+margin_top = 88.0
 margin_right = 661.0
-margin_bottom = 48.0
+margin_bottom = 92.0
 
 [node name="Reset_Button" type="Button" parent="VBC/Settings_Tabs/Game_Tab/Settings_Scroll/Settings_VBC"]
-margin_top = 52.0
+margin_top = 96.0
 margin_right = 661.0
-margin_bottom = 72.0
+margin_bottom = 116.0
 text = "Reset To Default"
 
 [node name="Video_Tab" type="Tabs" parent="VBC/Settings_Tabs"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -765,19 +772,118 @@ __meta__ = {
 
 [node name="Settings_VBC" type="VBoxContainer" parent="VBC/Settings_Tabs/Controller_Tab/Settings_Scroll"]
 margin_right = 661.0
-margin_bottom = 380.0
+margin_bottom = 496.0
 size_flags_horizontal = 3
 theme = ExtResource( 1 )
 
-[node name="LY_Label" type="Label" parent="VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC"]
+[node name="Vibration_CheckButton" type="CheckButton" parent="VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC"]
 margin_right = 649.0
-margin_bottom = 14.0
+margin_bottom = 40.0
+text = "Vibration"
+
+[node name="WM_HBC" type="HBoxContainer" parent="VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC"]
+margin_top = 44.0
+margin_right = 649.0
+margin_bottom = 60.0
+
+[node name="WM_Label" type="Label" parent="VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC/WM_HBC"]
+margin_top = 1.0
+margin_right = 170.0
+margin_bottom = 15.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.4
+text = "Weak Magnitude : "
+
+[node name="WM_Slider" type="HSlider" parent="VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC/WM_HBC"]
+margin_left = 174.0
+margin_right = 601.0
+margin_bottom = 16.0
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.1
+tick_count = 10
+
+[node name="WM_Value" type="Label" parent="VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC/WM_HBC"]
+margin_left = 605.0
+margin_top = 1.0
+margin_right = 649.0
+margin_bottom = 15.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.1
+
+[node name="SM_HBC" type="HBoxContainer" parent="VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC"]
+margin_top = 64.0
+margin_right = 649.0
+margin_bottom = 80.0
+
+[node name="SM_Label" type="Label" parent="VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC/SM_HBC"]
+margin_top = 1.0
+margin_right = 170.0
+margin_bottom = 15.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.4
+text = "Strong Magnitude : "
+
+[node name="SM_Slider" type="HSlider" parent="VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC/SM_HBC"]
+margin_left = 174.0
+margin_right = 601.0
+margin_bottom = 16.0
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.1
+tick_count = 10
+
+[node name="SM_Value" type="Label" parent="VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC/SM_HBC"]
+margin_left = 605.0
+margin_top = 1.0
+margin_right = 649.0
+margin_bottom = 15.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.1
+
+[node name="TM_HBC" type="HBoxContainer" parent="VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC"]
+margin_top = 84.0
+margin_right = 649.0
+margin_bottom = 104.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="WM_Button" type="Button" parent="VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC/TM_HBC"]
+margin_right = 213.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+text = "Weak Test"
+
+[node name="SM_Button" type="Button" parent="VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC/TM_HBC"]
+margin_left = 217.0
+margin_right = 430.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+text = "Strong Test"
+
+[node name="CM_Button" type="Button" parent="VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC/TM_HBC"]
+margin_left = 434.0
+margin_right = 649.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+text = "Combined Test"
+
+[node name="HSeparator_1" type="HSeparator" parent="VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC"]
+margin_top = 108.0
+margin_right = 649.0
+margin_bottom = 112.0
+
+[node name="LY_Label" type="Label" parent="VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC"]
+margin_top = 116.0
+margin_right = 649.0
+margin_bottom = 130.0
 text = "Left Y Sensitivity"
 
 [node name="LY_HBC" type="HBoxContainer" parent="VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC"]
-margin_top = 18.0
+margin_top = 134.0
 margin_right = 649.0
-margin_bottom = 34.0
+margin_bottom = 150.0
 
 [node name="LY_Slider" type="HSlider" parent="VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC/LY_HBC"]
 margin_right = 537.0
@@ -796,26 +902,26 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.2
 
 [node name="LY_CheckButton" type="CheckButton" parent="VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC"]
-margin_top = 38.0
+margin_top = 154.0
 margin_right = 649.0
-margin_bottom = 78.0
+margin_bottom = 194.0
 text = "Left Y Invert"
 
-[node name="HSeparator_1" type="HSeparator" parent="VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC"]
-margin_top = 82.0
+[node name="HSeparator_2" type="HSeparator" parent="VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC"]
+margin_top = 198.0
 margin_right = 649.0
-margin_bottom = 86.0
+margin_bottom = 202.0
 
 [node name="LX_Label" type="Label" parent="VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC"]
-margin_top = 90.0
+margin_top = 206.0
 margin_right = 649.0
-margin_bottom = 104.0
+margin_bottom = 220.0
 text = "Left X Sensitivity"
 
 [node name="LX_HBC" type="HBoxContainer" parent="VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC"]
-margin_top = 108.0
+margin_top = 224.0
 margin_right = 649.0
-margin_bottom = 124.0
+margin_bottom = 240.0
 
 [node name="LX_Slider" type="HSlider" parent="VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC/LX_HBC"]
 margin_right = 537.0
@@ -834,26 +940,26 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.2
 
 [node name="LX_CheckButton" type="CheckButton" parent="VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC"]
-margin_top = 128.0
+margin_top = 244.0
 margin_right = 649.0
-margin_bottom = 168.0
+margin_bottom = 284.0
 text = "Left X Invert"
 
-[node name="HSeparator_2" type="HSeparator" parent="VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC"]
-margin_top = 172.0
+[node name="HSeparator_3" type="HSeparator" parent="VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC"]
+margin_top = 288.0
 margin_right = 649.0
-margin_bottom = 176.0
+margin_bottom = 292.0
 
 [node name="RY_Label" type="Label" parent="VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC"]
-margin_top = 180.0
+margin_top = 296.0
 margin_right = 649.0
-margin_bottom = 194.0
+margin_bottom = 310.0
 text = "Right Y Sensitivity"
 
 [node name="RY_HBC" type="HBoxContainer" parent="VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC"]
-margin_top = 198.0
+margin_top = 314.0
 margin_right = 649.0
-margin_bottom = 214.0
+margin_bottom = 330.0
 
 [node name="RY_Slider" type="HSlider" parent="VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC/RY_HBC"]
 margin_right = 537.0
@@ -872,26 +978,26 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.2
 
 [node name="RY_CheckButton" type="CheckButton" parent="VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC"]
-margin_top = 218.0
+margin_top = 334.0
 margin_right = 649.0
-margin_bottom = 258.0
+margin_bottom = 374.0
 text = "Right Y Invert"
 
-[node name="HSeparator_3" type="HSeparator" parent="VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC"]
-margin_top = 262.0
+[node name="HSeparator_4" type="HSeparator" parent="VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC"]
+margin_top = 378.0
 margin_right = 649.0
-margin_bottom = 266.0
+margin_bottom = 382.0
 
 [node name="RX_Label" type="Label" parent="VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC"]
-margin_top = 270.0
+margin_top = 386.0
 margin_right = 649.0
-margin_bottom = 284.0
+margin_bottom = 400.0
 text = "Right X Sensitivity"
 
 [node name="RX_HBC" type="HBoxContainer" parent="VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC"]
-margin_top = 288.0
+margin_top = 404.0
 margin_right = 649.0
-margin_bottom = 304.0
+margin_bottom = 420.0
 
 [node name="RX_Slider" type="HSlider" parent="VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC/RX_HBC"]
 margin_right = 537.0
@@ -910,20 +1016,20 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.2
 
 [node name="RX_CheckButton" type="CheckButton" parent="VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC"]
-margin_top = 308.0
+margin_top = 424.0
 margin_right = 649.0
-margin_bottom = 348.0
+margin_bottom = 464.0
 text = "Right X Invert"
 
 [node name="RST_HSeparator" type="HSeparator" parent="VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC"]
-margin_top = 352.0
+margin_top = 468.0
 margin_right = 649.0
-margin_bottom = 356.0
+margin_bottom = 472.0
 
 [node name="Reset_Button" type="Button" parent="VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC"]
-margin_top = 360.0
+margin_top = 476.0
 margin_right = 649.0
-margin_bottom = 380.0
+margin_bottom = 496.0
 text = "Reset To Default"
 
 [node name="Keybinding_Tab" type="Tabs" parent="VBC/Settings_Tabs"]
@@ -952,16 +1058,16 @@ size_flags_horizontal = 3
 theme = ExtResource( 1 )
 
 [node name="Key_Bind_VBC" type="VBoxContainer" parent="VBC/Settings_Tabs/Keybinding_Tab/Settings_Scroll/Settings_VBC"]
-margin_right = 405.0
+margin_right = 661.0
 
 [node name="RST_HSeparator" type="HSeparator" parent="VBC/Settings_Tabs/Keybinding_Tab/Settings_Scroll/Settings_VBC"]
 margin_top = 4.0
-margin_right = 405.0
+margin_right = 661.0
 margin_bottom = 8.0
 
 [node name="Reset_Button" type="Button" parent="VBC/Settings_Tabs/Keybinding_Tab/Settings_Scroll/Settings_VBC"]
 margin_top = 12.0
-margin_right = 405.0
+margin_right = 661.0
 margin_bottom = 32.0
 text = "Reset To Default"
 

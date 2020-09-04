@@ -19,6 +19,7 @@ const resolutions = [
 
 onready var config_data_default = {
 		"game":{
+				"subtitles":false,
 				"debug":false
 				},
 		"video":{
@@ -49,6 +50,9 @@ onready var config_data_default = {
 				"mouse_sensitivity_scroll": 0.3
 				},
 		"controller":{
+				"vibration": true,
+				"weak_magnitude": 1,
+				"strong_magnitude": 1,
 				"left_y_sensitivity": 1,
 				"left_y_inverted": false,
 				"left_x_sensitivity": 1,

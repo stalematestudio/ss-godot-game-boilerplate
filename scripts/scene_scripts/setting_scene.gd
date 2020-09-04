@@ -4,7 +4,7 @@ export (PackedScene) var setting_keybind_action_scene
 
 # Set gui elements
 onready var gui_tabs = $VBC/Settings_Tabs
-onready var gui_setting_tab = $VBC/Tab_Buttons/Game_Tab_Button
+onready var gui_game_tab = $VBC/Tab_Buttons/Game_Tab_Button
 onready var gui_video_tab = $VBC/Tab_Buttons/Video_Tab_Button
 onready var gui_audio_tab = $VBC/Tab_Buttons/Audio_Tab_Button
 onready var gui_mouse_tab = $VBC/Tab_Buttons/Mouse_Tab_Button
@@ -18,6 +18,7 @@ onready var gui_cancel = $VBC/Cancel
 var return_focus_target
 
 # Game
+onready var gui_subtitles = $VBC/Settings_Tabs/Game_Tab/Settings_Scroll/Settings_VBC/SubTitles_CheckButton
 onready var gui_debug = $VBC/Settings_Tabs/Game_Tab/Settings_Scroll/Settings_VBC/Debug_CheckButton
 onready var gui_game_reset = $VBC/Settings_Tabs/Game_Tab/Settings_Scroll/Settings_VBC/Reset_Button
 
@@ -75,6 +76,20 @@ onready var gui_mouse_scroll_sensitivity_display = $VBC/Settings_Tabs/Mouse_Tab/
 onready var gui_mouse_reset = $VBC/Settings_Tabs/Mouse_Tab/Settings_Scroll/Settings_VBC/Reset_Button
 
 # Controller
+onready var gui_vibration = $VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC/Vibration_CheckButton
+
+onready var gui_weak_magnitude_label = $VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC/WM_HBC/WM_Label
+onready var gui_weak_magnitude_slider = $VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC/WM_HBC/WM_Slider
+onready var gui_weak_magnitude_display = $VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC/WM_HBC/WM_Value
+
+onready var gui_strong_magnitude_label = $VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC/SM_HBC/SM_Label
+onready var gui_strong_magnitude_slider = $VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC/SM_HBC/SM_Slider
+onready var gui_strong_magnitude_display = $VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC/SM_HBC/SM_Value
+
+onready var gui_weak_magnitude_test = $VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC/TM_HBC/WM_Button
+onready var gui_strong_magnitude_test = $VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC/TM_HBC/SM_Button
+onready var gui_magnitude_test = $VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC/TM_HBC/CM_Button
+
 onready var gui_controller_left_y_invert = $VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC/LY_CheckButton
 onready var gui_controller_left_y_sensitivity_slider = $VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC/LY_HBC/LY_Slider
 onready var gui_controller_left_y_sensitivity_display = $VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC/LY_HBC/LY_Value
@@ -99,9 +114,9 @@ onready var gui_key_binding_reset = $VBC/Settings_Tabs/Keybinding_Tab/Settings_S
 
 func _ready():
 	.connect("tree_exiting", self, "_on_tree_exiting")
-	gui_setting_tab.grab_focus()
+	gui_game_tab.grab_focus()
 	# Set Settings Menu
-	gui_setting_tab.connect("pressed", self, "settings_menu_tab_switch", [0])
+	gui_game_tab.connect("pressed", self, "settings_menu_tab_switch", [0])
 	gui_video_tab.connect("pressed", self, "settings_menu_tab_switch", [1])
 	gui_audio_tab.connect("pressed", self, "settings_menu_tab_switch", [2])
 	gui_mouse_tab.connect("pressed", self, "settings_menu_tab_switch", [3])
@@ -113,6 +128,7 @@ func _ready():
 	gui_cancel.connect("pressed", self, "settings_menu_apply_cancel", ["cancel"])
 	
 	# Game
+	gui_subtitles.connect("pressed", self, "subtitle_adjust")
 	gui_debug.connect("pressed", self, "debug_adjust")
 	gui_game_reset.connect("pressed", self, "reset_to_default", ["game"])
 	
@@ -159,6 +175,15 @@ func _ready():
 	gui_mouse_reset.connect("pressed", self, "reset_to_default", ["mouse"])
 	
 	# Controller
+	gui_vibration.connect("pressed", self, "vibration_adjust")
+
+	gui_weak_magnitude_slider.connect("value_changed", self, "weak_magnitude_adjust")
+	gui_strong_magnitude_slider.connect("value_changed", self, "strong_magnitude_adjust")
+	
+	gui_weak_magnitude_test.connect("pressed", self, "weak_magnitude_test")
+	gui_strong_magnitude_test.connect("pressed", self, "strong_magnitude_test")
+	gui_magnitude_test.connect("pressed", self, "vibration_magnitude_test")
+
 	gui_controller_left_y_invert.connect("pressed", self, "left_y_invert_adjust")
 	gui_controller_left_y_sensitivity_slider.connect("value_changed", self, "left_y_sensitivity_adjust")
 	
@@ -187,6 +212,7 @@ func set_form_values():
 	ConfigManager.load_config()
 	
 	# Game
+	gui_subtitles.set_pressed(ConfigManager.config_data.game.subtitles)
 	gui_debug.set_pressed(ConfigManager.config_data.game.debug)
 	
 	# Video
@@ -228,6 +254,10 @@ func set_form_values():
 	gui_mouse_scroll_sensitivity_slider.set_value(ConfigManager.config_data.mouse.mouse_sensitivity_scroll)
 	
 	# Controller
+	gui_vibration.set_pressed(ConfigManager.config_data.controller.vibration)
+	gui_weak_magnitude_slider.set_value(ConfigManager.config_data.controller.weak_magnitude)
+	gui_strong_magnitude_slider.set_value(ConfigManager.config_data.controller.strong_magnitude)
+
 	gui_controller_left_y_invert.set_pressed(ConfigManager.config_data.controller.left_y_inverted)
 	gui_controller_left_y_sensitivity_slider.set_value(ConfigManager.config_data.controller.left_y_sensitivity)
 	
@@ -252,11 +282,7 @@ func set_form_values():
 
 func set_elements_disabled():
 	# Video
-	var disabled_by_picture_adjustments = gui_picture_adjustments.is_pressed()
-	var disabled_by_fullscreen = gui_fullscreen.is_pressed()
-	var disabled_by_resolution_auto = gui_resolution_auto.is_pressed()
-	
-	if disabled_by_picture_adjustments:
+	if gui_picture_adjustments.is_pressed():
 		gui_brightnes_label.set_self_modulate(Color("#ffffffff"))
 		gui_brightnes_slider.set_editable(true)
 		gui_brightnes_display.set_self_modulate(Color("#ffffffff"))
@@ -281,6 +307,9 @@ func set_elements_disabled():
 		gui_saturation_slider.set_editable(false)
 		gui_saturation_display.set_self_modulate(Color("#40ffffff"))
 
+	var disabled_by_fullscreen = gui_fullscreen.is_pressed()
+	var disabled_by_resolution_auto = gui_resolution_auto.is_pressed()
+	
 	gui_borderless.set_disabled(disabled_by_fullscreen)
 	gui_resolution_auto.set_disabled(disabled_by_fullscreen)
 	gui_resolution_option.set_disabled( disabled_by_fullscreen or disabled_by_resolution_auto )
@@ -312,7 +341,36 @@ func set_elements_disabled():
 		gui_fx_slider.set_editable(false)
 		gui_fx_display.set_self_modulate(Color("#40ffffff"))
 
+	# Controller
+	if gui_vibration.is_pressed():
+		gui_weak_magnitude_label.set_self_modulate(Color("#ffffffff"))
+		gui_weak_magnitude_slider.set_editable(true)
+		gui_weak_magnitude_display.set_self_modulate(Color("#ffffffff"))
+				
+		gui_strong_magnitude_label.set_self_modulate(Color("#ffffffff"))
+		gui_strong_magnitude_slider.set_editable(true)
+		gui_strong_magnitude_display.set_self_modulate(Color("#ffffffff"))
+		
+		gui_weak_magnitude_test.set_disabled(false)
+		gui_strong_magnitude_test.set_disabled(false)
+		gui_magnitude_test.set_disabled(false)
+	else:
+		gui_weak_magnitude_label.set_self_modulate(Color("#40ffffff"))
+		gui_weak_magnitude_slider.set_editable(false)
+		gui_weak_magnitude_display.set_self_modulate(Color("#40ffffff"))
+		
+		gui_strong_magnitude_label.set_self_modulate(Color("#40ffffff"))
+		gui_strong_magnitude_slider.set_editable(false)
+		gui_strong_magnitude_display.set_self_modulate(Color("#40ffffff"))
+
+		gui_weak_magnitude_test.set_disabled(true)
+		gui_strong_magnitude_test.set_disabled(true)
+		gui_magnitude_test.set_disabled(true)
+
 # Game
+func subtitle_adjust():
+	ConfigManager.config_data.game.subtitles = gui_subtitles.is_pressed()
+
 func debug_adjust():
 	ConfigManager.config_data.game.debug = gui_debug.is_pressed()
 
@@ -408,6 +466,28 @@ func mouse_scroll_sensitivity_adjust(new_val):
 	gui_mouse_scroll_sensitivity_display.text = String(ConfigManager.config_data.mouse.mouse_sensitivity_scroll)
 
 # Controller
+# Vibration
+func vibration_adjust():
+	ConfigManager.config_data.controller.vibration = gui_vibration.is_pressed()
+	set_elements_disabled()
+
+func weak_magnitude_adjust(new_val):
+	ConfigManager.config_data.controller.weak_magnitude = new_val
+	gui_weak_magnitude_display.set_text(String(ConfigManager.config_data.controller.weak_magnitude))
+
+func strong_magnitude_adjust(new_val):
+	ConfigManager.config_data.controller.strong_magnitude = new_val
+	gui_strong_magnitude_display.set_text(String(ConfigManager.config_data.controller.strong_magnitude))
+
+func weak_magnitude_test():
+	Input.start_joy_vibration(ConfigManager.joypad_device_id, ConfigManager.config_data.controller.weak_magnitude, 0, 1)
+	
+func strong_magnitude_test():
+	Input.start_joy_vibration(ConfigManager.joypad_device_id, 0, ConfigManager.config_data.controller.strong_magnitude, 1)
+
+func vibration_magnitude_test():
+	Input.start_joy_vibration(ConfigManager.joypad_device_id, ConfigManager.config_data.controller.weak_magnitude, ConfigManager.config_data.controller.strong_magnitude, 1)
+
 # Left Y
 func left_y_invert_adjust():
 	ConfigManager.config_data.controller.left_y_inverted = gui_controller_left_y_invert.is_pressed()
