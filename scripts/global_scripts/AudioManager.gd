@@ -1,10 +1,12 @@
 extends Node
 
 onready var Music_Player = get_node("/root/main/Music_Player")
+onready var Voice_Player = get_node("/root/main/Voice_Player")
 onready var FX_Player = get_node("/root/main/FX_Player")
 
 onready var audio_bus_master = AudioServer.get_bus_index("Master")
 onready var audio_bus_music = AudioServer.get_bus_index("Music")
+onready var audio_bus_voice = AudioServer.get_bus_index("Voice")
 onready var audio_bus_fx = AudioServer.get_bus_index("FX")
 
 onready var navigate_audio = preload("res://assets/audio/ui_effects/navigate.wav")

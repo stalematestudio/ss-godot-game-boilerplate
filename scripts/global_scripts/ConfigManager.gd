@@ -38,6 +38,8 @@ onready var config_data_default = {
 				"master_volume": -12,
 				"music_enabled": true,
 				"music_volume": -12,
+				"voice_enabled": true,
+				"voice_volume": -12,
 				"fx_enabled": true,
 				"fx_volume": -12
 				},

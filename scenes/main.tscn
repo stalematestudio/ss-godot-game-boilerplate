@@ -22,16 +22,21 @@ debug_scene = ExtResource( 6 )
 settings_scene = ExtResource( 5 )
 pause_scene = ExtResource( 9 )
 
-[node name="FX_Player" type="AudioStreamPlayer" parent="."]
-pause_mode = 2
-mix_target = 1
-bus = "FX"
-
 [node name="Music_Player" type="AudioStreamPlayer" parent="."]
 pause_mode = 2
 stream = ExtResource( 4 )
 mix_target = 1
 bus = "Music"
+
+[node name="Voice_Player" type="AudioStreamPlayer" parent="."]
+pause_mode = 2
+mix_target = 1
+bus = "Voice"
+
+[node name="FX_Player" type="AudioStreamPlayer" parent="."]
+pause_mode = 2
+mix_target = 1
+bus = "FX"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource( 10 )
