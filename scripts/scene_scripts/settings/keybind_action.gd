@@ -1,7 +1,7 @@
 extends VBoxContainer
 
-export (PackedScene) var setting_keybind_event_scene
-export (PackedScene) var setting_keybind_input_scene
+export (PackedScene) var keybind_event
+export (PackedScene) var keybind_input
 
 # ConfigManager.config_data.keybinding[action].deadzone
 # ConfigManager.config_data.keybinding[action].events
@@ -24,7 +24,7 @@ func _ready():
 func display_events():
 	Helpers.RemoveChildren(events_vbc)
 	for event in ConfigManager.config_data.keybinding[action].events:
-		var event_node = setting_keybind_event_scene.instance()
+		var event_node = keybind_event.instance()
 		event_node.action = action
 		event_node.event = event
 		events_vbc.add_child(event_node)
@@ -34,7 +34,7 @@ func deadzone_adjust(new_val):
 	dead_zone_display.set_text(String(ConfigManager.config_data.keybinding[action].deadzone))
 
 func add_event():
-	var add_event_node = setting_keybind_input_scene.instance()
+	var add_event_node = keybind_input.instance()
 	add_event_node.action = action
 	add_event_node.called_from = self
 	.add_child(add_event_node)

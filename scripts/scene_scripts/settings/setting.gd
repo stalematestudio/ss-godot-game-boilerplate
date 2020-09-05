@@ -1,6 +1,6 @@
 extends Node
 
-export (PackedScene) var setting_keybind_action_scene
+export (PackedScene) var keybind_action
 
 # Set gui elements
 onready var gui_tabs = $VBC/Settings_Tabs
@@ -299,11 +299,10 @@ func set_form_values():
 func set_key_binding_form():
 	Helpers.RemoveChildren(gui_key_binding_vbc)
 	for action in ConfigManager.config_data.keybinding:
-		var action_element = setting_keybind_action_scene.instance()
+		var action_element = keybind_action.instance()
 		action_element.name = action
 		action_element.action = action
 		gui_key_binding_vbc.add_child(action_element)
-
 
 func set_elements_disabled():
 	# Video

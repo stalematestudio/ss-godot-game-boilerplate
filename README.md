@@ -47,36 +47,36 @@ This is the project ‘Main Scene’. It is persistent during runtime and all ot
 
 ### Intro & Credits Scenes
 
-__res://scenes/intro_scene/intro_scene.tscn & res://scenes/credits_scene/credits_scene.tscn__
+__res://scenes/intro/intro.tscn & res://scenes/credits/credits.tscn__
 
 The Intro and Credits Scenes both work like a slideshow and share the same control script. There is a "screens" Array that should be populated with textures. On timeout of the "event_timer" Timer the next texture from "screens" is displayed in "screen_display" TextureRect. After the end of the array GameManager.change_state("TITLE") is called to load the "Title Scene".
 
 ### Title Scene
 
-__res://scenes/title_scene/title_scene.tscn__
+__res://scenes/title/title.tscn__
 
 ...
 
 ### Pause Scene
 
-__res://scenes/pause_scene/pause_scene.tscn__
+__res://scenes/pause/pause.tscn__
 
 ...
 
 ### Settings Scene
 
-__res://scenes/settings_scene/settings_scene.tscn__
+__res://scenes/settings/settings.tscn__
 
 ...
 
 ### Debug Scene
 
-__res://scenes/debug_scene/debug_scene.tscn__
+__res://scenes/debug/debug.tscn__
 
 ...
 
 ### Game Scene
 
-__res://scenes/game_scene/game_scene.tscn__
+__res://scenes/game/game.tscn__
 
 ...
