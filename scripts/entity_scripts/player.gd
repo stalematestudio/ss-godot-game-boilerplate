@@ -110,7 +110,6 @@ func process_look():
 	if ConfigManager.config_data.controller.right_x_inverted:
 		input_look_vector.x = input_look_vector.x * -1
 
-
 	player_head.rotate_x(deg2rad( input_look_vector.y * ConfigManager.config_data.controller.right_y_sensitivity ))
 	rotate_y(deg2rad( input_look_vector.x * ConfigManager.config_data.controller.right_x_sensitivity ))
 	var player_head_rotation = player_head.rotation_degrees

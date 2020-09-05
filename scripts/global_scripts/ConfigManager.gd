@@ -3,6 +3,8 @@ extends Node
 onready var config_path = "user://config.ini"
 onready var main_scene = get_node("/root/main")
 onready var main_environment = get_node("/root/main/WorldEnvironment").get_environment()
+
+onready var joypad_in_use = false
 onready var joypad_present = false
 onready var joypad_device_id = 0
 
@@ -106,6 +108,9 @@ func apply_config():
 	# Music
 	AudioServer.set_bus_mute(AudioManager.audio_bus_music, !config_data.audio.music_enabled)
 	AudioServer.set_bus_volume_db(AudioManager.audio_bus_music, config_data.audio.music_volume)
+	# Voice
+	AudioServer.set_bus_mute(AudioManager.audio_bus_voice, !config_data.audio.voice_enabled)
+	AudioServer.set_bus_volume_db(AudioManager.audio_bus_voice, config_data.audio.voice_volume)
 	# FX
 	AudioServer.set_bus_mute(AudioManager.audio_bus_fx, !config_data.audio.fx_enabled)
 	AudioServer.set_bus_volume_db(AudioManager.audio_bus_fx, config_data.audio.fx_volume)
@@ -147,6 +152,7 @@ func reset_to_default(section):
 	apply_config()
 
 func _on_joy_connection_changed(device, connected):
+	print( "Config Manager " + String(connected) + String(device) )
 	if connected:
 		joypad_present = true
 		joypad_device_id = device

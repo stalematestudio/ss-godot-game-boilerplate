@@ -80,6 +80,10 @@ onready var gui_mouse_scroll_sensitivity_display = $VBC/Settings_Tabs/Mouse_Tab/
 onready var gui_mouse_reset = $VBC/Settings_Tabs/Mouse_Tab/Settings_Scroll/Settings_VBC/Reset_Button
 
 # Controller
+onready var gui_controller_label = $VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC/Controller_HBC/Controller_Label
+onready var gui_controller_option = $VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC/Controller_HBC/Controller_OptionButton
+onready var gui_controller_refresh_button = $VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC/Controller_HBC/Controller_Refresh_Button
+
 onready var gui_vibration = $VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC/Vibration_CheckButton
 
 onready var gui_weak_magnitude_label = $VBC/Settings_Tabs/Controller_Tab/Settings_Scroll/Settings_VBC/WM_HBC/WM_Label
@@ -182,6 +186,11 @@ func _ready():
 	gui_mouse_reset.connect("pressed", self, "reset_to_default", ["mouse"])
 	
 	# Controller
+	controllers_list()
+	gui_controller_option.connect("item_selected", self, "controller_select")
+	gui_controller_refresh_button.connect("pressed", self, "controllers_list")
+	Input.connect("joy_connection_changed", self, "controllers_list_changed")
+
 	gui_vibration.connect("pressed", self, "vibration_adjust")
 
 	gui_weak_magnitude_slider.connect("value_changed", self, "weak_magnitude_adjust")
@@ -282,14 +291,19 @@ func set_form_values():
 	gui_controller_right_x_sensitivity_slider.set_value(ConfigManager.config_data.controller.right_x_sensitivity)
 	
 	# Key Binding
+	set_key_binding_form()
+
+	# Set inactive / disabled elements
+	set_elements_disabled()
+
+func set_key_binding_form():
 	Helpers.RemoveChildren(gui_key_binding_vbc)
 	for action in ConfigManager.config_data.keybinding:
 		var action_element = setting_keybind_action_scene.instance()
 		action_element.name = action
 		action_element.action = action
 		gui_key_binding_vbc.add_child(action_element)
-	
-	set_elements_disabled()
+
 
 func set_elements_disabled():
 	# Video
@@ -360,7 +374,18 @@ func set_elements_disabled():
 		gui_fx_display.set_self_modulate(Color("#40ffffff"))
 
 	# Controller
-	if gui_vibration.is_pressed():
+	if ConfigManager.joypad_present:
+		gui_controller_label.set_self_modulate(Color("#ffffffff"))
+		gui_controller_option.set_disabled(false)
+		gui_controller_refresh_button.set_disabled(false)
+		gui_vibration.set_disabled(false)
+	else:
+		gui_controller_label.set_self_modulate(Color("#40ffffff"))
+		gui_controller_option.set_disabled(true)
+		gui_controller_refresh_button.set_disabled(true)
+		gui_vibration.set_disabled(true)
+
+	if gui_vibration.is_pressed() and ConfigManager.joypad_present:
 		gui_weak_magnitude_label.set_self_modulate(Color("#ffffffff"))
 		gui_weak_magnitude_slider.set_editable(true)
 		gui_weak_magnitude_display.set_self_modulate(Color("#ffffffff"))
@@ -494,6 +519,27 @@ func mouse_scroll_sensitivity_adjust(new_val):
 	gui_mouse_scroll_sensitivity_display.text = String(ConfigManager.config_data.mouse.mouse_sensitivity_scroll)
 
 # Controller
+func controller_select(new_val):
+	ConfigManager.joypad_device_id = new_val
+	set_key_binding_form()
+
+func controllers_list():
+	gui_controller_option.clear()
+	if ConfigManager.joypad_present:
+		for j_pad in Input.get_connected_joypads():
+			gui_controller_option.add_item(String(j_pad) + " : " + Input.get_joy_name( j_pad ), j_pad )
+		gui_controller_option.select(ConfigManager.joypad_device_id)
+
+func controllers_list_changed(device, connected):
+	if connected:
+		controllers_list()
+	else:
+		gui_controller_option.remove_item(device)
+		if ConfigManager.joypad_present:
+			gui_controller_option.select(ConfigManager.joypad_device_id)
+	set_key_binding_form()
+	set_elements_disabled()
+
 # Vibration
 func vibration_adjust():
 	ConfigManager.config_data.controller.vibration = gui_vibration.is_pressed()
