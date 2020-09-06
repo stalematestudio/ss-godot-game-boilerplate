@@ -24,7 +24,7 @@ __meta__ = {
 
 [node name="Settings_VBC" type="VBoxContainer" parent="Settings_Scroll"]
 margin_right = 854.0
-margin_bottom = 84.0
+margin_bottom = 172.0
 size_flags_horizontal = 3
 theme = ExtResource( 1 )
 __meta__ = {
@@ -37,9 +37,23 @@ margin_bottom = 40.0
 theme = ExtResource( 1 )
 text = "Subtitles"
 
-[node name="Debug_CheckButton" type="CheckButton" parent="Settings_Scroll/Settings_VBC"]
+[node name="FocusLossPause_CheckButton" type="CheckButton" parent="Settings_Scroll/Settings_VBC"]
 margin_top = 44.0
 margin_right = 854.0
 margin_bottom = 84.0
+theme = ExtResource( 1 )
+text = "Focus Loss Pause"
+
+[node name="FocusGrabResume_CheckButton" type="CheckButton" parent="Settings_Scroll/Settings_VBC"]
+margin_top = 88.0
+margin_right = 854.0
+margin_bottom = 128.0
+theme = ExtResource( 1 )
+text = "Focus Grab Resume"
+
+[node name="Debug_CheckButton" type="CheckButton" parent="Settings_Scroll/Settings_VBC"]
+margin_top = 132.0
+margin_right = 854.0
+margin_bottom = 172.0
 theme = ExtResource( 1 )
 text = "Debug"

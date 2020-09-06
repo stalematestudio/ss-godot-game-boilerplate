@@ -28,10 +28,10 @@ func _notification(what):
 	if game_state:
 		match what:
 			NOTIFICATION_WM_FOCUS_IN:
-				if game_state.in_game:
+				if game_state.in_game and ConfigManager.config_data.game.resume_on_focus_grab:
 					resume_game()
 			NOTIFICATION_WM_FOCUS_OUT:
-				if game_state.in_game:
+				if game_state.in_game and ConfigManager.config_data.game.pause_on_focus_loss:
 					pause_game()
 
 func _ready():

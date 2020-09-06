@@ -34,6 +34,8 @@ onready var gui_controller_right_x_invert = $Settings_Scroll/Settings_VBC/RX_Che
 onready var gui_controller_right_x_sensitivity_slider = $Settings_Scroll/Settings_VBC/RX_HBC/RX_Slider
 onready var gui_controller_right_x_sensitivity_display = $Settings_Scroll/Settings_VBC/RX_HBC/RX_Value
 
+onready var gui_keybind = get_node("../keybind")
+
 func _ready():
 	controllers_list()
 	gui_controller_option.connect("item_selected", self, "controller_select")
@@ -120,6 +122,7 @@ func set_elements_disabled():
 # Controller
 func controller_select(new_val):
 	ConfigManager.joypad_device_id = new_val
+	gui_keybind.set_form_values()
 
 func controllers_list():
 	gui_controller_option.clear()
@@ -135,6 +138,7 @@ func controllers_list_changed(device, connected):
 		gui_controller_option.remove_item(device)
 		if ConfigManager.joypad_present:
 			gui_controller_option.select(ConfigManager.joypad_device_id)
+	gui_keybind.set_form_values()
 	set_elements_disabled()
 
 # Vibration

@@ -22,6 +22,8 @@ const resolutions = [
 onready var config_data_default = {
 		"game":{
 				"subtitles":false,
+				"pause_on_focus_loss": true,
+				"resume_on_focus_grab": true,
 				"debug":false
 				},
 		"video":{
@@ -36,14 +38,22 @@ onready var config_data_default = {
 				"vsync": true,
 				},
 		"audio":{
-				"master_enabled":true,
-				"master_volume": -12,
-				"music_enabled": true,
-				"music_volume": -12,
-				"voice_enabled": true,
-				"voice_volume": -12,
-				"fx_enabled": true,
-				"fx_volume": -12
+				"Master": {
+					"mute": false,
+					"volume": 50
+					},
+				"Music": {
+					"mute": false,
+					"volume": 50
+					},
+				"Voice": {
+					"mute": false,
+					"volume": 50
+					},
+				"FX": {
+					"mute": false,
+					"volume": 50
+					},
 				},
 		"mouse":{
 				"mouse_inverted_x": false,
@@ -102,18 +112,8 @@ func apply_config():
 			OS.set_window_size(config_size)
 		OS.center_window()
 	# Audio
-	# Master
-	AudioServer.set_bus_mute(AudioManager.audio_bus_master, !config_data.audio.master_enabled)
-	AudioServer.set_bus_volume_db(AudioManager.audio_bus_master, config_data.audio.master_volume)
-	# Music
-	AudioServer.set_bus_mute(AudioManager.audio_bus_music, !config_data.audio.music_enabled)
-	AudioServer.set_bus_volume_db(AudioManager.audio_bus_music, config_data.audio.music_volume)
-	# Voice
-	AudioServer.set_bus_mute(AudioManager.audio_bus_voice, !config_data.audio.voice_enabled)
-	AudioServer.set_bus_volume_db(AudioManager.audio_bus_voice, config_data.audio.voice_volume)
-	# FX
-	AudioServer.set_bus_mute(AudioManager.audio_bus_fx, !config_data.audio.fx_enabled)
-	AudioServer.set_bus_volume_db(AudioManager.audio_bus_fx, config_data.audio.fx_volume)
+	for key in config_data.audio.keys():
+		AudioManager.set_audio(AudioManager.audio_bus[key], config_data.audio[key].mute, config_data.audio[key].volume)
 	# Key Binding
 	for action in config_data.keybind:
 		InputMap.action_set_deadzone(action, config_data.keybind[action].deadzone)
