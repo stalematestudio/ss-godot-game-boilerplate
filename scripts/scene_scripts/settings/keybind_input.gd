@@ -45,10 +45,10 @@ func reset_new_event():
 	reset.disabled = true
 
 func add_new_event():
-	ConfigManager.config_data.keybinding[action].events.append(new_event)
+	ConfigManager.config_data.keybind[action].events.append(new_event)
 	called_from.display_events()
 	cancel_new_event()
 
 func cancel_new_event():
-	get_node("../Event_Add").grab_focus()
+	called_from.add_event_button.grab_focus()
 	.queue_free()

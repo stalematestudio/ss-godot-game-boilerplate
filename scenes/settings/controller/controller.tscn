@@ -1,16 +1,16 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://themes/base.tres" type="Theme" id=1]
+[ext_resource path="res://scripts/scene_scripts/settings/controller.gd" type="Script" id=2]
 
-[node name="Controller_Tab" type="Tabs"]
-visible = false
+[node name="controller" type="Tabs"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 8.0
-margin_right = -4.0
-margin_bottom = -4.0
 theme = ExtResource( 1 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Settings_Scroll" type="ScrollContainer" parent="."]
 anchor_right = 1.0
@@ -22,17 +22,17 @@ __meta__ = {
 }
 
 [node name="Settings_VBC" type="VBoxContainer" parent="Settings_Scroll"]
-margin_right = 661.0
-margin_bottom = 528.0
+margin_right = 854.0
+margin_bottom = 456.0
 size_flags_horizontal = 3
 theme = ExtResource( 1 )
 
 [node name="Controller_HBC" type="HBoxContainer" parent="Settings_Scroll/Settings_VBC"]
-margin_right = 649.0
+margin_right = 854.0
 margin_bottom = 20.0
 
 [node name="Controller_Label" type="Label" parent="Settings_Scroll/Settings_VBC/Controller_HBC"]
-margin_right = 142.0
+margin_right = 188.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 size_flags_vertical = 5
@@ -44,46 +44,41 @@ __meta__ = {
 }
 
 [node name="Controller_OptionButton" type="OptionButton" parent="Settings_Scroll/Settings_VBC/Controller_HBC"]
-margin_left = 146.0
-margin_right = 502.0
+margin_left = 192.0
+margin_right = 662.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 
 [node name="Controller_Refresh_Button" type="Button" parent="Settings_Scroll/Settings_VBC/Controller_HBC"]
-margin_left = 506.0
-margin_right = 649.0
+margin_left = 666.0
+margin_right = 854.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.4
 text = "refresh"
 
-[node name="HSeparator_1" type="HSeparator" parent="Settings_Scroll/Settings_VBC"]
-margin_top = 24.0
-margin_right = 649.0
-margin_bottom = 28.0
-
 [node name="Vibration_CheckButton" type="CheckButton" parent="Settings_Scroll/Settings_VBC"]
-margin_top = 32.0
-margin_right = 649.0
-margin_bottom = 72.0
+margin_top = 24.0
+margin_right = 854.0
+margin_bottom = 64.0
 text = "Vibration"
 
 [node name="WM_HBC" type="HBoxContainer" parent="Settings_Scroll/Settings_VBC"]
-margin_top = 76.0
-margin_right = 649.0
-margin_bottom = 92.0
+margin_top = 68.0
+margin_right = 854.0
+margin_bottom = 84.0
 
 [node name="WM_Label" type="Label" parent="Settings_Scroll/Settings_VBC/WM_HBC"]
 margin_top = 1.0
-margin_right = 170.0
+margin_right = 225.0
 margin_bottom = 15.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.4
 text = "Weak Magnitude : "
 
 [node name="WM_Slider" type="HSlider" parent="Settings_Scroll/Settings_VBC/WM_HBC"]
-margin_left = 174.0
-margin_right = 601.0
+margin_left = 229.0
+margin_right = 793.0
 margin_bottom = 16.0
 size_flags_horizontal = 3
 max_value = 1.0
@@ -91,29 +86,29 @@ step = 0.1
 tick_count = 10
 
 [node name="WM_Value" type="Label" parent="Settings_Scroll/Settings_VBC/WM_HBC"]
-margin_left = 605.0
+margin_left = 797.0
 margin_top = 1.0
-margin_right = 649.0
+margin_right = 854.0
 margin_bottom = 15.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
 
 [node name="SM_HBC" type="HBoxContainer" parent="Settings_Scroll/Settings_VBC"]
-margin_top = 96.0
-margin_right = 649.0
-margin_bottom = 112.0
+margin_top = 88.0
+margin_right = 854.0
+margin_bottom = 104.0
 
 [node name="SM_Label" type="Label" parent="Settings_Scroll/Settings_VBC/SM_HBC"]
 margin_top = 1.0
-margin_right = 170.0
+margin_right = 225.0
 margin_bottom = 15.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.4
 text = "Strong Magnitude : "
 
 [node name="SM_Slider" type="HSlider" parent="Settings_Scroll/Settings_VBC/SM_HBC"]
-margin_left = 174.0
-margin_right = 601.0
+margin_left = 229.0
+margin_right = 793.0
 margin_bottom = 16.0
 size_flags_horizontal = 3
 max_value = 1.0
@@ -121,59 +116,54 @@ step = 0.1
 tick_count = 10
 
 [node name="SM_Value" type="Label" parent="Settings_Scroll/Settings_VBC/SM_HBC"]
-margin_left = 605.0
+margin_left = 797.0
 margin_top = 1.0
-margin_right = 649.0
+margin_right = 854.0
 margin_bottom = 15.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
 
 [node name="TM_HBC" type="HBoxContainer" parent="Settings_Scroll/Settings_VBC"]
-margin_top = 116.0
-margin_right = 649.0
-margin_bottom = 136.0
+margin_top = 108.0
+margin_right = 854.0
+margin_bottom = 128.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="WM_Button" type="Button" parent="Settings_Scroll/Settings_VBC/TM_HBC"]
-margin_right = 213.0
+margin_right = 282.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 text = "Weak Test"
 
 [node name="SM_Button" type="Button" parent="Settings_Scroll/Settings_VBC/TM_HBC"]
-margin_left = 217.0
-margin_right = 430.0
+margin_left = 286.0
+margin_right = 568.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 text = "Strong Test"
 
 [node name="CM_Button" type="Button" parent="Settings_Scroll/Settings_VBC/TM_HBC"]
-margin_left = 434.0
-margin_right = 649.0
+margin_left = 572.0
+margin_right = 854.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 text = "Combined Test"
 
-[node name="HSeparator_2" type="HSeparator" parent="Settings_Scroll/Settings_VBC"]
-margin_top = 140.0
-margin_right = 649.0
-margin_bottom = 144.0
-
 [node name="LY_Label" type="Label" parent="Settings_Scroll/Settings_VBC"]
-margin_top = 148.0
-margin_right = 649.0
-margin_bottom = 162.0
+margin_top = 132.0
+margin_right = 854.0
+margin_bottom = 146.0
 text = "Left Y Sensitivity"
 
 [node name="LY_HBC" type="HBoxContainer" parent="Settings_Scroll/Settings_VBC"]
-margin_top = 166.0
-margin_right = 649.0
-margin_bottom = 182.0
+margin_top = 150.0
+margin_right = 854.0
+margin_bottom = 166.0
 
 [node name="LY_Slider" type="HSlider" parent="Settings_Scroll/Settings_VBC/LY_HBC"]
-margin_right = 537.0
+margin_right = 708.0
 margin_bottom = 16.0
 size_flags_horizontal = 3
 max_value = 5.0
@@ -181,37 +171,32 @@ step = 0.01
 tick_count = 5
 
 [node name="LY_Value" type="Label" parent="Settings_Scroll/Settings_VBC/LY_HBC"]
-margin_left = 541.0
+margin_left = 712.0
 margin_top = 1.0
-margin_right = 649.0
+margin_right = 854.0
 margin_bottom = 15.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.2
 
 [node name="LY_CheckButton" type="CheckButton" parent="Settings_Scroll/Settings_VBC"]
-margin_top = 186.0
-margin_right = 649.0
-margin_bottom = 226.0
+margin_top = 170.0
+margin_right = 854.0
+margin_bottom = 210.0
 text = "Left Y Invert"
 
-[node name="HSeparator_3" type="HSeparator" parent="Settings_Scroll/Settings_VBC"]
-margin_top = 230.0
-margin_right = 649.0
-margin_bottom = 234.0
-
 [node name="LX_Label" type="Label" parent="Settings_Scroll/Settings_VBC"]
-margin_top = 238.0
-margin_right = 649.0
-margin_bottom = 252.0
+margin_top = 214.0
+margin_right = 854.0
+margin_bottom = 228.0
 text = "Left X Sensitivity"
 
 [node name="LX_HBC" type="HBoxContainer" parent="Settings_Scroll/Settings_VBC"]
-margin_top = 256.0
-margin_right = 649.0
-margin_bottom = 272.0
+margin_top = 232.0
+margin_right = 854.0
+margin_bottom = 248.0
 
 [node name="LX_Slider" type="HSlider" parent="Settings_Scroll/Settings_VBC/LX_HBC"]
-margin_right = 537.0
+margin_right = 708.0
 margin_bottom = 16.0
 size_flags_horizontal = 3
 max_value = 5.0
@@ -219,37 +204,32 @@ step = 0.01
 tick_count = 5
 
 [node name="LX_Value" type="Label" parent="Settings_Scroll/Settings_VBC/LX_HBC"]
-margin_left = 541.0
+margin_left = 712.0
 margin_top = 1.0
-margin_right = 649.0
+margin_right = 854.0
 margin_bottom = 15.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.2
 
 [node name="LX_CheckButton" type="CheckButton" parent="Settings_Scroll/Settings_VBC"]
-margin_top = 276.0
-margin_right = 649.0
-margin_bottom = 316.0
+margin_top = 252.0
+margin_right = 854.0
+margin_bottom = 292.0
 text = "Left X Invert"
 
-[node name="HSeparator_4" type="HSeparator" parent="Settings_Scroll/Settings_VBC"]
-margin_top = 320.0
-margin_right = 649.0
-margin_bottom = 324.0
-
 [node name="RY_Label" type="Label" parent="Settings_Scroll/Settings_VBC"]
-margin_top = 328.0
-margin_right = 649.0
-margin_bottom = 342.0
+margin_top = 296.0
+margin_right = 854.0
+margin_bottom = 310.0
 text = "Right Y Sensitivity"
 
 [node name="RY_HBC" type="HBoxContainer" parent="Settings_Scroll/Settings_VBC"]
-margin_top = 346.0
-margin_right = 649.0
-margin_bottom = 362.0
+margin_top = 314.0
+margin_right = 854.0
+margin_bottom = 330.0
 
 [node name="RY_Slider" type="HSlider" parent="Settings_Scroll/Settings_VBC/RY_HBC"]
-margin_right = 537.0
+margin_right = 708.0
 margin_bottom = 16.0
 size_flags_horizontal = 3
 max_value = 5.0
@@ -257,37 +237,32 @@ step = 0.01
 tick_count = 5
 
 [node name="RY_Value" type="Label" parent="Settings_Scroll/Settings_VBC/RY_HBC"]
-margin_left = 541.0
+margin_left = 712.0
 margin_top = 1.0
-margin_right = 649.0
+margin_right = 854.0
 margin_bottom = 15.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.2
 
 [node name="RY_CheckButton" type="CheckButton" parent="Settings_Scroll/Settings_VBC"]
-margin_top = 366.0
-margin_right = 649.0
-margin_bottom = 406.0
+margin_top = 334.0
+margin_right = 854.0
+margin_bottom = 374.0
 text = "Right Y Invert"
 
-[node name="HSeparator_5" type="HSeparator" parent="Settings_Scroll/Settings_VBC"]
-margin_top = 410.0
-margin_right = 649.0
-margin_bottom = 414.0
-
 [node name="RX_Label" type="Label" parent="Settings_Scroll/Settings_VBC"]
-margin_top = 418.0
-margin_right = 649.0
-margin_bottom = 432.0
+margin_top = 378.0
+margin_right = 854.0
+margin_bottom = 392.0
 text = "Right X Sensitivity"
 
 [node name="RX_HBC" type="HBoxContainer" parent="Settings_Scroll/Settings_VBC"]
-margin_top = 436.0
-margin_right = 649.0
-margin_bottom = 452.0
+margin_top = 396.0
+margin_right = 854.0
+margin_bottom = 412.0
 
 [node name="RX_Slider" type="HSlider" parent="Settings_Scroll/Settings_VBC/RX_HBC"]
-margin_right = 537.0
+margin_right = 708.0
 margin_bottom = 16.0
 size_flags_horizontal = 3
 max_value = 5.0
@@ -295,26 +270,15 @@ step = 0.01
 tick_count = 5
 
 [node name="RX_Value" type="Label" parent="Settings_Scroll/Settings_VBC/RX_HBC"]
-margin_left = 541.0
+margin_left = 712.0
 margin_top = 1.0
-margin_right = 649.0
+margin_right = 854.0
 margin_bottom = 15.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.2
 
 [node name="RX_CheckButton" type="CheckButton" parent="Settings_Scroll/Settings_VBC"]
-margin_top = 456.0
-margin_right = 649.0
-margin_bottom = 496.0
+margin_top = 416.0
+margin_right = 854.0
+margin_bottom = 456.0
 text = "Right X Invert"
-
-[node name="RST_HSeparator" type="HSeparator" parent="Settings_Scroll/Settings_VBC"]
-margin_top = 500.0
-margin_right = 649.0
-margin_bottom = 504.0
-
-[node name="Reset_Button" type="Button" parent="Settings_Scroll/Settings_VBC"]
-margin_top = 508.0
-margin_right = 649.0
-margin_bottom = 528.0
-text = "Reset To Default"

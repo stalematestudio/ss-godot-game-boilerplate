@@ -66,7 +66,7 @@ onready var config_data_default = {
 				"right_x_sensitivity": 1,
 				"right_x_inverted": false,
 				},
-		"keybinding":{}
+		"keybind":{}
 		}
 
 onready var config_data
@@ -115,10 +115,10 @@ func apply_config():
 	AudioServer.set_bus_mute(AudioManager.audio_bus_fx, !config_data.audio.fx_enabled)
 	AudioServer.set_bus_volume_db(AudioManager.audio_bus_fx, config_data.audio.fx_volume)
 	# Key Binding
-	for action in config_data.keybinding:
-		InputMap.action_set_deadzone(action, config_data.keybinding[action].deadzone)
+	for action in config_data.keybind:
+		InputMap.action_set_deadzone(action, config_data.keybind[action].deadzone)
 		InputMap.action_erase_events(action)
-		for event in config_data.keybinding[action].events:
+		for event in config_data.keybind[action].events:
 			InputMap.action_add_event(action, event)
 
 func save_config():
@@ -144,7 +144,7 @@ func load_config():
 		return false
 
 func reset_to_default(section):
-	if section == "keybinding":
+	if section == "keybind":
 		InputMap.load_from_globals()
 		keybind_defaults()
 	config_data[section] = config_data_default[section].duplicate(true)
@@ -171,11 +171,11 @@ func controller_setup():
 func keybind_defaults():
 	for action in InputMap.get_actions():
 		if not ( action.begins_with('ui_') or action.begins_with('util_') ):
-			config_data_default['keybinding'][action] = {
+			config_data_default['keybind'][action] = {
 					"deadzone": 0.5,
 					"events": []
 					}
-			config_data_default['keybinding'][action]['events'] = InputMap.get_action_list(action).duplicate(true)
+			config_data_default['keybind'][action]['events'] = InputMap.get_action_list(action).duplicate(true)
 
 func picture_adjust():
 	main_environment.set_adjustment_enable(ConfigManager.config_data.video.picture_adjustments)
