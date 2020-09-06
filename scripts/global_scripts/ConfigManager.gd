@@ -1,8 +1,6 @@
 extends Node
 
 onready var config_path = "user://config.ini"
-onready var main_scene = get_node("/root/main")
-onready var main_environment = get_node("/root/main/WorldEnvironment").get_environment()
 
 onready var joypad_in_use = false
 onready var joypad_present = false
@@ -22,6 +20,7 @@ const resolutions = [
 onready var config_data_default = {
 		"game":{
 				"subtitles":false,
+				"mouse_mode_confined": false,
 				"pause_on_focus_loss": true,
 				"resume_on_focus_grab": true,
 				"debug":false
@@ -76,7 +75,7 @@ onready var config_data_default = {
 				"right_x_sensitivity": 1,
 				"right_x_inverted": false,
 				},
-		"keybind":{}
+		"keybind": {}
 		}
 
 onready var config_data
@@ -87,39 +86,21 @@ func _ready():
 	Input.connect("joy_connection_changed", self, "_on_joy_connection_changed")
 	controller_setup()
 	# Get keybinding defaults from globals
-	keybind_defaults()
+	config_data_default.keybind = keybind_defaults().duplicate(true)
 	# Set Config Data to Default
 	config_data = config_data_default.duplicate(true)
 	# Update From File
 	load_config()
-	# Apply Config
-	apply_config()
 
 func apply_config():
 	# Game
-	main_scene.set_debug_display()
+	GameManager.apply_config()
 	# Video
-	picture_adjust()
-	OS.set_window_fullscreen(config_data.video.fullscreen)
-	OS.set_use_vsync(config_data.video.vsync)
-	if not OS.is_window_fullscreen():
-		OS.set_borderless_window(config_data.video.borderless)
-		var screen_size = OS.get_screen_size()
-		var config_size = resolutions[config_data.video.resolution_option].value
-		if config_data.video.resolution_auto or ( config_size[0] > screen_size[0] ) :
-			OS.set_window_size(screen_size)
-		else:
-			OS.set_window_size(config_size)
-		OS.center_window()
+	VideoManager.apply_config()
 	# Audio
-	for key in config_data.audio.keys():
-		AudioManager.set_audio(AudioManager.audio_bus[key], config_data.audio[key].mute, config_data.audio[key].volume)
-	# Key Binding
-	for action in config_data.keybind:
-		InputMap.action_set_deadzone(action, config_data.keybind[action].deadzone)
-		InputMap.action_erase_events(action)
-		for event in config_data.keybind[action].events:
-			InputMap.action_add_event(action, event)
+	AudioManager.apply_config()
+	# Input
+	InputManager.apply_config()
 
 func save_config():
 	var config_file = ConfigFile.new()
@@ -149,7 +130,20 @@ func reset_to_default(section):
 		keybind_defaults()
 	config_data[section] = config_data_default[section].duplicate(true)
 	save_config()
-	apply_config()
+	match section:
+		"game":
+			GameManager.apply_config()
+		"video":
+			VideoManager.apply_config()
+		"audio":
+			AudioManager.apply_config()
+		"mouse":
+			pass
+		"controller":
+			pass
+		"keybind":
+			pass
+		
 
 func _on_joy_connection_changed(device, connected):
 	print( "Config Manager " + String(connected) + String(device) )
@@ -169,21 +163,12 @@ func controller_setup():
 		joypad_device_id = joypads[0]
 
 func keybind_defaults():
+	var config_data_default_keybind = {}
+	InputMap.load_from_globals()
 	for action in InputMap.get_actions():
 		if not ( action.begins_with('ui_') or action.begins_with('util_') ):
-			config_data_default['keybind'][action] = {
+			config_data_default_keybind[action] = {
 					"deadzone": 0.5,
-					"events": []
+					"events": InputMap.get_action_list(action).duplicate(true)
 					}
-			config_data_default['keybind'][action]['events'] = InputMap.get_action_list(action).duplicate(true)
-
-func picture_adjust():
-	main_environment.set_adjustment_enable(ConfigManager.config_data.video.picture_adjustments)
-	if ConfigManager.config_data.video.picture_adjustments:
-		main_environment.set_adjustment_brightness(ConfigManager.config_data.video.picture_brightnes)
-		main_environment.set_adjustment_contrast(ConfigManager.config_data.video.picture_contrast)
-		main_environment.set_adjustment_saturation(ConfigManager.config_data.video.picture_saturation)
-	else:
-		main_environment.set_adjustment_brightness(1)
-		main_environment.set_adjustment_contrast(1)
-		main_environment.set_adjustment_saturation(1)
+	return config_data_default_keybind

@@ -1,16 +1,12 @@
 extends Node
 
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
-
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	apply_config()
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func apply_config():
+	# Key Binding
+	for action in ConfigManager.config_data.keybind:
+		InputMap.action_set_deadzone(action, ConfigManager.config_data.keybind[action].deadzone)
+		InputMap.action_erase_events(action)
+		for event in ConfigManager.config_data.keybind[action].events:
+			InputMap.action_add_event(action, event)

@@ -6,19 +6,23 @@ onready var game_state = false
 onready var game_states = {
 		"INTRO":{
 			"scene": "intro_scene",
-			"in_game": false
+			"in_game": false,
+			"mouse_mode": funcref(self, "mouse_mode_game")
 		},
 		"TITLE":{
 			"scene": "title_scene",
-			"in_game": false
+			"in_game": false,
+			"mouse_mode": funcref(self, "mouse_mode_ui")
 		},
 		"CREDITS":{
 			"scene": "credits_scene",
-			"in_game": false
+			"in_game": false,
+			"mouse_mode": funcref(self, "mouse_mode_game")
 		},
 		"IN_GAME":{
 			"scene": "game_scene",
-			"in_game": true
+			"in_game": true,
+			"mouse_mode": funcref(self, "mouse_mode_game")
 		}
 		}
 
@@ -36,7 +40,11 @@ func _notification(what):
 
 func _ready():
 	self.pause_mode = Node.PAUSE_MODE_PROCESS
+	apply_config()
 	change_state("INTRO")
+
+func apply_config():
+	main_scene.set_debug_display(ConfigManager.config_data.game.debug)
 
 func _process(delta):
 	# Pause game
@@ -58,8 +66,17 @@ func resume_game():
 
 func change_state(state):
 	game_state = game_states[state].duplicate(true)
-	if game_state.in_game:
-		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	else:
+	if not game_state.in_game:
 		resume_game()
+	game_state.mouse_mode.call_func()
 	main_scene.change_current_scene(game_state.scene)
+
+func mouse_mode_game():
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
+func mouse_mode_ui():
+	if ConfigManager.config_data.game.mouse_mode_confined:
+		Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
+	else:
+		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)

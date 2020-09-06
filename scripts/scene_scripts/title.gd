@@ -18,7 +18,6 @@ onready var profiles_exist = false # This will be changed when the save load fun
 export (String) var web_link_url
 
 func _ready():
-	Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
 	root.connect("gui_focus_changed", AudioManager, "ui_navigate_audio_effect")
 	.connect("tree_exiting", self, "_on_tree_exiting")
 
@@ -36,7 +35,6 @@ func _ready():
 	web_link.connect("pressed", self, "start_menu_button_pressed", ["website"])
 
 func _on_tree_exiting():
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	root.disconnect("gui_focus_changed", AudioManager, "ui_navigate_audio_effect")
 
 func _input(event):

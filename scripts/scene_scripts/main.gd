@@ -11,14 +11,11 @@ export (PackedScene) var debug_scene
 export (PackedScene) var settings_scene
 export (PackedScene) var pause_scene
 
+# Scene Instances
 var current_scene_instance
 var debug_scene_instance
 var settings_scene_instance
 var pause_scene_instance
-
-func _ready():
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	set_debug_display()
 
 func change_current_scene(scene):
 	if is_instance_valid(settings_scene_instance):
@@ -36,15 +33,14 @@ func change_current_scene(scene):
 			current_scene_instance = game_scene.instance()
 	add_child(current_scene_instance)
 
-func set_debug_display():
-	if is_instance_valid(ConfigManager):
-		if ConfigManager.config_data.game.debug:
-			if not is_instance_valid(debug_scene_instance):
-				debug_scene_instance = debug_scene.instance()
-				add_child(debug_scene_instance)
-		else:
-			if is_instance_valid(debug_scene_instance):
-				debug_scene_instance.queue_free()
+func set_debug_display(debug_enabled):
+	if debug_enabled:
+		if not is_instance_valid(debug_scene_instance):
+			debug_scene_instance = debug_scene.instance()
+			add_child(debug_scene_instance)
+	else:
+		if is_instance_valid(debug_scene_instance):
+			debug_scene_instance.queue_free()
 
 func set_settings_display(return_focus_target):
 	if is_instance_valid(settings_scene_instance):

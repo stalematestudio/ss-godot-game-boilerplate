@@ -16,6 +16,13 @@ onready var deny_audio = preload("res://assets/audio/ui_effects/deny.wav")
 onready var accept_audio = preload("res://assets/audio/ui_effects/accept.wav")
 onready var cancel_audio = preload("res://assets/audio/ui_effects/cancel.wav")
 
+func _ready():
+	apply_config()
+
+func apply_config():
+	for bus in audio_bus.keys():
+		set_audio(audio_bus[bus], ConfigManager.config_data.audio[bus].mute, ConfigManager.config_data.audio[bus].volume)
+
 func set_audio(bus=0, mute=false, volume=50):
 	AudioServer.set_bus_mute(bus, mute)
 	AudioServer.set_bus_volume_db(bus, linear2db(clamp(volume * 0.01, 0.01, 0.99)))
