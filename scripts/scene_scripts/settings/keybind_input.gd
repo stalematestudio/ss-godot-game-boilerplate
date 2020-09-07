@@ -16,7 +16,7 @@ func _ready():
 	reset.connect("pressed", self, "reset_new_event")
 	accept.connect("pressed", self, "add_new_event")
 	cancel.connect("pressed", self, "cancel_new_event")
-	.show()
+	show()
 
 func _input(event):
 	if new_event is bool:
@@ -34,6 +34,7 @@ func _input(event):
 		elif event is InputEventJoypadButton:
 			new_event = event
 		event_label.set_text(Helpers.event_as_text(new_event))
+		get_tree().set_input_as_handled()
 		accept.disabled = false
 		accept.grab_focus()
 		reset.disabled = false
@@ -51,4 +52,4 @@ func add_new_event():
 
 func cancel_new_event():
 	called_from.add_event_button.grab_focus()
-	.queue_free()
+	queue_free()

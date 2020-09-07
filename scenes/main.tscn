@@ -12,7 +12,6 @@
 [ext_resource path="res://default_env.tres" type="Environment" id=10]
 
 [node name="main" type="Node"]
-pause_mode = 1
 script = ExtResource( 1 )
 intro_scene = ExtResource( 3 )
 title_scene = ExtResource( 2 )
@@ -33,7 +32,6 @@ mix_target = 1
 bus = "Music"
 
 [node name="Voice_Player" type="AudioStreamPlayer" parent="."]
-pause_mode = 2
 mix_target = 1
 bus = "Voice"
 

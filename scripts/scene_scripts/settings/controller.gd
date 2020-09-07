@@ -157,13 +157,13 @@ func strong_magnitude_adjust(new_val):
 	gui_strong_magnitude_display.set_text(String(ConfigManager.config_data.controller.strong_magnitude))
 
 func weak_magnitude_test():
-	Input.start_joy_vibration(ConfigManager.joypad_device_id, ConfigManager.config_data.controller.weak_magnitude, 0, 1)
+	Input.start_joy_vibration(InputManager.joypad_device_id, ConfigManager.config_data.controller.weak_magnitude, 0, 1)
 	
 func strong_magnitude_test():
-	Input.start_joy_vibration(ConfigManager.joypad_device_id, 0, ConfigManager.config_data.controller.strong_magnitude, 1)
+	Input.start_joy_vibration(InputManager.joypad_device_id, 0, ConfigManager.config_data.controller.strong_magnitude, 1)
 
 func vibration_magnitude_test():
-	Input.start_joy_vibration(ConfigManager.joypad_device_id, ConfigManager.config_data.controller.weak_magnitude, ConfigManager.config_data.controller.strong_magnitude, 1)
+	Input.start_joy_vibration(InputManager.joypad_device_id, ConfigManager.config_data.controller.weak_magnitude, ConfigManager.config_data.controller.strong_magnitude, 1)
 
 # Left Y
 func left_y_invert_adjust():

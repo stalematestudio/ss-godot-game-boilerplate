@@ -49,6 +49,11 @@ func _on_tree_exiting():
 	if is_instance_valid(return_focus_target):
 		return_focus_target.grab_focus()
 
+func _input(event):
+	if event.is_action_released("ui_cancel"):
+		get_tree().set_input_as_handled()
+		settings_menu_apply_cancel("cancel")
+
 func set_form_values():
 	ConfigManager.load_config()
 	for section in sections.values():

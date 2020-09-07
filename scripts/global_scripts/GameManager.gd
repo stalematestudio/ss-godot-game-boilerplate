@@ -1,10 +1,9 @@
 extends Node
 
 signal game_state_changed
+signal debug_state_changed
 signal pause_game
 signal resume_game
-
-onready var main_scene = get_node("/root/main")
 
 onready var game_paused = false
 onready var game_state = false
@@ -32,7 +31,7 @@ onready var game_states = {
 		}
 
 func _ready():
-	yield(main_scene, "ready") # Wait For Main Scene to be ready.
+	yield(get_node("/root/main"), "ready") # Wait For Main Scene to be ready.
 	self.pause_mode = Node.PAUSE_MODE_PROCESS
 	self.connect("resume_game", self, "_on_resume_game")
 	self.connect("pause_game", self, "_on_pause_game")
@@ -42,7 +41,7 @@ func _ready():
 	game_state_change("INTRO")
 
 func apply_config():
-	main_scene.set_debug_display(ConfigManager.config_data.game.debug)
+	emit_signal("debug_state_changed")
 	if game_state:
 		game_state.mouse_mode.call_func()
 

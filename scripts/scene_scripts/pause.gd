@@ -1,6 +1,5 @@
 extends Control
 
-# Set element references
 onready var game_title = $Pause_Menu/VBC/Game_Title
 onready var resume_game = $Pause_Menu/VBC/Resume
 onready var settings_button = $Pause_Menu/VBC/Settings
@@ -19,13 +18,6 @@ func _ready():
 	quit_game_button.connect("pressed", self, "pause_menu_button_pressed", ["quit_game"])
 	web_link.connect("pressed", self, "pause_menu_button_pressed", ["website"])
 
-func _input(event):
-	if event.is_action_pressed("ui_accept") or event.is_action_pressed("ui_select"):
-		AudioManager.ui_accept_audio_effect()
-	elif event.is_action_pressed("ui_cancel"):
-		AudioManager.ui_cancel_audio_effect()
-
-# Called every time a button in the start menu is pressed
 func pause_menu_button_pressed(button_name):
 	match button_name:
 		"resume":

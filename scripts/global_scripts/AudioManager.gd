@@ -18,7 +18,6 @@ onready var cancel_audio = preload("res://assets/audio/ui_effects/cancel.wav")
 
 func _ready():
 	self.pause_mode = Node.PAUSE_MODE_PROCESS
-	get_node("/root").connect("gui_focus_changed", AudioManager, "ui_navigate_audio_effect")
 	apply_config()
 
 func apply_config():
@@ -29,18 +28,18 @@ func set_audio(bus=0, mute=false, volume=50):
 	AudioServer.set_bus_mute(bus, mute)
 	AudioServer.set_bus_volume_db(bus, linear2db(clamp(volume * 0.01, 0.01, 0.99)))
 
-func ui_navigate_audio_effect(target=null):
+func ui_navigate_audio_effect(val=false):
 	FX_Player.set_stream(navigate_audio)
 	FX_Player.play()
 
-func ui_deny_audio_effect():
+func ui_deny_audio_effect(val=false):
 	FX_Player.set_stream(deny_audio)
 	FX_Player.play()
 
-func ui_accept_audio_effect():
+func ui_accept_audio_effect(val=false):
 	FX_Player.set_stream(accept_audio)
 	FX_Player.play()
 
-func ui_cancel_audio_effect():
+func ui_cancel_audio_effect(val=false):
 	FX_Player.set_stream(cancel_audio)
 	FX_Player.play()

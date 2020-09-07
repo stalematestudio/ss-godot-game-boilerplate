@@ -95,22 +95,22 @@ func set_elements_disabled():
 # Video
 func picture_adjust():
 	ConfigManager.config_data.video.picture_adjustments = gui_picture_adjustments.is_pressed()
-	ConfigManager.picture_adjust()
+	VideoManager.picture_adjust()
 	set_elements_disabled()
 
 func brightnes_adjust(new_val):
 	ConfigManager.config_data.video.picture_brightnes = new_val
-	ConfigManager.picture_adjust()
+	VideoManager.picture_adjust()
 	gui_brightnes_display.set_text(String(new_val))
 
 func contrast_adjust(new_val):
 	ConfigManager.config_data.video.picture_contrast = new_val
-	ConfigManager.picture_adjust()
+	VideoManager.picture_adjust()
 	gui_contrast_display.set_text(String(new_val))
 
 func saturation_adjust(new_val):
 	ConfigManager.config_data.video.picture_saturation = new_val
-	ConfigManager.picture_adjust()
+	VideoManager.picture_adjust()
 	gui_saturation_display.set_text(String(new_val))
 
 func fullscreen_adjust():
