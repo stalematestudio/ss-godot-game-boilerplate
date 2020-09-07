@@ -25,4 +25,4 @@ func next_slide():
 		screen_display.texture = screens[event_counter]
 	else:
 		yield(get_tree().create_timer(2), "timeout")
-		GameManager.change_state("TITLE")
+		GameManager.game_state_change("TITLE")

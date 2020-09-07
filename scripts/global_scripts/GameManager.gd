@@ -1,7 +1,12 @@
 extends Node
 
-onready var OS_NAME = OS.get_name()
+signal game_state_changed
+signal pause_game
+signal resume_game
+
 onready var main_scene = get_node("/root/main")
+
+onready var game_paused = false
 onready var game_state = false
 onready var game_states = {
 		"INTRO":{
@@ -26,57 +31,71 @@ onready var game_states = {
 		}
 		}
 
-onready var game_paused = false
+func _ready():
+	yield(main_scene, "ready") # Wait For Main Scene to be ready.
+	self.pause_mode = Node.PAUSE_MODE_PROCESS
+	self.connect("resume_game", self, "_on_resume_game")
+	self.connect("pause_game", self, "_on_pause_game")
+	InputManager.connect("joypad_active", self, "_on_joypad_active")
+	InputManager.connect("joypad_inactive", self, "_on_joypad_inactive")
+	apply_config()
+	game_state_change("INTRO")
+
+func apply_config():
+	main_scene.set_debug_display(ConfigManager.config_data.game.debug)
+	if game_state:
+		game_state.mouse_mode.call_func()
 
 func _notification(what):
 	if game_state:
 		match what:
 			NOTIFICATION_WM_FOCUS_IN:
 				if game_state.in_game and ConfigManager.config_data.game.resume_on_focus_grab:
-					resume_game()
+					emit_signal("resume_game")
 			NOTIFICATION_WM_FOCUS_OUT:
 				if game_state.in_game and ConfigManager.config_data.game.pause_on_focus_loss:
-					pause_game()
+					emit_signal("pause_game")
 
-func _ready():
-	self.pause_mode = Node.PAUSE_MODE_PROCESS
-	apply_config()
-	change_state("INTRO")
-
-func apply_config():
-	main_scene.set_debug_display(ConfigManager.config_data.game.debug)
-
-func _process(delta):
-	# Pause game
-	if Input.is_action_just_released("util_pause") and game_state.in_game:
+func _input(event):
+	if event.is_action_released("util_pause") and game_state.in_game:
 		if game_paused:
-			GameManager.resume_game()
+			emit_signal("resume_game")
 		else:
-			GameManager.pause_game()
+			emit_signal("pause_game")
 
-func pause_game():
+func _on_pause_game():
 	game_paused = true
-	get_tree().paused = game_paused
-	main_scene.set_pause_display(game_paused)
-
-func resume_game():
-	game_paused = false
-	get_tree().paused = game_paused
-	main_scene.set_pause_display(game_paused)
-
-func change_state(state):
-	game_state = game_states[state].duplicate(true)
-	if not game_state.in_game:
-		resume_game()
 	game_state.mouse_mode.call_func()
-	main_scene.change_current_scene(game_state.scene)
+	get_tree().paused = game_paused
+
+func _on_resume_game():
+	game_paused = false
+	game_state.mouse_mode.call_func()
+	get_tree().paused = game_paused
+
+func game_state_change(state):
+	game_state = game_states[state].duplicate(true)
+	game_state.mouse_mode.call_func()
+	if not game_state.in_game:
+		emit_signal("resume_game")
+	emit_signal("game_state_changed")
 
 func mouse_mode_game():
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	if game_paused:
+		mouse_mode_ui()
+	else:
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func mouse_mode_ui():
 	if ConfigManager.config_data.game.mouse_mode_confined:
 		Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
 	else:
-		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+
+func _on_joypad_active():
+	if ( Input.get_mouse_mode() == Input.MOUSE_MODE_CONFINED ) or ( Input.get_mouse_mode() == Input.MOUSE_MODE_VISIBLE ):
+		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+
+func _on_joypad_inactive():
+	if Input.get_mouse_mode() == Input.MOUSE_MODE_HIDDEN:
+		mouse_mode_ui()

@@ -1,11 +1,5 @@
 extends Node
 
-onready var config_path = "user://config.ini"
-
-onready var joypad_in_use = false
-onready var joypad_present = false
-onready var joypad_device_id = 0
-
 const resolutions = [
 		{"name": "854x480", "value": Vector2(854, 480)},
 		{"name": "1024x576", "value": Vector2(1024, 576)},
@@ -17,6 +11,7 @@ const resolutions = [
 		{"name": "3840x2160", "value": Vector2(3840, 2160)},
 		]
 
+onready var config_path = "user://config.ini"
 onready var config_data_default = {
 		"game":{
 				"subtitles":false,
@@ -75,32 +70,19 @@ onready var config_data_default = {
 				"right_x_sensitivity": 1,
 				"right_x_inverted": false,
 				},
-		"keybind": {}
+		"keybind": keybind_defaults()
 		}
+onready var config_data = config_data_default.duplicate(true)
 
-onready var config_data
-
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	# Handle Controllers
-	Input.connect("joy_connection_changed", self, "_on_joy_connection_changed")
-	controller_setup()
-	# Get keybinding defaults from globals
-	config_data_default.keybind = keybind_defaults().duplicate(true)
-	# Set Config Data to Default
-	config_data = config_data_default.duplicate(true)
-	# Update From File
+	self.pause_mode = Node.PAUSE_MODE_PROCESS
 	load_config()
 
 func apply_config():
-	# Game
 	GameManager.apply_config()
-	# Video
 	VideoManager.apply_config()
-	# Audio
 	AudioManager.apply_config()
-	# Input
-	InputManager.apply_config()
+	InputManager.apply_config_keybind()
 
 func save_config():
 	var config_file = ConfigFile.new()
@@ -125,50 +107,33 @@ func load_config():
 		return false
 
 func reset_to_default(section):
-	if section == "keybind":
-		InputMap.load_from_globals()
-		keybind_defaults()
-	config_data[section] = config_data_default[section].duplicate(true)
-	save_config()
 	match section:
 		"game":
+			config_data.game = config_data_default.game.duplicate(true)
 			GameManager.apply_config()
 		"video":
+			config_data.video = config_data_default.video.duplicate(true)
 			VideoManager.apply_config()
 		"audio":
+			config_data.audio = config_data_default.audio.duplicate(true)
 			AudioManager.apply_config()
 		"mouse":
-			pass
+			config_data.mouse = config_data_default.mouse.duplicate(true)
 		"controller":
-			pass
+			config_data.controller = config_data_default.controller.duplicate(true)
 		"keybind":
-			pass
-		
-
-func _on_joy_connection_changed(device, connected):
-	print( "Config Manager " + String(connected) + String(device) )
-	if connected:
-		joypad_present = true
-		joypad_device_id = device
-	else:
-		controller_setup()
-
-func controller_setup():
-	var joypads = Input.get_connected_joypads()
-	if joypads.empty():
-		joypad_present = false
-		joypad_device_id = 0
-	else:
-		joypad_present = true
-		joypad_device_id = joypads[0]
+			InputMap.load_from_globals()
+			keybind_defaults()
+			config_data.keybind = config_data_default.keybind.duplicate(true)
+			InputManager.apply_config_keybind()
+	save_config()
 
 func keybind_defaults():
 	var config_data_default_keybind = {}
-	InputMap.load_from_globals()
 	for action in InputMap.get_actions():
 		if not ( action.begins_with('ui_') or action.begins_with('util_') ):
 			config_data_default_keybind[action] = {
 					"deadzone": 0.5,
 					"events": InputMap.get_action_list(action).duplicate(true)
 					}
-	return config_data_default_keybind
+	return config_data_default_keybind.duplicate(true)

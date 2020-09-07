@@ -38,8 +38,10 @@ onready var gui_keybind = get_node("../keybind")
 
 func _ready():
 	controllers_list()
+
 	gui_controller_option.connect("item_selected", self, "controller_select")
 	gui_controller_refresh_button.connect("pressed", self, "controllers_list")
+
 	Input.connect("joy_connection_changed", self, "controllers_list_changed")
 
 	gui_vibration.connect("pressed", self, "vibration_adjust")
@@ -71,8 +73,8 @@ func set_form_values():
 	gui_controller_left_y_invert.set_pressed(ConfigManager.config_data.controller.left_y_inverted)
 	gui_controller_left_y_sensitivity_slider.set_value(ConfigManager.config_data.controller.left_y_sensitivity)
 	
-	gui_controller_left_x_invert.set_pressed(ConfigManager.config_data.controller.left_y_inverted)
-	gui_controller_left_x_sensitivity_slider.set_value(ConfigManager.config_data.controller.left_y_sensitivity)
+	gui_controller_left_x_invert.set_pressed(ConfigManager.config_data.controller.left_x_inverted)
+	gui_controller_left_x_sensitivity_slider.set_value(ConfigManager.config_data.controller.left_x_sensitivity)
 	
 	gui_controller_right_y_invert.set_pressed(ConfigManager.config_data.controller.right_y_inverted)
 	gui_controller_right_y_sensitivity_slider.set_value(ConfigManager.config_data.controller.right_y_sensitivity)
@@ -83,7 +85,7 @@ func set_form_values():
 	set_elements_disabled()
 
 func set_elements_disabled():
-	if ConfigManager.joypad_present:
+	if InputManager.joypad_present:
 		gui_controller_label.set_self_modulate(Color("#ffffffff"))
 		gui_controller_option.set_disabled(false)
 		gui_controller_refresh_button.set_disabled(false)
@@ -94,7 +96,7 @@ func set_elements_disabled():
 		gui_controller_refresh_button.set_disabled(true)
 		gui_vibration.set_disabled(true)
 
-	if gui_vibration.is_pressed() and ConfigManager.joypad_present:
+	if gui_vibration.is_pressed() and InputManager.joypad_present:
 		gui_weak_magnitude_label.set_self_modulate(Color("#ffffffff"))
 		gui_weak_magnitude_slider.set_editable(true)
 		gui_weak_magnitude_display.set_self_modulate(Color("#ffffffff"))
@@ -121,23 +123,23 @@ func set_elements_disabled():
 
 # Controller
 func controller_select(new_val):
-	ConfigManager.joypad_device_id = new_val
+	InputManager.joypad_device_id = new_val
 	gui_keybind.set_form_values()
 
 func controllers_list():
 	gui_controller_option.clear()
-	if ConfigManager.joypad_present:
+	if InputManager.joypad_present:
 		for j_pad in Input.get_connected_joypads():
 			gui_controller_option.add_item(String(j_pad) + " : " + Input.get_joy_name( j_pad ), j_pad )
-		gui_controller_option.select(ConfigManager.joypad_device_id)
+		gui_controller_option.select(InputManager.joypad_device_id)
 
 func controllers_list_changed(device, connected):
 	if connected:
 		controllers_list()
 	else:
 		gui_controller_option.remove_item(device)
-		if ConfigManager.joypad_present:
-			gui_controller_option.select(ConfigManager.joypad_device_id)
+		if InputManager.joypad_present:
+			gui_controller_option.select(InputManager.joypad_device_id)
 	gui_keybind.set_form_values()
 	set_elements_disabled()
 
@@ -166,6 +168,7 @@ func vibration_magnitude_test():
 # Left Y
 func left_y_invert_adjust():
 	ConfigManager.config_data.controller.left_y_inverted = gui_controller_left_y_invert.is_pressed()
+
 func left_y_sensitivity_adjust(new_val):
 	ConfigManager.config_data.controller.left_y_sensitivity = new_val
 	gui_controller_left_y_sensitivity_display.text = String(ConfigManager.config_data.controller.left_y_sensitivity)
@@ -173,6 +176,7 @@ func left_y_sensitivity_adjust(new_val):
 # Left X
 func left_x_invert_adjust():
 	ConfigManager.config_data.controller.left_x_inverted = gui_controller_left_x_invert.is_pressed()
+
 func left_x_sensitivity_adjust(new_val):
 	ConfigManager.config_data.controller.left_x_sensitivity = new_val
 	gui_controller_left_x_sensitivity_display.text = String(ConfigManager.config_data.controller.left_x_sensitivity)
@@ -180,6 +184,7 @@ func left_x_sensitivity_adjust(new_val):
 # Right Y
 func right_y_invert_adjust():
 	ConfigManager.config_data.controller.right_y_inverted = gui_controller_right_y_invert.is_pressed()
+
 func right_y_sensitivity_adjust(new_val):
 	ConfigManager.config_data.controller.right_y_sensitivity = new_val
 	gui_controller_right_y_sensitivity_display.text = String(ConfigManager.config_data.controller.right_y_sensitivity)
@@ -187,6 +192,7 @@ func right_y_sensitivity_adjust(new_val):
 # Right X
 func right_x_invert_adjust():
 	ConfigManager.config_data.controller.right_x_inverted = gui_controller_right_x_invert.is_pressed()
+
 func right_x_sensitivity_adjust(new_val):
 	ConfigManager.config_data.controller.right_x_sensitivity = new_val
 	gui_controller_right_x_sensitivity_display.text = String(ConfigManager.config_data.controller.right_x_sensitivity)

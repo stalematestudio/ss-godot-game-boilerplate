@@ -3,6 +3,7 @@ extends Node
 onready var main_environment = get_node("/root/main/WorldEnvironment").get_environment()
 
 func _ready():
+	self.pause_mode = Node.PAUSE_MODE_PROCESS
 	apply_config()
 
 func apply_config():

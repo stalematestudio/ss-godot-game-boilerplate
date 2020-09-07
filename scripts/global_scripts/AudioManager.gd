@@ -17,6 +17,8 @@ onready var accept_audio = preload("res://assets/audio/ui_effects/accept.wav")
 onready var cancel_audio = preload("res://assets/audio/ui_effects/cancel.wav")
 
 func _ready():
+	self.pause_mode = Node.PAUSE_MODE_PROCESS
+	get_node("/root").connect("gui_focus_changed", AudioManager, "ui_navigate_audio_effect")
 	apply_config()
 
 func apply_config():

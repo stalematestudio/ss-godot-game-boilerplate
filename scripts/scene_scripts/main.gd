@@ -17,12 +17,17 @@ var debug_scene_instance
 var settings_scene_instance
 var pause_scene_instance
 
-func change_current_scene(scene):
+func _ready():
+	GameManager.connect("pause_game", self, "set_pause_display", [true])
+	GameManager.connect("resume_game", self, "set_pause_display", [false])
+	GameManager.connect("game_state_changed", self, "_on_game_state_changed")
+
+func _on_game_state_changed():
 	if is_instance_valid(settings_scene_instance):
 		settings_scene_instance.queue_free()
 	if is_instance_valid(current_scene_instance):
 		current_scene_instance.queue_free()
-	match scene:
+	match GameManager.game_state.scene:
 		"intro_scene":
 			current_scene_instance = intro_scene.instance()
 		"title_scene":

@@ -33,10 +33,10 @@ static func event_as_text(event):
 	elif event is InputEventMouseButton:
 		label_text = "Mouse Button : " + Helpers.ButtonIndex2ButtonName( event.get_button_index() )
 	elif event is InputEventJoypadMotion:
-		label_text = Input.get_joy_name( ConfigManager.joypad_device_id ) + ' : ' + Input.get_joy_axis_string( event.axis )
+		label_text = Input.get_joy_name( InputManager.joypad_device_id ) + ' : ' + Input.get_joy_axis_string( event.axis )
 		label_text += ' pos' if event.axis_value > 0 else ' neg'
 	elif event is InputEventJoypadButton:
-		label_text = Input.get_joy_name( ConfigManager.joypad_device_id ) + ' : ' + Input.get_joy_button_string( event.button_index )
+		label_text = Input.get_joy_name( InputManager.joypad_device_id ) + ' : ' + Input.get_joy_button_string( event.button_index )
 	else:
 		label_text = event.as_text()
 	return label_text

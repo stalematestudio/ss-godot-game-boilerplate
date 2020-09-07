@@ -27,7 +27,7 @@ onready var gui_cancel = $VBC/Cancel
 var return_focus_target
 
 func _ready():
-	.connect("tree_exiting", self, "_on_tree_exiting")
+	connect("tree_exiting", self, "_on_tree_exiting")
 	gui_game_tab_switch.grab_focus()
 	
 	# Settings Tabs Switching
@@ -70,4 +70,5 @@ func settings_menu_apply_cancel(button_name):
 			self.queue_free()
 		"cancel":
 			ConfigManager.load_config()
+			ConfigManager.apply_config()
 			self.queue_free()
