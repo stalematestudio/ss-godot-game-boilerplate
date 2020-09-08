@@ -26,6 +26,7 @@ config/icon="res://icon.png"
 [autoload]
 
 Helpers="*res://scripts/global_scripts/Helpers.gd"
+ProfileManager="*res://scripts/global_scripts/ProfileManager.gd"
 ConfigManager="*res://scripts/global_scripts/ConfigManager.gd"
 AudioManager="*res://scripts/global_scripts/AudioManager.gd"
 VideoManager="*res://scripts/global_scripts/VideoManager.gd"

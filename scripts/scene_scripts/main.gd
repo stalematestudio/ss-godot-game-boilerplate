@@ -22,12 +22,14 @@ onready var root = get_node("/root")
 
 func _ready():
 	root.connect("gui_focus_changed", self, "_on_gui_focus_changed")
+	
 	GameManager.connect("game_state_changed", self, "ui_target_disconnect")
+	GameManager.connect("resume_game", self, "ui_target_disconnect")
+	
 	GameManager.connect("game_state_changed", self, "_on_game_state_changed")
 	GameManager.connect("debug_state_changed", self, "_on_debug_state_changed")
-	GameManager.connect("pause_game", self, "_on_pause_game")
 	
-	GameManager.connect("resume_game", self, "ui_target_disconnect")
+	GameManager.connect("pause_game", self, "_on_pause_game")
 	GameManager.connect("resume_game", self, "_on_resume_game")
 	
 func ui_target_disconnect():
