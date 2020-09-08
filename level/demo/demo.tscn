@@ -1,13 +1,13 @@
 [gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://levels/demo/surface_boxshape.tres" type="Shape" id=1]
-[ext_resource path="res://levels/demo/surface_cubemesh.tres" type="CubeMesh" id=2]
-[ext_resource path="res://levels/demo/surface_physicsmaterial.tres" type="PhysicsMaterial" id=4]
-[ext_resource path="res://levels/demo/wall_physicsmaterial.tres" type="PhysicsMaterial" id=5]
-[ext_resource path="res://levels/demo/wall_cubemesh.tres" type="CubeMesh" id=6]
-[ext_resource path="res://levels/demo/wall_boxshape.tres" type="Shape" id=7]
-[ext_resource path="res://levels/demo/roof_boxshape.tres" type="Shape" id=8]
-[ext_resource path="res://levels/demo/roof_cubemesh.tres" type="CubeMesh" id=9]
+[ext_resource path="res://level/demo/wall_cubemesh.tres" type="CubeMesh" id=1]
+[ext_resource path="res://level/demo/surface_cubemesh.tres" type="CubeMesh" id=2]
+[ext_resource path="res://level/demo/wall_physicsmaterial.tres" type="PhysicsMaterial" id=3]
+[ext_resource path="res://level/demo/roof_cubemesh.tres" type="CubeMesh" id=4]
+[ext_resource path="res://level/demo/roof_boxshape.tres" type="Shape" id=5]
+[ext_resource path="res://level/demo/surface_boxshape.tres" type="Shape" id=6]
+[ext_resource path="res://level/demo/surface_physicsmaterial.tres" type="PhysicsMaterial" id=7]
+[ext_resource path="res://level/demo/wall_boxshape.tres" type="Shape" id=8]
 
 [node name="demo" type="Spatial"]
 
@@ -16,113 +16,113 @@
 [node name="WallStaticBody_1" type="StaticBody" parent="Structure"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4, 0, 2.25 )
 input_ray_pickable = false
-physics_material_override = ExtResource( 5 )
+physics_material_override = ExtResource( 3 )
 
 [node name="WallCollisionShape" type="CollisionShape" parent="Structure/WallStaticBody_1"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
-shape = ExtResource( 7 )
+shape = ExtResource( 8 )
 
 [node name="WallMeshInstance" type="MeshInstance" parent="Structure/WallStaticBody_1"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
-mesh = ExtResource( 6 )
+mesh = ExtResource( 1 )
 material/0 = null
 
 [node name="WallStaticBody_2" type="StaticBody" parent="Structure"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4, 0, -2.25 )
 input_ray_pickable = false
-physics_material_override = ExtResource( 5 )
+physics_material_override = ExtResource( 3 )
 
 [node name="WallCollisionShape" type="CollisionShape" parent="Structure/WallStaticBody_2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
-shape = ExtResource( 7 )
+shape = ExtResource( 8 )
 
 [node name="WallMeshInstance" type="MeshInstance" parent="Structure/WallStaticBody_2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
-mesh = ExtResource( 6 )
+mesh = ExtResource( 1 )
 material/0 = null
 
 [node name="WallStaticBody_3" type="StaticBody" parent="Structure"]
 transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, -2.25, 0, 4.6 )
 input_ray_pickable = false
-physics_material_override = ExtResource( 5 )
+physics_material_override = ExtResource( 3 )
 
 [node name="WallCollisionShape" type="CollisionShape" parent="Structure/WallStaticBody_3"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
-shape = ExtResource( 7 )
+shape = ExtResource( 8 )
 
 [node name="WallMeshInstance" type="MeshInstance" parent="Structure/WallStaticBody_3"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
-mesh = ExtResource( 6 )
+mesh = ExtResource( 1 )
 material/0 = null
 
 [node name="WallStaticBody_4" type="StaticBody" parent="Structure"]
 transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 2.25, 0, 4.6 )
 input_ray_pickable = false
-physics_material_override = ExtResource( 5 )
+physics_material_override = ExtResource( 3 )
 
 [node name="WallCollisionShape" type="CollisionShape" parent="Structure/WallStaticBody_4"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
-shape = ExtResource( 7 )
+shape = ExtResource( 8 )
 
 [node name="WallMeshInstance" type="MeshInstance" parent="Structure/WallStaticBody_4"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
-mesh = ExtResource( 6 )
+mesh = ExtResource( 1 )
 material/0 = null
 
 [node name="WallStaticBody_5" type="StaticBody" parent="Structure"]
 transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, -2.25, 0, -4.6 )
 input_ray_pickable = false
-physics_material_override = ExtResource( 5 )
+physics_material_override = ExtResource( 3 )
 
 [node name="WallCollisionShape" type="CollisionShape" parent="Structure/WallStaticBody_5"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
-shape = ExtResource( 7 )
+shape = ExtResource( 8 )
 
 [node name="WallMeshInstance" type="MeshInstance" parent="Structure/WallStaticBody_5"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
-mesh = ExtResource( 6 )
+mesh = ExtResource( 1 )
 material/0 = null
 
 [node name="WallStaticBody_6" type="StaticBody" parent="Structure"]
 transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 2.25, 0, -4.6 )
 input_ray_pickable = false
-physics_material_override = ExtResource( 5 )
+physics_material_override = ExtResource( 3 )
 
 [node name="WallCollisionShape" type="CollisionShape" parent="Structure/WallStaticBody_6"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
-shape = ExtResource( 7 )
+shape = ExtResource( 8 )
 
 [node name="WallMeshInstance" type="MeshInstance" parent="Structure/WallStaticBody_6"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
-mesh = ExtResource( 6 )
+mesh = ExtResource( 1 )
 material/0 = null
 
 [node name="WallStaticBody_7" type="StaticBody" parent="Structure"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4, 0, 0 )
 input_ray_pickable = false
-physics_material_override = ExtResource( 5 )
+physics_material_override = ExtResource( 3 )
 
 [node name="WallCollisionShape" type="CollisionShape" parent="Structure/WallStaticBody_7"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
-shape = ExtResource( 7 )
+shape = ExtResource( 8 )
 
 [node name="WallMeshInstance" type="MeshInstance" parent="Structure/WallStaticBody_7"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
-mesh = ExtResource( 6 )
+mesh = ExtResource( 1 )
 material/0 = null
 
 [node name="WallStaticBody_8" type="StaticBody" parent="Structure"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -2.25 )
 input_ray_pickable = false
-physics_material_override = ExtResource( 5 )
+physics_material_override = ExtResource( 3 )
 
 [node name="WallCollisionShape" type="CollisionShape" parent="Structure/WallStaticBody_8"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
-shape = ExtResource( 7 )
+shape = ExtResource( 8 )
 
 [node name="WallMeshInstance" type="MeshInstance" parent="Structure/WallStaticBody_8"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
-mesh = ExtResource( 6 )
+mesh = ExtResource( 1 )
 material/0 = null
 
 [node name="RoofStaticBody" type="StaticBody" parent="Structure"]
@@ -130,11 +130,11 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.4, 0 )
 
 [node name="RoofCollisionShape" type="CollisionShape" parent="Structure/RoofStaticBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0 )
-shape = ExtResource( 8 )
+shape = ExtResource( 5 )
 
 [node name="RoofMeshInstance" type="MeshInstance" parent="Structure/RoofStaticBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0 )
-mesh = ExtResource( 9 )
+mesh = ExtResource( 4 )
 material/0 = null
 
 [node name="OmniLight_1" type="OmniLight" parent="Structure"]
@@ -170,7 +170,7 @@ shadow_enabled = true
 
 [node name="SurfaceStaticBody" type="StaticBody" parent="."]
 input_ray_pickable = false
-physics_material_override = ExtResource( 4 )
+physics_material_override = ExtResource( 7 )
 
 [node name="SurfaceMeshInstance" type="MeshInstance" parent="SurfaceStaticBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.100442, 0 )
@@ -179,4 +179,4 @@ material/0 = null
 
 [node name="SurfaceCollisionShape" type="CollisionShape" parent="SurfaceStaticBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0 )
-shape = ExtResource( 1 )
+shape = ExtResource( 6 )
