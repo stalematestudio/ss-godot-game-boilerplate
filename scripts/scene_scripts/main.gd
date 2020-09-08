@@ -41,7 +41,8 @@ func ui_target_connect():
 
 func _on_gui_focus_changed(target):
 	if ( target is Button ) or ( target is Slider ):
-		ui_target_disconnect()
+		if is_instance_valid(ui_target):
+			ui_target_disconnect()
 		ui_target = target
 		ui_target_connect()
 		if not AudioManager.FX_Player.is_playing():
