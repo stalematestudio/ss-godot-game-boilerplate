@@ -22,16 +22,20 @@ onready var root = get_node("/root")
 
 func _ready():
 	root.connect("gui_focus_changed", self, "_on_gui_focus_changed")
+	GameManager.connect("game_state_changed", self, "ui_target_disconnect")
 	GameManager.connect("game_state_changed", self, "_on_game_state_changed")
 	GameManager.connect("debug_state_changed", self, "_on_debug_state_changed")
 	GameManager.connect("pause_game", self, "_on_pause_game")
+	
+	GameManager.connect("resume_game", self, "ui_target_disconnect")
 	GameManager.connect("resume_game", self, "_on_resume_game")
 	
 func ui_target_disconnect():
-	if ( ui_target is Button ) and ui_target.is_connected("pressed", AudioManager, "ui_accept_audio_effect"):
-		ui_target.disconnect("pressed", AudioManager, "ui_accept_audio_effect")
-	elif ( ui_target is Slider ) and ui_target.is_connected("value_changed", AudioManager, "ui_navigate_audio_effect") and ( ui_target.is_editable() ):
-		ui_target.disconnect("value_changed", AudioManager, "ui_navigate_audio_effect")
+	if is_instance_valid(ui_target):
+		if ( ui_target is Button ) and ui_target.is_connected("pressed", AudioManager, "ui_accept_audio_effect"):
+			ui_target.disconnect("pressed", AudioManager, "ui_accept_audio_effect")
+		elif ( ui_target is Slider ) and ui_target.is_connected("value_changed", AudioManager, "ui_navigate_audio_effect") and ( ui_target.is_editable() ):
+			ui_target.disconnect("value_changed", AudioManager, "ui_navigate_audio_effect")
 
 func ui_target_connect():
 	if ( ui_target is Button ) and ( not ui_target.is_connected("pressed", AudioManager, "ui_accept_audio_effect") ):
@@ -41,15 +45,13 @@ func ui_target_connect():
 
 func _on_gui_focus_changed(target):
 	if ( target is Button ) or ( target is Slider ):
-		if is_instance_valid(ui_target):
-			ui_target_disconnect()
+		ui_target_disconnect()
 		ui_target = target
 		ui_target_connect()
 		if not AudioManager.FX_Player.is_playing():
 			AudioManager.ui_navigate_audio_effect()
 
 func _on_game_state_changed():
-	ui_target_disconnect()
 	if is_instance_valid(settings_scene_instance):
 		settings_scene_instance.queue_free()
 	if is_instance_valid(current_scene_instance):
@@ -80,7 +82,6 @@ func _on_pause_game():
 		add_child(pause_scene_instance)
 
 func _on_resume_game():
-	ui_target_disconnect()
 	if is_instance_valid(settings_scene_instance):
 		settings_scene_instance.queue_free()
 	if is_instance_valid(pause_scene_instance):
