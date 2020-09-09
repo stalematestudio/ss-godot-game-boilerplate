@@ -24,7 +24,7 @@ __meta__ = {
 
 [node name="Settings_VBC" type="VBoxContainer" parent="Settings_Scroll"]
 margin_right = 854.0
-margin_bottom = 388.0
+margin_bottom = 412.0
 size_flags_horizontal = 3
 theme = ExtResource( 1 )
 __meta__ = {
@@ -192,38 +192,63 @@ margin_bottom = 188.0
 theme = ExtResource( 1 )
 text = "V-Sync"
 
-[node name="FullScreen_CheckButton" type="CheckButton" parent="Settings_Scroll/Settings_VBC"]
+[node name="ScreenSelect_HBC" type="HBoxContainer" parent="Settings_Scroll/Settings_VBC"]
 margin_top = 192.0
 margin_right = 854.0
-margin_bottom = 232.0
+margin_bottom = 212.0
+theme = ExtResource( 1 )
+
+[node name="ScreenSelect_Label" type="Label" parent="Settings_Scroll/Settings_VBC/ScreenSelect_HBC"]
+margin_top = 3.0
+margin_right = 283.0
+margin_bottom = 17.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+theme = ExtResource( 1 )
+text = "Screen : "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScreenSelect_Option" type="OptionButton" parent="Settings_Scroll/Settings_VBC/ScreenSelect_HBC"]
+margin_left = 287.0
+margin_right = 854.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+
+[node name="FullScreen_CheckButton" type="CheckButton" parent="Settings_Scroll/Settings_VBC"]
+margin_top = 216.0
+margin_right = 854.0
+margin_bottom = 256.0
 theme = ExtResource( 1 )
 text = "Fullscreen"
 
 [node name="Borderless_CheckButton" type="CheckButton" parent="Settings_Scroll/Settings_VBC"]
-margin_top = 236.0
+margin_top = 260.0
 margin_right = 854.0
-margin_bottom = 276.0
+margin_bottom = 300.0
 theme = ExtResource( 1 )
 text = "Borderless"
 
 [node name="Centered_CheckButton" type="CheckButton" parent="Settings_Scroll/Settings_VBC"]
-margin_top = 280.0
+margin_top = 304.0
 margin_right = 854.0
-margin_bottom = 320.0
+margin_bottom = 344.0
 theme = ExtResource( 1 )
 text = "Centered"
 
 [node name="ResolutionAuto_CheckButton" type="CheckButton" parent="Settings_Scroll/Settings_VBC"]
-margin_top = 324.0
+margin_top = 348.0
 margin_right = 854.0
-margin_bottom = 364.0
+margin_bottom = 388.0
 theme = ExtResource( 1 )
 text = "Auto Resolution"
 
 [node name="Resolution_HBC" type="HBoxContainer" parent="Settings_Scroll/Settings_VBC"]
-margin_top = 368.0
+margin_top = 392.0
 margin_right = 854.0
-margin_bottom = 388.0
+margin_bottom = 412.0
 theme = ExtResource( 1 )
 
 [node name="Resolution_Label" type="Label" parent="Settings_Scroll/Settings_VBC/Resolution_HBC"]

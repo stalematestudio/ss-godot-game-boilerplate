@@ -14,10 +14,12 @@ onready var gui_saturation_label = $Settings_Scroll/Settings_VBC/Saturation_HBC/
 onready var gui_saturation_slider = $Settings_Scroll/Settings_VBC/Saturation_HBC/Saturation_Slider
 onready var gui_saturation_display = $Settings_Scroll/Settings_VBC/Saturation_HBC/Saturation_Value
 
-onready var screen_count = OS.get_screen_count()
-
 onready var gui_keep_screen_on = $Settings_Scroll/Settings_VBC/KeepScreenOn_CheckButton
 onready var gui_vsync = $Settings_Scroll/Settings_VBC/VSync_CheckButton
+
+onready var gui_screen_label = $Settings_Scroll/Settings_VBC/ScreenSelect_HBC/ScreenSelect_Label
+onready var gui_screen_option = $Settings_Scroll/Settings_VBC/ScreenSelect_HBC/ScreenSelect_Option
+
 onready var gui_fullscreen = $Settings_Scroll/Settings_VBC/FullScreen_CheckButton
 onready var gui_borderless = $Settings_Scroll/Settings_VBC/Borderless_CheckButton
 onready var gui_centered = $Settings_Scroll/Settings_VBC/Centered_CheckButton
@@ -33,6 +35,12 @@ func _ready():
 	
 	gui_keep_screen_on.connect("pressed", self, "keep_screen_on_adjust")
 	gui_vsync.connect("pressed", self, "vsync_adjust")
+	
+	var screen_count = OS.get_screen_count()
+	for screen in range(screen_count):
+		gui_screen_option.add_item("Screen : " + String(screen), screen)
+	gui_screen_option.connect("item_selected", self, "screen_option_adjust")
+	
 	gui_fullscreen.connect("pressed", self, "fullscreen_adjust")
 	gui_borderless.connect("pressed", self, "borderless_adjust")
 	gui_centered.connect("pressed", self, "centered_adjust")
@@ -51,6 +59,9 @@ func set_form_values():
 	
 	gui_keep_screen_on.set_pressed(ConfigManager.config_data.video.keep_screen_on)
 	gui_vsync.set_pressed(ConfigManager.config_data.video.vsync)
+	
+	# gui_screen_option
+	
 	gui_fullscreen.set_pressed(ConfigManager.config_data.video.fullscreen)
 	gui_borderless.set_pressed(ConfigManager.config_data.video.borderless)
 	gui_centered.set_pressed(ConfigManager.config_data.video.center_window)
@@ -126,6 +137,9 @@ func keep_screen_on_adjust():
 
 func vsync_adjust():
 	ConfigManager.config_data.video.vsync = gui_vsync.is_pressed()
+
+func screen_option_adjust(new_val):
+	ConfigManager.config_data.video.use_screen = new_val
 
 func fullscreen_adjust():
 	ConfigManager.config_data.video.fullscreen = gui_fullscreen.is_pressed()
