@@ -8,16 +8,14 @@ func _ready():
 
 func apply_config():
 	picture_adjust()
-	if ConfigManager.config_data.video.use_screen > ( OS.get_screen_count() - 1 ):
-		OS.set_current_screen(ConfigManager.config_data.video.use_screen)
-	else:
-		ConfigManager.config_data.video.use_screen = OS.get_current_screen()
-		ConfigManager.save_config()
-		OS.set_current_screen(ConfigManager.config_data.video.use_screen)
+
 	OS.set_keep_screen_on(ConfigManager.config_data.video.keep_screen_on)
 	OS.set_use_vsync(ConfigManager.config_data.video.vsync)
 	OS.set_window_fullscreen(ConfigManager.config_data.video.fullscreen)
-	if not OS.is_window_fullscreen():
+	
+	if OS.is_window_fullscreen():
+		OS.set_current_screen(ConfigManager.config_data.video.use_screen)		
+	else:
 		OS.set_borderless_window(ConfigManager.config_data.video.borderless)
 		var screen_size = OS.get_screen_size()
 		var config_size = ConfigManager.resolutions[ConfigManager.config_data.video.resolution_option].value

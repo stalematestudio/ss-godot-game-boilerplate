@@ -17,10 +17,11 @@ onready var gui_saturation_display = $Settings_Scroll/Settings_VBC/Saturation_HB
 onready var gui_keep_screen_on = $Settings_Scroll/Settings_VBC/KeepScreenOn_CheckButton
 onready var gui_vsync = $Settings_Scroll/Settings_VBC/VSync_CheckButton
 
+onready var gui_fullscreen = $Settings_Scroll/Settings_VBC/FullScreen_CheckButton
+
 onready var gui_screen_label = $Settings_Scroll/Settings_VBC/ScreenSelect_HBC/ScreenSelect_Label
 onready var gui_screen_option = $Settings_Scroll/Settings_VBC/ScreenSelect_HBC/ScreenSelect_Option
 
-onready var gui_fullscreen = $Settings_Scroll/Settings_VBC/FullScreen_CheckButton
 onready var gui_borderless = $Settings_Scroll/Settings_VBC/Borderless_CheckButton
 onready var gui_centered = $Settings_Scroll/Settings_VBC/Centered_CheckButton
 onready var gui_resolution_auto = $Settings_Scroll/Settings_VBC/ResolutionAuto_CheckButton
@@ -36,12 +37,12 @@ func _ready():
 	gui_keep_screen_on.connect("pressed", self, "keep_screen_on_adjust")
 	gui_vsync.connect("pressed", self, "vsync_adjust")
 	
-	var screen_count = OS.get_screen_count()
-	for screen in range(screen_count):
+	gui_fullscreen.connect("pressed", self, "fullscreen_adjust")
+
+	for screen in range(OS.get_screen_count()):
 		gui_screen_option.add_item("Screen : " + String(screen), screen)
 	gui_screen_option.connect("item_selected", self, "screen_option_adjust")
-	
-	gui_fullscreen.connect("pressed", self, "fullscreen_adjust")
+
 	gui_borderless.connect("pressed", self, "borderless_adjust")
 	gui_centered.connect("pressed", self, "centered_adjust")
 	gui_resolution_auto.connect("pressed", self, "resolution_auto_adjust")
@@ -60,9 +61,10 @@ func set_form_values():
 	gui_keep_screen_on.set_pressed(ConfigManager.config_data.video.keep_screen_on)
 	gui_vsync.set_pressed(ConfigManager.config_data.video.vsync)
 	
-	# gui_screen_option
-	
 	gui_fullscreen.set_pressed(ConfigManager.config_data.video.fullscreen)
+
+	gui_screen_option.select(ConfigManager.config_data.video.use_screen)
+
 	gui_borderless.set_pressed(ConfigManager.config_data.video.borderless)
 	gui_centered.set_pressed(ConfigManager.config_data.video.center_window)
 	gui_resolution_auto.set_pressed(ConfigManager.config_data.video.resolution_auto)
@@ -102,6 +104,13 @@ func set_elements_disabled():
 	var disabled_by_fullscreen = gui_fullscreen.is_pressed()
 	var disabled_by_resolution_auto = gui_resolution_auto.is_pressed()
 	
+	if (disabled_by_fullscreen):
+		gui_screen_label.set_self_modulate(Color("#ffffffff"))
+		gui_screen_option.set_disabled(false)
+	else:
+		gui_screen_label.set_self_modulate(Color("#40ffffff"))
+		gui_screen_option.set_disabled(true)
+
 	gui_borderless.set_disabled(disabled_by_fullscreen)
 	gui_centered.set_disabled(disabled_by_fullscreen)
 	gui_resolution_auto.set_disabled(disabled_by_fullscreen)
