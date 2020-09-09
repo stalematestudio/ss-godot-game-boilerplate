@@ -24,7 +24,7 @@ __meta__ = {
 
 [node name="Settings_VBC" type="VBoxContainer" parent="Settings_Scroll"]
 margin_right = 854.0
-margin_bottom = 216.0
+margin_bottom = 288.0
 size_flags_horizontal = 3
 theme = ExtResource( 1 )
 __meta__ = {
@@ -64,3 +64,35 @@ margin_right = 854.0
 margin_bottom = 216.0
 theme = ExtResource( 1 )
 text = "Debug"
+
+[node name="LowCPU_CheckButton" type="CheckButton" parent="Settings_Scroll/Settings_VBC"]
+margin_top = 220.0
+margin_right = 854.0
+margin_bottom = 260.0
+theme = ExtResource( 1 )
+text = "Low CPU mode"
+
+[node name="LowCPU_HBC" type="HBoxContainer" parent="Settings_Scroll/Settings_VBC"]
+margin_top = 264.0
+margin_right = 854.0
+margin_bottom = 288.0
+
+[node name="Label" type="Label" parent="Settings_Scroll/Settings_VBC/LowCPU_HBC"]
+margin_right = 708.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_vertical = 5
+text = "Low CPU mode sleep time"
+valign = 1
+
+[node name="SpinBox" type="SpinBox" parent="Settings_Scroll/Settings_VBC/LowCPU_HBC"]
+margin_left = 712.0
+margin_right = 854.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.2
+max_value = 10000.0
+step = 100.0
+value = 6900.0
+rounded = true
+align = 1

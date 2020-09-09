@@ -44,6 +44,9 @@ func apply_config():
 	emit_signal("debug_state_changed")
 	if game_state:
 		game_state.mouse_mode.call_func()
+	OS.set_low_processor_usage_mode(ConfigManager.config_data.game.low_processor_usage_mode)
+	if OS.is_in_low_processor_usage_mode():
+		OS.set_low_processor_usage_mode_sleep_usec(ConfigManager.config_data.game.low_processor_usage_mode_sleep_usec)
 
 func _notification(what):
 	if game_state:

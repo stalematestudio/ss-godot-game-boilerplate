@@ -18,6 +18,8 @@ onready var config_data_default = {
 				"mouse_mode_confined": false,
 				"pause_on_focus_loss": true,
 				"resume_on_focus_grab": true,
+				"low_processor_usage_mode": false,
+				"low_processor_usage_mode_sleep_usec": 6900,
 				"debug":false
 				},
 		"video":{
