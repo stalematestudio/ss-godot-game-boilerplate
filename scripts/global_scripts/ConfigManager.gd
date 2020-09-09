@@ -25,6 +25,7 @@ onready var config_data_default = {
 				"picture_brightnes": 1,
 				"picture_contrast": 1,
 				"picture_saturation": 1,
+				"keep_screen_on": true,
 				"vsync": true,
 				"fullscreen": false,
 				"center_window":false,

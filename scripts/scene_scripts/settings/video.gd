@@ -14,6 +14,9 @@ onready var gui_saturation_label = $Settings_Scroll/Settings_VBC/Saturation_HBC/
 onready var gui_saturation_slider = $Settings_Scroll/Settings_VBC/Saturation_HBC/Saturation_Slider
 onready var gui_saturation_display = $Settings_Scroll/Settings_VBC/Saturation_HBC/Saturation_Value
 
+onready var screen_count = OS.get_screen_count()
+
+onready var gui_keep_screen_on = $Settings_Scroll/Settings_VBC/KeepScreenOn_CheckButton
 onready var gui_vsync = $Settings_Scroll/Settings_VBC/VSync_CheckButton
 onready var gui_fullscreen = $Settings_Scroll/Settings_VBC/FullScreen_CheckButton
 onready var gui_borderless = $Settings_Scroll/Settings_VBC/Borderless_CheckButton
@@ -28,6 +31,7 @@ func _ready():
 	gui_contrast_slider.connect("value_changed", self, "contrast_adjust")
 	gui_saturation_slider.connect("value_changed", self, "saturation_adjust")
 	
+	gui_keep_screen_on.connect("pressed", self, "keep_screen_on_adjust")
 	gui_vsync.connect("pressed", self, "vsync_adjust")
 	gui_fullscreen.connect("pressed", self, "fullscreen_adjust")
 	gui_borderless.connect("pressed", self, "borderless_adjust")
@@ -45,6 +49,7 @@ func set_form_values():
 	gui_contrast_slider.set_value(ConfigManager.config_data.video.picture_contrast)
 	gui_saturation_slider.set_value(ConfigManager.config_data.video.picture_saturation)
 	
+	gui_keep_screen_on.set_pressed(ConfigManager.config_data.video.keep_screen_on)
 	gui_vsync.set_pressed(ConfigManager.config_data.video.vsync)
 	gui_fullscreen.set_pressed(ConfigManager.config_data.video.fullscreen)
 	gui_borderless.set_pressed(ConfigManager.config_data.video.borderless)
@@ -115,6 +120,9 @@ func saturation_adjust(new_val):
 	ConfigManager.config_data.video.picture_saturation = new_val
 	VideoManager.picture_adjust()
 	gui_saturation_display.set_text(String(new_val))
+
+func keep_screen_on_adjust():
+	ConfigManager.config_data.video.keep_screen_on = gui_keep_screen_on.is_pressed()
 
 func vsync_adjust():
 	ConfigManager.config_data.video.vsync = gui_vsync.is_pressed()

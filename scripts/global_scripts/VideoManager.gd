@@ -8,6 +8,7 @@ func _ready():
 
 func apply_config():
 	picture_adjust()
+	OS.set_keep_screen_on(ConfigManager.config_data.video.keep_screen_on)
 	OS.set_use_vsync(ConfigManager.config_data.video.vsync)
 	OS.set_window_fullscreen(ConfigManager.config_data.video.fullscreen)
 	if not OS.is_window_fullscreen():
