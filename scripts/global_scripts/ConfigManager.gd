@@ -25,11 +25,12 @@ onready var config_data_default = {
 				"picture_brightnes": 1,
 				"picture_contrast": 1,
 				"picture_saturation": 1,
+				"vsync": true,
 				"fullscreen": false,
+				"center_window":false,
 				"borderless": false,
 				"resolution_auto": false,
-				"resolution_option": 0,
-				"vsync": true,
+				"resolution_option": 0
 				},
 		"audio":{
 				"Master": {

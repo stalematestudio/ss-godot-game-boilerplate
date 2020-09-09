@@ -8,8 +8,8 @@ func _ready():
 
 func apply_config():
 	picture_adjust()
-	OS.set_window_fullscreen(ConfigManager.config_data.video.fullscreen)
 	OS.set_use_vsync(ConfigManager.config_data.video.vsync)
+	OS.set_window_fullscreen(ConfigManager.config_data.video.fullscreen)
 	if not OS.is_window_fullscreen():
 		OS.set_borderless_window(ConfigManager.config_data.video.borderless)
 		var screen_size = OS.get_screen_size()
@@ -18,7 +18,8 @@ func apply_config():
 			OS.set_window_size(screen_size)
 		else:
 			OS.set_window_size(config_size)
-		OS.center_window()
+		if ConfigManager.config_data.video.center_window:
+			OS.center_window()
 
 func picture_adjust():
 	main_environment.set_adjustment_enable(ConfigManager.config_data.video.picture_adjustments)

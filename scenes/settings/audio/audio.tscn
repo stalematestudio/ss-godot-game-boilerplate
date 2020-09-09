@@ -26,20 +26,16 @@ __meta__ = {
 
 [node name="Settings_VBC" type="VBoxContainer" parent="Settings_Scroll"]
 margin_right = 854.0
-margin_bottom = 48.0
+margin_bottom = 24.0
 size_flags_horizontal = 3
 theme = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Audio_Bus_Volume_VBC" type="VBoxContainer" parent="Settings_Scroll/Settings_VBC"]
-margin_right = 854.0
-
 [node name="Audio_Playback_Device" type="HBoxContainer" parent="Settings_Scroll/Settings_VBC"]
-margin_top = 4.0
 margin_right = 854.0
-margin_bottom = 24.0
+margin_bottom = 20.0
 
 [node name="Label" type="Label" parent="Settings_Scroll/Settings_VBC/Audio_Playback_Device"]
 margin_right = 141.0
@@ -58,9 +54,10 @@ margin_bottom = 20.0
 size_flags_horizontal = 3
 
 [node name="Audio_Capture_Device" type="HBoxContainer" parent="Settings_Scroll/Settings_VBC"]
-margin_top = 28.0
+visible = false
+margin_top = 24.0
 margin_right = 854.0
-margin_bottom = 48.0
+margin_bottom = 44.0
 
 [node name="Label" type="Label" parent="Settings_Scroll/Settings_VBC/Audio_Capture_Device"]
 margin_right = 141.0
@@ -77,3 +74,8 @@ margin_left = 145.0
 margin_right = 854.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
+
+[node name="Audio_Bus_Volume_VBC" type="VBoxContainer" parent="Settings_Scroll/Settings_VBC"]
+margin_top = 24.0
+margin_right = 854.0
+margin_bottom = 24.0
