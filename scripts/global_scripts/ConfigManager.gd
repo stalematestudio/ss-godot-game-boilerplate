@@ -20,6 +20,10 @@ onready var config_data_default = {
 				"resume_on_focus_grab": true,
 				"low_processor_usage_mode": false,
 				"low_processor_usage_mode_sleep_usec": 6900,
+				"iterations_per_second": 60,
+				"physics_jitter_fix": 0.5,
+				"target_fps": 0,
+				"time_scale": 1,
 				"debug":false
 				},
 		"video":{

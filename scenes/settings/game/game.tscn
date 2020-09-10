@@ -78,15 +78,31 @@ margin_right = 854.0
 margin_bottom = 288.0
 
 [node name="Label" type="Label" parent="Settings_Scroll/Settings_VBC/LowCPU_HBC"]
-margin_right = 708.0
+margin_right = 647.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 5
 text = "Low CPU mode sleep time"
 valign = 1
 
+[node name="Plus_Button" type="Button" parent="Settings_Scroll/Settings_VBC/LowCPU_HBC"]
+margin_left = 651.0
+margin_right = 683.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.05
+text = "+"
+
+[node name="Minus_Button" type="Button" parent="Settings_Scroll/Settings_VBC/LowCPU_HBC"]
+margin_left = 687.0
+margin_right = 719.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.05
+text = "-"
+
 [node name="SpinBox" type="SpinBox" parent="Settings_Scroll/Settings_VBC/LowCPU_HBC"]
-margin_left = 712.0
+margin_left = 723.0
 margin_right = 854.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
@@ -96,3 +112,4 @@ step = 100.0
 value = 6900.0
 rounded = true
 align = 1
+suffix = "usec"

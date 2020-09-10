@@ -8,6 +8,8 @@ onready var gui_debug = $Settings_Scroll/Settings_VBC/Debug_CheckButton
 
 onready var gui_low_cpu_check = $Settings_Scroll/Settings_VBC/LowCPU_CheckButton
 onready var gui_low_cpu_label = $Settings_Scroll/Settings_VBC/LowCPU_HBC/Label
+onready var gui_low_cpu_spin_plus = $Settings_Scroll/Settings_VBC/LowCPU_HBC/Plus_Button
+onready var gui_low_cpu_spin_minus = $Settings_Scroll/Settings_VBC/LowCPU_HBC/Minus_Button
 onready var gui_low_cpu_spin = $Settings_Scroll/Settings_VBC/LowCPU_HBC/SpinBox
 
 func _ready():
@@ -18,6 +20,8 @@ func _ready():
 	gui_debug.connect("pressed", self, "debug_adjust")
 
 	gui_low_cpu_check.connect("pressed", self, "low_cpu_adjust")
+	gui_low_cpu_spin_plus.connect("pressed", self, "low_cpu_sleep_plus_adjust")
+	gui_low_cpu_spin_minus.connect("pressed", self, "low_cpu_sleep_minus_adjust")
 	gui_low_cpu_spin.connect("value_changed", self, "low_cpu_sleep_adjust")
 
 func set_form_values():
@@ -35,9 +39,13 @@ func set_form_values():
 func set_elements_disabled():
 	if gui_low_cpu_check.is_pressed():
 		gui_low_cpu_label.set_self_modulate(Color("#ffffffff"))
+		gui_low_cpu_spin_plus.set_disabled(false)
+		gui_low_cpu_spin_minus.set_disabled(false)
 		gui_low_cpu_spin.set_editable(true)
 	else:
 		gui_low_cpu_label.set_self_modulate(Color("#40ffffff"))
+		gui_low_cpu_spin_plus.set_disabled(true)
+		gui_low_cpu_spin_minus.set_disabled(true)
 		gui_low_cpu_spin.set_editable(false)
 
 func subtitle_adjust():
@@ -58,6 +66,12 @@ func debug_adjust():
 func low_cpu_adjust():
 	ConfigManager.config_data.game.low_processor_usage_mode = gui_low_cpu_check.is_pressed()
 	set_elements_disabled()
+
+func low_cpu_sleep_plus_adjust():
+	gui_low_cpu_spin.set_value(gui_low_cpu_spin.get_value() + gui_low_cpu_spin.step)
+	
+func low_cpu_sleep_minus_adjust():
+	gui_low_cpu_spin.set_value(gui_low_cpu_spin.get_value() - gui_low_cpu_spin.step)
 
 func low_cpu_sleep_adjust(new_val):
 	ConfigManager.config_data.game.low_processor_usage_mode_sleep_usec = new_val
