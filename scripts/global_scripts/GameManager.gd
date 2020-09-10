@@ -47,6 +47,10 @@ func apply_config():
 	OS.set_low_processor_usage_mode(ConfigManager.config_data.game.low_processor_usage_mode)
 	if OS.is_in_low_processor_usage_mode():
 		OS.set_low_processor_usage_mode_sleep_usec(ConfigManager.config_data.game.low_processor_usage_mode_sleep_usec)
+	Engine.set_iterations_per_second(ConfigManager.config_data.game.iterations_per_second)
+	Engine.set_physics_jitter_fix(ConfigManager.config_data.game.physics_jitter_fix)
+	Engine.set_target_fps(ConfigManager.config_data.game.target_fps)
+	Engine.set_time_scale(ConfigManager.config_data.game.time_scale)
 
 func _notification(what):
 	if game_state:
