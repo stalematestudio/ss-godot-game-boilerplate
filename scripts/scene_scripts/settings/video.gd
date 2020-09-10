@@ -1,5 +1,8 @@
 extends Tabs
 
+onready var gui_fov_slider = $Settings_Scroll/Settings_VBC/FOV_HBC/Slider
+onready var gui_fov_value = $Settings_Scroll/Settings_VBC/FOV_HBC/Value
+
 onready var gui_picture_adjustments = $Settings_Scroll/Settings_VBC/Adjustments_CheckButton
 
 onready var gui_brightnes_label = $Settings_Scroll/Settings_VBC/Brightnes_HBC/Brightnes_Label
@@ -29,6 +32,8 @@ onready var gui_resolution_label = $Settings_Scroll/Settings_VBC/Resolution_HBC/
 onready var gui_resolution_option = $Settings_Scroll/Settings_VBC/Resolution_HBC/Resolution_Option
 
 func _ready():
+	gui_fov_slider.connect("value_changed", self, "fov_adjust")
+
 	gui_picture_adjustments.connect("pressed", self, "picture_adjust")
 	gui_brightnes_slider.connect("value_changed", self, "brightnes_adjust")
 	gui_contrast_slider.connect("value_changed", self, "contrast_adjust")
@@ -53,6 +58,8 @@ func _ready():
 	gui_resolution_option.connect("item_selected", self, "resolution_option_adjust")
 
 func set_form_values():
+	gui_fov_slider.set_value(ConfigManager.config_data.video.fov)
+
 	gui_picture_adjustments.set_pressed(ConfigManager.config_data.video.picture_adjustments)
 	gui_brightnes_slider.set_value(ConfigManager.config_data.video.picture_brightnes)
 	gui_contrast_slider.set_value(ConfigManager.config_data.video.picture_contrast)
@@ -120,6 +127,10 @@ func set_elements_disabled():
 		gui_resolution_label.set_self_modulate(Color("#40ffffff"))
 	else:
 		gui_resolution_label.set_self_modulate(Color("#ffffffff"))
+
+func fov_adjust(new_val):
+	ConfigManager.config_data.video.fov = new_val
+	gui_fov_value.set_text(String(new_val))
 
 func picture_adjust():
 	ConfigManager.config_data.video.picture_adjustments = gui_picture_adjustments.is_pressed()

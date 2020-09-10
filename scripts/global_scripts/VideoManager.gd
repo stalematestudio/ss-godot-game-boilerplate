@@ -1,14 +1,17 @@
 extends Node
 
+signal camera_config_changed
+
 onready var main_environment = get_node("/root/main/WorldEnvironment").get_environment()
 
 func _ready():
+	yield(get_node("/root/main"), "ready") # Wait For Main Scene to be ready.
 	self.pause_mode = Node.PAUSE_MODE_PROCESS
 	apply_config()
 
 func apply_config():
 	picture_adjust()
-
+	emit_signal("camera_config_changed")
 	OS.set_keep_screen_on(ConfigManager.config_data.video.keep_screen_on)
 	OS.set_use_vsync(ConfigManager.config_data.video.vsync)
 	OS.set_window_fullscreen(ConfigManager.config_data.video.fullscreen)

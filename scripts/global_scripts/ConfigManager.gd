@@ -27,6 +27,7 @@ onready var config_data_default = {
 				"debug":false
 				},
 		"video":{
+				"fov": 70,
 				"picture_adjustments": false,
 				"picture_brightnes": 1,
 				"picture_contrast": 1,
@@ -84,6 +85,7 @@ onready var config_data_default = {
 onready var config_data = config_data_default.duplicate(true)
 
 func _ready():
+	yield(get_node("/root/main"), "ready") # Wait For Main Scene to be ready.
 	self.pause_mode = Node.PAUSE_MODE_PROCESS
 	load_config()
 
