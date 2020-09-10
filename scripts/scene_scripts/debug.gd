@@ -25,6 +25,8 @@ var game_instance
 var player_instance
 
 func _ready():
+	game_instance = get_node_or_null("/root/main/game_scene")
+	player_instance = get_node_or_null("/root/main/game_scene/player")
 	GameManager.connect("game_state_changed", self, "_on_game_state_changed")
 
 func _input(event):
