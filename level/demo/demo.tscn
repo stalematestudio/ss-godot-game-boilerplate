@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://level/demo/wall_cubemesh.tres" type="CubeMesh" id=1]
 [ext_resource path="res://level/demo/surface_cubemesh.tres" type="CubeMesh" id=2]
@@ -8,6 +8,17 @@
 [ext_resource path="res://level/demo/surface_boxshape.tres" type="Shape" id=6]
 [ext_resource path="res://level/demo/surface_physicsmaterial.tres" type="PhysicsMaterial" id=7]
 [ext_resource path="res://level/demo/wall_boxshape.tres" type="Shape" id=8]
+[ext_resource path="res://level/demo/screen_planemesh.tres" type="PlaneMesh" id=9]
+[ext_resource path="res://level/demo/screen_boxshape.tres" type="Shape" id=10]
+
+[sub_resource type="ViewportTexture" id=1]
+viewport_path = NodePath("ScreenStaticBody/ScreenViewport")
+
+[sub_resource type="SpatialMaterial" id=2]
+resource_local_to_scene = true
+flags_unshaded = true
+params_cull_mode = 1
+albedo_texture = SubResource( 1 )
 
 [node name="demo" type="Spatial"]
 
@@ -180,3 +191,37 @@ material/0 = null
 [node name="SurfaceCollisionShape" type="CollisionShape" parent="SurfaceStaticBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0 )
 shape = ExtResource( 6 )
+
+[node name="ScreenStaticBody" type="StaticBody" parent="."]
+transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, 2, 4.4 )
+
+[node name="ScreenViewport" type="Viewport" parent="ScreenStaticBody"]
+size = Vector2( 854, 480 )
+disable_3d = true
+usage = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="ScreenStaticBody/ScreenViewport"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Label" type="Label" parent="ScreenStaticBody/ScreenViewport/CenterContainer"]
+margin_left = 341.0
+margin_top = 216.0
+margin_right = 513.0
+margin_bottom = 264.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Maybe some lorem ipsum.
+
+This is some serious shit."
+align = 1
+valign = 1
+
+[node name="Screen" type="MeshInstance" parent="ScreenStaticBody"]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 0, 0 )
+material_override = SubResource( 2 )
+mesh = ExtResource( 9 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="ScreenStaticBody"]
+shape = ExtResource( 10 )
