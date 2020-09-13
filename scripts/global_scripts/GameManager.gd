@@ -31,9 +31,10 @@ onready var game_states = {
 		}
 
 func _ready():
+	yield(get_node("/root/main"), "ready") # Wait For Main Scene to be ready.
 	self.pause_mode = Node.PAUSE_MODE_PROCESS
 	ConfigManager.connect("config_update", self, "apply_config")
-	yield(get_node("/root/main"), "ready") # Wait For Main Scene to be ready.
+	
 	self.connect("resume_game", self, "_on_resume_game")
 	self.connect("pause_game", self, "_on_pause_game")
 	InputManager.connect("joypad_active", self, "_on_joypad_active")
@@ -64,6 +65,7 @@ func _notification(what):
 
 func _input(event):
 	if event.is_action_released("util_pause") and game_state.in_game:
+		get_tree().set_input_as_handled()
 		if game_paused:
 			emit_signal("resume_game")
 		else:

@@ -7,9 +7,10 @@ onready var joypad_present = false
 onready var joypad_device_id = 0
 
 func _ready():
+	yield(get_node("/root/main"), "ready") # Wait For Main Scene to be ready.
 	self.pause_mode = Node.PAUSE_MODE_PROCESS
 	ConfigManager.connect("config_update", self, "apply_config")
-	yield(get_node("/root/main"), "ready") # Wait For Main Scene to be ready.
+	
 	Input.connect("joy_connection_changed", self, "_on_joy_connection_changed")
 
 func apply_config():

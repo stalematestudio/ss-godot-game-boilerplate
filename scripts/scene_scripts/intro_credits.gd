@@ -12,6 +12,7 @@ func _ready():
 
 func _input(event): 
 	if ( event is InputEventKey and event.is_pressed() ) or ( event is InputEventJoypadButton and event.is_pressed() ) or ( event is InputEventMouseButton and event.is_pressed() ) :
+		get_tree().set_input_as_handled()
 		event_timer.start()
 		event_counter += 1
 		next_slide()

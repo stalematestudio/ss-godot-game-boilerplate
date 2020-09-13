@@ -3,9 +3,9 @@ extends Node
 signal camera_config_changed
 
 func _ready():
+	yield(get_node("/root/main"), "ready") # Wait For Main Scene to be ready.
 	self.pause_mode = Node.PAUSE_MODE_PROCESS
 	ConfigManager.connect("config_update", self, "apply_config")
-	yield(get_node("/root/main"), "ready") # Wait For Main Scene to be ready.
 
 func apply_config():
 	picture_adjust()
@@ -32,11 +32,16 @@ func screen_adjust():
 
 	var config_res = ConfigManager.resolutions[ConfigManager.config_data.video.resolution_option].value
 	var screen_res = OS.get_screen_size()
-	var resolution = screen_res if ( config_res[0] > screen_res[0] ) else config_res
+	var resolution = Vector2()
 
-	get_node("/root").set_size(resolution)
+	if ConfigManager.config_data.video.resolution_auto:
+		resolution = screen_res
+	else:
+		resolution = screen_res if ( config_res[0] > screen_res[0] ) else config_res
+	
+	get_viewport().set_size(resolution)
 
-	if OS.is_window_fullscreen(): #ConfigManager.config_data.video.fullscreen: 
+	if OS.is_window_fullscreen():
 		OS.set_current_screen(ConfigManager.config_data.video.use_screen)
 	else:
 		OS.set_window_size(resolution)

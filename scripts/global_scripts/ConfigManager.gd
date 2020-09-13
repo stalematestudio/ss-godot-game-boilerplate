@@ -87,8 +87,8 @@ onready var config_data_default = {
 onready var config_data = config_data_default.duplicate(true)
 
 func _ready():
-	self.pause_mode = Node.PAUSE_MODE_PROCESS
 	yield(get_node("/root/main"), "ready") # Wait For Main Scene to be ready.
+	self.pause_mode = Node.PAUSE_MODE_PROCESS
 	GameManager.connect("game_state_changed", self, "apply_config")
 	load_config()
 

@@ -1,6 +1,7 @@
 extends Node
 
-onready var fps_display = $FSP_VBC/FSP_HBC/FPS_Display
+onready var vd_display = $VBC/VD_HBC/VD_Display
+onready var fps_display = $VBC/FSP_HBC/FPS_Display
 onready var gt_display = $GT_VBC/GT_Label
 
 onready var m_forward = $player/VBoxContainer/sticks/move/forward
@@ -25,6 +26,7 @@ var game_instance
 var player_instance
 
 func _ready():
+	vd_display.set_text( String( OS.get_current_video_driver() ) + " - " + OS.get_video_driver_name( OS.get_current_video_driver() ) )
 	game_instance = get_node_or_null("/root/main/game_scene")
 	player_instance = get_node_or_null("/root/main/game_scene/player")
 	GameManager.connect("game_state_changed", self, "_on_game_state_changed")

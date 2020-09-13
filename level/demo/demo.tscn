@@ -16,9 +16,13 @@ viewport_path = NodePath("ScreenStaticBody/ScreenViewport")
 
 [sub_resource type="SpatialMaterial" id=2]
 resource_local_to_scene = true
-flags_unshaded = true
 params_cull_mode = 1
-albedo_texture = SubResource( 1 )
+emission_enabled = true
+emission = Color( 1, 1, 1, 1 )
+emission_energy = 2.0
+emission_operator = 1
+emission_on_uv2 = false
+emission_texture = SubResource( 1 )
 
 [node name="demo" type="Spatial"]
 
@@ -149,34 +153,34 @@ mesh = ExtResource( 4 )
 material/0 = null
 
 [node name="OmniLight_1" type="OmniLight" parent="Structure"]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 3, 2.9, 3 )
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 3, 2.7, 3 )
 light_color = Color( 1, 0.25098, 0.25098, 1 )
-light_energy = 0.8
-light_indirect_energy = 0.2
-light_bake_mode = 2
+light_energy = 0.6
+light_indirect_energy = 0.3
+light_specular = 0.3
 shadow_enabled = true
 
 [node name="OmniLight_2" type="OmniLight" parent="Structure"]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, -3, 2.9, 3 )
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, -3, 2.7, 3 )
 light_color = Color( 0.25098, 1, 0.25098, 1 )
-light_energy = 0.8
-light_indirect_energy = 0.2
-light_bake_mode = 2
+light_energy = 0.6
+light_indirect_energy = 0.3
+light_specular = 0.3
 shadow_enabled = true
 
 [node name="OmniLight_3" type="OmniLight" parent="Structure"]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, -3, 2.9, -3 )
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, -3, 2.7, -3 )
 light_color = Color( 0.25098, 0.25098, 1, 1 )
-light_energy = 0.8
-light_indirect_energy = 0.2
-light_bake_mode = 2
+light_energy = 0.6
+light_indirect_energy = 0.3
+light_specular = 0.3
 shadow_enabled = true
 
 [node name="OmniLight_4" type="OmniLight" parent="Structure"]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 3, 2.9, -3 )
-light_energy = 0.8
-light_indirect_energy = 0.2
-light_bake_mode = 2
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 3, 2.7, -3 )
+light_energy = 0.6
+light_indirect_energy = 0.3
+light_specular = 0.3
 shadow_enabled = true
 
 [node name="SurfaceStaticBody" type="StaticBody" parent="."]
@@ -193,10 +197,11 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0 )
 shape = ExtResource( 6 )
 
 [node name="ScreenStaticBody" type="StaticBody" parent="."]
-transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, 2, 4.4 )
+transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, 2, 4.6 )
 
 [node name="ScreenViewport" type="Viewport" parent="ScreenStaticBody"]
 size = Vector2( 854, 480 )
+transparent_bg = true
 disable_3d = true
 usage = 1
 
@@ -217,8 +222,14 @@ This is some serious shit."
 align = 1
 valign = 1
 
-[node name="Screen" type="MeshInstance" parent="ScreenStaticBody"]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 0, 0 )
+[node name="Screen1" type="MeshInstance" parent="ScreenStaticBody"]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 0, 0.11 )
+material_override = SubResource( 2 )
+mesh = ExtResource( 9 )
+material/0 = null
+
+[node name="Screen2" type="MeshInstance" parent="ScreenStaticBody"]
+transform = Transform( -1, 3.25841e-07, 5.30863e-14, 0, -1.62921e-07, 1, 3.25841e-07, 1, 1.62921e-07, 0, 0, -0.11 )
 material_override = SubResource( 2 )
 mesh = ExtResource( 9 )
 material/0 = null
