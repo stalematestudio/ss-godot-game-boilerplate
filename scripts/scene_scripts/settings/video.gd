@@ -111,19 +111,18 @@ func set_elements_disabled():
 	var disabled_by_fullscreen = gui_fullscreen.is_pressed()
 	var disabled_by_resolution_auto = gui_resolution_auto.is_pressed()
 	
+	gui_screen_option.set_disabled(not disabled_by_fullscreen)
+
 	if (disabled_by_fullscreen):
 		gui_screen_label.set_self_modulate(Color("#ffffffff"))
-		gui_screen_option.set_disabled(false)
 	else:
 		gui_screen_label.set_self_modulate(Color("#40ffffff"))
-		gui_screen_option.set_disabled(true)
 
 	gui_borderless.set_disabled(disabled_by_fullscreen)
 	gui_centered.set_disabled(disabled_by_fullscreen)
-	gui_resolution_auto.set_disabled(disabled_by_fullscreen)
-	gui_resolution_option.set_disabled( disabled_by_fullscreen or disabled_by_resolution_auto )
-	
-	if ( disabled_by_fullscreen or disabled_by_resolution_auto ):
+
+	gui_resolution_option.set_disabled( disabled_by_resolution_auto )
+	if (disabled_by_resolution_auto ):
 		gui_resolution_label.set_self_modulate(Color("#40ffffff"))
 	else:
 		gui_resolution_label.set_self_modulate(Color("#ffffffff"))

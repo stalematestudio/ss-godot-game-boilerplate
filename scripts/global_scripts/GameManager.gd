@@ -31,13 +31,13 @@ onready var game_states = {
 		}
 
 func _ready():
-	yield(get_node("/root/main"), "ready") # Wait For Main Scene to be ready.
 	self.pause_mode = Node.PAUSE_MODE_PROCESS
+	ConfigManager.connect("config_update", self, "apply_config")
+	yield(get_node("/root/main"), "ready") # Wait For Main Scene to be ready.
 	self.connect("resume_game", self, "_on_resume_game")
 	self.connect("pause_game", self, "_on_pause_game")
 	InputManager.connect("joypad_active", self, "_on_joypad_active")
 	InputManager.connect("joypad_inactive", self, "_on_joypad_inactive")
-	apply_config()
 	game_state_change("INTRO")
 
 func apply_config():
@@ -85,6 +85,9 @@ func game_state_change(state):
 	if not game_state.in_game:
 		emit_signal("resume_game")
 	emit_signal("game_state_changed")
+
+func mouse_mode_hidden():
+	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 
 func mouse_mode_game():
 	if game_paused:

@@ -71,9 +71,7 @@ func settings_menu_apply_cancel(button_name):
 			set_form_values()
 		"apply":
 			ConfigManager.save_config()
-			ConfigManager.apply_config()
 			self.queue_free()
 		"cancel":
 			ConfigManager.load_config()
-			ConfigManager.apply_config()
 			self.queue_free()

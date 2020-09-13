@@ -55,7 +55,6 @@ size_flags_vertical = 1
 theme = ExtResource( 1 )
 min_value = 1.0
 max_value = 179.0
-step = 1.0
 value = 1.0
 tick_count = 34
 __meta__ = {

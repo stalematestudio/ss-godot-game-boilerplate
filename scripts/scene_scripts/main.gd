@@ -22,10 +22,9 @@ var title_camera
 var background_environment
 
 onready var ui_target
-onready var root = get_node("/root")
 
 func _ready():
-	root.connect("gui_focus_changed", self, "_on_gui_focus_changed")
+	get_node("/root").connect("gui_focus_changed", self, "_on_gui_focus_changed")
 	
 	GameManager.connect("game_state_changed", self, "ui_target_disconnect")
 	GameManager.connect("resume_game", self, "ui_target_disconnect")
@@ -35,7 +34,7 @@ func _ready():
 	
 	GameManager.connect("pause_game", self, "_on_pause_game")
 	GameManager.connect("resume_game", self, "_on_resume_game")
-	
+
 func ui_target_disconnect():
 	if is_instance_valid(ui_target):
 		if ( ui_target is Button ) and ui_target.is_connected("pressed", AudioManager, "ui_accept_audio_effect"):
@@ -71,7 +70,8 @@ func _on_game_state_changed():
 			current_scene_instance = credits_scene.instance()
 		"game_scene":
 			current_scene_instance = game_scene.instance()
-	add_child(current_scene_instance)
+	if is_instance_valid(current_scene_instance):
+		add_child(current_scene_instance)
 
 func _on_debug_state_changed():
 	if ConfigManager.config_data.game.debug:

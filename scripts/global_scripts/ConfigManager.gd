@@ -1,5 +1,7 @@
 extends Node
 
+signal config_update
+
 const resolutions = [
 		{"name": "854x480", "value": Vector2(854, 480)},
 		{"name": "1024x576", "value": Vector2(1024, 576)},
@@ -85,15 +87,13 @@ onready var config_data_default = {
 onready var config_data = config_data_default.duplicate(true)
 
 func _ready():
-	yield(get_node("/root/main"), "ready") # Wait For Main Scene to be ready.
 	self.pause_mode = Node.PAUSE_MODE_PROCESS
+	yield(get_node("/root/main"), "ready") # Wait For Main Scene to be ready.
+	GameManager.connect("game_state_changed", self, "apply_config")
 	load_config()
 
 func apply_config():
-	GameManager.apply_config()
-	VideoManager.apply_config()
-	AudioManager.apply_config()
-	InputManager.apply_config_keybind()
+	emit_signal("config_update")
 
 func save_config():
 	var config_file = ConfigFile.new()
@@ -102,6 +102,7 @@ func save_config():
 			config_file.set_value(section, setting, config_data[section][setting])
 	var err = config_file.save(config_path)
 	if err == OK:
+		emit_signal("config_update")
 		return true
 
 func load_config():
@@ -111,6 +112,7 @@ func load_config():
 		for section in config_data:
 			for setting in config_data[section]:
 				config_data[section][setting] = config_file.get_value(section, setting, config_data[section][setting])
+		emit_signal("config_update")
 		return true
 	elif err == ERR_FILE_NOT_FOUND:
 		return save_config()
