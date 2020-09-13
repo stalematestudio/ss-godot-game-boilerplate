@@ -17,6 +17,10 @@ var debug_scene_instance
 var settings_scene_instance
 var pause_scene_instance
 
+# Sub Scene Instances
+var title_camera
+var background_environment
+
 onready var ui_target
 onready var root = get_node("/root")
 

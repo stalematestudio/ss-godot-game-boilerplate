@@ -18,6 +18,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.65, 0 )
 
 [node name="PlayerCamera" type="Camera" parent="PlayerHead"]
 transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, 0, 0 )
+current = true
 script = ExtResource( 3 )
 
 [node name="PlayerLight" type="SpotLight" parent="PlayerHead"]
