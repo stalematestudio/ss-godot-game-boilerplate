@@ -158,6 +158,12 @@ func process_movement(delta):
 		is_sprinting = true
 	else:
 		is_sprinting = false
+
+	# Crouching
+	if Input.is_action_pressed("player_movement_crouch"):
+		is_crouching = true
+	else:
+		is_crouching = false
 	
 	direction.y = 0
 	direction = direction.normalized()
@@ -170,6 +176,8 @@ func process_movement(delta):
 	var target = direction
 	if is_sprinting:
 		target *= MAX_SPRINT_SPEED
+	elif is_crouching:
+		target *= MAX_CROUCH_SPEED
 	else:
 		target *= MAX_WALK_SPEED
 	
@@ -177,6 +185,8 @@ func process_movement(delta):
 	if direction.dot(horizontal_velocity) > 0:
 		if is_sprinting:
 			accel = SPRINT_ACCEL
+		elif is_crouching:
+			accel = CROUCH_ACCEL
 		else:
 			accel = WALK_ACCEL
 	else:

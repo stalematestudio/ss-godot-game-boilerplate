@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://level/demo/wall_cubemesh.tres" type="CubeMesh" id=1]
 [ext_resource path="res://level/demo/surface_cubemesh.tres" type="CubeMesh" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://level/demo/screen_boxshape.tres" type="Shape" id=10]
 [ext_resource path="res://level/demo/button_boxshape.tres" type="Shape" id=11]
 [ext_resource path="res://level/demo/button_cubemesh.tres" type="CubeMesh" id=12]
+[ext_resource path="res://level/demo/surface_spatialmaterial.tres" type="Material" id=13]
 
 [sub_resource type="ViewportTexture" id=1]
 viewport_path = NodePath("ScreenStaticBody/ScreenViewport")
@@ -200,9 +201,8 @@ input_ray_pickable = false
 physics_material_override = ExtResource( 7 )
 
 [node name="SurfaceMeshInstance" type="MeshInstance" parent="SurfaceStaticBody"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.100442, 0 )
 mesh = ExtResource( 2 )
-material/0 = null
+material/0 = ExtResource( 13 )
 
 [node name="SurfaceCollisionShape" type="CollisionShape" parent="SurfaceStaticBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0 )
