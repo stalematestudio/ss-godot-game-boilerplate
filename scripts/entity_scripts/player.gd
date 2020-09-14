@@ -1,5 +1,9 @@
 extends KinematicBody
 
+# Camera positions
+export (Array, Transform) var camera_position
+onready var camera_position_selected = 0
+
 # Environmental Variables will be moved to level scene or game state
 const GRAVITY = 9.8
 const GRAVITY_VECTOR = Vector3(0,1,0)
@@ -27,7 +31,6 @@ var player_move_floor_max_angle = deg2rad(MAX_SLOPE_ANGLE)
 var player_move_infinite_inertia = false
 
 var mouse_scroll_value = 0
-var camera_3d_person = false
 
 var velocity = Vector3()
 var direction = Vector3()
@@ -59,6 +62,11 @@ func _physics_process(delta):
 	process_movement(delta)
 
 func process_input():
+	#Change Camera
+	if Input.is_action_just_pressed("util_camera_switch"):
+		camera_position_selected = camera_position_selected + 1 if camera_position_selected < camera_position.size() - 1 else 0
+		player_camera.transform = camera_position[camera_position_selected]
+
 	# Grabbin and throwing objects
 	if Input.is_action_just_pressed("fire"):
 		if grabbed_object == null:

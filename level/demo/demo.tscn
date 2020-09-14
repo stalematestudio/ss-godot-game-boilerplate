@@ -156,16 +156,14 @@ material/0 = null
 
 [node name="OmniLight_1" type="OmniLight" parent="Structure"]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 3, 2.7, 3 )
-visible = false
 light_color = Color( 1, 0.25098, 0.25098, 1 )
-light_energy = 0.8
+light_energy = 0.6
 light_indirect_energy = 0.3
 light_specular = 0.3
 shadow_enabled = true
 
 [node name="OmniLight_2" type="OmniLight" parent="Structure"]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, -3, 2.7, 3 )
-visible = false
 light_color = Color( 0.25098, 1, 0.25098, 1 )
 light_energy = 0.6
 light_indirect_energy = 0.3
@@ -174,7 +172,6 @@ shadow_enabled = true
 
 [node name="OmniLight_3" type="OmniLight" parent="Structure"]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, -3, 2.7, -3 )
-visible = false
 light_color = Color( 0.25098, 0.25098, 1, 1 )
 light_energy = 0.6
 light_indirect_energy = 0.3
@@ -183,7 +180,6 @@ shadow_enabled = true
 
 [node name="OmniLight_4" type="OmniLight" parent="Structure"]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 3, 2.7, -3 )
-visible = false
 light_energy = 0.6
 light_indirect_energy = 0.3
 light_specular = 0.3

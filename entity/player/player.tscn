@@ -8,6 +8,7 @@
 [node name="player" type="KinematicBody"]
 input_ray_pickable = false
 script = ExtResource( 2 )
+camera_position = [ Transform( -1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0, 0 ), Transform( -1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0, -1.5 ) ]
 
 [node name="PlayerCollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0.9, 0 )
@@ -24,13 +25,8 @@ script = ExtResource( 3 )
 [node name="PlayerLight" type="SpotLight" parent="PlayerHead"]
 transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, 0, 0 )
 visible = false
-light_indirect_energy = 2.0
 light_bake_mode = 0
 shadow_enabled = true
-spot_range = 3.0
-spot_attenuation = 0.8
-spot_angle = 30.0
-spot_angle_attenuation = 0.45
 
 [node name="PlayerRayCast" type="RayCast" parent="PlayerHead"]
 visible = false
