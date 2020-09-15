@@ -67,133 +67,152 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBoxContainer" type="VBoxContainer" parent="player"]
-margin_left = 110.0
+[node name="HSplitContainer" type="HSplitContainer" parent="player"]
+margin_left = 104.0
 margin_top = 8.0
-margin_right = 146.0
+margin_right = 152.0
 margin_bottom = 136.0
 
-[node name="sticks" type="HBoxContainer" parent="player/VBoxContainer"]
+[node name="VBoxContainerL" type="VBoxContainer" parent="player/HSplitContainer"]
+margin_right = 36.0
+margin_bottom = 128.0
+
+[node name="sticks" type="HBoxContainer" parent="player/HSplitContainer/VBoxContainerL"]
 margin_right = 36.0
 margin_bottom = 66.0
 size_flags_stretch_ratio = 2.0
 alignment = 1
 
-[node name="move" type="VBoxContainer" parent="player/VBoxContainer/sticks"]
+[node name="move" type="VBoxContainer" parent="player/HSplitContainer/VBoxContainerL/sticks"]
 margin_right = 12.0
 margin_bottom = 66.0
 
-[node name="forward" type="Label" parent="player/VBoxContainer/sticks/move"]
+[node name="forward" type="Label" parent="player/HSplitContainer/VBoxContainerL/sticks/move"]
 margin_right = 12.0
 margin_bottom = 14.0
 
-[node name="HSeparator1" type="HSeparator" parent="player/VBoxContainer/sticks/move"]
+[node name="HSeparator1" type="HSeparator" parent="player/HSplitContainer/VBoxContainerL/sticks/move"]
 margin_top = 18.0
 margin_right = 12.0
 margin_bottom = 22.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="player/VBoxContainer/sticks/move"]
+[node name="HBoxContainer" type="HBoxContainer" parent="player/HSplitContainer/VBoxContainerL/sticks/move"]
 margin_top = 26.0
 margin_right = 12.0
 margin_bottom = 40.0
 
-[node name="left" type="Label" parent="player/VBoxContainer/sticks/move/HBoxContainer"]
+[node name="left" type="Label" parent="player/HSplitContainer/VBoxContainerL/sticks/move/HBoxContainer"]
 margin_bottom = 14.0
 
-[node name="VSeparator" type="VSeparator" parent="player/VBoxContainer/sticks/move/HBoxContainer"]
+[node name="VSeparator" type="VSeparator" parent="player/HSplitContainer/VBoxContainerL/sticks/move/HBoxContainer"]
 margin_left = 4.0
 margin_right = 8.0
 margin_bottom = 14.0
 
-[node name="right" type="Label" parent="player/VBoxContainer/sticks/move/HBoxContainer"]
+[node name="right" type="Label" parent="player/HSplitContainer/VBoxContainerL/sticks/move/HBoxContainer"]
 margin_left = 12.0
 margin_right = 12.0
 margin_bottom = 14.0
 
-[node name="HSeparator2" type="HSeparator" parent="player/VBoxContainer/sticks/move"]
+[node name="HSeparator2" type="HSeparator" parent="player/HSplitContainer/VBoxContainerL/sticks/move"]
 margin_top = 44.0
 margin_right = 12.0
 margin_bottom = 48.0
 
-[node name="backward" type="Label" parent="player/VBoxContainer/sticks/move"]
+[node name="backward" type="Label" parent="player/HSplitContainer/VBoxContainerL/sticks/move"]
 margin_top = 52.0
 margin_right = 12.0
 margin_bottom = 66.0
 
-[node name="VSeparator" type="VSeparator" parent="player/VBoxContainer/sticks"]
+[node name="VSeparator" type="VSeparator" parent="player/HSplitContainer/VBoxContainerL/sticks"]
 margin_left = 16.0
 margin_right = 20.0
 margin_bottom = 66.0
 
-[node name="look" type="VBoxContainer" parent="player/VBoxContainer/sticks"]
+[node name="look" type="VBoxContainer" parent="player/HSplitContainer/VBoxContainerL/sticks"]
 margin_left = 24.0
 margin_right = 36.0
 margin_bottom = 66.0
 
-[node name="up" type="Label" parent="player/VBoxContainer/sticks/look"]
+[node name="up" type="Label" parent="player/HSplitContainer/VBoxContainerL/sticks/look"]
 margin_right = 12.0
 margin_bottom = 14.0
 
-[node name="HSeparator1" type="HSeparator" parent="player/VBoxContainer/sticks/look"]
+[node name="HSeparator1" type="HSeparator" parent="player/HSplitContainer/VBoxContainerL/sticks/look"]
 margin_top = 18.0
 margin_right = 12.0
 margin_bottom = 22.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="player/VBoxContainer/sticks/look"]
+[node name="HBoxContainer" type="HBoxContainer" parent="player/HSplitContainer/VBoxContainerL/sticks/look"]
 margin_top = 26.0
 margin_right = 12.0
 margin_bottom = 40.0
 
-[node name="left" type="Label" parent="player/VBoxContainer/sticks/look/HBoxContainer"]
+[node name="left" type="Label" parent="player/HSplitContainer/VBoxContainerL/sticks/look/HBoxContainer"]
 margin_bottom = 14.0
 
-[node name="VSeparator" type="VSeparator" parent="player/VBoxContainer/sticks/look/HBoxContainer"]
+[node name="VSeparator" type="VSeparator" parent="player/HSplitContainer/VBoxContainerL/sticks/look/HBoxContainer"]
 margin_left = 4.0
 margin_right = 8.0
 margin_bottom = 14.0
 
-[node name="right" type="Label" parent="player/VBoxContainer/sticks/look/HBoxContainer"]
+[node name="right" type="Label" parent="player/HSplitContainer/VBoxContainerL/sticks/look/HBoxContainer"]
 margin_left = 12.0
 margin_right = 12.0
 margin_bottom = 14.0
 
-[node name="HSeparator2" type="HSeparator" parent="player/VBoxContainer/sticks/look"]
+[node name="HSeparator2" type="HSeparator" parent="player/HSplitContainer/VBoxContainerL/sticks/look"]
 margin_top = 44.0
 margin_right = 12.0
 margin_bottom = 48.0
 
-[node name="down" type="Label" parent="player/VBoxContainer/sticks/look"]
+[node name="down" type="Label" parent="player/HSplitContainer/VBoxContainerL/sticks/look"]
 margin_top = 52.0
 margin_right = 12.0
 margin_bottom = 66.0
 
-[node name="HSeparator" type="HSeparator" parent="player/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="player/HSplitContainer/VBoxContainerL"]
 margin_top = 70.0
 margin_right = 36.0
 margin_bottom = 74.0
 
-[node name="player_target" type="HBoxContainer" parent="player/VBoxContainer"]
+[node name="player_target" type="HBoxContainer" parent="player/HSplitContainer/VBoxContainerL"]
 margin_top = 78.0
 margin_right = 36.0
 margin_bottom = 92.0
 
-[node name="player_target_name" type="Label" parent="player/VBoxContainer/player_target"]
+[node name="player_target_name" type="Label" parent="player/HSplitContainer/VBoxContainerL/player_target"]
 margin_bottom = 14.0
 
-[node name="player_target_distance" type="Label" parent="player/VBoxContainer/player_target"]
+[node name="player_target_distance" type="Label" parent="player/HSplitContainer/VBoxContainerL/player_target"]
 margin_left = 4.0
 margin_right = 4.0
 margin_bottom = 14.0
 
-[node name="player_velocity" type="Label" parent="player/VBoxContainer"]
+[node name="player_velocity" type="Label" parent="player/HSplitContainer/VBoxContainerL"]
 margin_top = 96.0
 margin_right = 36.0
 margin_bottom = 110.0
 
-[node name="player_direction" type="Label" parent="player/VBoxContainer"]
+[node name="player_direction" type="Label" parent="player/HSplitContainer/VBoxContainerL"]
 margin_top = 114.0
 margin_right = 36.0
 margin_bottom = 128.0
+
+[node name="VBoxContainerR" type="VBoxContainer" parent="player/HSplitContainer"]
+margin_left = 48.0
+margin_right = 48.0
+margin_bottom = 128.0
+
+[node name="jump" type="HBoxContainer" parent="player/HSplitContainer/VBoxContainerR"]
+
+[node name="crouch" type="HBoxContainer" parent="player/HSplitContainer/VBoxContainerR"]
+margin_top = 4.0
+margin_bottom = 4.0
+
+[node name="sprint" type="HBoxContainer" parent="player/HSplitContainer/VBoxContainerR"]
+margin_top = 8.0
+margin_bottom = 8.0
 
 [node name="input_display" type="RichTextLabel" parent="."]
 anchor_left = 0.3

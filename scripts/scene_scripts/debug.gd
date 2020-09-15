@@ -4,20 +4,20 @@ onready var vd_display = $VBC/VD_HBC/VD_Display
 onready var fps_display = $VBC/FSP_HBC/FPS_Display
 onready var gt_display = $GT_VBC/GT_Label
 
-onready var m_forward = $player/VBoxContainer/sticks/move/forward
-onready var m_backward = $player/VBoxContainer/sticks/move/backward
-onready var m_left = $player/VBoxContainer/sticks/move/HBoxContainer/left
-onready var m_right = $player/VBoxContainer/sticks/move/HBoxContainer/right
+onready var m_forward = $player/HSplitContainer/VBoxContainerL/sticks/move/forward
+onready var m_backward = $player/HSplitContainer/VBoxContainerL/sticks/move/backward
+onready var m_left = $player/HSplitContainer/VBoxContainerL/sticks/move/HBoxContainer/left
+onready var m_right = $player/HSplitContainer/VBoxContainerL/sticks/move/HBoxContainer/right
 
-onready var l_up = $player/VBoxContainer/sticks/look/up
-onready var l_down = $player/VBoxContainer/sticks/look/down
-onready var l_left = $player/VBoxContainer/sticks/look/HBoxContainer/left
-onready var l_right = $player/VBoxContainer/sticks/look/HBoxContainer/right
+onready var l_up = $player/HSplitContainer/VBoxContainerL/sticks/look/up
+onready var l_down = $player/HSplitContainer/VBoxContainerL/sticks/look/down
+onready var l_left = $player/HSplitContainer/VBoxContainerL/sticks/look/HBoxContainer/left
+onready var l_right = $player/HSplitContainer/VBoxContainerL/sticks/look/HBoxContainer/right
 
-onready var player_target_name = $player/VBoxContainer/player_target/player_target_name
-onready var player_target_distance = $player/VBoxContainer/player_target/player_target_distance
-onready var player_target_velocity = $player/VBoxContainer/player_velocity
-onready var player_target_direction = $player/VBoxContainer/player_direction
+onready var player_target_name = $player/HSplitContainer/VBoxContainerL/player_target/player_target_name
+onready var player_target_distance = $player/HSplitContainer/VBoxContainerL/player_target/player_target_distance
+onready var player_target_velocity = $player/HSplitContainer/VBoxContainerL/player_velocity
+onready var player_target_direction = $player/HSplitContainer/VBoxContainerL/player_direction
 
 onready var input_display = $input_display
 

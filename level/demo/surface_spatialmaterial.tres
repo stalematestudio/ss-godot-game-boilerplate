@@ -3,5 +3,5 @@
 [ext_resource path="res://assets/images/tile_texture.png" type="Texture" id=1]
 
 [resource]
+params_cull_mode = 1
 albedo_texture = ExtResource( 1 )
-uv1_scale = Vector3( 160, 160, 1 )
