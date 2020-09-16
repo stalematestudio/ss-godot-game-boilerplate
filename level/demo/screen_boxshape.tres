@@ -1,4 +1,4 @@
 [gd_resource type="BoxShape" format=2]
 
 [resource]
-extents = Vector3( 0.8, 0.5, 0.05 )
+extents = Vector3( 0.8, 0.45, 0.15 )
