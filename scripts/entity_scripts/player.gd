@@ -45,10 +45,10 @@ onready var player_light = $PlayerHead/PlayerLight
 var raycast_target = false
 var raycast_target_distance = false
 
-const OBJECT_THROW_FORCE = 120
-const OBJECT_GRAB_DISTANCE = 7
-const OBJECT_GRAB_RAY_DISTANCE = 10
+const OBJECT_THROW_FORCE = 1
+const OBJECT_GRAB_DISTANCE = 2
 var grabbed_object = null
+var grabbed_object_distance = 0.5
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -68,28 +68,23 @@ func process_input():
 		player_camera.transform = camera_position[camera_position_selected]
 
 	# Grabbin and throwing objects
-	if Input.is_action_just_pressed("fire"):
-		if grabbed_object == null:
-			var state = get_world().direct_space_state
-			var center_position = get_viewport().size / 2
-			var ray_from = player_camera.project_ray_origin(center_position)
-			var ray_to = ray_from + player_camera.project_ray_normal(center_position) * OBJECT_GRAB_RAY_DISTANCE
-			var ray_result = state.intersect_ray(ray_from, ray_to, [self])
-			if ray_result != null:
-				if ray_result.size() != 0:
-					if ray_result["collider"] is RigidBody:
-						grabbed_object = ray_result["collider"]
-						grabbed_object.mode = RigidBody.MODE_STATIC
-						grabbed_object.collision_layer = 0
-						grabbed_object.collision_mask = 0
-		else:
+	if Input.is_action_just_pressed("player_primary_action"):
+		if ( grabbed_object == null ) and ( player_ray_cast.is_colliding() ) and ( raycast_target is RigidBody ) and ( raycast_target_distance < OBJECT_GRAB_DISTANCE ) :
+			grabbed_object = raycast_target
+			grabbed_object_distance = raycast_target_distance
+			grabbed_object.mode = RigidBody.MODE_STATIC
+			grabbed_object.collision_layer = 0
+			grabbed_object.collision_mask = 0
+		elif grabbed_object != null:
 			grabbed_object.mode = RigidBody.MODE_RIGID
 			grabbed_object.collision_layer = 1
 			grabbed_object.collision_mask = 1
-			grabbed_object.apply_central_impulse(-player_camera.global_transform.basis.z.normalized() * OBJECT_THROW_FORCE)
+			grabbed_object.apply_central_impulse(player_head.global_transform.basis.z.normalized() * OBJECT_THROW_FORCE)
 			grabbed_object = null
+	
+	# Holding object
 	if grabbed_object != null:
-		grabbed_object.global_transform.origin = player_camera.global_transform.origin + ( -player_camera.global_transform.basis.z.normalized() * OBJECT_GRAB_DISTANCE )
+		grabbed_object.global_transform.origin = player_head.global_transform.origin + ( player_head.global_transform.basis.z.normalized() * grabbed_object_distance )
 
 	# Flashlight
 	if Input.is_action_just_pressed("player_flashlight"):
