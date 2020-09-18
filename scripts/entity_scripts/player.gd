@@ -23,6 +23,9 @@ const MAX_SLOPE_ANGLE = 40
 
 const JUMP_SPEED = 6
 
+onready var player_health = 100
+onready var player_stamina = 60
+
 var player_move_snap = Vector3(0,1,0)
 var player_move_up_direction = GRAVITY_VECTOR
 var player_move_stop_on_slope = true 
@@ -42,6 +45,9 @@ onready var player_ray_cast = $PlayerHead/PlayerRayCast
 onready var player_camera = $PlayerHead/PlayerCamera
 onready var player_light = $PlayerHead/PlayerLight
 
+onready var player_stats_health = $player_stats/health
+onready var player_stats_stamina = $player_stats/stamina
+
 var raycast_target = false
 var raycast_target_distance = false
 
@@ -54,6 +60,9 @@ func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _process(delta):
+	player_stats_health.set_text(String(player_health))
+	player_stats_stamina.set_text(String(player_stamina))
+	
 	process_input()
 	process_ray_cast()
 
@@ -151,8 +160,10 @@ func process_movement(delta):
 	# Sprinting
 	if Input.is_action_pressed("player_movement_sprint"):
 		is_sprinting = true
+		player_stamina -= delta
 	else:
 		is_sprinting = false
+		player_stamina += delta / 2
 
 	# Crouching
 	if Input.is_action_pressed("player_movement_crouch"):

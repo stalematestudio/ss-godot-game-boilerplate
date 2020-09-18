@@ -48,3 +48,22 @@ texture = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="player_stats" type="VBoxContainer" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+grow_vertical = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="health" type="Label" parent="player_stats"]
+margin_right = 51.0
+margin_bottom = 14.0
+text = "health"
+
+[node name="stamina" type="Label" parent="player_stats"]
+margin_top = 18.0
+margin_right = 51.0
+margin_bottom = 32.0
+text = "stamina"
