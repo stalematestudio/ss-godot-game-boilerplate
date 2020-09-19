@@ -13,7 +13,7 @@ const resolutions = [
 		{"name": "3840x2160", "value": Vector2(3840, 2160)},
 		]
 
-onready var config_path = "user://config.ini"
+onready var config_path = ProfileManager.get_config_path()
 onready var config_data_default = {
 		"game":{
 				"subtitles":false,
