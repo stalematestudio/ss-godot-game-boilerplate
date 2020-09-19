@@ -5,6 +5,7 @@
 
 [node name="cardboard_box" type="RigidBody"]
 mass = 0.5
+can_sleep = false
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 shape = ExtResource( 2 )

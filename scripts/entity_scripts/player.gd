@@ -23,8 +23,13 @@ const MAX_SLOPE_ANGLE = 40
 
 const JUMP_SPEED = 6
 
+# Player Health
+onready var player_health_max = 100
 onready var player_health = 100
-onready var player_stamina = 60
+
+# Player Stamina
+onready var player_stamina_max = 30
+onready var player_stamina = 30
 
 var player_move_snap = Vector3(0,1,0)
 var player_move_up_direction = GRAVITY_VECTOR
@@ -35,10 +40,11 @@ var player_move_infinite_inertia = false
 
 var mouse_scroll_value = 0
 
-var velocity = Vector3()
-var direction = Vector3()
 var is_sprinting = false
 var is_crouching = false
+
+var velocity = Vector3()
+var direction = Vector3()
 
 onready var player_head = $PlayerHead
 onready var player_ray_cast = $PlayerHead/PlayerRayCast
@@ -47,6 +53,8 @@ onready var player_light = $PlayerHead/PlayerLight
 
 onready var player_stats_health = $player_stats/health
 onready var player_stats_stamina = $player_stats/stamina
+
+onready var player_animation = $AnimationPlayer
 
 var raycast_target = false
 var raycast_target_distance = false
@@ -57,11 +65,13 @@ var grabbed_object = null
 var grabbed_object_distance = 0.5
 
 func _ready():
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	#Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	player_stats_health.set_max(player_health_max)
+	player_stats_stamina.set_max(player_stamina_max)
 
 func _process(delta):
-	player_stats_health.set_text(String(player_health))
-	player_stats_stamina.set_text(String(player_stamina))
+	player_stats_health.set_value(player_health)
+	player_stats_stamina.set_value(player_stamina)
 	
 	process_input()
 	process_ray_cast()
@@ -81,13 +91,13 @@ func process_input():
 		if ( grabbed_object == null ) and ( player_ray_cast.is_colliding() ) and ( raycast_target is RigidBody ) and ( raycast_target_distance < OBJECT_GRAB_DISTANCE ) :
 			grabbed_object = raycast_target
 			grabbed_object_distance = raycast_target_distance
-			grabbed_object.mode = RigidBody.MODE_STATIC
-			grabbed_object.collision_layer = 0
-			grabbed_object.collision_mask = 0
+			#grabbed_object.mode = RigidBody.MODE_STATIC
+			#grabbed_object.collision_layer = 0
+			#grabbed_object.collision_mask = 0
 		elif grabbed_object != null:
-			grabbed_object.mode = RigidBody.MODE_RIGID
-			grabbed_object.collision_layer = 1
-			grabbed_object.collision_mask = 1
+			#grabbed_object.mode = RigidBody.MODE_RIGID
+			#grabbed_object.collision_layer = 1
+			#grabbed_object.collision_mask = 1
 			grabbed_object.apply_central_impulse(player_head.global_transform.basis.z.normalized() * OBJECT_THROW_FORCE)
 			grabbed_object = null
 	
@@ -158,18 +168,20 @@ func process_movement(delta):
 	direction += head_x_form.basis.x * input_movement_vector.x
 
 	# Sprinting
-	if Input.is_action_pressed("player_movement_sprint"):
+	if Input.is_action_just_pressed("player_movement_sprint") and ( player_stamina >= player_stamina_max / 2 ) and ( not is_crouching ) :
 		is_sprinting = true
-		player_stamina -= delta
-	else:
+	elif player_stamina <= 0 :
 		is_sprinting = false
-		player_stamina += delta / 2
 
 	# Crouching
-	if Input.is_action_pressed("player_movement_crouch"):
-		is_crouching = true
-	else:
-		is_crouching = false
+	if Input.is_action_just_pressed("player_movement_crouch"):
+		if is_crouching:
+			is_crouching = false
+			player_animation.play_backwards("crouch")
+		else:
+			is_crouching = true
+			is_sprinting = false
+			player_animation.play("crouch")
 	
 	direction.y = 0
 	direction = direction.normalized()
@@ -190,6 +202,7 @@ func process_movement(delta):
 	var accel
 	if direction.dot(horizontal_velocity) > 0:
 		if is_sprinting:
+			player_stamina = clamp( player_stamina - delta , 0 , player_stamina_max ) 
 			accel = SPRINT_ACCEL
 		elif is_crouching:
 			accel = CROUCH_ACCEL
@@ -197,9 +210,12 @@ func process_movement(delta):
 			accel = WALK_ACCEL
 	else:
 		accel = DEACCEL
+		is_sprinting = false
+		player_stamina = clamp( player_stamina + delta / 2 , 0 ,  player_stamina_max )
 		
 	if is_on_floor():
 		horizontal_velocity = horizontal_velocity.linear_interpolate(target, accel * delta)
+
 	velocity.x = horizontal_velocity.x
 	velocity.z = horizontal_velocity.z
 	
