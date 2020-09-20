@@ -9,6 +9,8 @@ onready var credits_button = $Start_Menu/VBC/Credits
 onready var quit_button = $Start_Menu/VBC/Quit
 onready var web_link = $Start_Menu/VBC/Developer_LinkButton
 
+onready var profile_select = $profile
+
 onready var player_profile = ProfileManager.get_current_profile()
 onready var profiles_exist = false # This will be changed when the save load functionality is ready
 
@@ -36,7 +38,7 @@ func _ready():
 func start_menu_button_pressed(button_name):
 	match button_name:
 		"profile":
-			pass
+			profile_select.popup_centered_ratio(0.5)
 		"continue":
 			pass
 		"new":
