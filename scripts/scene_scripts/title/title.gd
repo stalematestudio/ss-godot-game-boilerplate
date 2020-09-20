@@ -9,21 +9,16 @@ onready var credits_button = $Start_Menu/VBC/Credits
 onready var quit_button = $Start_Menu/VBC/Quit
 onready var web_link = $Start_Menu/VBC/Developer_LinkButton
 
-onready var profile_select = $profile
-
-onready var player_profile = ProfileManager.get_current_profile()
-onready var profiles_exist = false # This will be changed when the save load functionality is ready
+onready var profile_manage_popup = $profile
 
 export (String) var web_link_url
 
 func _ready():
 	game_title.set_text(ProjectSettings.get_setting("application/config/name"))
-	if player_profile:
-		profile_button.set_text(ProfileManager.get_current_profile().capitalize())
-	else:
-		profile_button.set_text("Player")
+	profile_manage_popup.connect("popup_hide", self, "_on_popup_hide")
+	profile_button.set_text(ProfileManager.get_current_profile_name().capitalize())
 	profile_button.connect("pressed", self, "start_menu_button_pressed", ["profile"])
-	if profiles_exist:
+	if false:
 		continue_button.connect("pressed", self, "start_menu_button_pressed", ["continue"])
 		continue_button.grab_focus()
 	else:
@@ -35,10 +30,21 @@ func _ready():
 	quit_button.connect("pressed", self, "start_menu_button_pressed", ["quit"])
 	web_link.connect("pressed", self, "start_menu_button_pressed", ["website"])
 
+	ProfileManager.connect("profile_changed", self, "_on_profile_changed")
+
+func _on_profile_changed():
+	profile_button.set_text(ProfileManager.get_current_profile_name().capitalize())
+
+func _on_popup_hide():
+	if false:
+		continue_button.grab_focus()
+	else:
+		new_game_button.grab_focus()
+
 func start_menu_button_pressed(button_name):
 	match button_name:
 		"profile":
-			profile_select.popup_centered_ratio(0.5)
+			profile_manage_popup.popup_centered_ratio(0.5)
 		"continue":
 			pass
 		"new":

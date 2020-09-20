@@ -1,5 +1,6 @@
 extends Node
 
+signal message(message)
 signal game_state_changed
 signal debug_state_changed
 signal pause_game
@@ -72,13 +73,15 @@ func _input(event):
 			emit_signal("pause_game")
 	elif event.is_action_released("util_screenshot"):
 		var dir = Directory.new()
-		dir.open("user://")
+		dir.open(ProfileManager.get_profile_path())
 		if not dir.dir_exists("screenshots"):
 			dir.make_dir("screenshots")
 		var img = get_viewport().get_texture().get_data()
 		var dt = OS.get_datetime()
 		img.flip_y()
-		img.save_png("user://screenshots/" + String(dt.year) + "-" + String(dt.month) + "-" + String(dt.day) + "_" + String(dt.hour) + ":" + String(dt.minute) + ":" + String(dt.second) + ".png")
+		var png_path = ProfileManager.get_profile_path() + "screenshots/" + String(dt.year) + "-" + String(dt.month) + "-" + String(dt.day) + "_" + String(dt.hour) + ":" + String(dt.minute) + ":" + String(dt.second) + ".png"
+		img.save_png(png_path)
+		emit_signal("message", "Screenshot saved: " + png_path)
 
 func _on_pause_game():
 	game_paused = true

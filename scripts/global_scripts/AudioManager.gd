@@ -1,5 +1,7 @@
 extends Node
 
+signal message(message)
+
 onready var Music_Player = get_node("/root/main/Music_Player")
 onready var Voice_Player = get_node("/root/main/Voice_Player")
 onready var FX_Player = get_node("/root/main/FX_Player")

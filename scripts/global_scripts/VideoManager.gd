@@ -1,5 +1,6 @@
 extends Node
 
+signal message(message)
 signal camera_config_changed
 
 func _ready():

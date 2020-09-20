@@ -1,5 +1,6 @@
 extends Node
 
+signal message(message)
 signal joypad_active
 signal joypad_inactive
 

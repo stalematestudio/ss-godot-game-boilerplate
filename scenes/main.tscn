@@ -39,3 +39,13 @@ bus = "Voice"
 pause_mode = 2
 mix_target = 1
 bus = "FX"
+
+[node name="message" type="Label" parent="."]
+anchor_right = 1.0
+grow_horizontal = 2
+align = 1
+valign = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}

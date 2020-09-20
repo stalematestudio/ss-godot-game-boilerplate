@@ -1,5 +1,6 @@
 extends Node
 
+signal message(message)
 signal config_update
 
 const resolutions = [
@@ -13,7 +14,7 @@ const resolutions = [
 		{"name": "3840x2160", "value": Vector2(3840, 2160)},
 		]
 
-onready var config_path = ProfileManager.get_config_path()
+onready var config_path = ProfileManager.get_profile_path() + "config.ini"
 onready var config_data_default = {
 		"game":{
 				"subtitles":false,
@@ -90,6 +91,8 @@ func _ready():
 	yield(get_node("/root/main"), "ready") # Wait For Main Scene to be ready.
 	self.pause_mode = Node.PAUSE_MODE_PROCESS
 	GameManager.connect("game_state_changed", self, "apply_config")
+	ProfileManager.connect("profile_changed", self, "_on_profile_changed")
+	ProfileManager.connect("profile_created", self, "_on_profile_created")
 	load_config()
 
 func apply_config():
@@ -150,3 +153,11 @@ func keybind_defaults():
 					"events": InputMap.get_action_list(action).duplicate(true)
 					}
 	return config_data_default_keybind.duplicate(true)
+
+func _on_profile_changed():
+	config_path = ProfileManager.get_profile_path() + "config.ini"
+	load_config()
+
+func _on_profile_created():
+	config_path = ProfileManager.get_profile_path() + "config.ini"
+	save_config()
