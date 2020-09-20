@@ -39,7 +39,7 @@ func _on_item_activated(item_index):
 	ProfileManager.set_current_profile_index( item_index )
 
 func _on_item_selected(item_index):
-	selected_profile_name.set_text(ProfileManager.profile_list[item_index])
+	selected_profile_name.set_text( ProfileManager.get_profile_name(item_index) )
 	profile_select_button.set_disabled(false)
 	profile_delete_button.set_disabled(false)
 
