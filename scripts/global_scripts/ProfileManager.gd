@@ -54,15 +54,19 @@ func get_current_profile():
 	if profile_list.empty():
 		profile_current = -1
 		save_profile_current()
-		return
-	load_profile_current()
-	if profile_current > profile_list.size():
-		profile_current = 0
+	else:
+		load_profile_current()
+		var profile_current_checked = clamp( profile_current, -1, profile_list.size() - 1 )
+		if profile_current != profile_current_checked:
+			profile_current = profile_current_checked
+			save_profile_current()
+			emit_signal("profile_changed")
 
 func set_current_profile(profile_index):
 	get_profile_list()
 	profile_index = clamp( profile_index, -1, profile_list.size() - 1 )
 	if profile_current != profile_index:
+		profile_current = profile_index
 		save_profile_current()
 		emit_signal("profile_changed")
 

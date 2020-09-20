@@ -36,7 +36,7 @@ func profile_add_button_pressed():
 		profile_list.grab_focus()
 
 func _on_item_activated(item_index):
-	ProfileManager.set_current_profile_index( item_index )
+	ProfileManager.set_current_profile( item_index )
 
 func _on_item_selected(item_index):
 	selected_profile_name.set_text( ProfileManager.get_profile_name(item_index) )
