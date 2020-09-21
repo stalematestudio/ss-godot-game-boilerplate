@@ -21,6 +21,8 @@ onready var player_direction = $player/HSplitContainer/VBoxContainerL/player_dir
 onready var player_on_ceiling = $player/HSplitContainer/VBoxContainerR/ceiling
 onready var player_on_wall = $player/HSplitContainer/VBoxContainerR/wall
 onready var player_on_floor = $player/HSplitContainer/VBoxContainerR/floor
+onready var player_collisions = $player/HSplitContainer/VBoxContainerR/collisions
+onready var player_collider = $player/HSplitContainer/VBoxContainerR/collider
 
 onready var input_display = $input_display
 
@@ -67,6 +69,12 @@ func _process(delta):
 		player_on_ceiling.set_text(String(player_instance.is_on_ceiling()))
 		player_on_wall.set_text(String(player_instance.is_on_wall()))
 		player_on_floor.set_text(String(player_instance.is_on_floor()))
+		var player_slide_collisions = player_instance.get_slide_count()
+		player_collisions.set_text(String(player_slide_collisions))
+		if player_slide_collisions > 0:
+			player_collider.set_text(String(player_instance.get_slide_collision(0).get_collider().name))
+		else:
+			player_collider.set_text("")
 
 	if is_instance_valid(game_instance):
 		gt_display.set_text(String(game_instance.game_time))
@@ -82,3 +90,5 @@ func _on_game_state_changed():
 		player_on_ceiling.set_text("")
 		player_on_wall.set_text("")
 		player_on_floor.set_text("")
+		player_collisions.set_text("")
+		player_collider.set_text("")

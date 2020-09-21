@@ -73,7 +73,7 @@ func _ready():
 func _process(delta):
 	player_stats_health.set_value(player_health)
 	player_stats_stamina.set_value(player_stamina)
-	
+
 	process_input()
 	process_ray_cast()
 
