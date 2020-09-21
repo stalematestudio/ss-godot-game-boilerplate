@@ -235,17 +235,53 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="RoofStaticBody" type="StaticBody" parent="Structure"]
+[node name="RoofStaticBody_1" type="StaticBody" parent="Structure"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.3, 0 )
 
-[node name="RoofCollisionShape" type="CollisionShape" parent="Structure/RoofStaticBody"]
+[node name="RoofCollisionShape" type="CollisionShape" parent="Structure/RoofStaticBody_1"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0 )
 shape = ExtResource( 5 )
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="RoofMeshInstance" type="MeshInstance" parent="Structure/RoofStaticBody"]
+[node name="RoofMeshInstance" type="MeshInstance" parent="Structure/RoofStaticBody_1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0 )
+mesh = ExtResource( 4 )
+material/0 = null
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="RoofStaticBody_2" type="StaticBody" parent="Structure"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 1.55, 0 )
+
+[node name="RoofCollisionShape" type="CollisionShape" parent="Structure/RoofStaticBody_2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0 )
+shape = ExtResource( 5 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="RoofMeshInstance" type="MeshInstance" parent="Structure/RoofStaticBody_2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0 )
+mesh = ExtResource( 4 )
+material/0 = null
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="RoofStaticBody_3" type="StaticBody" parent="Structure"]
+transform = Transform( 0.978148, -0.207912, 0, 0.207912, 0.978148, 0, 0, 0, 1, -16.0667, 0.691037, 0 )
+
+[node name="RoofCollisionShape" type="CollisionShape" parent="Structure/RoofStaticBody_3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0 )
+shape = ExtResource( 5 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="RoofMeshInstance" type="MeshInstance" parent="Structure/RoofStaticBody_3"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0 )
 mesh = ExtResource( 4 )
 material/0 = null

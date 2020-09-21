@@ -46,6 +46,7 @@ var is_crouching = false
 var velocity = Vector3()
 var direction = Vector3()
 
+onready var player_collision_shape = $PlayerCollisionShape
 onready var player_head = $PlayerHead
 onready var player_ray_cast = $PlayerHead/PlayerRayCast
 onready var player_camera = $PlayerHead/PlayerCamera
@@ -91,14 +92,10 @@ func process_input():
 		if ( grabbed_object == null ) and ( player_ray_cast.is_colliding() ) and ( raycast_target is RigidBody ) and ( raycast_target_distance < OBJECT_GRAB_DISTANCE ) :
 			grabbed_object = raycast_target
 			grabbed_object_distance = raycast_target_distance
-			#grabbed_object.mode = RigidBody.MODE_STATIC
-			#grabbed_object.collision_layer = 0
-			#grabbed_object.collision_mask = 0
+			add_collision_exception_with(grabbed_object)
 		elif grabbed_object != null:
-			#grabbed_object.mode = RigidBody.MODE_RIGID
-			#grabbed_object.collision_layer = 1
-			#grabbed_object.collision_mask = 1
 			grabbed_object.apply_central_impulse(player_head.global_transform.basis.z.normalized() * OBJECT_THROW_FORCE)
+			remove_collision_exception_with(grabbed_object)
 			grabbed_object = null
 	
 	# Holding object
@@ -163,6 +160,7 @@ func process_movement(delta):
 			velocity.y = JUMP_SPEED * Input.get_action_strength("player_movement_jump")
 
 	# Basis vectors are normalized 
+	var input_movement_vector_magnitude = min(1, input_movement_vector.length())
 	input_movement_vector = input_movement_vector.normalized()
 	direction += head_x_form.basis.z * input_movement_vector.y
 	direction += head_x_form.basis.x * input_movement_vector.x
@@ -191,23 +189,23 @@ func process_movement(delta):
 	var horizontal_velocity = velocity
 	horizontal_velocity.y = 0
 	
-	var target = direction
+	var target
 	if is_sprinting:
-		target *= MAX_SPRINT_SPEED
+		target = direction * ( MAX_SPRINT_SPEED * input_movement_vector_magnitude ) 
 	elif is_crouching:
-		target *= MAX_CROUCH_SPEED
+		target = direction * ( MAX_CROUCH_SPEED * input_movement_vector_magnitude ) 
 	else:
-		target *= MAX_WALK_SPEED
-	
+		target = direction * ( MAX_WALK_SPEED * input_movement_vector_magnitude ) 
+
 	var accel
 	if direction.dot(horizontal_velocity) > 0:
 		if is_sprinting:
 			player_stamina = clamp( player_stamina - delta , 0 , player_stamina_max ) 
-			accel = SPRINT_ACCEL
+			accel = SPRINT_ACCEL * input_movement_vector_magnitude
 		elif is_crouching:
-			accel = CROUCH_ACCEL
+			accel = CROUCH_ACCEL * input_movement_vector_magnitude
 		else:
-			accel = WALK_ACCEL
+			accel = WALK_ACCEL * input_movement_vector_magnitude
 	else:
 		accel = DEACCEL
 		is_sprinting = false
