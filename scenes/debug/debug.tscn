@@ -204,15 +204,16 @@ margin_left = 48.0
 margin_right = 48.0
 margin_bottom = 128.0
 
-[node name="jump" type="HBoxContainer" parent="player/HSplitContainer/VBoxContainerR"]
+[node name="ceiling" type="Label" parent="player/HSplitContainer/VBoxContainerR"]
+margin_bottom = 14.0
 
-[node name="crouch" type="HBoxContainer" parent="player/HSplitContainer/VBoxContainerR"]
-margin_top = 4.0
-margin_bottom = 4.0
+[node name="wall" type="Label" parent="player/HSplitContainer/VBoxContainerR"]
+margin_top = 18.0
+margin_bottom = 32.0
 
-[node name="sprint" type="HBoxContainer" parent="player/HSplitContainer/VBoxContainerR"]
-margin_top = 8.0
-margin_bottom = 8.0
+[node name="floor" type="Label" parent="player/HSplitContainer/VBoxContainerR"]
+margin_top = 36.0
+margin_bottom = 50.0
 
 [node name="input_display" type="RichTextLabel" parent="."]
 anchor_left = 0.3
