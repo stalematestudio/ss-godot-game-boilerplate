@@ -152,9 +152,8 @@ func process_look():
 	player_head_rotation.x = clamp(player_head_rotation.x, -70, 70)
 	player_head.rotation_degrees = player_head_rotation
 
-func process_movement(delta):
-	direction = Vector3()
-	player_control_orientation = player_head.get_global_transform()
+func process_movement(delta):	
+	#Get movement inputs
 	input_movement_vector = Vector2()
 	if is_on_floor():
 		if Input.is_action_pressed("player_movement_forward"):
@@ -176,25 +175,22 @@ func process_movement(delta):
 		if Input.is_action_just_pressed("player_movement_jump"):
 			is_jumping = true
 			velocity.y = JUMP_SPEED * Input.get_action_strength("player_movement_jump")
-
-	# Basis vectors are normalized 
-	input_movement_vector_magnitude = min(input_movement_vector.length(), 1)
-	input_movement_vector = input_movement_vector.normalized()
-	direction += player_control_orientation.basis.z * input_movement_vector.y
-	direction += player_control_orientation.basis.x * input_movement_vector.x
-
-	# Sprinting
-	if Input.is_action_just_pressed("player_movement_sprint") and ( player_stamina >= player_stamina_max / 2 ) and ( not is_crouching ) :
-		is_sprinting = true
-	elif player_stamina <= 0 :
-		is_sprinting = false
-
-	# Crouching
-	if is_on_ceiling() and is_on_floor():
-		is_crouching = true
-		is_sprinting = false
-		player_animation.play("crouch")
 		
+		# Sprinting
+		if Input.is_action_just_pressed("player_movement_sprint") and ( player_stamina >= player_stamina_max / 2 ):
+			is_sprinting = true
+			if is_crouching:
+				is_crouching = false
+				player_animation.play_backwards("crouch")
+		elif player_stamina <= 0 :
+			is_sprinting = false
+		
+		# Crouching
+		if is_on_ceiling():
+			is_crouching = true
+			is_sprinting = false
+			player_animation.play("crouch")
+			
 	if Input.is_action_just_pressed("player_movement_crouch"):
 		if is_crouching:
 			is_crouching = false
@@ -203,6 +199,15 @@ func process_movement(delta):
 			is_crouching = true
 			is_sprinting = false
 			player_animation.play("crouch")
+	
+	# Basis vectors are normalized
+	input_movement_vector_magnitude = min(input_movement_vector.length(), 1)
+	input_movement_vector = input_movement_vector.normalized()
+	
+	direction = Vector3()
+	player_control_orientation = player_head.get_global_transform()
+	direction += player_control_orientation.basis.z * input_movement_vector.y
+	direction += player_control_orientation.basis.x * input_movement_vector.x
 	
 	direction.y = 0
 	direction = direction.normalized()
@@ -263,6 +268,8 @@ func process_movement(delta):
 			if not player_steps_player.is_playing():
 				player_steps_player.set_pitch_scale( player_speed )
 				player_steps_player.play()
+	else:
+		is_jumping = true
 
 func _input(event):
 	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
