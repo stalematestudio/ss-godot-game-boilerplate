@@ -189,15 +189,31 @@ margin_left = 4.0
 margin_right = 4.0
 margin_bottom = 14.0
 
-[node name="player_velocity" type="Label" parent="player/HSplitContainer/VBoxContainerL"]
+[node name="player_velocity" type="HBoxContainer" parent="player/HSplitContainer/VBoxContainerL"]
 margin_top = 96.0
 margin_right = 36.0
 margin_bottom = 110.0
 
-[node name="player_direction" type="Label" parent="player/HSplitContainer/VBoxContainerL"]
+[node name="vector" type="Label" parent="player/HSplitContainer/VBoxContainerL/player_velocity"]
+margin_bottom = 14.0
+
+[node name="length" type="Label" parent="player/HSplitContainer/VBoxContainerL/player_velocity"]
+margin_left = 4.0
+margin_right = 4.0
+margin_bottom = 14.0
+
+[node name="player_direction" type="HBoxContainer" parent="player/HSplitContainer/VBoxContainerL"]
 margin_top = 114.0
 margin_right = 36.0
 margin_bottom = 128.0
+
+[node name="vector" type="Label" parent="player/HSplitContainer/VBoxContainerL/player_direction"]
+margin_bottom = 14.0
+
+[node name="length" type="Label" parent="player/HSplitContainer/VBoxContainerL/player_direction"]
+margin_left = 4.0
+margin_right = 4.0
+margin_bottom = 14.0
 
 [node name="VBoxContainerR" type="VBoxContainer" parent="player/HSplitContainer"]
 margin_left = 48.0

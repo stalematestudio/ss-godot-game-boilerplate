@@ -38,24 +38,28 @@ var player_move_max_slides = 4
 var player_move_floor_max_angle = deg2rad(MAX_SLOPE_ANGLE)
 var player_move_infinite_inertia = false
 
-var mouse_scroll_value = 0
-
+var is_jumping = false
 var is_sprinting = false
 var is_crouching = false
 
+var input_movement_vector = Vector2()
+var input_look_vector = Vector2()
+
+var player_head_orientation = Transform2D()
+var player_head_rotation = float()
+
+var player_speed = float()
+var player_step_distance = float()
+var input_movement_vector_magnitude = float()
+var horizontal_velocity = Vector3()
+var mouse_scroll_value = 0
+var mouse_scrolled = float()
+
+var target = float()
+var accel = float()
+
 var velocity = Vector3()
 var direction = Vector3()
-
-onready var player_collision_shape = $PlayerCollisionShape
-onready var player_head = $PlayerHead
-onready var player_ray_cast = $PlayerHead/PlayerRayCast
-onready var player_camera = $PlayerHead/PlayerCamera
-onready var player_light = $PlayerHead/PlayerLight
-
-onready var player_stats_health = $player_stats/health
-onready var player_stats_stamina = $player_stats/stamina
-
-onready var player_animation = $AnimationPlayer
 
 var raycast_target = false
 var raycast_target_distance = false
@@ -64,6 +68,19 @@ const OBJECT_THROW_FORCE = 1
 const OBJECT_GRAB_DISTANCE = 2
 var grabbed_object = null
 var grabbed_object_distance = 0.5
+
+# Player Nodes
+onready var player_collision_shape = $PlayerCollisionShape
+onready var player_head = $PlayerHead
+onready var player_ray_cast = $PlayerHead/PlayerRayCast
+onready var player_camera = $PlayerHead/PlayerCamera
+onready var player_light = $PlayerHead/PlayerLight
+onready var player_steps_player = $PlayerStepsAudio3D
+
+onready var player_stats_health = $player_stats/health
+onready var player_stats_stamina = $player_stats/stamina
+
+onready var player_animation = $AnimationPlayer
 
 func _ready():
 	#Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -113,7 +130,7 @@ func process_look():
 	if Input.get_mouse_mode() != Input.MOUSE_MODE_CAPTURED:
 		return
 
-	var input_look_vector = Vector2()
+	input_look_vector = Vector2()
 	if Input.is_action_pressed("player_look_up"):
 		input_look_vector.y = input_look_vector.y - Input.get_action_strength("player_look_up") 
 	if Input.is_action_pressed("player_look_down"):
@@ -131,14 +148,14 @@ func process_look():
 
 	player_head.rotate_x(deg2rad( input_look_vector.y * ConfigManager.config_data.controller.right_y_sensitivity ))
 	rotate_y(deg2rad( input_look_vector.x * ConfigManager.config_data.controller.right_x_sensitivity ))
-	var player_head_rotation = player_head.rotation_degrees
+	player_head_rotation = player_head.rotation_degrees
 	player_head_rotation.x = clamp(player_head_rotation.x, -70, 70)
 	player_head.rotation_degrees = player_head_rotation
 
 func process_movement(delta):
 	direction = Vector3()
-	var head_x_form = player_head.get_global_transform()
-	var input_movement_vector = Vector2()
+	player_head_orientation = player_head.get_global_transform()
+	input_movement_vector = Vector2()
 	if is_on_floor():
 		if Input.is_action_pressed("player_movement_forward"):
 			input_movement_vector.y = input_movement_vector.y + Input.get_action_strength("player_movement_forward")
@@ -157,13 +174,14 @@ func process_movement(delta):
 
 		# Jumping
 		if Input.is_action_just_pressed("player_movement_jump"):
+			is_jumping = true
 			velocity.y = JUMP_SPEED * Input.get_action_strength("player_movement_jump")
 
 	# Basis vectors are normalized 
-	var input_movement_vector_magnitude = min(1, input_movement_vector.length())
+	input_movement_vector_magnitude = min(input_movement_vector.length(), 1)
 	input_movement_vector = input_movement_vector.normalized()
-	direction += head_x_form.basis.z * input_movement_vector.y
-	direction += head_x_form.basis.x * input_movement_vector.x
+	direction += player_head_orientation.basis.z * input_movement_vector.y
+	direction += player_head_orientation.basis.x * input_movement_vector.x
 
 	# Sprinting
 	if Input.is_action_just_pressed("player_movement_sprint") and ( player_stamina >= player_stamina_max / 2 ) and ( not is_crouching ) :
@@ -189,12 +207,11 @@ func process_movement(delta):
 	direction.y = 0
 	direction = direction.normalized()
 	
-	velocity.y += delta * GRAVITY * -1
+	velocity.y = velocity.y + ( delta * GRAVITY * -1 )
 	
-	var horizontal_velocity = velocity
+	horizontal_velocity = velocity
 	horizontal_velocity.y = 0
 	
-	var target
 	if is_sprinting:
 		target = direction * ( MAX_SPRINT_SPEED * input_movement_vector_magnitude ) 
 	elif is_crouching:
@@ -202,7 +219,6 @@ func process_movement(delta):
 	else:
 		target = direction * ( MAX_WALK_SPEED * input_movement_vector_magnitude ) 
 
-	var accel
 	if direction.dot(horizontal_velocity) > 0:
 		if is_sprinting:
 			player_stamina = clamp( player_stamina - delta , 0 , player_stamina_max ) 
@@ -225,13 +241,28 @@ func process_movement(delta):
 	velocity = move_and_slide_with_snap(
 	#velocity = move_and_slide(
 			velocity, 
-			player_move_snap, # Coment out for move and slide w/o snap
+			player_move_snap, # Comment out for move and slide w/o snap
 			player_move_up_direction, 
 			player_move_stop_on_slope, 
 			player_move_max_slides, 
 			player_move_floor_max_angle, 
 			player_move_infinite_inertia
 			)
+	
+	if is_on_floor():
+		player_speed = velocity.length()
+		if is_jumping:
+			is_jumping = false
+			player_step_distance = 0
+			if not player_steps_player.is_playing():
+				player_steps_player.set_pitch_scale(1)
+				player_steps_player.play()
+		player_step_distance = player_step_distance + ( player_speed * delta )
+		if player_step_distance >= 1:
+			player_step_distance = 0
+			if not player_steps_player.is_playing():
+				player_steps_player.set_pitch_scale( player_speed )
+				player_steps_player.play()
 
 func _input(event):
 	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
@@ -246,12 +277,11 @@ func _input(event):
 			else:
 				self.rotate_y(deg2rad(event.relative.x * ConfigManager.config_data.mouse.mouse_sensitivity_x * -1))
 			
-			var player_head_rotation = player_head.rotation_degrees
+			player_head_rotation = player_head.rotation_degrees
 			player_head_rotation.x = clamp(player_head_rotation.x, -55, 55)
 			player_head.rotation_degrees = player_head_rotation
 		if event is InputEventMouseButton:
 			if event.button_index == BUTTON_WHEEL_UP or event.button_index == BUTTON_WHEEL_DOWN:
-				var mouse_scrolled
 				if ConfigManager.config_data.mouse.mouse_inverted_scroll:
 					mouse_scrolled = ConfigManager.config_data.mouse.mouse_sensitivity_scroll * -1
 				else:

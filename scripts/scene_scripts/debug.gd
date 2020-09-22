@@ -16,8 +16,13 @@ onready var l_right = $player/HSplitContainer/VBoxContainerL/sticks/look/HBoxCon
 
 onready var player_target_name = $player/HSplitContainer/VBoxContainerL/player_target/player_target_name
 onready var player_target_distance = $player/HSplitContainer/VBoxContainerL/player_target/player_target_distance
-onready var player_velocity = $player/HSplitContainer/VBoxContainerL/player_velocity
-onready var player_direction = $player/HSplitContainer/VBoxContainerL/player_direction
+
+onready var player_velocity_vector = $player/HSplitContainer/VBoxContainerL/player_velocity/vector
+onready var player_velocity_length = $player/HSplitContainer/VBoxContainerL/player_velocity/length
+
+onready var player_direction_vector = $player/HSplitContainer/VBoxContainerL/player_direction/vector
+onready var player_direction_length = $player/HSplitContainer/VBoxContainerL/player_direction/length
+
 onready var player_on_ceiling = $player/HSplitContainer/VBoxContainerR/ceiling
 onready var player_on_wall = $player/HSplitContainer/VBoxContainerR/wall
 onready var player_on_floor = $player/HSplitContainer/VBoxContainerR/floor
@@ -64,8 +69,13 @@ func _process(delta):
 		else:
 			player_target_name.set_text("")
 			player_target_distance.set_text("")
-		player_velocity.set_text(" x " + String(stepify(player_instance.velocity.x, 0.2)) + " y " + String(stepify(player_instance.velocity.y, 0.2)) + " z " + String(stepify(player_instance.velocity.z, 0.2)))
-		player_direction.set_text(" x " + String(stepify(player_instance.direction.x, 0.2)) + " y " + String(stepify(player_instance.direction.y, 0.2)) + " z " + String(stepify(player_instance.direction.z, 0.2)))
+		
+		player_velocity_vector.set_text(" x " + String(stepify(player_instance.velocity.x, 0.2)) + " y " + String(stepify(player_instance.velocity.y, 0.2)) + " z " + String(stepify(player_instance.velocity.z, 0.2)))
+		player_velocity_length.set_text(" l " + String(player_instance.velocity.length()))
+
+		player_direction_vector.set_text(" x " + String(stepify(player_instance.direction.x, 0.2)) + " y " + String(stepify(player_instance.direction.y, 0.2)) + " z " + String(stepify(player_instance.direction.z, 0.2)))
+		player_direction_length.set_text(" l " + String(player_instance.direction.length()))
+
 		player_on_ceiling.set_text(String(player_instance.is_on_ceiling()))
 		player_on_wall.set_text(String(player_instance.is_on_wall()))
 		player_on_floor.set_text(String(player_instance.is_on_floor()))
@@ -85,8 +95,13 @@ func _on_game_state_changed():
 		player_instance = get_node_or_null("/root/main/game_scene/player")
 	else:
 		gt_display.set_text("")
-		player_velocity.set_text("")
-		player_direction.set_text("")
+
+		player_velocity_vector.set_text("")
+		player_velocity_length.set_text("")
+
+		player_direction_vector.set_text("")
+		player_direction_length.set_text("")
+
 		player_on_ceiling.set_text("")
 		player_on_wall.set_text("")
 		player_on_floor.set_text("")
