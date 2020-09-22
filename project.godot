@@ -17,21 +17,25 @@ _global_script_class_icons={
 
 config/name="ss-godot-game-boilerplate"
 config/description="Boilerplate code for developing godot games"
-run/main_scene="res://scenes/main.tscn"
+run/main_scene="res://scenes/base/main.tscn"
 boot_splash/fullsize=false
 boot_splash/use_filter=false
 boot_splash/bg_color=Color( 0.141176, 0.141176, 0.141176, 1 )
-config/icon="res://icon.png"
+config/icon="res://assets/images/icon.png"
+
+[audio]
+
+default_bus_layout="res://assets/base/default_bus_layout.tres"
 
 [autoload]
 
-Helpers="*res://scripts/global_scripts/Helpers.gd"
-ProfileManager="*res://scripts/global_scripts/ProfileManager.gd"
-ConfigManager="*res://scripts/global_scripts/ConfigManager.gd"
-AudioManager="*res://scripts/global_scripts/AudioManager.gd"
-VideoManager="*res://scripts/global_scripts/VideoManager.gd"
-InputManager="*res://scripts/global_scripts/InputManager.gd"
-GameManager="*res://scripts/global_scripts/GameManager.gd"
+Helpers="*res://scripts/global/Helpers.gd"
+ProfileManager="*res://scripts/global/ProfileManager.gd"
+ConfigManager="*res://scripts/global/ConfigManager.gd"
+AudioManager="*res://scripts/global/AudioManager.gd"
+VideoManager="*res://scripts/global/VideoManager.gd"
+InputManager="*res://scripts/global/InputManager.gd"
+GameManager="*res://scripts/global/GameManager.gd"
 
 [debug]
 
@@ -226,4 +230,4 @@ vram_compression/import_etc2=false
 quality/shadow_atlas/quadrant_0_subdiv=2
 quality/shadows/filter_mode=2
 environment/default_clear_color=Color( 0, 0, 0, 1 )
-environment/default_environment="res://default_env.tres"
+environment/default_environment="res://assets/base/default_env.tres"

@@ -1,0 +1,78 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scripts/base/pause.gd" type="Script" id=1]
+[ext_resource path="res://themes/base.tres" type="Theme" id=2]
+
+
+[node name="pause_scene" type="Control"]
+pause_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 2 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+web_link_url = "https://your_website.something"
+
+[node name="Pause_Menu" type="PanelContainer" parent="."]
+anchor_bottom = 1.0
+theme = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBC" type="VBoxContainer" parent="Pause_Menu"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 98.0
+margin_bottom = 473.0
+theme = ExtResource( 2 )
+
+[node name="Game_Title" type="Label" parent="Pause_Menu/VBC"]
+margin_right = 91.0
+margin_bottom = 14.0
+text = "GAME TITLE"
+align = 1
+uppercase = true
+
+[node name="HSeparator_1" type="HSeparator" parent="Pause_Menu/VBC"]
+margin_top = 18.0
+margin_right = 91.0
+margin_bottom = 22.0
+
+[node name="Resume" type="Button" parent="Pause_Menu/VBC"]
+margin_top = 26.0
+margin_right = 91.0
+margin_bottom = 46.0
+theme = ExtResource( 2 )
+text = "Resume"
+
+[node name="Settings" type="Button" parent="Pause_Menu/VBC"]
+margin_top = 50.0
+margin_right = 91.0
+margin_bottom = 70.0
+text = "Settings"
+
+[node name="Quit_To_Title" type="Button" parent="Pause_Menu/VBC"]
+margin_top = 74.0
+margin_right = 91.0
+margin_bottom = 94.0
+text = "Quit To Title"
+
+[node name="Quit_Game" type="Button" parent="Pause_Menu/VBC"]
+margin_top = 98.0
+margin_right = 91.0
+margin_bottom = 118.0
+text = "Quit Game"
+
+[node name="HSeparator_2" type="HSeparator" parent="Pause_Menu/VBC"]
+margin_top = 122.0
+margin_right = 91.0
+margin_bottom = 126.0
+
+[node name="Developer_LinkButton" type="LinkButton" parent="Pause_Menu/VBC"]
+margin_top = 130.0
+margin_right = 91.0
+margin_bottom = 144.0
+text = "Visir Website"

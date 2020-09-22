@@ -1,0 +1,73 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://themes/base.tres" type="Theme" id=1]
+[ext_resource path="res://scripts/base/settings/audio_bus.gd" type="Script" id=2]
+
+
+[node name="audio_bus" type="HBoxContainer"]
+margin_right = 854.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+margin_right = 77.0
+margin_bottom = 60.0
+size_flags_horizontal = 3
+size_flags_vertical = 5
+size_flags_stretch_ratio = 0.1
+align = 1
+valign = 1
+
+[node name="VBC" type="VBoxContainer" parent="."]
+margin_left = 81.0
+margin_right = 854.0
+margin_bottom = 60.0
+size_flags_horizontal = 3
+
+[node name="Mute" type="CheckButton" parent="VBC"]
+margin_right = 773.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "Mute"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBC" type="HBoxContainer" parent="VBC"]
+margin_top = 44.0
+margin_right = 773.0
+margin_bottom = 60.0
+
+[node name="Slider" type="HSlider" parent="VBC/HBC"]
+margin_right = 699.0
+margin_bottom = 16.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme = ExtResource( 1 )
+value = 50.0
+rounded = true
+tick_count = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Display" type="Label" parent="VBC/HBC"]
+margin_left = 703.0
+margin_right = 773.0
+margin_bottom = 16.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.1
+theme = ExtResource( 1 )
+text = "50"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}

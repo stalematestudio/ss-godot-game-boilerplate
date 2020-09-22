@@ -1,0 +1,277 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://themes/base.tres" type="Theme" id=1]
+[ext_resource path="res://scripts/base/settings/game.gd" type="Script" id=2]
+
+
+[node name="game" type="Tabs"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Settings_Scroll" type="ScrollContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+follow_focus = true
+scroll_horizontal_enabled = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Settings_VBC" type="VBoxContainer" parent="Settings_Scroll"]
+margin_right = 854.0
+margin_bottom = 400.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SubTitles_CheckButton" type="CheckButton" parent="Settings_Scroll/Settings_VBC"]
+margin_right = 854.0
+margin_bottom = 40.0
+theme = ExtResource( 1 )
+text = "Subtitles"
+
+[node name="MouseConfined_CheckButton" type="CheckButton" parent="Settings_Scroll/Settings_VBC"]
+margin_top = 44.0
+margin_right = 854.0
+margin_bottom = 84.0
+theme = ExtResource( 1 )
+text = "Confine Mouse"
+
+[node name="FocusLossPause_CheckButton" type="CheckButton" parent="Settings_Scroll/Settings_VBC"]
+margin_top = 88.0
+margin_right = 854.0
+margin_bottom = 128.0
+theme = ExtResource( 1 )
+text = "Focus Loss Pause"
+
+[node name="FocusGrabResume_CheckButton" type="CheckButton" parent="Settings_Scroll/Settings_VBC"]
+margin_top = 132.0
+margin_right = 854.0
+margin_bottom = 172.0
+theme = ExtResource( 1 )
+text = "Focus Grab Resume"
+
+[node name="Debug_CheckButton" type="CheckButton" parent="Settings_Scroll/Settings_VBC"]
+margin_top = 176.0
+margin_right = 854.0
+margin_bottom = 216.0
+theme = ExtResource( 1 )
+text = "Debug"
+
+[node name="LowCPU_CheckButton" type="CheckButton" parent="Settings_Scroll/Settings_VBC"]
+margin_top = 220.0
+margin_right = 854.0
+margin_bottom = 260.0
+theme = ExtResource( 1 )
+text = "Low CPU mode"
+
+[node name="LowCPU_HBC" type="HBoxContainer" parent="Settings_Scroll/Settings_VBC"]
+margin_top = 264.0
+margin_right = 854.0
+margin_bottom = 288.0
+
+[node name="Label" type="Label" parent="Settings_Scroll/Settings_VBC/LowCPU_HBC"]
+margin_right = 647.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_vertical = 5
+text = "Low CPU mode sleep time"
+valign = 1
+
+[node name="Plus_Button" type="Button" parent="Settings_Scroll/Settings_VBC/LowCPU_HBC"]
+margin_left = 651.0
+margin_right = 683.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.05
+text = "+"
+
+[node name="Minus_Button" type="Button" parent="Settings_Scroll/Settings_VBC/LowCPU_HBC"]
+margin_left = 687.0
+margin_right = 719.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.05
+text = "-"
+
+[node name="SpinBox" type="SpinBox" parent="Settings_Scroll/Settings_VBC/LowCPU_HBC"]
+margin_left = 723.0
+margin_right = 854.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.2
+max_value = 10000.0
+step = 100.0
+value = 6900.0
+rounded = true
+align = 1
+suffix = "usec"
+
+[node name="IPS_HBC" type="HBoxContainer" parent="Settings_Scroll/Settings_VBC"]
+margin_top = 292.0
+margin_right = 854.0
+margin_bottom = 316.0
+
+[node name="Label" type="Label" parent="Settings_Scroll/Settings_VBC/IPS_HBC"]
+margin_right = 647.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_vertical = 5
+text = "Iterations Per Second"
+valign = 1
+
+[node name="Plus_Button" type="Button" parent="Settings_Scroll/Settings_VBC/IPS_HBC"]
+margin_left = 651.0
+margin_right = 683.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.05
+text = "+"
+
+[node name="Minus_Button" type="Button" parent="Settings_Scroll/Settings_VBC/IPS_HBC"]
+margin_left = 687.0
+margin_right = 719.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.05
+text = "-"
+
+[node name="SpinBox" type="SpinBox" parent="Settings_Scroll/Settings_VBC/IPS_HBC"]
+margin_left = 723.0
+margin_right = 854.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.2
+min_value = 15.0
+max_value = 480.0
+step = 15.0
+value = 60.0
+rounded = true
+align = 1
+
+[node name="PJF_HBC" type="HBoxContainer" parent="Settings_Scroll/Settings_VBC"]
+margin_top = 320.0
+margin_right = 854.0
+margin_bottom = 344.0
+
+[node name="Label" type="Label" parent="Settings_Scroll/Settings_VBC/PJF_HBC"]
+margin_right = 647.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_vertical = 5
+text = "Physics Jitter Fix"
+valign = 1
+
+[node name="Plus_Button" type="Button" parent="Settings_Scroll/Settings_VBC/PJF_HBC"]
+margin_left = 651.0
+margin_right = 683.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.05
+text = "+"
+
+[node name="Minus_Button" type="Button" parent="Settings_Scroll/Settings_VBC/PJF_HBC"]
+margin_left = 687.0
+margin_right = 719.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.05
+text = "-"
+
+[node name="SpinBox" type="SpinBox" parent="Settings_Scroll/Settings_VBC/PJF_HBC"]
+margin_left = 723.0
+margin_right = 854.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.2
+max_value = 5.0
+step = 0.1
+value = 0.5
+align = 1
+
+[node name="TFPS_HBC" type="HBoxContainer" parent="Settings_Scroll/Settings_VBC"]
+margin_top = 348.0
+margin_right = 854.0
+margin_bottom = 372.0
+
+[node name="Label" type="Label" parent="Settings_Scroll/Settings_VBC/TFPS_HBC"]
+margin_right = 647.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_vertical = 5
+text = "Target FPS"
+valign = 1
+
+[node name="Plus_Button" type="Button" parent="Settings_Scroll/Settings_VBC/TFPS_HBC"]
+margin_left = 651.0
+margin_right = 683.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.05
+text = "+"
+
+[node name="Minus_Button" type="Button" parent="Settings_Scroll/Settings_VBC/TFPS_HBC"]
+margin_left = 687.0
+margin_right = 719.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.05
+text = "-"
+
+[node name="SpinBox" type="SpinBox" parent="Settings_Scroll/Settings_VBC/TFPS_HBC"]
+margin_left = 723.0
+margin_right = 854.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.2
+max_value = 480.0
+step = 5.0
+align = 1
+
+[node name="TS_HBC" type="HBoxContainer" parent="Settings_Scroll/Settings_VBC"]
+margin_top = 376.0
+margin_right = 854.0
+margin_bottom = 400.0
+
+[node name="Label" type="Label" parent="Settings_Scroll/Settings_VBC/TS_HBC"]
+margin_right = 647.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_vertical = 5
+text = "Time Scale"
+valign = 1
+
+[node name="Plus_Button" type="Button" parent="Settings_Scroll/Settings_VBC/TS_HBC"]
+margin_left = 651.0
+margin_right = 683.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.05
+text = "+"
+
+[node name="Minus_Button" type="Button" parent="Settings_Scroll/Settings_VBC/TS_HBC"]
+margin_left = 687.0
+margin_right = 719.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.05
+text = "-"
+
+[node name="SpinBox" type="SpinBox" parent="Settings_Scroll/Settings_VBC/TS_HBC"]
+margin_left = 723.0
+margin_right = 854.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.2
+max_value = 5.0
+step = 0.1
+value = 1.0
+align = 1
