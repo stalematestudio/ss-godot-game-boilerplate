@@ -1,8 +1,11 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://themes/base.tres" type="Theme" id=1]
+[ext_resource path="res://assets/base/default_theme.tres" type="Theme" id=1]
 [ext_resource path="res://scripts/base/settings/audio.gd" type="Script" id=2]
 [ext_resource path="res://scenes/base/settings/audio/audio_bus.tscn" type="PackedScene" id=3]
+
+
+
 
 
 

@@ -49,7 +49,7 @@ window/size/resizable=false
 
 [gui]
 
-theme/custom="res://themes/base.tres"
+theme/custom="res://assets/base/default_theme.tres"
 
 [input]
 
