@@ -38,21 +38,29 @@ collide_with_areas = true
 
 [node name="PlayerStepsAudio3D" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource( 6 )
+unit_size = 3.0
 bus = "FX"
 
-[node name="TextureRect" type="TextureRect" parent="."]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource( 4 )
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/crouch = ExtResource( 5 )
+
+[node name="hud" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="player_stats" type="VBoxContainer" parent="."]
+[node name="croshair" type="TextureRect" parent="hud"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 4 )
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="stats" type="VBoxContainer" parent="hud"]
 anchor_top = 1.0
 anchor_right = 0.2
 anchor_bottom = 1.0
@@ -61,14 +69,15 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="health" type="ProgressBar" parent="player_stats"]
+[node name="health" type="ProgressBar" parent="hud/stats"]
 margin_right = 170.0
 margin_bottom = 14.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
-[node name="stamina" type="ProgressBar" parent="player_stats"]
+[node name="stamina" type="ProgressBar" parent="hud/stats"]
 margin_top = 18.0
 margin_right = 170.0
 margin_bottom = 32.0
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/crouch = ExtResource( 5 )
+size_flags_horizontal = 3
+size_flags_vertical = 3

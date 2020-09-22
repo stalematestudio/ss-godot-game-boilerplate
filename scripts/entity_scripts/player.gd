@@ -77,8 +77,8 @@ onready var player_camera = $PlayerHead/PlayerCamera
 onready var player_light = $PlayerHead/PlayerLight
 onready var player_steps_player = $PlayerStepsAudio3D
 
-onready var player_stats_health = $player_stats/health
-onready var player_stats_stamina = $player_stats/stamina
+onready var player_stats_health = $hud/stats/health
+onready var player_stats_stamina = $hud/stats/stamina
 
 onready var player_animation = $AnimationPlayer
 
