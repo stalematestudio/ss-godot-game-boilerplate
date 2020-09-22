@@ -45,7 +45,7 @@ var is_crouching = false
 var input_movement_vector = Vector2()
 var input_look_vector = Vector2()
 
-var player_head_orientation = Transform2D()
+var player_control_orientation = Transform2D()
 var player_head_rotation = float()
 
 var player_speed = float()
@@ -154,7 +154,7 @@ func process_look():
 
 func process_movement(delta):
 	direction = Vector3()
-	player_head_orientation = player_head.get_global_transform()
+	player_control_orientation = player_head.get_global_transform()
 	input_movement_vector = Vector2()
 	if is_on_floor():
 		if Input.is_action_pressed("player_movement_forward"):
@@ -180,8 +180,8 @@ func process_movement(delta):
 	# Basis vectors are normalized 
 	input_movement_vector_magnitude = min(input_movement_vector.length(), 1)
 	input_movement_vector = input_movement_vector.normalized()
-	direction += player_head_orientation.basis.z * input_movement_vector.y
-	direction += player_head_orientation.basis.x * input_movement_vector.x
+	direction += player_control_orientation.basis.z * input_movement_vector.y
+	direction += player_control_orientation.basis.x * input_movement_vector.x
 
 	# Sprinting
 	if Input.is_action_just_pressed("player_movement_sprint") and ( player_stamina >= player_stamina_max / 2 ) and ( not is_crouching ) :
@@ -190,7 +190,7 @@ func process_movement(delta):
 		is_sprinting = false
 
 	# Crouching
-	if is_on_ceiling():
+	if is_on_ceiling() and is_on_floor():
 		is_crouching = true
 		is_sprinting = false
 		player_animation.play("crouch")
