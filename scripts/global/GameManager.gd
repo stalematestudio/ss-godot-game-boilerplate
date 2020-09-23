@@ -5,6 +5,8 @@ signal game_state_changed
 signal debug_state_changed
 signal pause_game
 signal resume_game
+signal load_game(load_type)
+signal save_game(save_type)
 
 onready var game_paused = false
 onready var game_state = false
@@ -35,9 +37,8 @@ func _ready():
 	yield(get_node("/root/main"), "ready") # Wait For Main Scene to be ready.
 	self.pause_mode = Node.PAUSE_MODE_PROCESS
 	ConfigManager.connect("config_update", self, "apply_config")
-	
-	self.connect("resume_game", self, "_on_resume_game")
 	self.connect("pause_game", self, "_on_pause_game")
+	self.connect("resume_game", self, "_on_resume_game")
 	InputManager.connect("joypad_active", self, "_on_joypad_active")
 	InputManager.connect("joypad_inactive", self, "_on_joypad_inactive")
 	game_state_change("INTRO")
@@ -83,6 +84,10 @@ func _input(event):
 		var err = img.save_png(png_path)
 		print(err)
 		emit_signal("message", "Screenshot saved: " + png_path)
+	elif event.is_action_released("util_quick_load") and game_state.in_game:
+		emit_signal("load_game", "quick load")
+	elif event.is_action_released("util_quick_save") and game_state.in_game:
+		emit_signal("save_game", "quick save")
 
 func _on_pause_game():
 	game_paused = true

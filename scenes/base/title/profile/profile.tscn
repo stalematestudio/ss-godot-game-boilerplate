@@ -2,7 +2,6 @@
 
 [ext_resource path="res://scripts/base/title/profile.gd" type="Script" id=1]
 
-
 [node name="profile" type="Popup"]
 visible = true
 script = ExtResource( 1 )
@@ -42,7 +41,7 @@ margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 align = 1
-max_length = 60
+max_length = 45
 clear_button_enabled = true
 placeholder_text = "enter profile name"
 caret_blink = true
@@ -118,3 +117,9 @@ text = "DELETE"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="ConfirmDeleteDialog" type="ConfirmationDialog" parent="."]
+margin_right = 200.0
+margin_bottom = 70.0
+window_title = "WARNING: PROFILE DELETION !!!"
+dialog_autowrap = true

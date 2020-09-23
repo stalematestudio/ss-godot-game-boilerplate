@@ -83,7 +83,8 @@ onready var player_stats_stamina = $hud/stats/stamina
 onready var player_animation = $AnimationPlayer
 
 func _ready():
-	#Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	if is_inside_tree() and not is_in_group("game_save_objects"):
+		add_to_group("game_save_objects", true)
 	player_stats_health.set_max(player_health_max)
 	player_stats_stamina.set_max(player_stamina_max)
 

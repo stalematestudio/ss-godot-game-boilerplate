@@ -18,6 +18,8 @@ onready var profile_config_path = "user://profile.ini"
 func _ready():
 	yield(get_node("/root/main"), "ready") # Wait For Main Scene to be ready.
 	self.pause_mode = Node.PAUSE_MODE_PROCESS
+	GameManager.connect("save_game", self, "_on_save_game")
+	GameManager.connect("load_game", self, "_on_load_game")
 
 func save_profile_current():
 	var profile_config_file = ConfigFile.new()
@@ -107,4 +109,17 @@ func add_profile(new_profile):
 		return ProfileErrors.PROFILE_FOLDER_ERROR
 
 func del_profile(profile_index):
-	pass
+	get_profile_list()
+	var profile_path = get_profile_path(profile_index)
+	Helpers.recursive_non_empty_dir_deletion(profile_path)
+	set_current_profile(profile_index)
+	
+func _on_save_game(save_type):
+	emit_signal("message", save_type)
+	for gs_obj in get_tree().get_nodes_in_group("game_save_objects"):
+		print("Name : " + gs_obj.name)
+		print("FileName : " + gs_obj.get_filename())
+		print("Path : " + gs_obj.get_parent().get_path())
+	
+func _on_load_game(load_type):
+	emit_signal("message", load_type)
