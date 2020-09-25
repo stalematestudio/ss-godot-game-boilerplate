@@ -18,8 +18,6 @@ onready var profile_config_path = "user://profile.ini"
 func _ready():
 	yield(get_node("/root/main"), "ready") # Wait For Main Scene to be ready.
 	self.pause_mode = Node.PAUSE_MODE_PROCESS
-	GameManager.connect("save_game", self, "_on_save_game")
-	GameManager.connect("load_game", self, "_on_load_game")
 
 func save_profile_current():
 	var profile_config_file = ConfigFile.new()
@@ -114,12 +112,10 @@ func del_profile(profile_index):
 	Helpers.recursive_non_empty_dir_deletion(profile_path)
 	set_current_profile(profile_index)
 	
-func _on_save_game(save_type):
-	emit_signal("message", save_type)
-	for gs_obj in get_tree().get_nodes_in_group("game_save_objects"):
-		print("Name : " + gs_obj.name)
-		print("FileName : " + gs_obj.get_filename())
-		print("Path : " + gs_obj.get_parent().get_path())
+func save_game(save_data):
+	var dt = OS.get_datetime()
+	var save_path = ProfileManager.get_current_profile_path() + "saved_games/game_" + String(save_data.game_id) + "/" + save_data.type + "_" + String(dt.year) + "_" + String(dt.month) + "_" + String(dt.day) + "_" + String(dt.hour) + "_" + String(dt.minute) + "_" + String(dt.second) + ".save"
+	emit_signal("message", save_path)
 	
-func _on_load_game(load_type):
-	emit_signal("message", load_type)
+func load_game(load_data):
+	emit_signal("message", load_data.type)

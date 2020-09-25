@@ -87,9 +87,9 @@ func _input(event):
 		else:
 			emit_signal("message", "Screenshot save error: " + String(err))
 	elif event.is_action_released("util_quick_load") and game_state.in_game:
-		emit_signal("load_game", "quick load")
+		emit_signal("load_game", "quick")
 	elif event.is_action_released("util_quick_save") and game_state.in_game:
-		emit_signal("save_game", "quick save")
+		emit_signal("save_game", "quick")
 
 func _on_pause_game():
 	game_paused = true
