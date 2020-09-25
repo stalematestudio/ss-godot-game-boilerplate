@@ -82,8 +82,10 @@ func _input(event):
 		img.flip_y()
 		var png_path = ProfileManager.get_current_profile_path() + "screenshots/" + String(dt.year) + "_" + String(dt.month) + "_" + String(dt.day) + "_" + String(dt.hour) + "_" + String(dt.minute) + "_" + String(dt.second) + ".png"
 		var err = img.save_png(png_path)
-		print(err)
-		emit_signal("message", "Screenshot saved: " + png_path)
+		if err == OK:
+			emit_signal("message", "Screenshot saved: " + png_path)
+		else:
+			emit_signal("message", "Screenshot save error: " + String(err))
 	elif event.is_action_released("util_quick_load") and game_state.in_game:
 		emit_signal("load_game", "quick load")
 	elif event.is_action_released("util_quick_save") and game_state.in_game:

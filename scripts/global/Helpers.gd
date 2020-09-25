@@ -42,13 +42,12 @@ static func event_as_text(event):
 	return label_text
 
 func recursive_non_empty_dir_deletion(path):
-	print(path)
+	path = path if path.ends_with("/") else path + "/"
 	var dir = Directory.new()
 	dir.open(path)
 	dir.list_dir_begin(true, true)
 	var el_name = dir.get_next()
 	while el_name != "":
-		print(path + el_name)
 		if dir.current_is_dir():
 			recursive_non_empty_dir_deletion(path + el_name)
 		else:
