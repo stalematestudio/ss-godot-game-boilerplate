@@ -1,5 +1,7 @@
 extends Node
 
+const CONFIG_FILE = "config.ini"
+
 signal message(message)
 signal config_update
 
@@ -14,7 +16,7 @@ const resolutions = [
 		{"name": "3840x2160", "value": Vector2(3840, 2160)},
 		]
 
-onready var config_path = ProfileManager.get_current_profile_path() + "config.ini"
+onready var config_path = ProfileManager.get_current_profile_path() + CONFIG_FILE
 onready var config_data_default = {
 		"game":{
 				"subtitles":false,
@@ -155,9 +157,9 @@ func keybind_defaults():
 	return config_data_default_keybind.duplicate(true)
 
 func _on_profile_changed():
-	config_path = ProfileManager.get_current_profile_path() + "config.ini"
+	config_path = ProfileManager.get_current_profile_path() + CONFIG_FILE
 	load_config()
 
 func _on_profile_created():
-	config_path = ProfileManager.get_current_profile_path() + "config.ini"
+	config_path = ProfileManager.get_current_profile_path() + CONFIG_FILE
 	save_config()

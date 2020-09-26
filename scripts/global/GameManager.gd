@@ -73,19 +73,7 @@ func _input(event):
 		else:
 			emit_signal("pause_game")
 	elif event.is_action_released("util_screenshot"):
-		var dir = Directory.new()
-		dir.open(ProfileManager.get_current_profile_path())
-		if not dir.dir_exists("screenshots"):
-			dir.make_dir("screenshots")
-		var img = get_viewport().get_texture().get_data()
-		var dt = OS.get_datetime()
-		img.flip_y()
-		var png_path = ProfileManager.get_current_profile_path() + "screenshots/" + String(dt.year) + "_" + String(dt.month) + "_" + String(dt.day) + "_" + String(dt.hour) + "_" + String(dt.minute) + "_" + String(dt.second) + ".png"
-		var err = img.save_png(png_path)
-		if err == OK:
-			emit_signal("message", "Screenshot saved: " + png_path)
-		else:
-			emit_signal("message", "Screenshot save error: " + String(err))
+		screenshot()
 	elif event.is_action_released("util_quick_load") and game_state.in_game:
 		emit_signal("load_game", "quick")
 	elif event.is_action_released("util_quick_save") and game_state.in_game:
@@ -107,6 +95,24 @@ func game_state_change(state):
 	if not game_state.in_game:
 		emit_signal("resume_game")
 	emit_signal("game_state_changed")
+
+func screenshot():
+	# Check if path exists
+	var dir_path = ProfileManager.get_current_profile_screenshot_path()
+	var dir = Directory.new()
+	if not dir.dir_exists(dir_path):
+		dir.make_dir_recursive(dir_path)
+
+	var img = get_viewport().get_texture().get_data()
+	img.flip_y()
+
+	var dt = OS.get_datetime()
+	var img_path = dir_path + String(dt.year) + "_" + String(dt.month) + "_" + String(dt.day) + "_" + String(dt.hour) + "_" + String(dt.minute) + "_" + String(dt.second) + ".png"
+	var err = img.save_png(img_path)
+	if err == OK:
+		emit_signal("message", "Screenshot saved: " + img_path)
+	else:
+		emit_signal("message", "Screenshot save error: " + String(err))
 
 func mouse_mode_hidden():
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
