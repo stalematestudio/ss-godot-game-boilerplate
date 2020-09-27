@@ -17,6 +17,7 @@ const resolutions = [
 		]
 
 onready var config_path = ProfileManager.get_current_profile_path() + CONFIG_FILE
+
 onready var config_data_default = {
 		"game":{
 				"subtitles":false,
@@ -87,6 +88,7 @@ onready var config_data_default = {
 				},
 		"keybind": keybind_defaults()
 		}
+
 onready var config_data = config_data_default.duplicate(true)
 
 func _ready():
