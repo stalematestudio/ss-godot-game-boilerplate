@@ -68,7 +68,6 @@ func get_current_profile():
 func set_current_profile(profile_index):
 	get_profile_list()
 	profile_index = clamp( profile_index, -1, profile_list.size() - 1 )
-	#if profile_current != profile_index: this line breaks profile refresh on deletion
 	profile_current = profile_index
 	save_profile_current()
 	emit_signal("profile_changed")

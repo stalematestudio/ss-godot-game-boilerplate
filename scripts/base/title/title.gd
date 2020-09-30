@@ -46,8 +46,10 @@ func start_menu_button_pressed(button_name):
 		"profile":
 			profile_manage_popup.popup_centered_ratio(0.5)
 		"continue":
-			pass
+			# load a saved game state
+			GameManager.game_state_change("IN_GAME")
 		"new":
+			# create a new game state
 			GameManager.game_state_change("IN_GAME")
 		"settings":
 			get_parent().set_settings_display(settings_button)
