@@ -68,10 +68,10 @@ func get_current_profile():
 func set_current_profile(profile_index):
 	get_profile_list()
 	profile_index = clamp( profile_index, -1, profile_list.size() - 1 )
-	if profile_current != profile_index:
-		profile_current = profile_index
-		save_profile_current()
-		emit_signal("profile_changed")
+	#if profile_current != profile_index: this line breaks profile refresh on deletion
+	profile_current = profile_index
+	save_profile_current()
+	emit_signal("profile_changed")
 
 func get_profile_name(profile_index):
 	profile_index = clamp( profile_index, -1, profile_list.size() - 1 )
@@ -134,9 +134,8 @@ func add_profile(new_profile):
 
 func del_profile(profile_index):
 	get_profile_list()
-	var profile_path = get_profile_path(profile_index)
-	Helpers.recursive_non_empty_dir_deletion(profile_path)
-	set_current_profile(profile_index)
+	Helpers.recursive_non_empty_dir_deletion(get_profile_path(profile_index))
+	set_current_profile(profile_current)
 
 func save_game(save_data):
 	var dt = OS.get_datetime()

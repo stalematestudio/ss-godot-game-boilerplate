@@ -20,7 +20,6 @@ onready var profile_delete_dialog_close_button = profile_delete_dialog.get_close
 
 func _ready():
 	connect("about_to_show", self, "list_profiles")
-	connect("popup_hide", self, "list_profiles")
 
 	close_button.set_focus_neighbour(MARGIN_BOTTOM, profile_list.get_path())
 
@@ -32,7 +31,6 @@ func _ready():
 	profile_create_dialog.connect("popup_hide", self, "list_profiles")
 	
 	profile_create_dialog.register_text_enter(profile_create_name)
-
 	profile_create_dialog_ok_button.set_focus_neighbour(MARGIN_TOP, profile_create_name.get_path())
 	profile_create_dialog_cancel_button.set_focus_neighbour(MARGIN_TOP, profile_create_name.get_path())
 
@@ -59,22 +57,6 @@ func list_profiles():
 		profile_select_button.set_disabled(true)
 		profile_delete_button.set_disabled(true)
 
-func profile_create_button_pressed():
-	profile_create_dialog.set_as_minsize()
-	profile_create_dialog.popup_centered()
-	profile_create_name.clear()
-	profile_create_name.grab_focus()
-
-func profile_create_name_text_changed(text):
-	profile_create_name.set_text(text.strip_escapes().to_lower().replacen(" ", "_").replacen("/", "_").replacen("\\", "_"))
-	profile_create_name.set_cursor_position(text.length())
-	profile_create_dialog.get_ok().set_disabled(text.length() == 0)
-
-func profile_create_dialog_confirmed():
-	if ProfileManager.ProfileErrors.OK == ProfileManager.add_profile(profile_create_name.get_text()):
-		profile_create_name.clear()
-		list_profiles()
-
 func _on_item_activated(item_index):
 	ProfileManager.set_current_profile( item_index )
 
@@ -82,6 +64,22 @@ func _on_item_selected(item_index):
 	selected_profile_name.set_text( ProfileManager.get_profile_name(item_index) )
 	profile_select_button.set_disabled(false)
 	profile_delete_button.set_disabled(false)
+
+func profile_create_button_pressed():
+	profile_create_dialog.set_as_minsize()
+	profile_create_dialog.popup_centered()
+	profile_create_name.clear()
+	profile_create_name.grab_focus()
+
+func profile_create_dialog_confirmed():
+	if ProfileManager.ProfileErrors.OK == ProfileManager.add_profile(profile_create_name.get_text()):
+		profile_create_name.clear()
+		list_profiles()
+
+func profile_create_name_text_changed(text):
+	profile_create_name.set_text(text.strip_escapes().to_lower().replacen(" ", "_").replacen("/", "_").replacen("\\", "_"))
+	profile_create_name.set_cursor_position(text.length())
+	profile_create_dialog.get_ok().set_disabled(text.length() == 0)
 
 func profile_select_button_pressed():
 	_on_item_activated(profile_list.get_selected_items()[0])
@@ -92,5 +90,8 @@ func profile_delete_button_pressed():
 	profile_delete_dialog.popup_centered()
 
 func profile_delete_dialog_confirmed():
-	ProfileManager.del_profile(profile_list.get_selected_items()[0])
+	var deleted_profile = profile_list.get_selected_items()[0]
+	ProfileManager.del_profile(deleted_profile)
+	#if deleted_profile == ProfileManager.profile_current:
+	#	_on_item_activated(ProfileManager.profile_current)
 	list_profiles()
