@@ -96,6 +96,9 @@ func _on_game_state_changed():
 	else:
 		gt_display.set_text("")
 
+		player_target_name.set_text("")
+		player_target_distance.set_text("")
+		
 		player_velocity_vector.set_text("")
 		player_velocity_length.set_text("")
 
