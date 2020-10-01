@@ -4,11 +4,7 @@ const PROFILE_CONFIG_FILE = "user://profile_config.ini"
 const SCREEN_SHOT_FOLDER = "screenshots"
 const SAVED_GAMES_FOLDER = "saved_games"
 
-signal message(message)
-signal profile_created
-signal profile_changed
-
-var profile_list
+const EXCLUDED_FOLDERS = ['logs', SCREEN_SHOT_FOLDER, SAVED_GAMES_FOLDER]
 
 enum ProfileErrors {
 		OK,
@@ -16,11 +12,21 @@ enum ProfileErrors {
 		PROFILE_FOLDER_ERROR
 		}
 
+signal message(message)
+signal profile_created
+signal profile_changed
+
+onready var profile_list = []
 onready var profile_current = -1
 
+onready var game_list = []
+onready var game_current = -1
+
 func _ready():
-	yield(get_node("/root/main"), "ready") # Wait For Main Scene to be ready.
+	yield(get_node("/root/main"), "ready")
 	self.pause_mode = Node.PAUSE_MODE_PROCESS
+
+# PROFILE
 
 func save_profile_current():
 	var profile_config_file = ConfigFile.new()
@@ -46,7 +52,7 @@ func get_profile_list():
 	dir.list_dir_begin(true, true)
 	var el_name = dir.get_next()
 	while el_name != "":
-		if dir.current_is_dir() and ( not el_name in ['logs', SCREEN_SHOT_FOLDER, SAVED_GAMES_FOLDER] ) :
+		if dir.current_is_dir() and ( not el_name in EXCLUDED_FOLDERS ) :
 			profile_list.append(el_name)
 		el_name = dir.get_next()
 	dir.list_dir_end()
@@ -104,9 +110,6 @@ func get_current_profile_saved_games_path():
 	get_current_profile()
 	return get_profile_saved_games_path(profile_current)
 
-func get_game_save_path(game_id):
-	return get_current_profile_saved_games_path() + "game_" + String(game_id) + "/"
-
 func add_profile(new_profile):
 	get_profile_list()
 	if new_profile in profile_list:
@@ -135,6 +138,24 @@ func del_profile(profile_index):
 	get_profile_list()
 	Helpers.recursive_non_empty_dir_deletion(get_profile_path(profile_index))
 	set_current_profile(profile_current)
+
+# GAME
+
+func get_game_list():
+	game_list = []
+	var dir = Directory.new()
+	dir.open(get_current_profile_saved_games_path())
+	dir.list_dir_begin(true, true)
+	var el_name = dir.get_next()
+	while el_name != "":
+		if dir.current_is_dir() and ( not el_name in EXCLUDED_FOLDERS ) :
+			game_list.append(el_name)
+		el_name = dir.get_next()
+	dir.list_dir_end()
+	game_list.sort()
+
+func get_game_save_path(game_id):
+	return get_current_profile_saved_games_path() + String(game_id) + "/"
 
 func save_game(save_data):
 	var dt = OS.get_datetime()

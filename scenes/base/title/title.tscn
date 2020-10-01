@@ -1,13 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://assets/base/default_theme.tres" type="Theme" id=1]
 [ext_resource path="res://scripts/base/title/title.gd" type="Script" id=2]
 [ext_resource path="res://scenes/base/title/profile/profile.tscn" type="PackedScene" id=3]
-
-
-
-
-
+[ext_resource path="res://scenes/base/title/new_game/new_game.tscn" type="PackedScene" id=4]
 
 [node name="title_scene" type="Control"]
 self_modulate = Color( 1, 1, 1, 0.501961 )
@@ -133,3 +129,5 @@ enabled_focus_mode = 2
 text = "Visit website"
 
 [node name="profile" parent="." instance=ExtResource( 3 )]
+
+[node name="new_game" parent="." instance=ExtResource( 4 )]
