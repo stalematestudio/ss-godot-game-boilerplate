@@ -2,10 +2,52 @@
 
 [ext_resource path="res://scripts/base/title/new_game.gd" type="Script" id=1]
 
-[node name="new_game" type="Control"]
+[node name="new_game" type="WindowDialog"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+window_title = "NEW GAME"
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BUTTON_VBOX" type="VBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -34.0
+margin_top = -34.0
+margin_right = 35.0
+margin_bottom = 34.0
+grow_horizontal = 2
+grow_vertical = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EASY" type="Button" parent="BUTTON_VBOX"]
+margin_right = 69.0
+margin_bottom = 20.0
+text = "EASY"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NORMAL" type="Button" parent="BUTTON_VBOX"]
+margin_top = 24.0
+margin_right = 69.0
+margin_bottom = 44.0
+text = "NORMAL"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HARD" type="Button" parent="BUTTON_VBOX"]
+margin_top = 48.0
+margin_right = 69.0
+margin_bottom = 68.0
+text = "HARD"
 __meta__ = {
 "_edit_use_anchors_": false
 }

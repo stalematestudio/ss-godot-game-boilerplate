@@ -10,12 +10,13 @@ onready var quit_button = $Start_Menu/VBC/Quit
 onready var web_link = $Start_Menu/VBC/Developer_LinkButton
 
 onready var profile_manage_popup = $profile
+onready var new_game_popup = $new_game
 
 export (String) var web_link_url
 
 func _ready():
 	game_title.set_text(ProjectSettings.get_setting("application/config/name"))
-	profile_manage_popup.connect("popup_hide", self, "_on_popup_hide")
+	
 	profile_button.set_text(ProfileManager.get_current_profile_name().capitalize())
 	profile_button.connect("pressed", self, "start_menu_button_pressed", ["profile"])
 	if false:
@@ -29,6 +30,9 @@ func _ready():
 	credits_button.connect("pressed", self, "start_menu_button_pressed", ["credits"])
 	quit_button.connect("pressed", self, "start_menu_button_pressed", ["quit"])
 	web_link.connect("pressed", self, "start_menu_button_pressed", ["website"])
+
+	profile_manage_popup.connect("popup_hide", self, "_on_popup_hide")
+	new_game_popup.connect("popup_hide", self, "_on_popup_hide")
 
 	ProfileManager.connect("profile_changed", self, "_on_profile_changed")
 
@@ -49,8 +53,9 @@ func start_menu_button_pressed(button_name):
 			# load a saved game state
 			GameManager.game_state_change("IN_GAME")
 		"new":
-			# create a new game state
-			GameManager.game_state_change("IN_GAME")
+			#new_game_popup.popup_centered_ratio(0.5)
+			new_game_popup.set_as_minsize()
+			new_game_popup.popup_centered()
 		"settings":
 			get_parent().set_settings_display(settings_button)
 		"credits":
