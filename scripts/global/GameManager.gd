@@ -77,7 +77,7 @@ func _input(event):
 	elif event.is_action_released("util_quick_load") and game_state.in_game:
 		emit_signal("load_game", "quick")
 	elif event.is_action_released("util_quick_save") and game_state.in_game:
-		emit_signal("save_game", "quick")
+		emit_signal("save_game")
 
 func _on_pause_game():
 	game_paused = true

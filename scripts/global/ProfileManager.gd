@@ -21,6 +21,7 @@ onready var profile_current = -1
 
 onready var game_list = []
 onready var game_current = -1
+onready var game_data_path = ""
 
 func _ready():
 	yield(get_node("/root/main"), "ready")
@@ -154,14 +155,23 @@ func get_game_list():
 	dir.list_dir_end()
 	game_list.sort()
 
-func get_game_save_path(game_id):
-	return get_current_profile_saved_games_path() + String(game_id) + "/"
+func get_game_save_path():
+	return get_current_profile_saved_games_path() + String(game_current) + "/"
 
-func save_game(save_data):
+func new_game(game_mode):
+	game_current = 0
+	var dir = Directory.new()
+	while dir.dir_exists(get_game_save_path()):
+		game_current = game_current + 1
+	dir.make_dir_recursive(get_game_save_path())
+	save_game({"mode": game_mode})
+	load_game()
+
+func save_game(game_data):
 	var dt = OS.get_datetime()
 
-	var save_dir_path = get_game_save_path(save_data.game_id)
-	var save_file_path = save_data.type + "_" + String(dt.year) + "_" + String(dt.month) + "_" + String(dt.day) + "_" + String(dt.hour) + "_" + String(dt.minute) + "_" + String(dt.second) + ".save"
+	var save_dir_path = get_game_save_path()
+	var save_file_path = String(dt.year) + "_" + String(dt.month) + "_" + String(dt.day) + "_" + String(dt.hour) + "_" + String(dt.minute) + "_" + String(dt.second) + ".save"
 	var save_path = save_dir_path + save_file_path
 
 	var save_dir = Directory.new()
@@ -170,9 +180,10 @@ func save_game(save_data):
 	
 	var save_file = File.new()
 	save_file.open(save_path , 2)
-	save_file.store_line(save_path)
+	save_file.store_line(to_json(game_data))
 	save_file.close()
 	emit_signal("message", save_path)
+	game_data_path = save_path
 	
-func load_game(load_data):
-	emit_signal("message", load_data.type)
+func load_game():
+	pass
