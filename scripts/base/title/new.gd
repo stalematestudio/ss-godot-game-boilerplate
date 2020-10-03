@@ -12,5 +12,5 @@ func _ready():
 	hard_button.connect("pressed", self, "difficulty_button_pressed", ["hard"])
 
 func difficulty_button_pressed(button):
-	ProfileManager.new_game(button)
-	#GameManager.game_state_change("IN_GAME")
+	ProfileManager.new_game({"difficulty": button})
+	GameManager.game_state_change("IN_GAME")

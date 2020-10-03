@@ -2,7 +2,7 @@
 
 [ext_resource path="res://scripts/base/debug.gd" type="Script" id=1]
 
-[node name="debug_scene" type="Node"]
+[node name="debug" type="Node"]
 pause_mode = 2
 script = ExtResource( 1 )
 

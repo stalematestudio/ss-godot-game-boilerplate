@@ -1,6 +1,7 @@
 extends Node
 
 const PROFILE_CONFIG_FILE = "user://profile_config.ini"
+const PROFILE_FILE = "profile.ini"
 const SCREEN_SHOT_FOLDER = "screenshots"
 const SAVED_GAMES_FOLDER = "saved_games"
 
@@ -16,14 +17,20 @@ signal message(message)
 signal profile_created
 signal profile_changed
 
+# Profile Config
+
 onready var profile_list = []
 onready var profile_current = -1
 
+# Player Specific Profile
+
 onready var game_list = []
 onready var game_current = -1
+onready var game_play_time = 0
 onready var game_data_path = ""
 
 func _ready():
+	connect("profile_changed", self, "_on_profile_changed")
 	yield(get_node("/root/main"), "ready")
 	self.pause_mode = Node.PAUSE_MODE_PROCESS
 
@@ -43,6 +50,29 @@ func load_profile_current():
 		return true
 	elif err == ERR_FILE_NOT_FOUND:
 		return save_profile_current()
+	else:
+		return false
+
+func _on_profile_changed():
+	load_profile()
+
+func save_profile():
+	var profile_file = ConfigFile.new()
+	profile_file.set_value("game", "game_current", game_current)
+	profile_file.set_value("game", "game_play_time", game_play_time)
+	profile_file.set_value("game", "game_data_path", game_data_path)
+	return OK == profile_file.save(get_current_profile_file_path())
+
+func load_profile():
+	var profile_file = ConfigFile.new()
+	var err = profile_file.load(get_current_profile_file_path())
+	if err == OK:
+		game_current = profile_file.get_value("game", "game_current", -1)
+		game_play_time = profile_file.get_value("game", "game_play_time", 0)
+		game_data_path = profile_file.get_value("game", "game_data_path", "")
+		return true
+	elif err == ERR_FILE_NOT_FOUND:
+		return save_profile()
 	else:
 		return false
 
@@ -95,6 +125,14 @@ func get_current_profile_path():
 	get_current_profile()
 	return get_profile_path(profile_current)
 
+func get_profile_file_path(profile_index):
+	profile_index = clamp( profile_index, -1, profile_list.size() - 1 )
+	return get_profile_path(profile_index) + PROFILE_FILE
+
+func get_current_profile_file_path():
+	get_current_profile()
+	return get_profile_file_path(profile_current)
+
 func get_profile_screenshot_path(profile_index):
 	profile_index = clamp( profile_index, -1, profile_list.size() - 1 )
 	return get_profile_path(profile_index) + SCREEN_SHOT_FOLDER + "/"
@@ -119,6 +157,8 @@ func add_profile(new_profile):
 	dir.open("user://")
 	if dir.make_dir(new_profile) == OK:
 		
+		if dir.file_exists( "user://" + PROFILE_FILE ):
+			dir.rename( "user://" + PROFILE_FILE , "user://" + new_profile + "/" + PROFILE_FILE )
 		if dir.file_exists( "user://" + ConfigManager.CONFIG_FILE ):
 			dir.rename( "user://" + ConfigManager.CONFIG_FILE , "user://" + new_profile + "/" + ConfigManager.CONFIG_FILE )
 		if dir.dir_exists( "user://" + SCREEN_SHOT_FOLDER + "/" ):
@@ -158,32 +198,31 @@ func get_game_list():
 func get_game_save_path():
 	return get_current_profile_saved_games_path() + String(game_current) + "/"
 
-func new_game(game_mode):
+func new_game(game_data):
 	game_current = 0
 	var dir = Directory.new()
 	while dir.dir_exists(get_game_save_path()):
 		game_current = game_current + 1
 	dir.make_dir_recursive(get_game_save_path())
-	save_game({"mode": game_mode})
-	load_game()
+	save_game(game_data)
+	save_profile()
 
 func save_game(game_data):
 	var dt = OS.get_datetime()
-
 	var save_dir_path = get_game_save_path()
 	var save_file_path = String(dt.year) + "_" + String(dt.month) + "_" + String(dt.day) + "_" + String(dt.hour) + "_" + String(dt.minute) + "_" + String(dt.second) + ".save"
 	var save_path = save_dir_path + save_file_path
-
 	var save_dir = Directory.new()
 	if not save_dir.dir_exists(save_dir_path):
 		save_dir.make_dir_recursive(save_dir_path)
-	
 	var save_file = File.new()
-	save_file.open(save_path , 2)
+	save_file.open(save_path ,File.WRITE)
 	save_file.store_line(to_json(game_data))
 	save_file.close()
 	emit_signal("message", save_path)
 	game_data_path = save_path
-	
+
 func load_game():
-	pass
+	var save_file = File.new()
+	if save_file.open(game_data_path, File.READ) == OK:
+		return parse_json(save_file.get_line())

@@ -55,3 +55,7 @@ func recursive_non_empty_dir_deletion(path):
 		dir.remove(path)
 		el_name = dir.get_next()
 	dir.list_dir_end()
+
+func dictionary_update(dict_a, dict_b):
+	for k in dict_b:
+		dict_a[k] = dict_b[k]

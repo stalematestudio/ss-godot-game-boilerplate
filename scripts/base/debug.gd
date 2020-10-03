@@ -37,8 +37,8 @@ var player_instance
 
 func _ready():
 	vd_display.set_text( String( OS.get_current_video_driver() ) + " - " + OS.get_video_driver_name( OS.get_current_video_driver() ) )
-	game_instance = get_node_or_null("/root/main/game_scene")
-	player_instance = get_node_or_null("/root/main/game_scene/player")
+	game_instance = get_node_or_null("/root/main/game")
+	player_instance = get_node_or_null("/root/main/game/player")
 	GameManager.connect("game_state_changed", self, "_on_game_state_changed")
 
 func _input(event):
@@ -62,37 +62,42 @@ func _process(delta):
 	l_left.text = String(Input.get_action_strength("player_look_left"))
 	l_right.text = String(Input.get_action_strength("player_look_right"))
 
-	if is_instance_valid(player_instance):
-		if player_instance.raycast_target:
-			player_target_name.set_text(player_instance.raycast_target.name)
-			player_target_distance.set_text(String(stepify(player_instance.raycast_target_distance, 0.1)))
+	if GameManager.game_state.scene == "game_scene":
+		if is_instance_valid(player_instance):
+			if player_instance.raycast_target:
+				player_target_name.set_text(player_instance.raycast_target.name)
+				player_target_distance.set_text(String(stepify(player_instance.raycast_target_distance, 0.1)))
+			else:
+				player_target_name.set_text("")
+				player_target_distance.set_text("")
+			
+			player_velocity_vector.set_text(" x " + String(stepify(player_instance.velocity.x, 0.2)) + " y " + String(stepify(player_instance.velocity.y, 0.2)) + " z " + String(stepify(player_instance.velocity.z, 0.2)))
+			player_velocity_length.set_text(" l " + String(player_instance.velocity.length()))
+
+			player_direction_vector.set_text(" x " + String(stepify(player_instance.direction.x, 0.2)) + " y " + String(stepify(player_instance.direction.y, 0.2)) + " z " + String(stepify(player_instance.direction.z, 0.2)))
+			player_direction_length.set_text(" l " + String(player_instance.direction.length()))
+
+			player_on_ceiling.set_text(String(player_instance.is_on_ceiling()))
+			player_on_wall.set_text(String(player_instance.is_on_wall()))
+			player_on_floor.set_text(String(player_instance.is_on_floor()))
+			var player_slide_collisions = player_instance.get_slide_count()
+			player_collisions.set_text(String(player_slide_collisions))
+			if player_slide_collisions > 0:
+				player_collider.set_text(String(player_instance.get_slide_collision(0).get_collider().name))
+			else:
+				player_collider.set_text("")
 		else:
-			player_target_name.set_text("")
-			player_target_distance.set_text("")
-		
-		player_velocity_vector.set_text(" x " + String(stepify(player_instance.velocity.x, 0.2)) + " y " + String(stepify(player_instance.velocity.y, 0.2)) + " z " + String(stepify(player_instance.velocity.z, 0.2)))
-		player_velocity_length.set_text(" l " + String(player_instance.velocity.length()))
+			player_instance = get_node_or_null("/root/main/game/player")
 
-		player_direction_vector.set_text(" x " + String(stepify(player_instance.direction.x, 0.2)) + " y " + String(stepify(player_instance.direction.y, 0.2)) + " z " + String(stepify(player_instance.direction.z, 0.2)))
-		player_direction_length.set_text(" l " + String(player_instance.direction.length()))
-
-		player_on_ceiling.set_text(String(player_instance.is_on_ceiling()))
-		player_on_wall.set_text(String(player_instance.is_on_wall()))
-		player_on_floor.set_text(String(player_instance.is_on_floor()))
-		var player_slide_collisions = player_instance.get_slide_count()
-		player_collisions.set_text(String(player_slide_collisions))
-		if player_slide_collisions > 0:
-			player_collider.set_text(String(player_instance.get_slide_collision(0).get_collider().name))
+		if is_instance_valid(game_instance):
+			gt_display.set_text(String(game_instance.game_time))
 		else:
-			player_collider.set_text("")
-
-	if is_instance_valid(game_instance):
-		gt_display.set_text(String(game_instance.game_time))
+			game_instance = get_node_or_null("/root/main/game")
 
 func _on_game_state_changed():
 	if GameManager.game_state.scene == "game_scene":
-		game_instance = get_node_or_null("/root/main/game_scene")
-		player_instance = get_node_or_null("/root/main/game_scene/player")
+		game_instance = get_node_or_null("/root/main/game")
+		player_instance = get_node_or_null("/root/main/game/player")
 	else:
 		gt_display.set_text("")
 
