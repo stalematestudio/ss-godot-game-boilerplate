@@ -92,6 +92,4 @@ func profile_delete_button_pressed():
 func profile_delete_dialog_confirmed():
 	var deleted_profile = profile_list.get_selected_items()[0]
 	ProfileManager.del_profile(deleted_profile)
-	#if deleted_profile == ProfileManager.profile_current:
-	#	_on_item_activated(ProfileManager.profile_current)
 	list_profiles()

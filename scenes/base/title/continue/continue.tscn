@@ -1,0 +1,81 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scripts/base/title/continue.gd" type="Script" id=1]
+
+[node name="continue" type="WindowDialog"]
+visible = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+window_title = "Continue Game"
+script = ExtResource( 1 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HSplitContainer" type="HSplitContainer" parent="VBoxContainer"]
+margin_right = 854.0
+margin_bottom = 456.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="GAME_DATA" type="VBoxContainer" parent="VBoxContainer/HSplitContainer"]
+margin_bottom = 456.0
+
+[node name="Label_1" type="Label" parent="VBoxContainer/HSplitContainer/GAME_DATA"]
+margin_bottom = 14.0
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HSplitContainer/GAME_DATA"]
+margin_top = 18.0
+margin_bottom = 18.0
+
+[node name="Label_2" type="Label" parent="VBoxContainer/HSplitContainer/GAME_DATA"]
+margin_top = 22.0
+margin_bottom = 36.0
+
+[node name="Label_3" type="Label" parent="VBoxContainer/HSplitContainer/GAME_DATA"]
+margin_top = 40.0
+margin_bottom = 54.0
+
+[node name="GAMES_LIST" type="HBoxContainer" parent="VBoxContainer/HSplitContainer"]
+margin_left = 12.0
+margin_right = 854.0
+margin_bottom = 456.0
+
+[node name="GAMES" type="ItemList" parent="VBoxContainer/HSplitContainer/GAMES_LIST"]
+margin_bottom = 456.0
+
+[node name="SAVES" type="ItemList" parent="VBoxContainer/HSplitContainer/GAMES_LIST"]
+margin_left = 4.0
+margin_right = 4.0
+margin_bottom = 456.0
+
+[node name="BUTTONS" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 460.0
+margin_right = 854.0
+margin_bottom = 480.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LOAD" type="Button" parent="VBoxContainer/BUTTONS"]
+margin_right = 425.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "LOAD"
+
+[node name="CANCEL" type="Button" parent="VBoxContainer/BUTTONS"]
+margin_left = 429.0
+margin_right = 854.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "CANCEL"

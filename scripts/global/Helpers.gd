@@ -51,10 +51,10 @@ func recursive_non_empty_dir_deletion(path):
 		if dir.current_is_dir():
 			recursive_non_empty_dir_deletion(path + el_name)
 		else:
-			dir.remove(path + el_name)
-		dir.remove(path)
+			print( "Remove ", path , el_name, " SUCCESS" if dir.remove( path + el_name ) == OK else " FAIL" )
 		el_name = dir.get_next()
 	dir.list_dir_end()
+	print( "Remove ", path , " SUCCESS" if dir.remove( path ) == OK else " FAIL" )
 
 func dictionary_update(dict_a, dict_b):
 	for k in dict_b:

@@ -20,6 +20,6 @@ __meta__ = {
 [node name="player" parent="." instance=ExtResource( 2 )]
 
 [node name="play_time" type="Timer" parent="."]
-wait_time = 180.0
+wait_time = 30.0
 autostart = true
 script = ExtResource( 4 )

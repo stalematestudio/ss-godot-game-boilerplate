@@ -25,7 +25,7 @@ onready var profile_current = -1
 # Player Specific Profile
 
 onready var game_list = []
-onready var game_current = -1
+onready var game_current = 0
 onready var game_play_time = 0
 onready var game_data_path = ""
 
@@ -39,19 +39,15 @@ func _ready():
 func save_profile_current():
 	var profile_config_file = ConfigFile.new()
 	profile_config_file.set_value("profile", "current", profile_current)
-	var err = profile_config_file.save(PROFILE_CONFIG_FILE)
-	return err == OK
+	profile_config_file.save(PROFILE_CONFIG_FILE) == OK
 
 func load_profile_current():
 	var profile_config_file = ConfigFile.new()
 	var err = profile_config_file.load(PROFILE_CONFIG_FILE)
 	if err == OK:
 		profile_current = profile_config_file.get_value("profile", "current", -1)
-		return true
 	elif err == ERR_FILE_NOT_FOUND:
-		return save_profile_current()
-	else:
-		return false
+		save_profile_current()
 
 func _on_profile_changed():
 	load_profile()
@@ -67,7 +63,7 @@ func load_profile():
 	var profile_file = ConfigFile.new()
 	var err = profile_file.load(get_current_profile_file_path())
 	if err == OK:
-		game_current = profile_file.get_value("game", "game_current", -1)
+		game_current = profile_file.get_value("game", "game_current", 0)
 		game_play_time = profile_file.get_value("game", "game_play_time", 0)
 		game_data_path = profile_file.get_value("game", "game_data_path", "")
 		return true
@@ -185,7 +181,10 @@ func del_profile(profile_index):
 func get_game_list():
 	game_list = []
 	var dir = Directory.new()
-	dir.open(get_current_profile_saved_games_path())
+	var profile_saved_games_dir = get_current_profile_saved_games_path()
+	if not dir.dir_exists(profile_saved_games_dir):
+		dir.make_dir(profile_saved_games_dir)
+	dir.open(profile_saved_games_dir)
 	dir.list_dir_begin(true, true)
 	var el_name = dir.get_next()
 	while el_name != "":
@@ -195,21 +194,55 @@ func get_game_list():
 	dir.list_dir_end()
 	game_list.sort()
 
-func get_game_save_path():
-	return get_current_profile_saved_games_path() + String(game_current) + "/"
+func get_current_game():
+	get_game_list()
+	if game_list.empty():
+		game_current = 0
+		save_profile()
+	else:
+		load_profile()
+		var game_current_checked = clamp( game_current, 0, game_list.size() - 1 )
+		if game_current != game_current_checked:
+			game_current = game_current_checked
+			save_profile()
+
+func current_profile_has_saved_games():
+	get_game_list()
+	return not game_list.empty()
+
+func get_game_save_path(game_index):
+	return get_current_profile_saved_games_path() + String(game_index) + "/"
+
+func get_current_game_save_path():
+	get_current_game()
+	return get_game_save_path(game_current)
 
 func new_game(game_data):
-	game_current = 0
+	# New game_current
+	var game_index = 0
 	var dir = Directory.new()
-	while dir.dir_exists(get_game_save_path()):
-		game_current = game_current + 1
-	dir.make_dir_recursive(get_game_save_path())
-	save_game(game_data)
+	while dir.dir_exists(get_game_save_path(game_index)):
+		game_index = game_index + 1
+	dir.make_dir_recursive(get_game_save_path(game_index))
+	game_current = game_index
+	# New game_data_path
+	var dt = OS.get_datetime()
+	var save_dir_path = get_game_save_path(game_current)
+	var save_file_path = String(dt.year) + "_" + String(dt.month) + "_" + String(dt.day) + "_" + String(dt.hour) + "_" + String(dt.minute) + "_" + String(dt.second) + ".save"
+	var save_path = save_dir_path + save_file_path
+	game_data_path = save_path
 	save_profile()
-
+	# Make Dir and save data
+	if not dir.dir_exists(save_dir_path):
+		dir.make_dir_recursive(save_dir_path)
+	var save_file = File.new()
+	save_file.open(game_data_path, File.WRITE)
+	save_file.store_line(to_json(game_data))
+	emit_signal("message", save_path)
+	
 func save_game(game_data):
 	var dt = OS.get_datetime()
-	var save_dir_path = get_game_save_path()
+	var save_dir_path = get_current_game_save_path()
 	var save_file_path = String(dt.year) + "_" + String(dt.month) + "_" + String(dt.day) + "_" + String(dt.hour) + "_" + String(dt.minute) + "_" + String(dt.second) + ".save"
 	var save_path = save_dir_path + save_file_path
 	var save_dir = Directory.new()
@@ -221,8 +254,9 @@ func save_game(game_data):
 	save_file.close()
 	emit_signal("message", save_path)
 	game_data_path = save_path
+	save_profile()
 
 func load_game():
 	var save_file = File.new()
-	if save_file.open(game_data_path, File.READ) == OK:
+	if OK == save_file.open(game_data_path, File.READ):
 		return parse_json(save_file.get_line())

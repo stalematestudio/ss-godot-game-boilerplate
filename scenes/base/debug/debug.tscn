@@ -43,7 +43,7 @@ margin_left = 38.0
 margin_right = 38.0
 margin_bottom = 14.0
 
-[node name="GT_VBC" type="VBoxContainer" parent="."]
+[node name="GAME_VBC" type="VBoxContainer" parent="."]
 anchor_left = 0.7
 anchor_top = 0.7
 anchor_right = 0.7
@@ -53,9 +53,21 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="GT_Label" type="Label" parent="GT_VBC"]
+[node name="time" type="Label" parent="GAME_VBC"]
 margin_right = 92.0
 margin_bottom = 14.0
+text = "00:00:00 0000"
+
+[node name="difficulty" type="Label" parent="GAME_VBC"]
+margin_top = 18.0
+margin_right = 92.0
+margin_bottom = 32.0
+text = "00:00:00 0000"
+
+[node name="level" type="Label" parent="GAME_VBC"]
+margin_top = 36.0
+margin_right = 92.0
+margin_bottom = 50.0
 text = "00:00:00 0000"
 
 [node name="player" type="CenterContainer" parent="."]

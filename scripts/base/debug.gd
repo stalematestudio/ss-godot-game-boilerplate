@@ -2,7 +2,10 @@ extends Node
 
 onready var vd_display = $VBC/VD_HBC/VD_Display
 onready var fps_display = $VBC/FSP_HBC/FPS_Display
-onready var gt_display = $GT_VBC/GT_Label
+
+onready var game_time_display = $GAME_VBC/time
+onready var game_difficulty_display = $GAME_VBC/difficulty
+onready var game_level_loaded_display = $GAME_VBC/level
 
 onready var m_forward = $player/HSplitContainer/VBoxContainerL/sticks/move/forward
 onready var m_backward = $player/HSplitContainer/VBoxContainerL/sticks/move/backward
@@ -90,7 +93,9 @@ func _process(delta):
 			player_instance = get_node_or_null("/root/main/game/player")
 
 		if is_instance_valid(game_instance):
-			gt_display.set_text(String(game_instance.game_time))
+			game_time_display.set_text(String(game_instance.game_time))
+			game_difficulty_display.set_text(String(game_instance.game_difficulty))
+			game_level_loaded_display.set_text(String(game_instance.game_level_loaded))
 		else:
 			game_instance = get_node_or_null("/root/main/game")
 
@@ -99,7 +104,9 @@ func _on_game_state_changed():
 		game_instance = get_node_or_null("/root/main/game")
 		player_instance = get_node_or_null("/root/main/game/player")
 	else:
-		gt_display.set_text("")
+		game_time_display.set_text("")
+		game_difficulty_display.set_text("")
+		game_level_loaded_display.set_text("")
 
 		player_target_name.set_text("")
 		player_target_distance.set_text("")

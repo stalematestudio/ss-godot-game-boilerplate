@@ -11,6 +11,7 @@ onready var web_link = $Start_Menu/VBC/Developer_LinkButton
 
 onready var profile_manage_popup = $profile
 onready var new_popup = $new
+onready var continue_popup = $continue
 
 export (String) var web_link_url
 
@@ -19,12 +20,14 @@ func _ready():
 	
 	profile_button.set_text(ProfileManager.get_current_profile_name().capitalize())
 	profile_button.connect("pressed", self, "start_menu_button_pressed", ["profile"])
-	if false:
+
+	if ProfileManager.current_profile_has_saved_games():
 		continue_button.connect("pressed", self, "start_menu_button_pressed", ["continue"])
 		continue_button.grab_focus()
 	else:
 		continue_button.set_disabled(true)
 		new_button.grab_focus()
+	
 	new_button.connect("pressed", self, "start_menu_button_pressed", ["new"])
 	settings_button.connect("pressed", self, "start_menu_button_pressed", ["settings"])
 	credits_button.connect("pressed", self, "start_menu_button_pressed", ["credits"])
@@ -33,6 +36,7 @@ func _ready():
 
 	profile_manage_popup.connect("popup_hide", self, "_on_popup_hide")
 	new_popup.connect("popup_hide", self, "_on_popup_hide")
+	continue_popup.connect("popup_hide", self, "_on_popup_hide")
 
 	ProfileManager.connect("profile_changed", self, "_on_profile_changed")
 
@@ -40,7 +44,7 @@ func _on_profile_changed():
 	profile_button.set_text(ProfileManager.get_current_profile_name().capitalize())
 
 func _on_popup_hide():
-	if false:
+	if ProfileManager.current_profile_has_saved_games():
 		continue_button.grab_focus()
 	else:
 		new_button.grab_focus()
@@ -48,14 +52,17 @@ func _on_popup_hide():
 func start_menu_button_pressed(button_name):
 	match button_name:
 		"profile":
-			profile_manage_popup.popup_centered_ratio(0.5)
+			profile_manage_popup.popup_centered_ratio(0.3)
+			#profile_manage_popup.set_as_minsize()
+			#profile_manage_popup.popup_centered()
 		"continue":
-			# load a saved game state
-			GameManager.game_state_change("IN_GAME")
+			continue_popup.popup_centered_ratio(0.3)
+			#continue_popup.set_as_minsize()
+			#continue_popup.popup_centered()
 		"new":
-			#new_popup.popup_centered_ratio(0.5)
-			new_popup.set_as_minsize()
-			new_popup.popup_centered()
+			new_popup.popup_centered_ratio(0.3)
+			#new_popup.set_as_minsize()
+			#new_popup.popup_centered()
 		"settings":
 			get_parent().set_settings_display(settings_button)
 		"credits":
