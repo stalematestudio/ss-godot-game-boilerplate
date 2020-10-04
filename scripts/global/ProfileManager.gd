@@ -25,6 +25,7 @@ onready var profile_current = -1
 # Player Specific Profile
 
 onready var game_list = []
+onready var game_save_list = []
 onready var game_current = 0
 onready var game_play_time = 0
 onready var game_data_path = ""
@@ -73,7 +74,7 @@ func load_profile():
 		return false
 
 func get_profile_list():
-	profile_list = []
+	profile_list.clear()
 	var dir = Directory.new()
 	dir.open("user://")
 	dir.list_dir_begin(true, true)
@@ -179,7 +180,7 @@ func del_profile(profile_index):
 # GAME
 
 func get_game_list():
-	game_list = []
+	game_list.clear()
 	var dir = Directory.new()
 	var profile_saved_games_dir = get_current_profile_saved_games_path()
 	if not dir.dir_exists(profile_saved_games_dir):
@@ -193,6 +194,22 @@ func get_game_list():
 		el_name = dir.get_next()
 	dir.list_dir_end()
 	game_list.sort()
+	game_list.invert()
+
+func get_game_save_list(game_index):
+	game_save_list.clear()
+	var dir = Directory.new()
+	var game_save_dir = get_game_save_path(game_index)
+	dir.open(game_save_dir)
+	dir.list_dir_begin(true, true)
+	var el_name = dir.get_next()
+	while el_name != "":
+		if not dir.current_is_dir():
+			game_save_list.append(el_name)
+		el_name = dir.get_next()
+	dir.list_dir_end()
+	game_save_list.sort()
+	game_save_list.invert()
 
 func get_current_game():
 	get_game_list()
@@ -226,9 +243,8 @@ func new_game(game_data):
 	dir.make_dir_recursive(get_game_save_path(game_index))
 	game_current = game_index
 	# New game_data_path
-	var dt = OS.get_datetime()
 	var save_dir_path = get_game_save_path(game_current)
-	var save_file_path = String(dt.year) + "_" + String(dt.month) + "_" + String(dt.day) + "_" + String(dt.hour) + "_" + String(dt.minute) + "_" + String(dt.second) + ".save"
+	var save_file_path = Helpers.date_time_string() + ".save"
 	var save_path = save_dir_path + save_file_path
 	game_data_path = save_path
 	save_profile()
@@ -241,9 +257,8 @@ func new_game(game_data):
 	emit_signal("message", save_path)
 	
 func save_game(game_data):
-	var dt = OS.get_datetime()
 	var save_dir_path = get_current_game_save_path()
-	var save_file_path = String(dt.year) + "_" + String(dt.month) + "_" + String(dt.day) + "_" + String(dt.hour) + "_" + String(dt.minute) + "_" + String(dt.second) + ".save"
+	var save_file_path = Helpers.date_time_string() + ".save"
 	var save_path = save_dir_path + save_file_path
 	var save_dir = Directory.new()
 	if not save_dir.dir_exists(save_dir_path):

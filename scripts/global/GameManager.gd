@@ -107,8 +107,7 @@ func screenshot():
 	var img = get_viewport().get_texture().get_data()
 	img.flip_y()
 
-	var dt = OS.get_datetime()
-	var img_path = dir_path + String(dt.year) + "_" + String(dt.month) + "_" + String(dt.day) + "_" + String(dt.hour) + "_" + String(dt.minute) + "_" + String(dt.second) + ".png"
+	var img_path = dir_path + Helpers.date_time_string() + ".png"
 	var err = img.save_png(img_path)
 	if err == OK:
 		emit_signal("message", "Screenshot saved: " + img_path)

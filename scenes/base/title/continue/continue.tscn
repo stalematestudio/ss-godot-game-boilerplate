@@ -18,42 +18,50 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HSplitContainer" type="HSplitContainer" parent="VBoxContainer"]
+[node name="games" type="HBoxContainer" parent="VBoxContainer"]
 margin_right = 854.0
 margin_bottom = 456.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="GAME_DATA" type="VBoxContainer" parent="VBoxContainer/HSplitContainer"]
+[node name="GAME_DATA" type="VBoxContainer" parent="VBoxContainer/games"]
+margin_right = 282.0
 margin_bottom = 456.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
-[node name="Label_1" type="Label" parent="VBoxContainer/HSplitContainer/GAME_DATA"]
+[node name="Label_1" type="Label" parent="VBoxContainer/games/GAME_DATA"]
+margin_right = 282.0
 margin_bottom = 14.0
 
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HSplitContainer/GAME_DATA"]
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/games/GAME_DATA"]
 margin_top = 18.0
+margin_right = 282.0
 margin_bottom = 18.0
 
-[node name="Label_2" type="Label" parent="VBoxContainer/HSplitContainer/GAME_DATA"]
+[node name="Label_2" type="Label" parent="VBoxContainer/games/GAME_DATA"]
 margin_top = 22.0
+margin_right = 282.0
 margin_bottom = 36.0
 
-[node name="Label_3" type="Label" parent="VBoxContainer/HSplitContainer/GAME_DATA"]
+[node name="Label_3" type="Label" parent="VBoxContainer/games/GAME_DATA"]
 margin_top = 40.0
+margin_right = 282.0
 margin_bottom = 54.0
 
-[node name="GAMES_LIST" type="HBoxContainer" parent="VBoxContainer/HSplitContainer"]
-margin_left = 12.0
+[node name="GAMES" type="ItemList" parent="VBoxContainer/games"]
+margin_left = 286.0
+margin_right = 568.0
+margin_bottom = 456.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="SAVES" type="ItemList" parent="VBoxContainer/games"]
+margin_left = 572.0
 margin_right = 854.0
 margin_bottom = 456.0
-
-[node name="GAMES" type="ItemList" parent="VBoxContainer/HSplitContainer/GAMES_LIST"]
-margin_bottom = 456.0
-
-[node name="SAVES" type="ItemList" parent="VBoxContainer/HSplitContainer/GAMES_LIST"]
-margin_left = 4.0
-margin_right = 4.0
-margin_bottom = 456.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="BUTTONS" type="HBoxContainer" parent="VBoxContainer"]
 margin_top = 460.0

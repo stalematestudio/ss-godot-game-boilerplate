@@ -1,5 +1,23 @@
 extends Node
 
+static func date_time_string():
+	var dt = OS.get_datetime()
+	
+	var year = String(dt.year)
+	var month = String(dt.month)
+	var day = String(dt.day)
+	var hour = String(dt.hour)
+	var minute = String(dt.minute)
+	var second = String(dt.second)
+	
+	month = month if month.length() == 2 else "0" + month
+	day = day if day.length() == 2 else "0" + day
+	hour = hour if hour.length() == 2 else "0" + hour
+	minute = minute if minute.length() == 2 else "0" + minute
+	second = second if second.length() == 2 else "0" + second
+
+	return year + "_" + month + "_" + day + "_" + hour + "_" + minute + "_" + second
+
 static func RemoveChildren(p_node):
 	for c_node in p_node.get_children():
 		p_node.remove_child(c_node)
@@ -41,7 +59,7 @@ static func event_as_text(event):
 		label_text = event.as_text()
 	return label_text
 
-func recursive_non_empty_dir_deletion(path):
+static func recursive_non_empty_dir_deletion(path):
 	path = path if path.ends_with("/") else path + "/"
 	var dir = Directory.new()
 	dir.open(path)
@@ -56,6 +74,6 @@ func recursive_non_empty_dir_deletion(path):
 	dir.list_dir_end()
 	print( "Remove ", path , " SUCCESS" if dir.remove( path ) == OK else " FAIL" )
 
-func dictionary_update(dict_a, dict_b):
+static func dictionary_update(dict_a, dict_b):
 	for k in dict_b:
 		dict_a[k] = dict_b[k]
