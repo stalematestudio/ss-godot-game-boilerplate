@@ -56,11 +56,11 @@ func start_menu_button_pressed(button_name):
 			#profile_manage_popup.set_as_minsize()
 			#profile_manage_popup.popup_centered()
 		"continue":
-			continue_popup.popup_centered_ratio(0.3)
+			continue_popup.popup_centered_ratio(0.6)
 			#continue_popup.set_as_minsize()
 			#continue_popup.popup_centered()
 		"new":
-			new_popup.popup_centered_ratio(0.3)
+			new_popup.popup_centered_ratio(0.25)
 			#new_popup.set_as_minsize()
 			#new_popup.popup_centered()
 		"settings":

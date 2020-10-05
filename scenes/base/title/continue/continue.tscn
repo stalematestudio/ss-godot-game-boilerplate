@@ -55,6 +55,8 @@ margin_right = 568.0
 margin_bottom = 456.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+allow_reselect = true
+auto_height = true
 
 [node name="SAVES" type="ItemList" parent="VBoxContainer/games"]
 margin_left = 572.0
@@ -62,6 +64,8 @@ margin_right = 854.0
 margin_bottom = 456.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+allow_reselect = true
+auto_height = true
 
 [node name="BUTTONS" type="HBoxContainer" parent="VBoxContainer"]
 margin_top = 460.0

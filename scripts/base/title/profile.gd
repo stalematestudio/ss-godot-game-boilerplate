@@ -3,6 +3,8 @@ extends WindowDialog
 onready var close_button = get_close_button()
 
 onready var selected_profile_name = $VBoxContainer/Profiles/VBoxContainer_L/Profile_Name
+onready var selected_profile_game_play_time = $VBoxContainer/Profiles/VBoxContainer_L/Profile_Play_Time
+
 onready var profile_list = $VBoxContainer/Profiles/VBoxContainer_R/ProfileList
 
 onready var profile_create_button = $VBoxContainer/crsede/Create
@@ -53,6 +55,7 @@ func list_profiles():
 		profile_list.grab_focus()
 	else:
 		selected_profile_name.set_text( ProfileManager.get_profile_name( ProfileManager.profile_current ) )
+		selected_profile_game_play_time.set_text( String( ProfileManager.game_play_time ) )
 		profile_create_button.grab_focus()
 		profile_select_button.set_disabled(true)
 		profile_delete_button.set_disabled(true)
@@ -62,6 +65,7 @@ func _on_item_activated(item_index):
 
 func _on_item_selected(item_index):
 	selected_profile_name.set_text( ProfileManager.get_profile_name(item_index) )
+	selected_profile_game_play_time.set_text( String( ProfileManager.game_play_time ) )
 	profile_select_button.set_disabled(false)
 	profile_delete_button.set_disabled(false)
 

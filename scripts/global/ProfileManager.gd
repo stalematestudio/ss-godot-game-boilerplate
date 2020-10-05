@@ -31,7 +31,9 @@ onready var game_play_time = 0
 onready var game_data_path = ""
 
 func _ready():
+	connect("profile_created", self, "_on_profile_created")
 	connect("profile_changed", self, "_on_profile_changed")
+
 	yield(get_node("/root/main"), "ready")
 	self.pause_mode = Node.PAUSE_MODE_PROCESS
 
@@ -49,6 +51,12 @@ func load_profile_current():
 		profile_current = profile_config_file.get_value("profile", "current", -1)
 	elif err == ERR_FILE_NOT_FOUND:
 		save_profile_current()
+
+func _on_profile_created():
+	game_current = 0
+	game_play_time = 0
+	game_data_path = ""
+	save_profile()
 
 func _on_profile_changed():
 	load_profile()
@@ -166,8 +174,10 @@ func add_profile(new_profile):
 		get_profile_list()
 		profile_current = profile_list.find(new_profile)
 		save_profile_current()
+
 		emit_signal("profile_created")
 		emit_signal("profile_changed")
+		
 		return ProfileErrors.OK
 	else:
 		return ProfileErrors.PROFILE_FOLDER_ERROR
@@ -255,7 +265,7 @@ func new_game(game_data):
 	save_file.open(game_data_path, File.WRITE)
 	save_file.store_line(to_json(game_data))
 	emit_signal("message", save_path)
-	
+
 func save_game(game_data):
 	var save_dir_path = get_current_game_save_path()
 	var save_file_path = Helpers.date_time_string() + ".save"
