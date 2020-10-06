@@ -66,7 +66,7 @@ func save_profile():
 	profile_file.set_value("game", "game_current", game_current)
 	profile_file.set_value("game", "game_play_time", game_play_time)
 	profile_file.set_value("game", "game_data_path", game_data_path)
-	return OK == profile_file.save(get_current_profile_file_path())
+	emit_signal("message", "PROFILE SAVED: " + "SUCCESS" if OK == profile_file.save( get_current_profile_file_path() ) else "FAIL" ) 
 
 func load_profile():
 	var profile_file = ConfigFile.new()

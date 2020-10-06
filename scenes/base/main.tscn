@@ -45,6 +45,7 @@ anchor_right = 1.0
 grow_horizontal = 2
 align = 1
 valign = 1
+autowrap = true
 uppercase = true
 __meta__ = {
 "_edit_use_anchors_": false

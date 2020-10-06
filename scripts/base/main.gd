@@ -44,7 +44,7 @@ func _ready():
 	GameManager.connect("message", self, "_on_message")
 
 func _on_message(message):
-	message_display.set_text(message)
+	message_display.set_text( message if message_display.get_text() == "" else message_display.get_text() + "\n" + message )
 	yield(get_tree().create_timer(5.0), "timeout")
 	message_display.set_text("")
 

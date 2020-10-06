@@ -7,3 +7,4 @@ func _ready():
 
 func increment_game_play_time():
 	ProfileManager.game_play_time = ProfileManager.game_play_time + time_increment
+	ProfileManager.save_profile()
