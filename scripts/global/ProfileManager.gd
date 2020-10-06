@@ -42,7 +42,7 @@ func _ready():
 func save_profile_current():
 	var profile_config_file = ConfigFile.new()
 	profile_config_file.set_value("profile", "current", profile_current)
-	profile_config_file.save(PROFILE_CONFIG_FILE) == OK
+	profile_config_file.save(PROFILE_CONFIG_FILE)
 
 func load_profile_current():
 	var profile_config_file = ConfigFile.new()
@@ -53,10 +53,8 @@ func load_profile_current():
 		save_profile_current()
 
 func _on_profile_created():
-	game_current = 0
-	game_play_time = 0
-	game_data_path = ""
-	save_profile()
+	#save_profile()
+	pass
 
 func _on_profile_changed():
 	load_profile()
@@ -77,6 +75,9 @@ func load_profile():
 		game_data_path = profile_file.get_value("game", "game_data_path", "")
 		return true
 	elif err == ERR_FILE_NOT_FOUND:
+		game_current = 0
+		game_play_time = 0
+		game_data_path = ""
 		return save_profile()
 	else:
 		return false

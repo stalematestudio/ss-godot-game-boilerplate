@@ -47,6 +47,7 @@ func _on_popup_hide():
 	if ProfileManager.current_profile_has_saved_games():
 		continue_button.grab_focus()
 	else:
+		continue_button.set_disabled(true)
 		new_button.grab_focus()
 
 func start_menu_button_pressed(button_name):
