@@ -53,7 +53,6 @@ func load_profile_current():
 		save_profile_current()
 
 func _on_profile_created():
-	#save_profile()
 	pass
 
 func _on_profile_changed():
