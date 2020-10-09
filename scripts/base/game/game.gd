@@ -22,28 +22,23 @@ func _on_save_game():
 		save_dir.make_dir_recursive(save_dir_path)
 	var save_file = File.new()
 	save_file.open(save_path ,File.WRITE)
-	
-	# Thumbnail
+	# Thumbnail and Data
 	var img = get_viewport().get_texture().get_data()
 	img.flip_y()
 	img.resize(320, 180)
-	save_file.store_line(to_json({ "thumbnail": Marshalls.raw_to_base64(img.save_png_to_buffer()) }))
-	# Game Data
 	save_file.store_line(to_json({
 			"game_time": game_time,
 			"game_difficulty": game_difficulty,
 			"game_level_loaded": game_level_loaded,
+			"thumbnail": Marshalls.raw_to_base64(img.save_png_to_buffer()),
 			}))
-	
 	for gs_obj in get_tree().get_nodes_in_group("game_save_objects"):
 		save_file.store_line(to_json({
 				"Name" : gs_obj.name,
 				"FileName" : gs_obj.get_filename(),
 				"Path" : gs_obj.get_parent().get_path()
 				}))
-	
 	save_file.close()
-	
 	# Set last saved game
 	ProfileManager.game_data_path = save_path
 	ProfileManager.save_profile()
