@@ -96,3 +96,13 @@ margin_right = 854.0
 margin_bottom = 480.0
 size_flags_horizontal = 3
 text = "CANCEL"
+
+[node name="GameDeleteDialog" type="ConfirmationDialog" parent="."]
+visible = true
+margin_right = 200.0
+margin_bottom = 70.0
+
+[node name="SaveDeleteDialog" type="ConfirmationDialog" parent="."]
+visible = true
+margin_right = 200.0
+margin_bottom = 70.0
