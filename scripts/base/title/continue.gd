@@ -34,7 +34,7 @@ func _ready():
 	game_load_button.grab_focus()
 
 func _on_game_load_button_pressed():
-	pass
+	_on_save_activated( saves_list.get_selected_items()[0] )
 
 func _on_game_delete_button_pressed():
 	pass
@@ -87,4 +87,5 @@ func _on_save_selected(item_index):
 	game_time.set_text( String( game_data.game_time ) if game_data.has("game_time") else "" )
 
 func _on_save_activated(item_index):
-	print("save activated ", item_index)
+	ProfileManager.game_data_path = ProfileManager.get_game_save_path( int( games_list.get_item_text( games_list.get_selected_items()[0] ) ) ) + ProfileManager.game_save_list[item_index]
+	GameManager.game_state_change("IN_GAME")

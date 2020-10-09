@@ -4,7 +4,6 @@
 [ext_resource path="res://scenes/base/title/new/difficulty_select_buttongroup.tres" type="ButtonGroup" id=2]
 
 [node name="new" type="WindowDialog"]
-visible = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 window_title = "NEW GAME"
