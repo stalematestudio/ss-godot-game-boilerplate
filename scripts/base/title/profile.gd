@@ -18,7 +18,6 @@ onready var profile_select_button = $VBoxContainer/crsede/Select
 
 onready var profile_delete_button = $VBoxContainer/crsede/Delete
 onready var profile_delete_dialog = $ProfileDeleteDialog
-onready var profile_delete_dialog_close_button = profile_delete_dialog.get_close_button()
 
 func _ready():
 	connect("about_to_show", self, "list_profiles")
@@ -41,8 +40,11 @@ func _ready():
 	profile_select_button.connect("pressed", self, "profile_select_button_pressed")
 
 	profile_delete_button.connect("pressed", self, "profile_delete_button_pressed")
+	
 	profile_delete_dialog.connect("confirmed", self, "profile_delete_dialog_confirmed")
 	profile_delete_dialog.connect("popup_hide", self, "list_profiles")
+	profile_delete_dialog.connect("about_to_show", self, "profile_delete_dialog_about_to_show")
+	profile_delete_dialog.connect("focus_entered", self, "profile_delete_dialog_about_to_show")
 
 func list_profiles():
 	profile_list.clear()
@@ -93,6 +95,9 @@ func profile_delete_button_pressed():
 	profile_delete_dialog.set_as_minsize()
 	profile_delete_dialog.popup_centered()
 
+func profile_delete_dialog_about_to_show():
+	profile_delete_dialog.get_cancel().grab_focus()
+	
 func profile_delete_dialog_confirmed():
 	var deleted_profile = profile_list.get_selected_items()[0]
 	ProfileManager.del_profile(deleted_profile)

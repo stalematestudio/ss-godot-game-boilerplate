@@ -132,7 +132,5 @@ text = "Visit website"
 [node name="profile" parent="." instance=ExtResource( 3 )]
 
 [node name="new" parent="." instance=ExtResource( 4 )]
-visible = false
 
 [node name="continue" parent="." instance=ExtResource( 5 )]
-visible = false
