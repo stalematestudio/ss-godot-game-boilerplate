@@ -256,6 +256,9 @@ func new_game(game_data):
 	save_profile()
 	save_game(game_data)
 
+func del_game(game_index):
+	Helpers.recursive_non_empty_dir_deletion( get_game_save_path( game_index ) )
+
 func save_game(game_data):
 	var save_dir_path = get_current_game_save_path()
 	var save_file_path = Helpers.date_time_string() + ".save"
@@ -272,6 +275,10 @@ func save_game(game_data):
 	emit_signal("message", game_data_path)
 
 func load_game():
+	var game_data = []
 	var save_file = File.new()
 	if OK == save_file.open(game_data_path, File.READ):
-		return parse_json(save_file.get_line())
+		while not save_file.eof_reached():
+			game_data.append( parse_json( save_file.get_line() ) )
+	save_file.close()
+	return game_data

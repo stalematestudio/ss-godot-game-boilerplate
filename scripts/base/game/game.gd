@@ -33,9 +33,6 @@ func _on_save_game():
 
 func _on_load_game():
 	var game_data = ProfileManager.load_game()
-	game_time = game_data.game_time if "game_time" in game_data else game_time
-	game_difficulty = game_data.game_difficulty if "game_difficulty" in game_data else game_difficulty
-	game_level_loaded = game_data.game_level_loaded if "game_level_loaded" in game_data else game_level_loaded
-	if "game_objects" in game_data:
-		for obj in game_data.game_objects:
-			print(obj)
+	game_time = game_data[0].game_time if "game_time" in game_data[0] else game_time
+	game_difficulty = game_data[0].game_difficulty if "game_difficulty" in game_data[0] else game_difficulty
+	game_level_loaded = game_data[0].game_level_loaded if "game_level_loaded" in game_data[0] else game_level_loaded	

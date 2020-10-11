@@ -11,8 +11,18 @@ onready var game_level = $VBoxContainer/games/GAME_DATA/level
 onready var game_time = $VBoxContainer/games/GAME_DATA/time
 
 onready var game_load_button = $VBoxContainer/games/GAME_DATA/LOAD
-onready var game_delete_save_button = $VBoxContainer/games/GAME_DATA/DELETE_SAVE
 onready var game_delete_game_button = $VBoxContainer/games/GAME_DATA/DELETE_GAME
+onready var game_delete_save_button = $VBoxContainer/games/GAME_DATA/DELETE_SAVE
+
+onready var game_delete_game_dialog = $GameDeleteDialog
+onready var game_delete_game_dialog_ok_button = game_delete_game_dialog.get_ok()
+onready var game_delete_game_dialog_cancel_button = game_delete_game_dialog.get_cancel()
+onready var game_delete_game_dialog_close_button = game_delete_game_dialog.get_close_button()
+
+onready var game_delete_save_dialog = $SaveDeleteDialog
+onready var game_delete_save_dialog_ok_button = game_delete_save_dialog.get_ok()
+onready var game_delete_save_dialog_cancel_button = game_delete_save_dialog.get_cancel()
+onready var game_delete_save_dialog_close_button = game_delete_save_dialog.get_close_button()
 
 onready var game_cancel_button = $VBoxContainer/CANCEL
 
@@ -20,7 +30,9 @@ func _ready():
 	connect("about_to_show", self, "list_games")
 	
 	close_button.set_focus_neighbour(MARGIN_BOTTOM, games_list.get_path())
-
+	game_delete_game_dialog_close_button.set_focus_neighbour(MARGIN_BOTTOM, game_delete_game_dialog_cancel_button.get_path())
+	game_delete_save_dialog_close_button.set_focus_neighbour(MARGIN_BOTTOM, game_delete_save_dialog_cancel_button.get_path())
+	
 	games_list.connect("item_selected", self, "_on_game_activated_selected")
 	games_list.connect("item_activated", self, "_on_game_activated_selected")
 
@@ -30,10 +42,14 @@ func _ready():
 	game_load_button.connect("pressed", self, "_on_game_load_button_pressed")
 	
 	game_delete_save_button.connect("pressed", self, "_on_game_delete_button_pressed", ["save"])
+	
 	game_delete_game_button.connect("pressed", self, "_on_game_delete_button_pressed", ["game"])
 	
+	game_delete_game_dialog.connect("about_to_show", self, "_on_game_delete_dialog_about_to_show")
+	
+	
 	game_cancel_button.connect("pressed", self, "_on_game_cancel_button_pressed")
-
+	
 	game_load_button.grab_focus()
 
 func _on_game_load_button_pressed():
@@ -44,9 +60,17 @@ func _on_game_delete_button_pressed(what):
 		"save":
 			pass
 		"game":
-			pass
+			game_delete_game_dialog.set_text("Deleting game " + games_list.get_item_text( games_list.get_selected_items()[0] ) + " will permanetly remove saved games from your system. Are you sure???")
+			game_delete_game_dialog.set_as_minsize()
+			game_delete_game_dialog.popup_centered()
 	list_games()
-	
+
+func _on_game_delete_dialog_about_to_show():
+	game_delete_game_dialog_cancel_button.grab_focus()
+
+func _on_game_delete_dialog_confirmed():
+	ProfileManager.del_game( int( games_list.get_item_text( games_list.get_selected_items()[0] ) ) )
+
 func _on_game_cancel_button_pressed():
 	hide()
 
@@ -80,6 +104,7 @@ func _on_save_selected(item_index):
 	var save_file = File.new()
 	save_file.open(save_path ,File.READ)
 	var game_data = parse_json( save_file.get_line() )
+	save_file.close()
 	#game_thumbnail
 	var thumb_image = Image.new()
 	var thumb_image_texture = ImageTexture.new()
