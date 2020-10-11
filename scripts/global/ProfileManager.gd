@@ -252,34 +252,24 @@ func new_game(game_data):
 		game_index = game_index + 1
 	dir.make_dir_recursive(get_game_save_path(game_index))
 	game_current = game_index
-	# New game_data_path
-	var save_dir_path = get_game_save_path(game_current)
-	var save_file_path = Helpers.date_time_string() + ".save"
-	var save_path = save_dir_path + save_file_path
-	game_data_path = save_path
+	game_data_path = ""
 	save_profile()
-	# Make Dir and save data
-	if not dir.dir_exists(save_dir_path):
-		dir.make_dir_recursive(save_dir_path)
-	var save_file = File.new()
-	save_file.open(game_data_path, File.WRITE)
-	save_file.store_line(to_json(game_data))
-	emit_signal("message", save_path)
+	save_game(game_data)
 
 func save_game(game_data):
 	var save_dir_path = get_current_game_save_path()
 	var save_file_path = Helpers.date_time_string() + ".save"
-	var save_path = save_dir_path + save_file_path
+	game_data_path = save_dir_path + save_file_path
 	var save_dir = Directory.new()
 	if not save_dir.dir_exists(save_dir_path):
 		save_dir.make_dir_recursive(save_dir_path)
 	var save_file = File.new()
-	save_file.open(save_path ,File.WRITE)
-	save_file.store_line(to_json(game_data))
+	save_file.open(game_data_path ,File.WRITE)
+	for data in game_data:
+		save_file.store_line(to_json(data))
 	save_file.close()
-	emit_signal("message", save_path)
-	game_data_path = save_path
 	save_profile()
+	emit_signal("message", game_data_path)
 
 func load_game():
 	var save_file = File.new()

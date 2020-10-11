@@ -21,7 +21,9 @@ var pause_scene_instance
 var title_camera
 var background_environment
 
-onready var message_display = $message
+onready var message_display = $message_display
+onready var message_timer = $message_timer
+
 onready var ui_target
 
 func _ready():
@@ -42,10 +44,14 @@ func _ready():
 	VideoManager.connect("message", self, "_on_message")
 	InputManager.connect("message", self, "_on_message")
 	GameManager.connect("message", self, "_on_message")
+	
+	message_timer.connect("timeout", self, "_on_message_timer_timeout")
 
 func _on_message(message):
 	message_display.set_text( message if message_display.get_text() == "" else message_display.get_text() + "\n" + message )
-	yield(get_tree().create_timer(5.0), "timeout")
+	message_timer.start()
+
+func _on_message_timer_timeout():
 	message_display.set_text("")
 
 func ui_target_disconnect():

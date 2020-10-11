@@ -11,7 +11,8 @@ onready var game_level = $VBoxContainer/games/GAME_DATA/level
 onready var game_time = $VBoxContainer/games/GAME_DATA/time
 
 onready var game_load_button = $VBoxContainer/games/GAME_DATA/LOAD
-onready var game_delete_button = $VBoxContainer/games/GAME_DATA/DELETE
+onready var game_delete_save_button = $VBoxContainer/games/GAME_DATA/DELETE_SAVE
+onready var game_delete_game_button = $VBoxContainer/games/GAME_DATA/DELETE_GAME
 
 onready var game_cancel_button = $VBoxContainer/CANCEL
 
@@ -27,7 +28,9 @@ func _ready():
 	saves_list.connect("item_activated", self, "_on_save_activated")
 
 	game_load_button.connect("pressed", self, "_on_game_load_button_pressed")
-	game_delete_button.connect("pressed", self, "_on_game_delete_button_pressed")
+	
+	game_delete_save_button.connect("pressed", self, "_on_game_delete_button_pressed", ["save"])
+	game_delete_game_button.connect("pressed", self, "_on_game_delete_button_pressed", ["game"])
 	
 	game_cancel_button.connect("pressed", self, "_on_game_cancel_button_pressed")
 
@@ -36,9 +39,14 @@ func _ready():
 func _on_game_load_button_pressed():
 	_on_save_activated( saves_list.get_selected_items()[0] )
 
-func _on_game_delete_button_pressed():
-	pass
-
+func _on_game_delete_button_pressed(what):
+	match what:
+		"save":
+			pass
+		"game":
+			pass
+	list_games()
+	
 func _on_game_cancel_button_pressed():
 	hide()
 
@@ -87,5 +95,7 @@ func _on_save_selected(item_index):
 	game_time.set_text( String( game_data.game_time ) if game_data.has("game_time") else "" )
 
 func _on_save_activated(item_index):
-	ProfileManager.game_data_path = ProfileManager.get_game_save_path( int( games_list.get_item_text( games_list.get_selected_items()[0] ) ) ) + ProfileManager.game_save_list[item_index]
+	ProfileManager.game_current = int( games_list.get_item_text( games_list.get_selected_items()[0] ) )
+	ProfileManager.game_data_path = ProfileManager.get_game_save_path( ProfileManager.game_current ) + ProfileManager.game_save_list[item_index]
+	ProfileManager.save_profile()
 	GameManager.game_state_change("IN_GAME")

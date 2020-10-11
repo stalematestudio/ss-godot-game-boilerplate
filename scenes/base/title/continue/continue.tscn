@@ -49,46 +49,53 @@ size_flags_vertical = 3
 
 [node name="thumbnail" type="TextureRect" parent="VBoxContainer/games/GAME_DATA"]
 margin_right = 282.0
-margin_bottom = 354.0
+margin_bottom = 330.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 expand = true
 stretch_mode = 6
 
 [node name="difficulty" type="Label" parent="VBoxContainer/games/GAME_DATA"]
-margin_top = 358.0
+margin_top = 334.0
 margin_right = 282.0
-margin_bottom = 372.0
+margin_bottom = 348.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
 
 [node name="level" type="Label" parent="VBoxContainer/games/GAME_DATA"]
-margin_top = 376.0
+margin_top = 352.0
 margin_right = 282.0
-margin_bottom = 390.0
+margin_bottom = 366.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
 
 [node name="time" type="Label" parent="VBoxContainer/games/GAME_DATA"]
-margin_top = 394.0
+margin_top = 370.0
 margin_right = 282.0
-margin_bottom = 408.0
+margin_bottom = 384.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
 
 [node name="LOAD" type="Button" parent="VBoxContainer/games/GAME_DATA"]
+margin_top = 388.0
+margin_right = 282.0
+margin_bottom = 408.0
+size_flags_horizontal = 3
+text = "LOAD"
+
+[node name="DELETE_SAVE" type="Button" parent="VBoxContainer/games/GAME_DATA"]
 margin_top = 412.0
 margin_right = 282.0
 margin_bottom = 432.0
 size_flags_horizontal = 3
-text = "LOAD"
+text = "DELETE SAVE"
 
-[node name="DELETE" type="Button" parent="VBoxContainer/games/GAME_DATA"]
+[node name="DELETE_GAME" type="Button" parent="VBoxContainer/games/GAME_DATA"]
 margin_top = 436.0
 margin_right = 282.0
 margin_bottom = 456.0
 size_flags_horizontal = 3
-text = "DELETE"
+text = "DELETE GAME"
 
 [node name="CANCEL" type="Button" parent="VBoxContainer"]
 margin_top = 460.0
@@ -100,7 +107,9 @@ text = "CANCEL"
 [node name="GameDeleteDialog" type="ConfirmationDialog" parent="."]
 margin_right = 200.0
 margin_bottom = 70.0
+window_title = "WARNING: GAME DELETION !!!"
 
 [node name="SaveDeleteDialog" type="ConfirmationDialog" parent="."]
 margin_right = 200.0
 margin_bottom = 70.0
+window_title = "WARNING: SAVE DELETION !!!"

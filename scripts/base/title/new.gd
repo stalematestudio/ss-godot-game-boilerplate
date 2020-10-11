@@ -19,5 +19,9 @@ func difficulty_button_pressed(button):
 	difficulty = button
 
 func start_button_pressed():
-	ProfileManager.new_game({"game_difficulty": difficulty})
+	ProfileManager.new_game([{
+			"game_time": 0,
+			"game_difficulty": difficulty,
+			"game_level_loaded": '',
+			}])
 	GameManager.game_state_change("IN_GAME")
