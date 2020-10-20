@@ -16,7 +16,7 @@ const resolutions = [
 		{"name": "3840x2160", "value": Vector2(3840, 2160)},
 		]
 
-onready var config_path = ProfileManager.get_current_profile_path() + CONFIG_FILE
+onready var config_path = ProfileManager.get_profile_path_current() + CONFIG_FILE
 
 onready var config_data_default = {
 		"game":{
@@ -99,6 +99,14 @@ func _ready():
 	ProfileManager.connect("profile_created", self, "_on_profile_created")
 	load_config()
 
+func _on_profile_changed():
+	config_path = ProfileManager.get_profile_path_current() + CONFIG_FILE
+	load_config()
+
+func _on_profile_created():
+	config_path = ProfileManager.get_profile_path_current() + CONFIG_FILE
+	save_config()
+
 func apply_config():
 	emit_signal("config_update")
 
@@ -157,11 +165,3 @@ func keybind_defaults():
 					"events": InputMap.get_action_list(action).duplicate(true)
 					}
 	return config_data_default_keybind.duplicate(true)
-
-func _on_profile_changed():
-	config_path = ProfileManager.get_current_profile_path() + CONFIG_FILE
-	load_config()
-
-func _on_profile_created():
-	config_path = ProfileManager.get_current_profile_path() + CONFIG_FILE
-	save_config()

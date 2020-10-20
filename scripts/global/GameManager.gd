@@ -99,7 +99,7 @@ func game_state_change(state):
 
 func screenshot():
 	# Check if path exists
-	var dir_path = ProfileManager.get_current_profile_screenshot_path()
+	var dir_path = ProfileManager.get_profile_screenshot_path_current()
 	var dir = Directory.new()
 	if not dir.dir_exists(dir_path):
 		dir.make_dir_recursive(dir_path)

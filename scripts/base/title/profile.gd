@@ -63,7 +63,7 @@ func list_profiles():
 		profile_delete_button.set_disabled(true)
 
 func _on_item_activated(item_index):
-	ProfileManager.set_current_profile( item_index )
+	ProfileManager.set_profile_current( item_index )
 
 func _on_item_selected(item_index):
 	selected_profile_name.set_text( ProfileManager.get_profile_name(item_index) )

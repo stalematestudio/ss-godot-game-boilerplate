@@ -18,10 +18,10 @@ export (String) var web_link_url
 func _ready():
 	game_title.set_text(ProjectSettings.get_setting("application/config/name"))
 	
-	profile_button.set_text(ProfileManager.get_current_profile_name().capitalize())
+	profile_button.set_text(ProfileManager.get_profile_name_current().capitalize())
 	profile_button.connect("pressed", self, "start_menu_button_pressed", ["profile"])
 
-	if ProfileManager.current_profile_has_saved_games():
+	if ProfileManager.profile_has_saved_games_current():
 		continue_button.connect("pressed", self, "start_menu_button_pressed", ["continue"])
 		continue_button.grab_focus()
 	else:
@@ -41,10 +41,10 @@ func _ready():
 	ProfileManager.connect("profile_changed", self, "_on_profile_changed")
 
 func _on_profile_changed():
-	profile_button.set_text(ProfileManager.get_current_profile_name().capitalize())
+	profile_button.set_text(ProfileManager.get_profile_name_current().capitalize())
 
 func _on_popup_hide():
-	if ProfileManager.current_profile_has_saved_games():
+	if ProfileManager.profile_has_saved_games_current():
 		continue_button.grab_focus()
 	else:
 		continue_button.set_disabled(true)
