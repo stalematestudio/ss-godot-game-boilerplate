@@ -27,7 +27,7 @@ func _on_save_game():
 		game_data.append({
 				"Name" : gs_obj.name,
 				"FileName" : gs_obj.get_filename(),
-				"Path" : gs_obj.get_parent().get_path()
+				"Path" : gs_obj.get_parent().get_path(),
 				})
 	ProfileManager.save_game(game_data)
 
