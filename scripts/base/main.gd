@@ -1,15 +1,15 @@
 extends Node
 
 # Scenes
-export (PackedScene) var intro_scene
-export (PackedScene) var title_scene
-export (PackedScene) var credits_scene
-export (PackedScene) var game_scene
+@export (PackedScene) var intro_scene
+@export (PackedScene) var title_scene
+@export (PackedScene) var credits_scene
+@export (PackedScene) var game_scene
 
 # Sub Scenes
-export (PackedScene) var debug_scene
-export (PackedScene) var settings_scene
-export (PackedScene) var pause_scene
+@export (PackedScene) var debug_scene
+@export (PackedScene) var settings_scene
+@export (PackedScene) var pause_scene
 
 # Scene Instances
 var current_scene_instance
@@ -21,31 +21,31 @@ var pause_scene_instance
 var title_camera
 var background_environment
 
-onready var message_display = $message_display
-onready var message_timer = $message_timer
+@onready var message_display = $message_display
+@onready var message_timer = $message_timer
 
-onready var ui_target
+@onready var ui_target
 
 func _ready():
-	get_node("/root").connect("gui_focus_changed", self, "_on_gui_focus_changed")
+	get_node("/root").connect("gui_focus_changed", Callable(self, "_on_gui_focus_changed"))
 	
-	GameManager.connect("game_state_changed", self, "ui_target_disconnect")
-	GameManager.connect("resume_game", self, "ui_target_disconnect")
+	GameManager.connect("game_state_changed", Callable(self, "ui_target_disconnect"))
+	GameManager.connect("resume_game", Callable(self, "ui_target_disconnect"))
 	
-	GameManager.connect("game_state_changed", self, "_on_game_state_changed")
-	GameManager.connect("debug_state_changed", self, "_on_debug_state_changed")
+	GameManager.connect("game_state_changed", Callable(self, "_on_game_state_changed"))
+	GameManager.connect("debug_state_changed", Callable(self, "_on_debug_state_changed"))
 	
-	GameManager.connect("pause_game", self, "_on_pause_game")
-	GameManager.connect("resume_game", self, "_on_resume_game")
+	GameManager.connect("pause_game", Callable(self, "_on_pause_game"))
+	GameManager.connect("resume_game", Callable(self, "_on_resume_game"))
 
-	ProfileManager.connect("message", self, "_on_message")
-	ConfigManager.connect("message", self, "_on_message")
-	AudioManager.connect("message", self, "_on_message")
-	VideoManager.connect("message", self, "_on_message")
-	InputManager.connect("message", self, "_on_message")
-	GameManager.connect("message", self, "_on_message")
+	ProfileManager.connect("message", Callable(self, "_on_message"))
+	ConfigManager.connect("message", Callable(self, "_on_message"))
+	AudioManager.connect("message", Callable(self, "_on_message"))
+	VideoManager.connect("message", Callable(self, "_on_message"))
+	InputManager.connect("message", Callable(self, "_on_message"))
+	GameManager.connect("message", Callable(self, "_on_message"))
 	
-	message_timer.connect("timeout", self, "_on_message_timer_timeout")
+	message_timer.connect("timeout", Callable(self, "_on_message_timer_timeout"))
 
 func _on_message(message):
 	message_display.set_text( message if message_display.get_text() == "" else message_display.get_text() + "\n" + message )
@@ -56,16 +56,16 @@ func _on_message_timer_timeout():
 
 func ui_target_disconnect():
 	if is_instance_valid(ui_target):
-		if ( ui_target is Button ) and ui_target.is_connected("pressed", AudioManager, "ui_accept_audio_effect"):
-			ui_target.disconnect("pressed", AudioManager, "ui_accept_audio_effect")
-		elif ( ui_target is Slider ) and ui_target.is_connected("value_changed", AudioManager, "ui_navigate_audio_effect") and ( ui_target.is_editable() ):
-			ui_target.disconnect("value_changed", AudioManager, "ui_navigate_audio_effect")
+		if ( ui_target is Button ) and ui_target.is_connected("pressed", Callable(AudioManager, "ui_accept_audio_effect")):
+			ui_target.disconnect("pressed", Callable(AudioManager, "ui_accept_audio_effect"))
+		elif ( ui_target is Slider ) and ui_target.is_connected("value_changed", Callable(AudioManager, "ui_navigate_audio_effect")) and ( ui_target.is_editable() ):
+			ui_target.disconnect("value_changed", Callable(AudioManager, "ui_navigate_audio_effect"))
 
 func ui_target_connect():
-	if ( ui_target is Button ) and ( not ui_target.is_connected("pressed", AudioManager, "ui_accept_audio_effect") ):
-		ui_target.connect("pressed", AudioManager, "ui_accept_audio_effect")
-	elif ( ui_target is Slider ) and ( not ui_target.is_connected("value_changed", AudioManager, "ui_navigate_audio_effect") ) and ( ui_target.is_editable() ):
-		ui_target.connect("value_changed", AudioManager, "ui_navigate_audio_effect")
+	if ( ui_target is Button ) and ( not ui_target.is_connected("pressed", Callable(AudioManager, "ui_accept_audio_effect")) ):
+		ui_target.connect("pressed", Callable(AudioManager, "ui_accept_audio_effect"))
+	elif ( ui_target is Slider ) and ( not ui_target.is_connected("value_changed", Callable(AudioManager, "ui_navigate_audio_effect")) ) and ( ui_target.is_editable() ):
+		ui_target.connect("value_changed", Callable(AudioManager, "ui_navigate_audio_effect"))
 
 func _on_gui_focus_changed(target):
 	if ( target is Button ) or ( target is Slider ):

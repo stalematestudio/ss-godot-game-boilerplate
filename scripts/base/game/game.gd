@@ -1,12 +1,12 @@
 extends Node
 
-onready var game_time = 0
-onready var game_difficulty = "normal"
-onready var game_level_loaded = ""
+@onready var game_time = 0
+@onready var game_difficulty = "normal"
+@onready var game_level_loaded = ""
 
 func _ready():
-	GameManager.connect("save_game", self, "_on_save_game")
-	GameManager.connect("load_game", self, "_on_load_game")
+	GameManager.connect("save_game", Callable(self, "_on_save_game"))
+	GameManager.connect("load_game", Callable(self, "_on_load_game"))
 	_on_load_game()
 
 func  _process(delta):
@@ -26,8 +26,8 @@ func _on_save_game():
 	for gs_obj in get_tree().get_nodes_in_group("game_save_objects"):
 		game_data.append({
 				"Name" : gs_obj.name,
-				"FileName" : gs_obj.get_filename(),
-				"Path" : gs_obj.get_parent().get_path(),
+				"FileName" : gs_obj.get_scene_file_path(),
+				"Path3D" : gs_obj.get_parent().get_path(),
 				})
 	ProfileManager.save_game(game_data)
 

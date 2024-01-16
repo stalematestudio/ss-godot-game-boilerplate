@@ -1,21 +1,21 @@
-extends PopupDialog
+extends Popup
 
 var action
 var called_from
 
-onready var new_event = false
-onready var accept = $Elements_VBC/Buttons_HBC/Accept_Button
-onready var reset = $Elements_VBC/Buttons_HBC/Reset_Button
-onready var cancel = $Elements_VBC/Buttons_HBC/Cancel_Button
-onready var ins_label = $Elements_VBC/Instruction_Label
-onready var event_label = $Elements_VBC/Event_Label
+@onready var new_event = false
+@onready var accept = $Elements_VBC/Buttons_HBC/Accept_Button
+@onready var reset = $Elements_VBC/Buttons_HBC/Reset_Button
+@onready var cancel = $Elements_VBC/Buttons_HBC/Cancel_Button
+@onready var ins_label = $Elements_VBC/Instruction_Label
+@onready var event_label = $Elements_VBC/Event_Label
 
 func _ready():
 	new_event = false
 	ins_label.set_text('ENTER INPUT FOR ' + action.replace('_', ' ').to_upper())
-	reset.connect("pressed", self, "reset_new_event")
-	accept.connect("pressed", self, "add_new_event")
-	cancel.connect("pressed", self, "cancel_new_event")
+	reset.connect("pressed", Callable(self, "reset_new_event"))
+	accept.connect("pressed", Callable(self, "add_new_event"))
+	cancel.connect("pressed", Callable(self, "cancel_new_event"))
 	show()
 
 func _input(event):
@@ -34,7 +34,7 @@ func _input(event):
 		elif event is InputEventJoypadButton:
 			new_event = event
 		event_label.set_text(Helpers.event_as_text(new_event))
-		get_tree().set_input_as_handled()
+		get_viewport().set_input_as_handled()
 		accept.disabled = false
 		accept.grab_focus()
 		reset.disabled = false

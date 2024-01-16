@@ -1,69 +1,69 @@
-extends Tabs
+extends TabBar
 
-onready var gui_controller_label = $Settings_Scroll/Settings_VBC/Controller_HBC/Controller_Label
-onready var gui_controller_option = $Settings_Scroll/Settings_VBC/Controller_HBC/Controller_OptionButton
-onready var gui_controller_refresh_button = $Settings_Scroll/Settings_VBC/Controller_HBC/Controller_Refresh_Button
+@onready var gui_controller_label = $Settings_Scroll/Settings_VBC/Controller_HBC/Controller_Label
+@onready var gui_controller_option = $Settings_Scroll/Settings_VBC/Controller_HBC/Controller_OptionButton
+@onready var gui_controller_refresh_button = $Settings_Scroll/Settings_VBC/Controller_HBC/Controller_Refresh_Button
 
-onready var gui_vibration = $Settings_Scroll/Settings_VBC/Vibration_CheckButton
+@onready var gui_vibration = $Settings_Scroll/Settings_VBC/Vibration_CheckButton
 
-onready var gui_weak_magnitude_label = $Settings_Scroll/Settings_VBC/WM_HBC/WM_Label
-onready var gui_weak_magnitude_slider = $Settings_Scroll/Settings_VBC/WM_HBC/WM_Slider
-onready var gui_weak_magnitude_display = $Settings_Scroll/Settings_VBC/WM_HBC/WM_Value
+@onready var gui_weak_magnitude_label = $Settings_Scroll/Settings_VBC/WM_HBC/WM_Label
+@onready var gui_weak_magnitude_slider = $Settings_Scroll/Settings_VBC/WM_HBC/WM_Slider
+@onready var gui_weak_magnitude_display = $Settings_Scroll/Settings_VBC/WM_HBC/WM_Value
 
-onready var gui_strong_magnitude_label = $Settings_Scroll/Settings_VBC/SM_HBC/SM_Label
-onready var gui_strong_magnitude_slider = $Settings_Scroll/Settings_VBC/SM_HBC/SM_Slider
-onready var gui_strong_magnitude_display = $Settings_Scroll/Settings_VBC/SM_HBC/SM_Value
+@onready var gui_strong_magnitude_label = $Settings_Scroll/Settings_VBC/SM_HBC/SM_Label
+@onready var gui_strong_magnitude_slider = $Settings_Scroll/Settings_VBC/SM_HBC/SM_Slider
+@onready var gui_strong_magnitude_display = $Settings_Scroll/Settings_VBC/SM_HBC/SM_Value
 
-onready var gui_weak_magnitude_test = $Settings_Scroll/Settings_VBC/TM_HBC/WM_Button
-onready var gui_strong_magnitude_test = $Settings_Scroll/Settings_VBC/TM_HBC/SM_Button
-onready var gui_magnitude_test = $Settings_Scroll/Settings_VBC/TM_HBC/CM_Button
+@onready var gui_weak_magnitude_test = $Settings_Scroll/Settings_VBC/TM_HBC/WM_Button
+@onready var gui_strong_magnitude_test = $Settings_Scroll/Settings_VBC/TM_HBC/SM_Button
+@onready var gui_magnitude_test = $Settings_Scroll/Settings_VBC/TM_HBC/CM_Button
 
-onready var gui_controller_left_y_invert = $Settings_Scroll/Settings_VBC/LY_CheckButton
-onready var gui_controller_left_y_sensitivity_slider = $Settings_Scroll/Settings_VBC/LY_HBC/LY_Slider
-onready var gui_controller_left_y_sensitivity_display = $Settings_Scroll/Settings_VBC/LY_HBC/LY_Value
+@onready var gui_controller_left_y_invert = $Settings_Scroll/Settings_VBC/LY_CheckButton
+@onready var gui_controller_left_y_sensitivity_slider = $Settings_Scroll/Settings_VBC/LY_HBC/LY_Slider
+@onready var gui_controller_left_y_sensitivity_display = $Settings_Scroll/Settings_VBC/LY_HBC/LY_Value
 
-onready var gui_controller_left_x_invert = $Settings_Scroll/Settings_VBC/LX_CheckButton
-onready var gui_controller_left_x_sensitivity_slider = $Settings_Scroll/Settings_VBC/LX_HBC/LX_Slider
-onready var gui_controller_left_x_sensitivity_display = $Settings_Scroll/Settings_VBC/LX_HBC/LX_Value
+@onready var gui_controller_left_x_invert = $Settings_Scroll/Settings_VBC/LX_CheckButton
+@onready var gui_controller_left_x_sensitivity_slider = $Settings_Scroll/Settings_VBC/LX_HBC/LX_Slider
+@onready var gui_controller_left_x_sensitivity_display = $Settings_Scroll/Settings_VBC/LX_HBC/LX_Value
 
-onready var gui_controller_right_y_invert = $Settings_Scroll/Settings_VBC/RY_CheckButton
-onready var gui_controller_right_y_sensitivity_slider = $Settings_Scroll/Settings_VBC/RY_HBC/RY_Slider
-onready var gui_controller_right_y_sensitivity_display = $Settings_Scroll/Settings_VBC/RY_HBC/RY_Value
+@onready var gui_controller_right_y_invert = $Settings_Scroll/Settings_VBC/RY_CheckButton
+@onready var gui_controller_right_y_sensitivity_slider = $Settings_Scroll/Settings_VBC/RY_HBC/RY_Slider
+@onready var gui_controller_right_y_sensitivity_display = $Settings_Scroll/Settings_VBC/RY_HBC/RY_Value
 
-onready var gui_controller_right_x_invert = $Settings_Scroll/Settings_VBC/RX_CheckButton
-onready var gui_controller_right_x_sensitivity_slider = $Settings_Scroll/Settings_VBC/RX_HBC/RX_Slider
-onready var gui_controller_right_x_sensitivity_display = $Settings_Scroll/Settings_VBC/RX_HBC/RX_Value
+@onready var gui_controller_right_x_invert = $Settings_Scroll/Settings_VBC/RX_CheckButton
+@onready var gui_controller_right_x_sensitivity_slider = $Settings_Scroll/Settings_VBC/RX_HBC/RX_Slider
+@onready var gui_controller_right_x_sensitivity_display = $Settings_Scroll/Settings_VBC/RX_HBC/RX_Value
 
-onready var gui_keybind = get_node("../keybind")
+@onready var gui_keybind = get_node("../keybind")
 
 func _ready():
 	controllers_list()
 
-	gui_controller_option.connect("item_selected", self, "controller_select")
-	gui_controller_refresh_button.connect("pressed", self, "controllers_list")
+	gui_controller_option.connect("item_selected", Callable(self, "controller_select"))
+	gui_controller_refresh_button.connect("pressed", Callable(self, "controllers_list"))
 
-	Input.connect("joy_connection_changed", self, "controllers_list_changed")
+	Input.connect("joy_connection_changed", Callable(self, "controllers_list_changed"))
 
-	gui_vibration.connect("pressed", self, "vibration_adjust")
+	gui_vibration.connect("pressed", Callable(self, "vibration_adjust"))
 
-	gui_weak_magnitude_slider.connect("value_changed", self, "weak_magnitude_adjust")
-	gui_strong_magnitude_slider.connect("value_changed", self, "strong_magnitude_adjust")
+	gui_weak_magnitude_slider.connect("value_changed", Callable(self, "weak_magnitude_adjust"))
+	gui_strong_magnitude_slider.connect("value_changed", Callable(self, "strong_magnitude_adjust"))
 	
-	gui_weak_magnitude_test.connect("pressed", self, "weak_magnitude_test")
-	gui_strong_magnitude_test.connect("pressed", self, "strong_magnitude_test")
-	gui_magnitude_test.connect("pressed", self, "vibration_magnitude_test")
+	gui_weak_magnitude_test.connect("pressed", Callable(self, "weak_magnitude_test"))
+	gui_strong_magnitude_test.connect("pressed", Callable(self, "strong_magnitude_test"))
+	gui_magnitude_test.connect("pressed", Callable(self, "vibration_magnitude_test"))
 
-	gui_controller_left_y_invert.connect("pressed", self, "left_y_invert_adjust")
-	gui_controller_left_y_sensitivity_slider.connect("value_changed", self, "left_y_sensitivity_adjust")
+	gui_controller_left_y_invert.connect("pressed", Callable(self, "left_y_invert_adjust"))
+	gui_controller_left_y_sensitivity_slider.connect("value_changed", Callable(self, "left_y_sensitivity_adjust"))
 	
-	gui_controller_left_x_invert.connect("pressed", self, "left_x_invert_adjust")
-	gui_controller_left_x_sensitivity_slider.connect("value_changed", self, "left_x_sensitivity_adjust")
+	gui_controller_left_x_invert.connect("pressed", Callable(self, "left_x_invert_adjust"))
+	gui_controller_left_x_sensitivity_slider.connect("value_changed", Callable(self, "left_x_sensitivity_adjust"))
 	
-	gui_controller_right_y_invert.connect("pressed", self, "right_y_invert_adjust")
-	gui_controller_right_y_sensitivity_slider.connect("value_changed", self, "right_y_sensitivity_adjust")
+	gui_controller_right_y_invert.connect("pressed", Callable(self, "right_y_invert_adjust"))
+	gui_controller_right_y_sensitivity_slider.connect("value_changed", Callable(self, "right_y_sensitivity_adjust"))
 	
-	gui_controller_right_x_invert.connect("pressed", self, "right_x_invert_adjust")
-	gui_controller_right_x_sensitivity_slider.connect("value_changed", self, "right_x_sensitivity_adjust")
+	gui_controller_right_x_invert.connect("pressed", Callable(self, "right_x_invert_adjust"))
+	gui_controller_right_x_sensitivity_slider.connect("value_changed", Callable(self, "right_x_sensitivity_adjust"))
 
 func set_form_values():
 	gui_vibration.set_pressed(ConfigManager.config_data.controller.vibration)
@@ -91,7 +91,7 @@ func set_elements_disabled():
 		gui_controller_refresh_button.set_disabled(false)
 		gui_vibration.set_disabled(false)
 	else:
-		gui_controller_label.set_self_modulate(Color("#40ffffff"))
+		gui_controller_label.set_self_modulate(Color("#ffffff40"))
 		gui_controller_option.set_disabled(true)
 		gui_controller_refresh_button.set_disabled(true)
 		gui_vibration.set_disabled(true)
@@ -109,13 +109,13 @@ func set_elements_disabled():
 		gui_strong_magnitude_test.set_disabled(false)
 		gui_magnitude_test.set_disabled(false)
 	else:
-		gui_weak_magnitude_label.set_self_modulate(Color("#40ffffff"))
+		gui_weak_magnitude_label.set_self_modulate(Color("#ffffff40"))
 		gui_weak_magnitude_slider.set_editable(false)
-		gui_weak_magnitude_display.set_self_modulate(Color("#40ffffff"))
+		gui_weak_magnitude_display.set_self_modulate(Color("#ffffff40"))
 		
-		gui_strong_magnitude_label.set_self_modulate(Color("#40ffffff"))
+		gui_strong_magnitude_label.set_self_modulate(Color("#ffffff40"))
 		gui_strong_magnitude_slider.set_editable(false)
-		gui_strong_magnitude_display.set_self_modulate(Color("#40ffffff"))
+		gui_strong_magnitude_display.set_self_modulate(Color("#ffffff40"))
 
 		gui_weak_magnitude_test.set_disabled(true)
 		gui_strong_magnitude_test.set_disabled(true)

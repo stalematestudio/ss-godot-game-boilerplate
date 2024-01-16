@@ -1,7 +1,7 @@
 extends Node
 
 static func date_time_string():
-	var dt = OS.get_datetime()
+	var dt = Time.get_datetime_dict_from_system()
 	
 	var year = String(dt.year)
 	var month = String(dt.month)
@@ -61,9 +61,9 @@ static func event_as_text(event):
 
 static func recursive_non_empty_dir_deletion(path):
 	path = path if path.ends_with("/") else path + "/"
-	var dir = Directory.new()
+	var dir = DirAccess.new()
 	dir.open(path)
-	dir.list_dir_begin(true, true)
+	dir.list_dir_begin() # TODOConverter3To4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 	var el_name = dir.get_next()
 	while el_name != "":
 		if dir.current_is_dir():

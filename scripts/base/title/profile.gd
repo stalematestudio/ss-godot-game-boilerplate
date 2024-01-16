@@ -1,50 +1,50 @@
-extends WindowDialog
+extends Window
 
-onready var close_button = get_close_button()
+@onready var close_button = get_close_button()
 
-onready var selected_profile_name = $VBoxContainer/Profiles/VBoxContainer_L/Profile_Name
-onready var selected_profile_game_play_time = $VBoxContainer/Profiles/VBoxContainer_L/Profile_Play_Time
+@onready var selected_profile_name = $VBoxContainer/Profiles/VBoxContainer_L/Profile_Name
+@onready var selected_profile_game_play_time = $VBoxContainer/Profiles/VBoxContainer_L/Profile_Play_Time
 
-onready var profile_list = $VBoxContainer/Profiles/VBoxContainer_R/ProfileList
+@onready var profile_list = $VBoxContainer/Profiles/VBoxContainer_R/ProfileList
 
-onready var profile_create_button = $VBoxContainer/crsede/Create
-onready var profile_create_dialog = $ProfileCreateDialog
-onready var profile_create_dialog_close_button = profile_create_dialog.get_close_button()
-onready var profile_create_dialog_ok_button = profile_create_dialog.get_ok()
-onready var profile_create_dialog_cancel_button = profile_create_dialog.add_cancel("Cancel")
-onready var profile_create_name = $ProfileCreateDialog/LineEdit
+@onready var profile_create_button = $VBoxContainer/crsede/Create
+@onready var profile_create_dialog = $ProfileCreateDialog
+@onready var profile_create_dialog_close_button = profile_create_dialog.get_close_button()
+@onready var profile_create_dialog_ok_button = profile_create_dialog.get_ok_button()
+@onready var profile_create_dialog_cancel_button = profile_create_dialog.add_cancel_button("Cancel")
+@onready var profile_create_name = $ProfileCreateDialog/LineEdit
 
-onready var profile_select_button = $VBoxContainer/crsede/Select
+@onready var profile_select_button = $VBoxContainer/crsede/Select
 
-onready var profile_delete_button = $VBoxContainer/crsede/Delete
-onready var profile_delete_dialog = $ProfileDeleteDialog
+@onready var profile_delete_button = $VBoxContainer/crsede/Delete
+@onready var profile_delete_dialog = $ProfileDeleteDialog
 
 func _ready():
-	connect("about_to_show", self, "list_profiles")
+	connect("about_to_popup", Callable(self, "list_profiles"))
 
-	close_button.set_focus_neighbour(MARGIN_BOTTOM, profile_list.get_path())
+	close_button.set_focus_neighbor(MARGIN_BOTTOM, profile_list.get_path())
 
-	profile_list.connect("item_activated", self, "_on_item_activated")
-	profile_list.connect("item_selected", self, "_on_item_selected")
+	profile_list.connect("item_activated", Callable(self, "_on_item_activated"))
+	profile_list.connect("item_selected", Callable(self, "_on_item_selected"))
 
-	profile_create_button.connect("pressed", self, "profile_create_button_pressed")
-	profile_create_dialog.connect("confirmed", self, "profile_create_dialog_confirmed")
-	profile_create_dialog.connect("popup_hide", self, "list_profiles")
+	profile_create_button.connect("pressed", Callable(self, "profile_create_button_pressed"))
+	profile_create_dialog.connect("confirmed", Callable(self, "profile_create_dialog_confirmed"))
+	profile_create_dialog.connect("popup_hide", Callable(self, "list_profiles"))
 	
 	profile_create_dialog.register_text_enter(profile_create_name)
-	profile_create_dialog_ok_button.set_focus_neighbour(MARGIN_TOP, profile_create_name.get_path())
-	profile_create_dialog_cancel_button.set_focus_neighbour(MARGIN_TOP, profile_create_name.get_path())
+	profile_create_dialog_ok_button.set_focus_neighbor(MARGIN_TOP, profile_create_name.get_path())
+	profile_create_dialog_cancel_button.set_focus_neighbor(MARGIN_TOP, profile_create_name.get_path())
 
-	profile_create_name.connect("text_changed", self, "profile_create_name_text_changed")	
+	profile_create_name.connect("text_changed", Callable(self, "profile_create_name_text_changed"))	
 
-	profile_select_button.connect("pressed", self, "profile_select_button_pressed")
+	profile_select_button.connect("pressed", Callable(self, "profile_select_button_pressed"))
 
-	profile_delete_button.connect("pressed", self, "profile_delete_button_pressed")
+	profile_delete_button.connect("pressed", Callable(self, "profile_delete_button_pressed"))
 	
-	profile_delete_dialog.connect("confirmed", self, "profile_delete_dialog_confirmed")
-	profile_delete_dialog.connect("popup_hide", self, "list_profiles")
-	profile_delete_dialog.connect("about_to_show", self, "profile_delete_dialog_about_to_show")
-	profile_delete_dialog.connect("focus_entered", self, "profile_delete_dialog_about_to_show")
+	profile_delete_dialog.connect("confirmed", Callable(self, "profile_delete_dialog_confirmed"))
+	profile_delete_dialog.connect("popup_hide", Callable(self, "list_profiles"))
+	profile_delete_dialog.connect("about_to_popup", Callable(self, "profile_delete_dialog_about_to_show"))
+	profile_delete_dialog.connect("focus_entered", Callable(self, "profile_delete_dialog_about_to_show"))
 
 func list_profiles():
 	profile_list.clear()
@@ -84,8 +84,8 @@ func profile_create_dialog_confirmed():
 
 func profile_create_name_text_changed(text):
 	profile_create_name.set_text(text.strip_escapes().to_lower().replacen(" ", "_").replacen("/", "_").replacen("\\", "_"))
-	profile_create_name.set_cursor_position(text.length())
-	profile_create_dialog.get_ok().set_disabled(text.length() == 0)
+	profile_create_name.set_caret_column(text.length())
+	profile_create_dialog.get_ok_button().set_disabled(text.length() == 0)
 
 func profile_select_button_pressed():
 	_on_item_activated(profile_list.get_selected_items()[0])
@@ -96,7 +96,7 @@ func profile_delete_button_pressed():
 	profile_delete_dialog.popup_centered()
 
 func profile_delete_dialog_about_to_show():
-	profile_delete_dialog.get_cancel().grab_focus()
+	profile_delete_dialog.get_cancel_button().grab_focus()
 	
 func profile_delete_dialog_confirmed():
 	var deleted_profile = profile_list.get_selected_items()[0]

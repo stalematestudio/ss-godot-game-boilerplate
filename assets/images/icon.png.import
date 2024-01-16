@@ -2,12 +2,13 @@
 
 importer="image"
 type="Image"
-path="res://.import/icon.png-e2b956fc1cad352d3b1bbca4fcd64fa9.image"
+uid="uid://kn4ifetq881f"
+path="res://.godot/imported/icon.png-e2b956fc1cad352d3b1bbca4fcd64fa9.image"
 
 [deps]
 
 source_file="res://assets/images/icon.png"
-dest_files=[ "res://.import/icon.png-e2b956fc1cad352d3b1bbca4fcd64fa9.image" ]
+dest_files=["res://.godot/imported/icon.png-e2b956fc1cad352d3b1bbca4fcd64fa9.image"]
 
 [params]
 

@@ -4,15 +4,15 @@ signal message(message)
 signal joypad_active
 signal joypad_inactive
 
-onready var joypad_present = false
-onready var joypad_device_id = 0
+@onready var joypad_present = false
+@onready var joypad_device_id = 0
 
 func _ready():
-	yield(get_node("/root/main"), "ready") # Wait For Main Scene to be ready.
-	self.pause_mode = Node.PAUSE_MODE_PROCESS
-	ConfigManager.connect("config_update", self, "apply_config")
+	await get_node("/root/main").ready # Wait For Main Scene to be ready.
+	self.process_mode = Node.PROCESS_MODE_ALWAYS
+	ConfigManager.connect("config_update", Callable(self, "apply_config"))
 	
-	Input.connect("joy_connection_changed", self, "_on_joy_connection_changed")
+	Input.connect("joy_connection_changed", Callable(self, "_on_joy_connection_changed"))
 
 func apply_config():
 	controller_setup()
@@ -40,7 +40,7 @@ func _on_joy_connection_changed(device, connected):
 
 func controller_setup():
 	var joypads = Input.get_connected_joypads()
-	if joypads.empty():
+	if joypads.is_empty():
 		joypad_present = false
 		joypad_device_id = 0
 	else:

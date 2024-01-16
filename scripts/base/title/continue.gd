@@ -1,54 +1,54 @@
-extends WindowDialog
+extends Window
 
-onready var close_button = get_close_button()
+@onready var close_button = get_close_button()
 
-onready var games_list = $VBoxContainer/games/GAMES
-onready var saves_list = $VBoxContainer/games/SAVES
+@onready var games_list = $VBoxContainer/games/GAMES
+@onready var saves_list = $VBoxContainer/games/SAVES
 
-onready var game_thumbnail = $VBoxContainer/games/GAME_DATA/thumbnail
-onready var game_difficulty = $VBoxContainer/games/GAME_DATA/difficulty
-onready var game_level = $VBoxContainer/games/GAME_DATA/level
-onready var game_time = $VBoxContainer/games/GAME_DATA/time
+@onready var game_thumbnail = $VBoxContainer/games/GAME_DATA/thumbnail
+@onready var game_difficulty = $VBoxContainer/games/GAME_DATA/difficulty
+@onready var game_level = $VBoxContainer/games/GAME_DATA/level
+@onready var game_time = $VBoxContainer/games/GAME_DATA/time
 
-onready var game_load_button = $VBoxContainer/games/GAME_DATA/LOAD
-onready var game_delete_game_button = $VBoxContainer/games/GAME_DATA/DELETE_GAME
-onready var game_delete_save_button = $VBoxContainer/games/GAME_DATA/DELETE_SAVE
+@onready var game_load_button = $VBoxContainer/games/GAME_DATA/LOAD
+@onready var game_delete_game_button = $VBoxContainer/games/GAME_DATA/DELETE_GAME
+@onready var game_delete_save_button = $VBoxContainer/games/GAME_DATA/DELETE_SAVE
 
-onready var game_delete_game_dialog = $GameDeleteDialog
-onready var game_delete_game_dialog_ok_button = game_delete_game_dialog.get_ok()
-onready var game_delete_game_dialog_cancel_button = game_delete_game_dialog.get_cancel()
-onready var game_delete_game_dialog_close_button = game_delete_game_dialog.get_close_button()
+@onready var game_delete_game_dialog = $GameDeleteDialog
+@onready var game_delete_game_dialog_ok_button = game_delete_game_dialog.get_ok_button()
+@onready var game_delete_game_dialog_cancel_button = game_delete_game_dialog.get_cancel_button()
+@onready var game_delete_game_dialog_close_button = game_delete_game_dialog.get_close_button()
 
-onready var game_delete_save_dialog = $SaveDeleteDialog
-onready var game_delete_save_dialog_ok_button = game_delete_save_dialog.get_ok()
-onready var game_delete_save_dialog_cancel_button = game_delete_save_dialog.get_cancel()
-onready var game_delete_save_dialog_close_button = game_delete_save_dialog.get_close_button()
+@onready var game_delete_save_dialog = $SaveDeleteDialog
+@onready var game_delete_save_dialog_ok_button = game_delete_save_dialog.get_ok_button()
+@onready var game_delete_save_dialog_cancel_button = game_delete_save_dialog.get_cancel_button()
+@onready var game_delete_save_dialog_close_button = game_delete_save_dialog.get_close_button()
 
-onready var game_cancel_button = $VBoxContainer/CANCEL
+@onready var game_cancel_button = $VBoxContainer/CANCEL
 
 func _ready():
-	connect("about_to_show", self, "list_games")
+	connect("about_to_popup", Callable(self, "list_games"))
 	
-	close_button.set_focus_neighbour(MARGIN_BOTTOM, games_list.get_path())
-	game_delete_game_dialog_close_button.set_focus_neighbour(MARGIN_BOTTOM, game_delete_game_dialog_cancel_button.get_path())
-	game_delete_save_dialog_close_button.set_focus_neighbour(MARGIN_BOTTOM, game_delete_save_dialog_cancel_button.get_path())
+	close_button.set_focus_neighbor(MARGIN_BOTTOM, games_list.get_path())
+	game_delete_game_dialog_close_button.set_focus_neighbor(MARGIN_BOTTOM, game_delete_game_dialog_cancel_button.get_path())
+	game_delete_save_dialog_close_button.set_focus_neighbor(MARGIN_BOTTOM, game_delete_save_dialog_cancel_button.get_path())
 	
-	games_list.connect("item_selected", self, "_on_game_activated_selected")
-	games_list.connect("item_activated", self, "_on_game_activated_selected")
+	games_list.connect("item_selected", Callable(self, "_on_game_activated_selected"))
+	games_list.connect("item_activated", Callable(self, "_on_game_activated_selected"))
 
-	saves_list.connect("item_selected", self, "_on_save_selected")
-	saves_list.connect("item_activated", self, "_on_save_activated")
+	saves_list.connect("item_selected", Callable(self, "_on_save_selected"))
+	saves_list.connect("item_activated", Callable(self, "_on_save_activated"))
 
-	game_load_button.connect("pressed", self, "_on_game_load_button_pressed")
+	game_load_button.connect("pressed", Callable(self, "_on_game_load_button_pressed"))
 	
-	game_delete_save_button.connect("pressed", self, "_on_game_delete_button_pressed", ["save"])
+	game_delete_save_button.connect("pressed", Callable(self, "_on_game_delete_button_pressed").bind("save"))
 	
-	game_delete_game_button.connect("pressed", self, "_on_game_delete_button_pressed", ["game"])
+	game_delete_game_button.connect("pressed", Callable(self, "_on_game_delete_button_pressed").bind("game"))
 	
-	game_delete_game_dialog.connect("about_to_show", self, "_on_game_delete_dialog_about_to_show")
+	game_delete_game_dialog.connect("about_to_popup", Callable(self, "_on_game_delete_dialog_about_to_show"))
 	
 	
-	game_cancel_button.connect("pressed", self, "_on_game_cancel_button_pressed")
+	game_cancel_button.connect("pressed", Callable(self, "_on_game_cancel_button_pressed"))
 	
 	game_load_button.grab_focus()
 
@@ -103,7 +103,9 @@ func _on_save_selected(item_index):
 	var save_path = ProfileManager.get_game_save_path(game_index) + ProfileManager.game_save_list[item_index]
 	var save_file = File.new()
 	save_file.open(save_path ,File.READ)
-	var game_data = parse_json( save_file.get_line() )
+	var test_json_conv = JSON.new()
+	test_json_conv.parse( save_file.get_line() )
+	var game_data = test_json_conv.get_data()
 	save_file.close()
 	#game_thumbnail
 	var thumb_image = Image.new()

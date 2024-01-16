@@ -1,8 +1,8 @@
-extends KinematicBody
+extends CharacterBody3D
 
 # Camera positions
-export (Array, Transform) var camera_position
-onready var camera_position_selected = 0
+@export (Array, Transform3D) var camera_position
+@onready var camera_position_selected = 0
 
 # Environmental Variables will be moved to level scene or game state
 const GRAVITY = 9.8
@@ -24,18 +24,18 @@ const MAX_SLOPE_ANGLE = 40
 const JUMP_SPEED = 6
 
 # Player Health
-onready var player_health_max = 100
-onready var player_health = 100
+@onready var player_health_max = 100
+@onready var player_health = 100
 
 # Player Stamina
-onready var player_stamina_max = 30
-onready var player_stamina = 30
+@onready var player_stamina_max = 30
+@onready var player_stamina = 30
 
 var player_move_snap = Vector3(0,1,0)
 var player_move_up_direction = GRAVITY_VECTOR
 var player_move_stop_on_slope = true 
 var player_move_max_slides = 4
-var player_move_floor_max_angle = deg2rad(MAX_SLOPE_ANGLE)
+var player_move_floor_max_angle = deg_to_rad(MAX_SLOPE_ANGLE)
 var player_move_infinite_inertia = false
 
 var is_jumping = false
@@ -70,17 +70,17 @@ var grabbed_object = null
 var grabbed_object_distance = 0.5
 
 # Player Nodes
-onready var player_collision_shape = $PlayerCollisionShape
-onready var player_head = $PlayerHead
-onready var player_ray_cast = $PlayerHead/PlayerRayCast
-onready var player_camera = $PlayerHead/PlayerCamera
-onready var player_light = $PlayerHead/PlayerLight
-onready var player_steps_player = $PlayerStepsAudio3D
+@onready var player_collision_shape = $PlayerCollisionShape
+@onready var player_head = $PlayerHead
+@onready var player_ray_cast = $PlayerHead/PlayerRayCast
+@onready var player_camera = $PlayerHead/PlayerCamera
+@onready var player_light = $PlayerHead/PlayerLight
+@onready var player_steps_player = $PlayerStepsAudio3D
 
-onready var player_stats_health = $hud/stats/health
-onready var player_stats_stamina = $hud/stats/stamina
+@onready var player_stats_health = $hud/stats/health
+@onready var player_stats_stamina = $hud/stats/stamina
 
-onready var player_animation = $AnimationPlayer
+@onready var player_animation = $AnimationPlayer
 
 func _ready():
 	if is_inside_tree() and not is_in_group("game_save_objects"):
@@ -107,7 +107,7 @@ func process_input():
 
 	# Grabbin and throwing objects
 	if Input.is_action_just_pressed("player_primary_action"):
-		if ( grabbed_object == null ) and ( player_ray_cast.is_colliding() ) and ( raycast_target is RigidBody ) and ( raycast_target_distance < OBJECT_GRAB_DISTANCE ) :
+		if ( grabbed_object == null ) and ( player_ray_cast.is_colliding() ) and ( raycast_target is RigidBody3D ) and ( raycast_target_distance < OBJECT_GRAB_DISTANCE ) :
 			grabbed_object = raycast_target
 			grabbed_object_distance = raycast_target_distance
 			add_collision_exception_with(grabbed_object)
@@ -147,8 +147,8 @@ func process_look():
 	if ConfigManager.config_data.controller.right_x_inverted:
 		input_look_vector.x = input_look_vector.x * -1
 
-	player_head.rotate_x(deg2rad( input_look_vector.y * ConfigManager.config_data.controller.right_y_sensitivity ))
-	rotate_y(deg2rad( input_look_vector.x * ConfigManager.config_data.controller.right_x_sensitivity ))
+	player_head.rotate_x(deg_to_rad( input_look_vector.y * ConfigManager.config_data.controller.right_y_sensitivity ))
+	rotate_y(deg_to_rad( input_look_vector.x * ConfigManager.config_data.controller.right_x_sensitivity ))
 	player_head_rotation = player_head.rotation_degrees
 	player_head_rotation.x = clamp(player_head_rotation.x, -70, 70)
 	player_head.rotation_degrees = player_head_rotation
@@ -239,7 +239,7 @@ func process_movement(delta):
 		player_stamina = clamp( player_stamina + delta / 2 , 0 ,  player_stamina_max )
 		
 	if is_on_floor():
-		horizontal_velocity = horizontal_velocity.linear_interpolate(target, accel * delta)
+		horizontal_velocity = horizontal_velocity.lerp(target, accel * delta)
 
 	velocity.x = horizontal_velocity.x
 	velocity.z = horizontal_velocity.z
@@ -276,27 +276,27 @@ func _input(event):
 	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		if event is InputEventMouseMotion:
 			if ConfigManager.config_data.mouse.mouse_inverted_y:
-				player_head.rotate_x(deg2rad(event.relative.y * ConfigManager.config_data.mouse.mouse_sensitivity_y * -1))
+				player_head.rotate_x(deg_to_rad(event.relative.y * ConfigManager.config_data.mouse.mouse_sensitivity_y * -1))
 			else:
-				player_head.rotate_x(deg2rad(event.relative.y * ConfigManager.config_data.mouse.mouse_sensitivity_y))
+				player_head.rotate_x(deg_to_rad(event.relative.y * ConfigManager.config_data.mouse.mouse_sensitivity_y))
 			
 			if ConfigManager.config_data.mouse.mouse_inverted_x:
-				self.rotate_y(deg2rad(event.relative.x * ConfigManager.config_data.mouse.mouse_sensitivity_x))
+				self.rotate_y(deg_to_rad(event.relative.x * ConfigManager.config_data.mouse.mouse_sensitivity_x))
 			else:
-				self.rotate_y(deg2rad(event.relative.x * ConfigManager.config_data.mouse.mouse_sensitivity_x * -1))
+				self.rotate_y(deg_to_rad(event.relative.x * ConfigManager.config_data.mouse.mouse_sensitivity_x * -1))
 			
 			player_head_rotation = player_head.rotation_degrees
 			player_head_rotation.x = clamp(player_head_rotation.x, -55, 55)
 			player_head.rotation_degrees = player_head_rotation
 		if event is InputEventMouseButton:
-			if event.button_index == BUTTON_WHEEL_UP or event.button_index == BUTTON_WHEEL_DOWN:
+			if event.button_index == MOUSE_BUTTON_WHEEL_UP or event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 				if ConfigManager.config_data.mouse.mouse_inverted_scroll:
 					mouse_scrolled = ConfigManager.config_data.mouse.mouse_sensitivity_scroll * -1
 				else:
 					mouse_scrolled = ConfigManager.config_data.mouse.mouse_sensitivity_scroll				
-				if event.button_index == BUTTON_WHEEL_UP:
+				if event.button_index == MOUSE_BUTTON_WHEEL_UP:
 					mouse_scroll_value += mouse_scrolled
-				elif event.button_index == BUTTON_WHEEL_DOWN:
+				elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 					mouse_scroll_value -= mouse_scrolled
 
 func process_ray_cast():

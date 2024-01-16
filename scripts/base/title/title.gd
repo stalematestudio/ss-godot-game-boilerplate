@@ -1,44 +1,44 @@
 extends Control
 
-onready var game_title = $Start_Menu/VBC/Game_Title
-onready var profile_button = $Start_Menu/VBC/HBoxContainer/Profile
-onready var continue_button = $Start_Menu/VBC/Continue
-onready var new_button = $Start_Menu/VBC/New_Game
-onready var settings_button = $Start_Menu/VBC/Settings
-onready var credits_button = $Start_Menu/VBC/Credits
-onready var quit_button = $Start_Menu/VBC/Quit
-onready var web_link = $Start_Menu/VBC/Developer_LinkButton
+@onready var game_title = $Start_Menu/VBC/Game_Title
+@onready var profile_button = $Start_Menu/VBC/HBoxContainer/Profile
+@onready var continue_button = $Start_Menu/VBC/Continue
+@onready var new_button = $Start_Menu/VBC/New_Game
+@onready var settings_button = $Start_Menu/VBC/Settings
+@onready var credits_button = $Start_Menu/VBC/Credits
+@onready var quit_button = $Start_Menu/VBC/Quit
+@onready var web_link = $Start_Menu/VBC/Developer_LinkButton
 
-onready var profile_manage_popup = $profile
-onready var new_popup = $new
-onready var continue_popup = $continue
+@onready var profile_manage_popup = $profile
+@onready var new_popup = $new
+@onready var continue_popup = $continue
 
-export (String) var web_link_url
+@export (String) var web_link_url
 
 func _ready():
 	game_title.set_text(ProjectSettings.get_setting("application/config/name"))
 	
 	profile_button.set_text(ProfileManager.get_profile_name_current().capitalize())
-	profile_button.connect("pressed", self, "start_menu_button_pressed", ["profile"])
+	profile_button.connect("pressed", Callable(self, "start_menu_button_pressed").bind("profile"))
 
 	if ProfileManager.profile_has_saved_games_current():
-		continue_button.connect("pressed", self, "start_menu_button_pressed", ["continue"])
+		continue_button.connect("pressed", Callable(self, "start_menu_button_pressed").bind("continue"))
 		continue_button.grab_focus()
 	else:
 		continue_button.set_disabled(true)
 		new_button.grab_focus()
 	
-	new_button.connect("pressed", self, "start_menu_button_pressed", ["new"])
-	settings_button.connect("pressed", self, "start_menu_button_pressed", ["settings"])
-	credits_button.connect("pressed", self, "start_menu_button_pressed", ["credits"])
-	quit_button.connect("pressed", self, "start_menu_button_pressed", ["quit"])
-	web_link.connect("pressed", self, "start_menu_button_pressed", ["website"])
+	new_button.connect("pressed", Callable(self, "start_menu_button_pressed").bind("new"))
+	settings_button.connect("pressed", Callable(self, "start_menu_button_pressed").bind("settings"))
+	credits_button.connect("pressed", Callable(self, "start_menu_button_pressed").bind("credits"))
+	quit_button.connect("pressed", Callable(self, "start_menu_button_pressed").bind("quit"))
+	web_link.connect("pressed", Callable(self, "start_menu_button_pressed").bind("website"))
 
-	profile_manage_popup.connect("popup_hide", self, "_on_popup_hide")
-	new_popup.connect("popup_hide", self, "_on_popup_hide")
-	continue_popup.connect("popup_hide", self, "_on_popup_hide")
+	profile_manage_popup.connect("popup_hide", Callable(self, "_on_popup_hide"))
+	new_popup.connect("popup_hide", Callable(self, "_on_popup_hide"))
+	continue_popup.connect("popup_hide", Callable(self, "_on_popup_hide"))
 
-	ProfileManager.connect("profile_changed", self, "_on_profile_changed")
+	ProfileManager.connect("profile_changed", Callable(self, "_on_profile_changed"))
 
 func _on_profile_changed():
 	profile_button.set_text(ProfileManager.get_profile_name_current().capitalize())

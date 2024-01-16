@@ -1,6 +1,6 @@
 extends Node
 
-onready var sections = {
+@onready var sections = {
 		0: $VBC/Settings_Tabs/game,
 		1: $VBC/Settings_Tabs/video,
 		2: $VBC/Settings_Tabs/audio,
@@ -10,38 +10,38 @@ onready var sections = {
 		}
 
 # Settings Tabs Switching
-onready var gui_tabs = $VBC/Settings_Tabs
-onready var gui_game_tab_switch = $VBC/Tab_Buttons/Game_Tab_Button
-onready var gui_video_tab_switch = $VBC/Tab_Buttons/Video_Tab_Button
-onready var gui_audio_tab_switch = $VBC/Tab_Buttons/Audio_Tab_Button
-onready var gui_mouse_tab_switch = $VBC/Tab_Buttons/Mouse_Tab_Button
-onready var gui_controller_tab_switch = $VBC/Tab_Buttons/Controller_Tab_Button
-onready var gui_keybind_tab_switch = $VBC/Tab_Buttons/Keybind_Tab_Button
+@onready var gui_tabs = $VBC/Settings_Tabs
+@onready var gui_game_tab_switch = $VBC/Tab_Buttons/Game_Tab_Button
+@onready var gui_video_tab_switch = $VBC/Tab_Buttons/Video_Tab_Button
+@onready var gui_audio_tab_switch = $VBC/Tab_Buttons/Audio_Tab_Button
+@onready var gui_mouse_tab_switch = $VBC/Tab_Buttons/Mouse_Tab_Button
+@onready var gui_controller_tab_switch = $VBC/Tab_Buttons/Controller_Tab_Button
+@onready var gui_keybind_tab_switch = $VBC/Tab_Buttons/Keybind_Tab_Button
 
 # Reset Apply Cancel
-onready var gui_reset = $VBC/Reset
-onready var gui_apply = $VBC/Apply
-onready var gui_cancel = $VBC/Cancel
+@onready var gui_reset = $VBC/Reset
+@onready var gui_apply = $VBC/Apply
+@onready var gui_cancel = $VBC/Cancel
 
 # Return focus
 var return_focus_target
 
 func _ready():
-	connect("tree_exiting", self, "_on_tree_exiting")
+	connect("tree_exiting", Callable(self, "_on_tree_exiting"))
 	gui_game_tab_switch.grab_focus()
 	
 	# Settings Tabs Switching
-	gui_game_tab_switch.connect("pressed", self, "settings_menu_tab_switch", [0])
-	gui_video_tab_switch.connect("pressed", self, "settings_menu_tab_switch", [1])
-	gui_audio_tab_switch.connect("pressed", self, "settings_menu_tab_switch", [2])
-	gui_mouse_tab_switch.connect("pressed", self, "settings_menu_tab_switch", [3])
-	gui_controller_tab_switch.connect("pressed", self, "settings_menu_tab_switch", [4])
-	gui_keybind_tab_switch.connect("pressed", self, "settings_menu_tab_switch", [5])
+	gui_game_tab_switch.connect("pressed", Callable(self, "settings_menu_tab_switch").bind(0))
+	gui_video_tab_switch.connect("pressed", Callable(self, "settings_menu_tab_switch").bind(1))
+	gui_audio_tab_switch.connect("pressed", Callable(self, "settings_menu_tab_switch").bind(2))
+	gui_mouse_tab_switch.connect("pressed", Callable(self, "settings_menu_tab_switch").bind(3))
+	gui_controller_tab_switch.connect("pressed", Callable(self, "settings_menu_tab_switch").bind(4))
+	gui_keybind_tab_switch.connect("pressed", Callable(self, "settings_menu_tab_switch").bind(5))
 	
 	# Reset Apply Cancel
-	gui_reset.connect("pressed", self, "settings_menu_apply_cancel", ["reset"])
-	gui_apply.connect("pressed", self, "settings_menu_apply_cancel", ["apply"])
-	gui_cancel.connect("pressed", self, "settings_menu_apply_cancel", ["cancel"])
+	gui_reset.connect("pressed", Callable(self, "settings_menu_apply_cancel").bind("reset"))
+	gui_apply.connect("pressed", Callable(self, "settings_menu_apply_cancel").bind("apply"))
+	gui_cancel.connect("pressed", Callable(self, "settings_menu_apply_cancel").bind("cancel"))
 
 	set_form_values()
 
@@ -51,7 +51,7 @@ func _on_tree_exiting():
 
 func _input(event):
 	if event.is_action_released("ui_cancel"):
-		get_tree().set_input_as_handled()
+		get_viewport().set_input_as_handled()
 		settings_menu_apply_cancel("cancel")
 
 func set_form_values():

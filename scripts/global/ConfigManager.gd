@@ -16,9 +16,9 @@ const resolutions = [
 		{"name": "3840x2160", "value": Vector2(3840, 2160)},
 		]
 
-onready var config_path = ProfileManager.get_profile_path_current() + CONFIG_FILE
+@onready var config_path = ProfileManager.get_profile_path_current() + CONFIG_FILE
 
-onready var config_data_default = {
+@onready var config_data_default = {
 		"game":{
 				"subtitles":false,
 				"mouse_mode_confined": false,
@@ -26,7 +26,7 @@ onready var config_data_default = {
 				"resume_on_focus_grab": true,
 				"low_processor_usage_mode": false,
 				"low_processor_usage_mode_sleep_usec": 6900,
-				"iterations_per_second": 60,
+				"physics_ticks_per_second": 60,
 				"physics_jitter_fix": 0.5,
 				"target_fps": 0,
 				"time_scale": 1,
@@ -89,14 +89,14 @@ onready var config_data_default = {
 		"keybind": keybind_defaults()
 		}
 
-onready var config_data = config_data_default.duplicate(true)
+@onready var config_data = config_data_default.duplicate(true)
 
 func _ready():
-	yield(get_node("/root/main"), "ready") # Wait For Main Scene to be ready.
-	self.pause_mode = Node.PAUSE_MODE_PROCESS
-	GameManager.connect("game_state_changed", self, "apply_config")
-	ProfileManager.connect("profile_changed", self, "_on_profile_changed")
-	ProfileManager.connect("profile_created", self, "_on_profile_created")
+	await get_node("/root/main").ready # Wait For Main Scene to be ready.
+	self.process_mode = Node.PROCESS_MODE_ALWAYS
+	GameManager.connect("game_state_changed", Callable(self, "apply_config"))
+	ProfileManager.connect("profile_changed", Callable(self, "_on_profile_changed"))
+	ProfileManager.connect("profile_created", Callable(self, "_on_profile_created"))
 	load_config()
 
 func _on_profile_changed():
@@ -150,7 +150,7 @@ func reset_to_default(section):
 		"controller":
 			config_data.controller = config_data_default.controller.duplicate(true)
 		"keybind":
-			InputMap.load_from_globals()
+			InputMap.load_from_project_settings()
 			keybind_defaults()
 			config_data.keybind = config_data_default.keybind.duplicate(true)
 			InputManager.apply_config_keybind()
@@ -162,6 +162,6 @@ func keybind_defaults():
 		if not ( action.begins_with('ui_') or action.begins_with('util_') ):
 			config_data_default_keybind[action] = {
 					"deadzone": 0.5,
-					"events": InputMap.get_action_list(action).duplicate(true)
+					"events": InputMap.action_get_events(action).duplicate(true)
 					}
 	return config_data_default_keybind.duplicate(true)

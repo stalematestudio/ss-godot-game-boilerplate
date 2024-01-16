@@ -6,22 +6,22 @@
 [ext_resource path="res://assets/audio/music/test_music.ogg" type="AudioStream" id=4]
 [ext_resource path="res://scenes/level/demo/surface_spatialmaterial.tres" type="Material" id=5]
 [ext_resource path="res://scenes/level/demo/button_spatialmaterial.tres" type="Material" id=6]
-[ext_resource path="res://scenes/level/demo/wall_cubemesh.tres" type="CubeMesh" id=7]
+[ext_resource path="res://scenes/level/demo/wall_cubemesh.tres" type="BoxMesh" id=7]
 [ext_resource path="res://scenes/level/demo/screen_planemesh.tres" type="PlaneMesh" id=8]
-[ext_resource path="res://scenes/level/demo/button_cubemesh.tres" type="CubeMesh" id=9]
+[ext_resource path="res://scenes/level/demo/button_cubemesh.tres" type="BoxMesh" id=9]
 [ext_resource path="res://scenes/level/demo/surface_planemesh.tres" type="PlaneMesh" id=10]
-[ext_resource path="res://scenes/level/demo/roof_cubemesh.tres" type="CubeMesh" id=11]
+[ext_resource path="res://scenes/level/demo/roof_cubemesh.tres" type="BoxMesh" id=11]
 [ext_resource path="res://scripts/level/demo/button.gd" type="Script" id=12]
-[ext_resource path="res://scenes/level/demo/surface_boxshape.tres" type="Shape" id=13]
-[ext_resource path="res://scenes/level/demo/wall_boxshape.tres" type="Shape" id=14]
-[ext_resource path="res://scenes/level/demo/screen_boxshape.tres" type="Shape" id=15]
-[ext_resource path="res://scenes/level/demo/roof_boxshape.tres" type="Shape" id=16]
-[ext_resource path="res://scenes/level/demo/button_boxshape.tres" type="Shape" id=17]
+[ext_resource path="res://scenes/level/demo/surface_boxshape.tres" type="Shape3D" id=13]
+[ext_resource path="res://scenes/level/demo/wall_boxshape.tres" type="Shape3D" id=14]
+[ext_resource path="res://scenes/level/demo/screen_boxshape.tres" type="Shape3D" id=15]
+[ext_resource path="res://scenes/level/demo/roof_boxshape.tres" type="Shape3D" id=16]
+[ext_resource path="res://scenes/level/demo/button_boxshape.tres" type="Shape3D" id=17]
 
 [sub_resource type="ViewportTexture" id=1]
 viewport_path = NodePath("ScreenStaticBody/ScreenViewport")
 
-[sub_resource type="SpatialMaterial" id=2]
+[sub_resource type="StandardMaterial3D" id=2]
 resource_local_to_scene = true
 params_cull_mode = 1
 emission_enabled = true
@@ -31,308 +31,295 @@ emission_operator = 1
 emission_on_uv2 = false
 emission_texture = SubResource( 1 )
 
-[node name="demo" type="Spatial"]
+[node name="demo" type="Node3D"]
 
-[node name="Structure" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 14 )
+[node name="Structure" type="Node3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 14 )
 
-[node name="WallStaticBody_1" type="StaticBody" parent="Structure"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 2 )
+[node name="WallStaticBody_1" type="StaticBody3D" parent="Structure"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 2 )
 input_ray_pickable = false
 physics_material_override = ExtResource( 1 )
 
-[node name="WallCollisionShape" type="CollisionShape" parent="Structure/WallStaticBody_1"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
+[node name="WallCollisionShape" type="CollisionShape3D" parent="Structure/WallStaticBody_1"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
 shape = ExtResource( 14 )
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="WallMeshInstance" type="MeshInstance" parent="Structure/WallStaticBody_1"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
+[node name="WallMeshInstance" type="MeshInstance3D" parent="Structure/WallStaticBody_1"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
 mesh = ExtResource( 7 )
-material/0 = null
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="WallStaticBody_2" type="StaticBody" parent="Structure"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -2 )
+[node name="WallStaticBody_2" type="StaticBody3D" parent="Structure"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -2 )
 input_ray_pickable = false
 physics_material_override = ExtResource( 1 )
 
-[node name="WallCollisionShape" type="CollisionShape" parent="Structure/WallStaticBody_2"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
+[node name="WallCollisionShape" type="CollisionShape3D" parent="Structure/WallStaticBody_2"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
 shape = ExtResource( 14 )
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="WallMeshInstance" type="MeshInstance" parent="Structure/WallStaticBody_2"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
+[node name="WallMeshInstance" type="MeshInstance3D" parent="Structure/WallStaticBody_2"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
 mesh = ExtResource( 7 )
-material/0 = null
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="WallStaticBody_3" type="StaticBody" parent="Structure"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -2 )
+[node name="WallStaticBody_3" type="StaticBody3D" parent="Structure"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -2 )
 input_ray_pickable = false
 physics_material_override = ExtResource( 1 )
 
-[node name="WallCollisionShape" type="CollisionShape" parent="Structure/WallStaticBody_3"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
+[node name="WallCollisionShape" type="CollisionShape3D" parent="Structure/WallStaticBody_3"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
 shape = ExtResource( 14 )
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="WallMeshInstance" type="MeshInstance" parent="Structure/WallStaticBody_3"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
+[node name="WallMeshInstance" type="MeshInstance3D" parent="Structure/WallStaticBody_3"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
 mesh = ExtResource( 7 )
-material/0 = null
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="WallStaticBody_4" type="StaticBody" parent="Structure"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 2 )
+[node name="WallStaticBody_4" type="StaticBody3D" parent="Structure"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 2 )
 input_ray_pickable = false
 physics_material_override = ExtResource( 1 )
 
-[node name="WallCollisionShape" type="CollisionShape" parent="Structure/WallStaticBody_4"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
+[node name="WallCollisionShape" type="CollisionShape3D" parent="Structure/WallStaticBody_4"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
 shape = ExtResource( 14 )
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="WallMeshInstance" type="MeshInstance" parent="Structure/WallStaticBody_4"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
+[node name="WallMeshInstance" type="MeshInstance3D" parent="Structure/WallStaticBody_4"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
 mesh = ExtResource( 7 )
-material/0 = null
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="WallStaticBody_5" type="StaticBody" parent="Structure"]
-transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, -2, 0, -4 )
+[node name="WallStaticBody_5" type="StaticBody3D" parent="Structure"]
+transform = Transform3D( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, -2, 0, -4 )
 input_ray_pickable = false
 physics_material_override = ExtResource( 1 )
 
-[node name="WallCollisionShape" type="CollisionShape" parent="Structure/WallStaticBody_5"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
+[node name="WallCollisionShape" type="CollisionShape3D" parent="Structure/WallStaticBody_5"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
 shape = ExtResource( 14 )
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="WallMeshInstance" type="MeshInstance" parent="Structure/WallStaticBody_5"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
+[node name="WallMeshInstance" type="MeshInstance3D" parent="Structure/WallStaticBody_5"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
 mesh = ExtResource( 7 )
-material/0 = null
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="WallStaticBody_6" type="StaticBody" parent="Structure"]
-transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 2, 0, -4 )
+[node name="WallStaticBody_6" type="StaticBody3D" parent="Structure"]
+transform = Transform3D( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 2, 0, -4 )
 input_ray_pickable = false
 physics_material_override = ExtResource( 1 )
 
-[node name="WallCollisionShape" type="CollisionShape" parent="Structure/WallStaticBody_6"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
+[node name="WallCollisionShape" type="CollisionShape3D" parent="Structure/WallStaticBody_6"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
 shape = ExtResource( 14 )
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="WallMeshInstance" type="MeshInstance" parent="Structure/WallStaticBody_6"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
+[node name="WallMeshInstance" type="MeshInstance3D" parent="Structure/WallStaticBody_6"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
 mesh = ExtResource( 7 )
-material/0 = null
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="WallStaticBody_7" type="StaticBody" parent="Structure"]
-transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 2, 0, 4 )
+[node name="WallStaticBody_7" type="StaticBody3D" parent="Structure"]
+transform = Transform3D( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 2, 0, 4 )
 input_ray_pickable = false
 physics_material_override = ExtResource( 1 )
 
-[node name="WallCollisionShape" type="CollisionShape" parent="Structure/WallStaticBody_7"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
+[node name="WallCollisionShape" type="CollisionShape3D" parent="Structure/WallStaticBody_7"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
 shape = ExtResource( 14 )
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="WallMeshInstance" type="MeshInstance" parent="Structure/WallStaticBody_7"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
+[node name="WallMeshInstance" type="MeshInstance3D" parent="Structure/WallStaticBody_7"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
 mesh = ExtResource( 7 )
-material/0 = null
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="WallStaticBody_8" type="StaticBody" parent="Structure"]
-transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, -2, 0, -2 )
+[node name="WallStaticBody_8" type="StaticBody3D" parent="Structure"]
+transform = Transform3D( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, -2, 0, -2 )
 input_ray_pickable = false
 physics_material_override = ExtResource( 1 )
 
-[node name="WallCollisionShape" type="CollisionShape" parent="Structure/WallStaticBody_8"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
+[node name="WallCollisionShape" type="CollisionShape3D" parent="Structure/WallStaticBody_8"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
 shape = ExtResource( 14 )
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="WallMeshInstance" type="MeshInstance" parent="Structure/WallStaticBody_8"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
+[node name="WallMeshInstance" type="MeshInstance3D" parent="Structure/WallStaticBody_8"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
 mesh = ExtResource( 7 )
-material/0 = null
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="WallStaticBody_9" type="StaticBody" parent="Structure"]
-transform = Transform( 0.707107, -0.707107, 0, 0.707107, 0.707107, 0, 0, 0, 1, 6.5, 0.95, 2 )
+[node name="WallStaticBody_9" type="StaticBody3D" parent="Structure"]
+transform = Transform3D( 0.707107, -0.707107, 0, 0.707107, 0.707107, 0, 0, 0, 1, 6.5, 0.95, 2 )
 input_ray_pickable = false
 physics_material_override = ExtResource( 1 )
 
-[node name="WallCollisionShape" type="CollisionShape" parent="Structure/WallStaticBody_9"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
+[node name="WallCollisionShape" type="CollisionShape3D" parent="Structure/WallStaticBody_9"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
 shape = ExtResource( 14 )
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="WallMeshInstance" type="MeshInstance" parent="Structure/WallStaticBody_9"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
+[node name="WallMeshInstance" type="MeshInstance3D" parent="Structure/WallStaticBody_9"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
 mesh = ExtResource( 7 )
-material/0 = null
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="WallStaticBody_10" type="StaticBody" parent="Structure"]
-transform = Transform( 0.252187, -0.967679, 0, 0.967679, 0.252187, 0, 0, 0, 1, 9.8, 0.03, 2 )
+[node name="WallStaticBody_10" type="StaticBody3D" parent="Structure"]
+transform = Transform3D( 0.252187, -0.967679, 0, 0.967679, 0.252187, 0, 0, 0, 1, 9.8, 0.03, 2 )
 input_ray_pickable = false
 physics_material_override = ExtResource( 1 )
 
-[node name="WallCollisionShape" type="CollisionShape" parent="Structure/WallStaticBody_10"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
+[node name="WallCollisionShape" type="CollisionShape3D" parent="Structure/WallStaticBody_10"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
 shape = ExtResource( 14 )
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="WallMeshInstance" type="MeshInstance" parent="Structure/WallStaticBody_10"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
+[node name="WallMeshInstance" type="MeshInstance3D" parent="Structure/WallStaticBody_10"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
 mesh = ExtResource( 7 )
-material/0 = null
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="RoofStaticBody_1" type="StaticBody" parent="Structure"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.3, 0 )
+[node name="RoofStaticBody_1" type="StaticBody3D" parent="Structure"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.3, 0 )
 
-[node name="RoofCollisionShape" type="CollisionShape" parent="Structure/RoofStaticBody_1"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0 )
+[node name="RoofCollisionShape" type="CollisionShape3D" parent="Structure/RoofStaticBody_1"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0 )
 shape = ExtResource( 16 )
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="RoofMeshInstance" type="MeshInstance" parent="Structure/RoofStaticBody_1"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0 )
+[node name="RoofMeshInstance" type="MeshInstance3D" parent="Structure/RoofStaticBody_1"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0 )
 mesh = ExtResource( 11 )
-material/0 = null
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="RoofStaticBody_2" type="StaticBody" parent="Structure"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 1.55, 0 )
+[node name="RoofStaticBody_2" type="StaticBody3D" parent="Structure"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 1.55, 0 )
 
-[node name="RoofCollisionShape" type="CollisionShape" parent="Structure/RoofStaticBody_2"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0 )
+[node name="RoofCollisionShape" type="CollisionShape3D" parent="Structure/RoofStaticBody_2"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0 )
 shape = ExtResource( 16 )
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="RoofMeshInstance" type="MeshInstance" parent="Structure/RoofStaticBody_2"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0 )
+[node name="RoofMeshInstance" type="MeshInstance3D" parent="Structure/RoofStaticBody_2"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0 )
 mesh = ExtResource( 11 )
-material/0 = null
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="RoofStaticBody_3" type="StaticBody" parent="Structure"]
-transform = Transform( 0.978148, -0.207912, 0, 0.207912, 0.978148, 0, 0, 0, 1, -16.0667, 0.691037, 0 )
+[node name="RoofStaticBody_3" type="StaticBody3D" parent="Structure"]
+transform = Transform3D( 0.978148, -0.207912, 0, 0.207912, 0.978148, 0, 0, 0, 1, -16.0667, 0.691037, 0 )
 
-[node name="RoofCollisionShape" type="CollisionShape" parent="Structure/RoofStaticBody_3"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0 )
+[node name="RoofCollisionShape" type="CollisionShape3D" parent="Structure/RoofStaticBody_3"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0 )
 shape = ExtResource( 16 )
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="RoofMeshInstance" type="MeshInstance" parent="Structure/RoofStaticBody_3"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0 )
+[node name="RoofMeshInstance" type="MeshInstance3D" parent="Structure/RoofStaticBody_3"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0 )
 mesh = ExtResource( 11 )
-material/0 = null
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="OmniLight_1" type="OmniLight" parent="Structure"]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 3, 2.9, 3 )
+[node name="OmniLight_1" type="OmniLight3D" parent="Structure"]
+transform = Transform3D( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 3, 2.9, 3 )
 light_color = Color( 1, 0.25098, 0.25098, 1 )
 light_energy = 0.6
 light_indirect_energy = 0.3
 light_specular = 0.3
 shadow_enabled = true
 
-[node name="OmniLight_2" type="OmniLight" parent="Structure"]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, -3, 2.9, 3 )
+[node name="OmniLight_2" type="OmniLight3D" parent="Structure"]
+transform = Transform3D( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, -3, 2.9, 3 )
 light_color = Color( 0.25098, 1, 0.25098, 1 )
 light_energy = 0.6
 light_indirect_energy = 0.3
 light_specular = 0.3
 shadow_enabled = true
 
-[node name="OmniLight_3" type="OmniLight" parent="Structure"]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, -3, 2.9, -3 )
+[node name="OmniLight_3" type="OmniLight3D" parent="Structure"]
+transform = Transform3D( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, -3, 2.9, -3 )
 light_color = Color( 0.25098, 0.25098, 1, 1 )
 light_energy = 0.6
 light_indirect_energy = 0.3
 light_specular = 0.3
 shadow_enabled = true
 
-[node name="OmniLight_4" type="OmniLight" parent="Structure"]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 3, 2.9, -3 )
+[node name="OmniLight_4" type="OmniLight3D" parent="Structure"]
+transform = Transform3D( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 3, 2.9, -3 )
 light_energy = 0.6
 light_indirect_energy = 0.3
 light_specular = 0.3
 shadow_enabled = true
 
-[node name="button" type="StaticBody" parent="Structure"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.8, 1.2, 0 )
+[node name="button" type="StaticBody3D" parent="Structure"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.8, 1.2, 0 )
 script = ExtResource( 12 )
 
-[node name="button" type="MeshInstance" parent="Structure/button"]
+[node name="button" type="MeshInstance3D" parent="Structure/button"]
 mesh = ExtResource( 9 )
 material/0 = ExtResource( 6 )
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="CollisionShape" type="CollisionShape" parent="Structure/button"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Structure/button"]
 shape = ExtResource( 17 )
 __meta__ = {
 "_edit_lock_": true
@@ -344,31 +331,31 @@ unit_size = 20.0
 autoplay = true
 bus = "FX"
 
-[node name="SurfaceStaticBody" type="StaticBody" parent="."]
+[node name="SurfaceStaticBody" type="StaticBody3D" parent="."]
 input_ray_pickable = false
 physics_material_override = ExtResource( 3 )
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="SurfaceMeshInstance" type="MeshInstance" parent="SurfaceStaticBody"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0 )
+[node name="SurfaceMeshInstance" type="MeshInstance3D" parent="SurfaceStaticBody"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0 )
 mesh = ExtResource( 10 )
 material/0 = ExtResource( 5 )
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="SurfaceCollisionShape" type="CollisionShape" parent="SurfaceStaticBody"]
+[node name="SurfaceCollisionShape" type="CollisionShape3D" parent="SurfaceStaticBody"]
 shape = ExtResource( 13 )
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="ScreenStaticBody" type="StaticBody" parent="."]
-transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, 2, 10 )
+[node name="ScreenStaticBody" type="StaticBody3D" parent="."]
+transform = Transform3D( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, 2, 10 )
 
-[node name="ScreenViewport" type="Viewport" parent="ScreenStaticBody"]
+[node name="ScreenViewport" type="SubViewport" parent="ScreenStaticBody"]
 size = Vector2( 854, 480 )
 hdr = false
 disable_3d = true
@@ -379,14 +366,14 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ScreenStaticBody/ScreenViewport/CenterContainer"]
-margin_left = 341.0
-margin_top = 192.0
-margin_right = 513.0
-margin_bottom = 288.0
+offset_left = 341.0
+offset_top = 192.0
+offset_right = 513.0
+offset_bottom = 288.0
 
 [node name="Label" type="Label" parent="ScreenStaticBody/ScreenViewport/CenterContainer/VBoxContainer"]
-margin_right = 172.0
-margin_bottom = 48.0
+offset_right = 172.0
+offset_bottom = 48.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Maybe some lorem ipsum.
@@ -396,36 +383,34 @@ align = 1
 valign = 1
 
 [node name="Button1" type="Button" parent="ScreenStaticBody/ScreenViewport/CenterContainer/VBoxContainer"]
-margin_top = 52.0
-margin_right = 172.0
-margin_bottom = 72.0
+offset_top = 52.0
+offset_right = 172.0
+offset_bottom = 72.0
 text = "ON"
 
 [node name="Button2" type="Button" parent="ScreenStaticBody/ScreenViewport/CenterContainer/VBoxContainer"]
-margin_top = 76.0
-margin_right = 172.0
-margin_bottom = 96.0
+offset_top = 76.0
+offset_right = 172.0
+offset_bottom = 96.0
 text = "OFF"
 
-[node name="Screen1" type="MeshInstance" parent="ScreenStaticBody"]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 0, 0.15 )
+[node name="Screen1" type="MeshInstance3D" parent="ScreenStaticBody"]
+transform = Transform3D( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 0, 0.15 )
 material_override = SubResource( 2 )
 mesh = ExtResource( 8 )
-material/0 = null
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Screen2" type="MeshInstance" parent="ScreenStaticBody"]
-transform = Transform( -1, 3.25841e-07, 5.30863e-14, 0, -1.62921e-07, 1, 3.25841e-07, 1, 1.62921e-07, 0, 0, -0.15 )
+[node name="Screen2" type="MeshInstance3D" parent="ScreenStaticBody"]
+transform = Transform3D( -1, 3.25841e-07, 5.30863e-14, 0, -1.62921e-07, 1, 3.25841e-07, 1, 1.62921e-07, 0, 0, -0.15 )
 material_override = SubResource( 2 )
 mesh = ExtResource( 8 )
-material/0 = null
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="CollisionShape" type="CollisionShape" parent="ScreenStaticBody"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ScreenStaticBody"]
 shape = ExtResource( 15 )
 __meta__ = {
 "_edit_lock_": true
@@ -434,19 +419,19 @@ __meta__ = {
 [node name="Props" type="Node" parent="."]
 
 [node name="cardboard_box1" parent="Props" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.35, 6 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.35, 6 )
 
 [node name="cardboard_box2" parent="Props" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 6 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 6 )
 
 [node name="cardboard_box3" parent="Props" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.35, 6 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.35, 6 )
 
 [node name="cardboard_box4" parent="Props" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.85, 6 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.85, 6 )
 
 [node name="cardboard_box5" parent="Props" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 6 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 6 )
 
 [node name="cardboard_box6" parent="Props" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.85, 6 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.85, 6 )

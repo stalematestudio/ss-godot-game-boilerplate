@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/accept.wav-85de5ff7ea09244ee2801f6ab0393893.sample"
+type="AudioStreamWAV"
+uid="uid://cteikdn4iqy31"
+path="res://.godot/imported/accept.wav-85de5ff7ea09244ee2801f6ab0393893.sample"
 
 [deps]
 
 source_file="res://assets/audio/ui_effects/accept.wav"
-dest_files=[ "res://.import/accept.wav-85de5ff7ea09244ee2801f6ab0393893.sample" ]
+dest_files=["res://.godot/imported/accept.wav-85de5ff7ea09244ee2801f6ab0393893.sample"]
 
 [params]
 
@@ -17,5 +18,7 @@ force/max_rate=false
 force/max_rate_hz=44100
 edit/trim=true
 edit/normalize=true
-edit/loop=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
 compress/mode=0

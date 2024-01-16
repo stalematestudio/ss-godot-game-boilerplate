@@ -8,9 +8,9 @@ signal resume_game
 signal load_game(load_type)
 signal save_game(save_type)
 
-onready var game_paused = false
-onready var game_state = false
-onready var game_states = {
+@onready var game_paused = false
+@onready var game_state = false
+@onready var game_states = {
 		"INTRO":{
 			"scene": "intro_scene",
 			"in_game": false,
@@ -34,13 +34,13 @@ onready var game_states = {
 		}
 
 func _ready():
-	yield(get_node("/root/main"), "ready") # Wait For Main Scene to be ready.
-	self.pause_mode = Node.PAUSE_MODE_PROCESS
-	ConfigManager.connect("config_update", self, "apply_config")
-	self.connect("pause_game", self, "_on_pause_game")
-	self.connect("resume_game", self, "_on_resume_game")
-	InputManager.connect("joypad_active", self, "_on_joypad_active")
-	InputManager.connect("joypad_inactive", self, "_on_joypad_inactive")
+	await get_node("/root/main").ready # Wait For Main Scene to be ready.
+	self.process_mode = Node.PROCESS_MODE_ALWAYS
+	ConfigManager.connect("config_update", Callable(self, "apply_config"))
+	self.connect("pause_game", Callable(self, "_on_pause_game"))
+	self.connect("resume_game", Callable(self, "_on_resume_game"))
+	InputManager.connect("joypad_active", Callable(self, "_on_joypad_active"))
+	InputManager.connect("joypad_inactive", Callable(self, "_on_joypad_inactive"))
 	game_state_change("INTRO")
 
 func apply_config():
@@ -50,7 +50,7 @@ func apply_config():
 	OS.set_low_processor_usage_mode(ConfigManager.config_data.game.low_processor_usage_mode)
 	if OS.is_in_low_processor_usage_mode():
 		OS.set_low_processor_usage_mode_sleep_usec(ConfigManager.config_data.game.low_processor_usage_mode_sleep_usec)
-	Engine.set_iterations_per_second(ConfigManager.config_data.game.iterations_per_second)
+	Engine.set_physics_ticks_per_second(ConfigManager.config_data.game.physics_ticks_per_second)
 	Engine.set_physics_jitter_fix(ConfigManager.config_data.game.physics_jitter_fix)
 	Engine.set_target_fps(ConfigManager.config_data.game.target_fps)
 	Engine.set_time_scale(ConfigManager.config_data.game.time_scale)
@@ -58,16 +58,16 @@ func apply_config():
 func _notification(what):
 	if game_state:
 		match what:
-			NOTIFICATION_WM_FOCUS_IN:
+			NOTIFICATION_APPLICATION_FOCUS_IN:
 				if game_state.in_game and ConfigManager.config_data.game.resume_on_focus_grab:
 					emit_signal("resume_game")
-			NOTIFICATION_WM_FOCUS_OUT:
+			NOTIFICATION_APPLICATION_FOCUS_OUT:
 				if game_state.in_game and ConfigManager.config_data.game.pause_on_focus_loss:
 					emit_signal("pause_game")
 
 func _input(event):
 	if event.is_action_released("util_pause") and game_state.in_game:
-		get_tree().set_input_as_handled()
+		get_viewport().set_input_as_handled()
 		if game_paused:
 			emit_signal("resume_game")
 		else:
@@ -100,7 +100,7 @@ func game_state_change(state):
 func screenshot():
 	# Check if path exists
 	var dir_path = ProfileManager.get_profile_screenshot_path_current()
-	var dir = Directory.new()
+	var dir = DirAccess.new()
 	if not dir.dir_exists(dir_path):
 		dir.make_dir_recursive(dir_path)
 

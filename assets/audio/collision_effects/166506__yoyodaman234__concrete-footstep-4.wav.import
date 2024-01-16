@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/166506__yoyodaman234__concrete-footstep-4.wav-f107db6e8e5b3bbcc3f8481873570f1b.sample"
+type="AudioStreamWAV"
+uid="uid://b4nciekqn81lu"
+path="res://.godot/imported/166506__yoyodaman234__concrete-footstep-4.wav-f107db6e8e5b3bbcc3f8481873570f1b.sample"
 
 [deps]
 
 source_file="res://assets/audio/collision_effects/166506__yoyodaman234__concrete-footstep-4.wav"
-dest_files=[ "res://.import/166506__yoyodaman234__concrete-footstep-4.wav-f107db6e8e5b3bbcc3f8481873570f1b.sample" ]
+dest_files=["res://.godot/imported/166506__yoyodaman234__concrete-footstep-4.wav-f107db6e8e5b3bbcc3f8481873570f1b.sample"]
 
 [params]
 
@@ -17,5 +18,7 @@ force/max_rate=false
 force/max_rate_hz=44100
 edit/trim=true
 edit/normalize=true
-edit/loop=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
 compress/mode=0

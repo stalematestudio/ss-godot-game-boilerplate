@@ -1,16 +1,16 @@
 extends HBoxContainer
 
-onready var bus = AudioManager.audio_bus[self.name]
-onready var label = $Label
-onready var slider = $VBC/HBC/Slider
-onready var display = $VBC/HBC/Display
-onready var mute = $VBC/Mute
+@onready var bus = AudioManager.audio_bus[self.name]
+@onready var label = $Label
+@onready var slider = $VBC/HBC/Slider
+@onready var display = $VBC/HBC/Display
+@onready var mute = $VBC/Mute
 
 func _ready():
 	label.set_text(self.name)
 
-	slider.connect("value_changed", self, "volume_adjust")
-	mute.connect("pressed", self, "mute_adjust")
+	slider.connect("value_changed", Callable(self, "volume_adjust"))
+	mute.connect("pressed", Callable(self, "mute_adjust"))
 
 	slider.set_value(ConfigManager.config_data.audio[self.name].volume)
 	mute.set_pressed(ConfigManager.config_data.audio[self.name].mute)
@@ -20,7 +20,7 @@ func _ready():
 func set_elements_disabled():
 	if mute.is_pressed():
 		slider.set_editable(false)
-		display.set_self_modulate(Color("#40ffffff"))
+		display.set_self_modulate(Color("#ffffff40"))
 	else:
 		slider.set_editable(true)
 		display.set_self_modulate(Color("#ffffffff"))

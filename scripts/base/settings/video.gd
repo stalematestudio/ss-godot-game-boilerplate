@@ -1,61 +1,61 @@
-extends Tabs
+extends TabBar
 
-onready var gui_fov_slider = $Settings_Scroll/Settings_VBC/FOV_HBC/Slider
-onready var gui_fov_value = $Settings_Scroll/Settings_VBC/FOV_HBC/Value
+@onready var gui_fov_slider = $Settings_Scroll/Settings_VBC/FOV_HBC/Slider
+@onready var gui_fov_value = $Settings_Scroll/Settings_VBC/FOV_HBC/Value
 
-onready var gui_picture_adjustments = $Settings_Scroll/Settings_VBC/Adjustments_CheckButton
+@onready var gui_picture_adjustments = $Settings_Scroll/Settings_VBC/Adjustments_CheckButton
 
-onready var gui_brightnes_label = $Settings_Scroll/Settings_VBC/Brightnes_HBC/Brightnes_Label
-onready var gui_brightnes_slider = $Settings_Scroll/Settings_VBC/Brightnes_HBC/Brightnes_Slider
-onready var gui_brightnes_display = $Settings_Scroll/Settings_VBC/Brightnes_HBC/Brightnes_Value
+@onready var gui_brightnes_label = $Settings_Scroll/Settings_VBC/Brightnes_HBC/Brightnes_Label
+@onready var gui_brightnes_slider = $Settings_Scroll/Settings_VBC/Brightnes_HBC/Brightnes_Slider
+@onready var gui_brightnes_display = $Settings_Scroll/Settings_VBC/Brightnes_HBC/Brightnes_Value
 
-onready var gui_contrast_label = $Settings_Scroll/Settings_VBC/Contrast_HBC/Contrast_Label
-onready var gui_contrast_slider = $Settings_Scroll/Settings_VBC/Contrast_HBC/Contrast_Slider
-onready var gui_contrast_display = $Settings_Scroll/Settings_VBC/Contrast_HBC/Contrast_Value
+@onready var gui_contrast_label = $Settings_Scroll/Settings_VBC/Contrast_HBC/Contrast_Label
+@onready var gui_contrast_slider = $Settings_Scroll/Settings_VBC/Contrast_HBC/Contrast_Slider
+@onready var gui_contrast_display = $Settings_Scroll/Settings_VBC/Contrast_HBC/Contrast_Value
 
-onready var gui_saturation_label = $Settings_Scroll/Settings_VBC/Saturation_HBC/Saturation_Label
-onready var gui_saturation_slider = $Settings_Scroll/Settings_VBC/Saturation_HBC/Saturation_Slider
-onready var gui_saturation_display = $Settings_Scroll/Settings_VBC/Saturation_HBC/Saturation_Value
+@onready var gui_saturation_label = $Settings_Scroll/Settings_VBC/Saturation_HBC/Saturation_Label
+@onready var gui_saturation_slider = $Settings_Scroll/Settings_VBC/Saturation_HBC/Saturation_Slider
+@onready var gui_saturation_display = $Settings_Scroll/Settings_VBC/Saturation_HBC/Saturation_Value
 
-onready var gui_keep_screen_on = $Settings_Scroll/Settings_VBC/KeepScreenOn_CheckButton
-onready var gui_vsync = $Settings_Scroll/Settings_VBC/VSync_CheckButton
+@onready var gui_keep_screen_on = $Settings_Scroll/Settings_VBC/KeepScreenOn_CheckButton
+@onready var gui_vsync = $Settings_Scroll/Settings_VBC/VSync_CheckButton
 
-onready var gui_fullscreen = $Settings_Scroll/Settings_VBC/FullScreen_CheckButton
+@onready var gui_fullscreen = $Settings_Scroll/Settings_VBC/FullScreen_CheckButton
 
-onready var gui_screen_label = $Settings_Scroll/Settings_VBC/ScreenSelect_HBC/ScreenSelect_Label
-onready var gui_screen_option = $Settings_Scroll/Settings_VBC/ScreenSelect_HBC/ScreenSelect_Option
+@onready var gui_screen_label = $Settings_Scroll/Settings_VBC/ScreenSelect_HBC/ScreenSelect_Label
+@onready var gui_screen_option = $Settings_Scroll/Settings_VBC/ScreenSelect_HBC/ScreenSelect_Option
 
-onready var gui_borderless = $Settings_Scroll/Settings_VBC/Borderless_CheckButton
-onready var gui_centered = $Settings_Scroll/Settings_VBC/Centered_CheckButton
-onready var gui_resolution_auto = $Settings_Scroll/Settings_VBC/ResolutionAuto_CheckButton
-onready var gui_resolution_label = $Settings_Scroll/Settings_VBC/Resolution_HBC/Resolution_Label
-onready var gui_resolution_option = $Settings_Scroll/Settings_VBC/Resolution_HBC/Resolution_Option
+@onready var gui_borderless = $Settings_Scroll/Settings_VBC/Borderless_CheckButton
+@onready var gui_centered = $Settings_Scroll/Settings_VBC/Centered_CheckButton
+@onready var gui_resolution_auto = $Settings_Scroll/Settings_VBC/ResolutionAuto_CheckButton
+@onready var gui_resolution_label = $Settings_Scroll/Settings_VBC/Resolution_HBC/Resolution_Label
+@onready var gui_resolution_option = $Settings_Scroll/Settings_VBC/Resolution_HBC/Resolution_Option
 
 func _ready():
-	gui_fov_slider.connect("value_changed", self, "fov_adjust")
+	gui_fov_slider.connect("value_changed", Callable(self, "fov_adjust"))
 
-	gui_picture_adjustments.connect("pressed", self, "picture_adjust")
-	gui_brightnes_slider.connect("value_changed", self, "brightnes_adjust")
-	gui_contrast_slider.connect("value_changed", self, "contrast_adjust")
-	gui_saturation_slider.connect("value_changed", self, "saturation_adjust")
+	gui_picture_adjustments.connect("pressed", Callable(self, "picture_adjust"))
+	gui_brightnes_slider.connect("value_changed", Callable(self, "brightnes_adjust"))
+	gui_contrast_slider.connect("value_changed", Callable(self, "contrast_adjust"))
+	gui_saturation_slider.connect("value_changed", Callable(self, "saturation_adjust"))
 	
-	gui_keep_screen_on.connect("pressed", self, "keep_screen_on_adjust")
-	gui_vsync.connect("pressed", self, "vsync_adjust")
+	gui_keep_screen_on.connect("pressed", Callable(self, "keep_screen_on_adjust"))
+	gui_vsync.connect("pressed", Callable(self, "vsync_adjust"))
 	
-	gui_fullscreen.connect("pressed", self, "fullscreen_adjust")
+	gui_fullscreen.connect("pressed", Callable(self, "fullscreen_adjust"))
 
-	for screen in range(OS.get_screen_count()):
+	for screen in range(DisplayServer.get_screen_count()):
 		gui_screen_option.add_item("Screen : " + String(screen), screen)
-	gui_screen_option.connect("item_selected", self, "screen_option_adjust")
+	gui_screen_option.connect("item_selected", Callable(self, "screen_option_adjust"))
 
-	gui_borderless.connect("pressed", self, "borderless_adjust")
-	gui_centered.connect("pressed", self, "centered_adjust")
-	gui_resolution_auto.connect("pressed", self, "resolution_auto_adjust")
+	gui_borderless.connect("pressed", Callable(self, "borderless_adjust"))
+	gui_centered.connect("pressed", Callable(self, "centered_adjust"))
+	gui_resolution_auto.connect("pressed", Callable(self, "resolution_auto_adjust"))
 	
 	for resolution in ConfigManager.resolutions:
-		if resolution.value[0] <= OS.get_screen_size()[0]:
+		if resolution.value[0] <= DisplayServer.screen_get_size()[0]:
 			gui_resolution_option.add_item(resolution.name)
-	gui_resolution_option.connect("item_selected", self, "resolution_option_adjust")
+	gui_resolution_option.connect("item_selected", Callable(self, "resolution_option_adjust"))
 
 func set_form_values():
 	gui_fov_slider.set_value(ConfigManager.config_data.video.fov)
@@ -96,17 +96,17 @@ func set_elements_disabled():
 		gui_saturation_slider.set_editable(true)
 		gui_saturation_display.set_self_modulate(Color("#ffffffff"))
 	else:
-		gui_brightnes_label.set_self_modulate(Color("#40ffffff"))
+		gui_brightnes_label.set_self_modulate(Color("#ffffff40"))
 		gui_brightnes_slider.set_editable(false)
-		gui_brightnes_display.set_self_modulate(Color("#40ffffff"))
+		gui_brightnes_display.set_self_modulate(Color("#ffffff40"))
 
-		gui_contrast_label.set_self_modulate(Color("#40ffffff"))
+		gui_contrast_label.set_self_modulate(Color("#ffffff40"))
 		gui_contrast_slider.set_editable(false)
-		gui_contrast_display.set_self_modulate(Color("#40ffffff"))
+		gui_contrast_display.set_self_modulate(Color("#ffffff40"))
 
-		gui_saturation_label.set_self_modulate(Color("#40ffffff"))
+		gui_saturation_label.set_self_modulate(Color("#ffffff40"))
 		gui_saturation_slider.set_editable(false)
-		gui_saturation_display.set_self_modulate(Color("#40ffffff"))
+		gui_saturation_display.set_self_modulate(Color("#ffffff40"))
 	
 	var disabled_by_fullscreen = gui_fullscreen.is_pressed()
 	var disabled_by_resolution_auto = gui_resolution_auto.is_pressed()
@@ -116,14 +116,14 @@ func set_elements_disabled():
 	if (disabled_by_fullscreen):
 		gui_screen_label.set_self_modulate(Color("#ffffffff"))
 	else:
-		gui_screen_label.set_self_modulate(Color("#40ffffff"))
+		gui_screen_label.set_self_modulate(Color("#ffffff40"))
 
 	gui_borderless.set_disabled(disabled_by_fullscreen)
 	gui_centered.set_disabled(disabled_by_fullscreen)
 
 	gui_resolution_option.set_disabled( disabled_by_resolution_auto )
 	if (disabled_by_resolution_auto ):
-		gui_resolution_label.set_self_modulate(Color("#40ffffff"))
+		gui_resolution_label.set_self_modulate(Color("#ffffff40"))
 	else:
 		gui_resolution_label.set_self_modulate(Color("#ffffffff"))
 

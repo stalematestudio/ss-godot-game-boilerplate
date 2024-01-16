@@ -17,23 +17,23 @@ signal message(message)
 signal profile_created
 signal profile_changed
 
-onready var profile_list = []
-onready var profile_current = -1
+@onready var profile_list = []
+@onready var profile_current = -1
 
-onready var game_list = []
-onready var game_current = 0
+@onready var game_list = []
+@onready var game_current = 0
 
-onready var game_save_list = []
-onready var game_data_path = ""
+@onready var game_save_list = []
+@onready var game_data_path = ""
 
-onready var game_play_time = 0
+@onready var game_play_time = 0
 
 func _ready():
-	connect("profile_created", self, "_on_profile_created")
-	connect("profile_changed", self, "_on_profile_changed")
+	connect("profile_created", Callable(self, "_on_profile_created"))
+	connect("profile_changed", Callable(self, "_on_profile_changed"))
 	
-	yield(get_node("/root/main"), "ready")
-	self.pause_mode = Node.PAUSE_MODE_PROCESS
+	await get_node("/root/main").ready
+	self.process_mode = Node.PROCESS_MODE_ALWAYS
 
 func _on_profile_changed():
 	load_profile()
@@ -45,7 +45,7 @@ func add_profile(new_profile):
 	get_profile_list()
 	if new_profile in profile_list:
 		return ProfileErrors.PROFILE_EXISTS
-	var dir = Directory.new()
+	var dir = DirAccess.new()
 	dir.open("user://")
 	if dir.make_dir(new_profile) == OK:
 		
@@ -113,7 +113,7 @@ func load_profile():
 func new_game(game_data):
 	# New game_current
 	var game_index = 0
-	var dir = Directory.new()
+	var dir = DirAccess.new()
 	while dir.dir_exists(get_game_save_path(game_index)):
 		game_index = game_index + 1
 	dir.make_dir_recursive(get_game_save_path(game_index))
@@ -129,13 +129,13 @@ func save_game(game_data):
 	var save_dir_path = get_game_save_path_current()
 	var save_file_path = Helpers.date_time_string() + ".save"
 	game_data_path = save_dir_path + save_file_path
-	var save_dir = Directory.new()
+	var save_dir = DirAccess.new()
 	if not save_dir.dir_exists(save_dir_path):
 		save_dir.make_dir_recursive(save_dir_path)
 	var save_file = File.new()
 	save_file.open(game_data_path ,File.WRITE)
 	for data in game_data:
-		save_file.store_line(to_json(data))
+		save_file.store_line(JSON.new().stringify(data))
 	save_file.close()
 	save_profile()
 	emit_signal("message", game_data_path)
@@ -145,7 +145,9 @@ func load_game():
 	var save_file = File.new()
 	if OK == save_file.open(game_data_path, File.READ):
 		while not save_file.eof_reached():
-			game_data.append( parse_json( save_file.get_line() ) )
+			var test_json_conv = JSON.new()
+			test_json_conv.parse( save_file.get_line() ) )
+			game_data.append( test_json_conv.get_data()
 	save_file.close()
 	return game_data
 
@@ -158,7 +160,7 @@ func set_profile_current(profile_index):
 
 func get_profile_current():
 	get_profile_list()
-	if profile_list.empty():
+	if profile_list.is_empty():
 		profile_current = -1
 		save_profile_current()
 	else:
@@ -171,7 +173,7 @@ func get_profile_current():
 
 func get_game_current():
 	get_game_list()
-	if game_list.empty():
+	if game_list.is_empty():
 		game_current = 0
 		save_profile()
 	else:
@@ -183,9 +185,9 @@ func get_game_current():
 
 func get_profile_list():
 	profile_list.clear()
-	var dir = Directory.new()
+	var dir = DirAccess.new()
 	dir.open("user://")
-	dir.list_dir_begin(true, true)
+	dir.list_dir_begin() # TODOConverter3To4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 	var el_name = dir.get_next()
 	while el_name != "":
 		if dir.current_is_dir() and ( not el_name in EXCLUDED_FOLDERS ) :
@@ -196,12 +198,12 @@ func get_profile_list():
 
 func get_game_list():
 	game_list.clear()
-	var dir = Directory.new()
+	var dir = DirAccess.new()
 	var profile_saved_games_dir = get_profile_saved_games_path_current()
 	if not dir.dir_exists(profile_saved_games_dir):
 		dir.make_dir(profile_saved_games_dir)
 	dir.open(profile_saved_games_dir)
-	dir.list_dir_begin(true, true)
+	dir.list_dir_begin() # TODOConverter3To4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 	var el_name = dir.get_next()
 	while el_name != "":
 		if dir.current_is_dir() and ( not el_name in EXCLUDED_FOLDERS ) :
@@ -213,10 +215,10 @@ func get_game_list():
 
 func get_game_save_list(game_index):
 	game_save_list.clear()
-	var dir = Directory.new()
+	var dir = DirAccess.new()
 	var game_save_dir = get_game_save_path(game_index)
 	dir.open(game_save_dir)
-	dir.list_dir_begin(true, true)
+	dir.list_dir_begin() # TODOConverter3To4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 	var el_name = dir.get_next()
 	while el_name != "":
 		if not dir.current_is_dir():
@@ -275,4 +277,4 @@ func get_game_save_path_current():
 
 func profile_has_saved_games_current():
 	get_game_list()
-	return not game_list.empty()
+	return not game_list.is_empty()

@@ -2,26 +2,26 @@ extends Node
 
 signal message(message)
 
-onready var Music_Player = get_node("/root/main/Music_Player")
-onready var Voice_Player = get_node("/root/main/Voice_Player")
-onready var FX_Player = get_node("/root/main/FX_Player")
+@onready var Music_Player = get_node("/root/main/Music_Player")
+@onready var Voice_Player = get_node("/root/main/Voice_Player")
+@onready var FX_Player = get_node("/root/main/FX_Player")
 
-onready var audio_bus = {
+@onready var audio_bus = {
 		"Master": AudioServer.get_bus_index("Master"),
 		"Music": AudioServer.get_bus_index("Music"),
 		"Voice": AudioServer.get_bus_index("Voice"),
 		"FX": AudioServer.get_bus_index("FX")
 		}
 
-onready var navigate_audio = preload("res://assets/audio/ui_effects/navigate.wav")
-onready var deny_audio = preload("res://assets/audio/ui_effects/deny.wav")
-onready var accept_audio = preload("res://assets/audio/ui_effects/accept.wav")
-onready var cancel_audio = preload("res://assets/audio/ui_effects/cancel.wav")
+@onready var navigate_audio = preload("res://assets/audio/ui_effects/navigate.wav")
+@onready var deny_audio = preload("res://assets/audio/ui_effects/deny.wav")
+@onready var accept_audio = preload("res://assets/audio/ui_effects/accept.wav")
+@onready var cancel_audio = preload("res://assets/audio/ui_effects/cancel.wav")
 
 func _ready():
-	yield(get_node("/root/main"), "ready") # Wait For Main Scene to be ready.
-	self.pause_mode = Node.PAUSE_MODE_PROCESS
-	ConfigManager.connect("config_update", self, "apply_config")
+	await get_node("/root/main").ready # Wait For Main Scene to be ready.
+	self.process_mode = Node.PROCESS_MODE_ALWAYS
+	ConfigManager.connect("config_update", Callable(self, "apply_config"))
 
 func apply_config():
 	for bus in audio_bus.keys():
@@ -29,7 +29,7 @@ func apply_config():
 
 func set_audio(bus=0, mute=false, volume=50):
 	AudioServer.set_bus_mute(bus, mute)
-	AudioServer.set_bus_volume_db(bus, linear2db(clamp(volume * 0.01, 0.01, 0.99)))
+	AudioServer.set_bus_volume_db(bus, linear_to_db(clamp(volume * 0.01, 0.01, 0.99)))
 
 func ui_navigate_audio_effect(val=false):
 	FX_Player.set_stream(navigate_audio)
