@@ -63,8 +63,7 @@ static func event_as_text(event):
 
 static func recursive_non_empty_dir_deletion(path):
 	path = path if path.ends_with("/") else path + "/"
-	var dir = DirAccess.new()
-	dir.open(path)
+	var dir = DirAccess.open(path)
 	dir.list_dir_begin() # TODOConverter3To4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 	var el_name = dir.get_next()
 	while el_name != "":
