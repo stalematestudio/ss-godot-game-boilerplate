@@ -1,15 +1,15 @@
 extends Node
 
 # Scenes
-@export (PackedScene) var intro_scene
-@export (PackedScene) var title_scene
-@export (PackedScene) var credits_scene
-@export (PackedScene) var game_scene
+@export var intro_scene: PackedScene
+@export var title_scene: PackedScene
+@export var credits_scene: PackedScene
+@export var game_scene: PackedScene
 
 # Sub Scenes
-@export (PackedScene) var debug_scene
-@export (PackedScene) var settings_scene
-@export (PackedScene) var pause_scene
+@export var debug_scene: PackedScene
+@export var settings_scene: PackedScene
+@export var pause_scene: PackedScene
 
 # Scene Instances
 var current_scene_instance
