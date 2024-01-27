@@ -13,7 +13,7 @@ func apply_config():
 	screen_adjust()
 	emit_signal("camera_config_changed")
 
-	OS.set_keep_screen_on(ConfigManager.config_data.video.keep_screen_on)
+	DisplayServer.screen_set_keep_on(ConfigManager.config_data.video.keep_screen_on)
 	DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED if (ConfigManager.config_data.video.vsync) else DisplayServer.VSYNC_DISABLED)
 
 func picture_adjust():
@@ -47,5 +47,8 @@ func screen_adjust():
 	else:
 		get_window().set_size(resolution)
 		get_window().borderless = (ConfigManager.config_data.video.borderless)
-		if ConfigManager.config_data.video.center_window:
-			OS.center_window()
+		# https://github.com/godotengine/godot/pull/81012
+		# needs to go in to a release that should re introduce
+		# center_window method but it will be in the DisplayManager
+		# if ConfigManager.config_data.video.center_window:
+		# 	OS.center_window()

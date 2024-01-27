@@ -14,22 +14,22 @@ signal save_game(save_type)
 		"INTRO":{
 			"scene": "intro_scene",
 			"in_game": false,
-			"mouse_mode": funcref(self, "mouse_mode_game")
+			"mouse_mode": Callable(self, "mouse_mode_game")
 		},
 		"TITLE":{
 			"scene": "title_scene",
 			"in_game": false,
-			"mouse_mode": funcref(self, "mouse_mode_ui")
+			"mouse_mode": Callable(self, "mouse_mode_ui")
 		},
 		"CREDITS":{
 			"scene": "credits_scene",
 			"in_game": false,
-			"mouse_mode": funcref(self, "mouse_mode_game")
+			"mouse_mode": Callable(self, "mouse_mode_game")
 		},
 		"IN_GAME":{
 			"scene": "game_scene",
 			"in_game": true,
-			"mouse_mode": funcref(self, "mouse_mode_game")
+			"mouse_mode": Callable(self, "mouse_mode_game")
 		}
 		}
 
@@ -52,7 +52,7 @@ func apply_config():
 		OS.set_low_processor_usage_mode_sleep_usec(ConfigManager.config_data.game.low_processor_usage_mode_sleep_usec)
 	Engine.set_physics_ticks_per_second(ConfigManager.config_data.game.physics_ticks_per_second)
 	Engine.set_physics_jitter_fix(ConfigManager.config_data.game.physics_jitter_fix)
-	Engine.set_target_fps(ConfigManager.config_data.game.target_fps)
+	Engine.max_fps = ConfigManager.config_data.game.max_fps
 	Engine.set_time_scale(ConfigManager.config_data.game.time_scale)
 
 func _notification(what):
@@ -100,7 +100,7 @@ func game_state_change(state):
 func screenshot():
 	# Check if path exists
 	var dir_path = ProfileManager.get_profile_screenshot_path_current()
-	var dir = DirAccess.new()
+	var dir = DirAccess.open(dir_path)
 	if not dir.dir_exists(dir_path):
 		dir.make_dir_recursive(dir_path)
 

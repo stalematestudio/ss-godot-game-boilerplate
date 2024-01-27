@@ -200,20 +200,20 @@ step = 0.1
 value = 0.5
 align = 1
 
-[node name="TFPS_HBC" type="HBoxContainer" parent="Settings_Scroll/Settings_VBC"]
+[node name="MFPS_HBC" type="HBoxContainer" parent="Settings_Scroll/Settings_VBC"]
 offset_top = 348.0
 offset_right = 854.0
 offset_bottom = 372.0
 
-[node name="Label" type="Label" parent="Settings_Scroll/Settings_VBC/TFPS_HBC"]
+[node name="Label" type="Label" parent="Settings_Scroll/Settings_VBC/MFPS_HBC"]
 offset_right = 647.0
 offset_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 5
-text = "Target FPS"
+text = "Max FPS"
 valign = 1
 
-[node name="Plus_Button" type="Button" parent="Settings_Scroll/Settings_VBC/TFPS_HBC"]
+[node name="Plus_Button" type="Button" parent="Settings_Scroll/Settings_VBC/MFPS_HBC"]
 offset_left = 651.0
 offset_right = 683.0
 offset_bottom = 24.0
@@ -221,7 +221,7 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.05
 text = "+"
 
-[node name="Minus_Button" type="Button" parent="Settings_Scroll/Settings_VBC/TFPS_HBC"]
+[node name="Minus_Button" type="Button" parent="Settings_Scroll/Settings_VBC/MFPS_HBC"]
 offset_left = 687.0
 offset_right = 719.0
 offset_bottom = 24.0
@@ -229,7 +229,7 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.05
 text = "-"
 
-[node name="SpinBox" type="SpinBox" parent="Settings_Scroll/Settings_VBC/TFPS_HBC"]
+[node name="SpinBox" type="SpinBox" parent="Settings_Scroll/Settings_VBC/MFPS_HBC"]
 offset_left = 723.0
 offset_right = 854.0
 offset_bottom = 24.0

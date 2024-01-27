@@ -28,7 +28,7 @@ const resolutions = [
 				"low_processor_usage_mode_sleep_usec": 6900,
 				"physics_ticks_per_second": 60,
 				"physics_jitter_fix": 0.5,
-				"target_fps": 0,
+				"max_fps": 0,
 				"time_scale": 1,
 				"debug":false
 				},

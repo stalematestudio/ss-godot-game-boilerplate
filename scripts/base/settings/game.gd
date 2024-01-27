@@ -20,9 +20,9 @@ extends TabBar
 @onready var gui_pjf_spin_minus = $Settings_Scroll/Settings_VBC/PJF_HBC/Minus_Button
 @onready var gui_pjf_spin = $Settings_Scroll/Settings_VBC/PJF_HBC/SpinBox
 
-@onready var gui_tfps_spin_plus = $Settings_Scroll/Settings_VBC/TFPS_HBC/Plus_Button
-@onready var gui_tfps_spin_minus = $Settings_Scroll/Settings_VBC/TFPS_HBC/Minus_Button
-@onready var gui_tfps_spin = $Settings_Scroll/Settings_VBC/TFPS_HBC/SpinBox
+@onready var gui_mfps_spin_plus = $Settings_Scroll/Settings_VBC/MFPS_HBC/Plus_Button
+@onready var gui_mfps_spin_minus = $Settings_Scroll/Settings_VBC/MFPS_HBC/Minus_Button
+@onready var gui_mfps_spin = $Settings_Scroll/Settings_VBC/MFPS_HBC/SpinBox
 
 @onready var gui_ts_spin_plus = $Settings_Scroll/Settings_VBC/TS_HBC/Plus_Button
 @onready var gui_ts_spin_minus = $Settings_Scroll/Settings_VBC/TS_HBC/Minus_Button
@@ -48,9 +48,9 @@ func _ready():
 	gui_pjf_spin_minus.connect("pressed", Callable(self, "pjf_minus_adjust"))
 	gui_pjf_spin.connect("value_changed", Callable(self, "pjf_adjust"))
 	
-	gui_tfps_spin_plus.connect("pressed", Callable(self, "tfps_plus_adjust"))
-	gui_tfps_spin_minus.connect("pressed", Callable(self, "tfps_minus_adjust"))
-	gui_tfps_spin.connect("value_changed", Callable(self, "tfps_adjust"))
+	gui_mfps_spin_plus.connect("pressed", Callable(self, "mfps_plus_adjust"))
+	gui_mfps_spin_minus.connect("pressed", Callable(self, "mfps_minus_adjust"))
+	gui_mfps_spin.connect("value_changed", Callable(self, "mfps_adjust"))
 	
 	gui_ts_spin_plus.connect("pressed", Callable(self, "ts_plus_adjust"))
 	gui_ts_spin_minus.connect("pressed", Callable(self, "ts_minus_adjust"))
@@ -68,7 +68,7 @@ func set_form_values():
 
 	gui_ips_spin.set_value(ConfigManager.config_data.game.physics_ticks_per_second)
 	gui_pjf_spin.set_value(ConfigManager.config_data.game.physics_jitter_fix)
-	gui_tfps_spin.set_value(ConfigManager.config_data.game.target_fps)
+	gui_mfps_spin.set_value(ConfigManager.config_data.game.max_fps)
 	gui_ts_spin.set_value(ConfigManager.config_data.game.time_scale)
 
 	set_elements_disabled()
@@ -131,14 +131,14 @@ func pjf_minus_adjust():
 func pjf_adjust(new_val):
 	ConfigManager.config_data.game.physics_jitter_fix = new_val
 
-func tfps_plus_adjust():
-	gui_tfps_spin.set_value(gui_tfps_spin.get_value() + gui_tfps_spin.step)
+func mfps_plus_adjust():
+	gui_mfps_spin.set_value(gui_mfps_spin.get_value() + gui_mfps_spin.step)
 
-func tfps_minus_adjust():
-	gui_tfps_spin.set_value(gui_tfps_spin.get_value() - gui_tfps_spin.step)
+func mfps_minus_adjust():
+	gui_mfps_spin.set_value(gui_mfps_spin.get_value() - gui_mfps_spin.step)
 
-func tfps_adjust(new_val):
-	ConfigManager.config_data.game.target_fps = new_val
+func mfps_adjust(new_val):
+	ConfigManager.config_data.game.max_fps = new_val
 
 func ts_plus_adjust():
 	gui_ts_spin.set_value(gui_ts_spin.get_value() + gui_ts_spin.step)

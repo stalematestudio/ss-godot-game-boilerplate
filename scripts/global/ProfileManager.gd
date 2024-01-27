@@ -45,8 +45,7 @@ func add_profile(new_profile):
 	get_profile_list()
 	if new_profile in profile_list:
 		return ProfileErrors.PROFILE_EXISTS
-	var dir = DirAccess.new()
-	dir.open("user://")
+	var dir = DirAccess.open("user://")
 	if dir.make_dir(new_profile) == OK:
 		
 		if dir.file_exists( "user://" + PROFILE_FILE ):
@@ -113,7 +112,7 @@ func load_profile():
 func new_game(game_data):
 	# New game_current
 	var game_index = 0
-	var dir = DirAccess.new()
+	var dir = DirAccess.open(get_game_save_path(game_index))
 	while dir.dir_exists(get_game_save_path(game_index)):
 		game_index = game_index + 1
 	dir.make_dir_recursive(get_game_save_path(game_index))
@@ -129,11 +128,10 @@ func save_game(game_data):
 	var save_dir_path = get_game_save_path_current()
 	var save_file_path = Helpers.date_time_string() + ".save"
 	game_data_path = save_dir_path + save_file_path
-	var save_dir = DirAccess.new()
+	var save_dir = DirAccess.open(save_dir_path)
 	if not save_dir.dir_exists(save_dir_path):
 		save_dir.make_dir_recursive(save_dir_path)
-	var save_file = File.new()
-	save_file.open(game_data_path ,File.WRITE)
+	var save_file = FileAccess.open(game_data_path ,FileAccess.WRITE)
 	for data in game_data:
 		save_file.store_line(JSON.new().stringify(data))
 	save_file.close()
@@ -142,12 +140,11 @@ func save_game(game_data):
 
 func load_game():
 	var game_data = []
-	var save_file = File.new()
-	if OK == save_file.open(game_data_path, File.READ):
-		while not save_file.eof_reached():
-			var test_json_conv = JSON.new()
-			test_json_conv.parse( save_file.get_line() ) )
-			game_data.append( test_json_conv.get_data()
+	var save_file = FileAccess.open(game_data_path, FileAccess.READ)
+	while not save_file.eof_reached():
+		var test_json_conv = JSON.new()
+		test_json_conv.parse( save_file.get_line() )
+		game_data.append( test_json_conv.get_data() )
 	save_file.close()
 	return game_data
 
@@ -185,8 +182,7 @@ func get_game_current():
 
 func get_profile_list():
 	profile_list.clear()
-	var dir = DirAccess.new()
-	dir.open("user://")
+	var dir = DirAccess.open("user://")
 	dir.list_dir_begin() # TODOConverter3To4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 	var el_name = dir.get_next()
 	while el_name != "":
@@ -198,11 +194,11 @@ func get_profile_list():
 
 func get_game_list():
 	game_list.clear()
-	var dir = DirAccess.new()
 	var profile_saved_games_dir = get_profile_saved_games_path_current()
+	var dir = DirAccess.open(profile_saved_games_dir)
 	if not dir.dir_exists(profile_saved_games_dir):
 		dir.make_dir(profile_saved_games_dir)
-	dir.open(profile_saved_games_dir)
+	dir = DirAccess.open(profile_saved_games_dir)
 	dir.list_dir_begin() # TODOConverter3To4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 	var el_name = dir.get_next()
 	while el_name != "":
@@ -215,9 +211,8 @@ func get_game_list():
 
 func get_game_save_list(game_index):
 	game_save_list.clear()
-	var dir = DirAccess.new()
 	var game_save_dir = get_game_save_path(game_index)
-	dir.open(game_save_dir)
+	var dir = DirAccess.open(game_save_dir)
 	dir.list_dir_begin() # TODOConverter3To4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 	var el_name = dir.get_next()
 	while el_name != "":
