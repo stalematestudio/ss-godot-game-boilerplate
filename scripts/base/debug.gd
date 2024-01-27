@@ -39,7 +39,7 @@ var game_instance
 var player_instance
 
 func _ready():
-	vd_display.set_text( String( OS.get_current_video_driver() ) + " - " + OS.get_video_driver_name( OS.get_current_video_driver() ) )
+	vd_display.set_text( RenderingServer.get_video_adapter_name() )
 	game_instance = get_node_or_null("/root/main/game")
 	player_instance = get_node_or_null("/root/main/game/player")
 	GameManager.connect("game_state_changed", Callable(self, "_on_game_state_changed"))
@@ -53,17 +53,17 @@ func _input(event):
 				input_display.newline()
 
 func _process(delta):
-	fps_display.text = String(Engine.get_frames_per_second())
+	fps_display.text = String.num(Engine.get_frames_per_second())
 	
-	m_forward.text = String(Input.get_action_strength("player_movement_forward"))
-	m_backward.text = String(Input.get_action_strength("player_movement_backward"))
-	m_left.text = String(Input.get_action_strength("player_movement_left"))
-	m_right.text = String(Input.get_action_strength("player_movement_right"))
+	m_forward.text = String.num(Input.get_action_strength("player_movement_forward"))
+	m_backward.text = String.num(Input.get_action_strength("player_movement_backward"))
+	m_left.text = String.num(Input.get_action_strength("player_movement_left"))
+	m_right.text = String.num(Input.get_action_strength("player_movement_right"))
 	
-	l_up.text = String(Input.get_action_strength("player_look_up"))
-	l_down.text = String(Input.get_action_strength("player_look_down"))
-	l_left.text = String(Input.get_action_strength("player_look_left"))
-	l_right.text = String(Input.get_action_strength("player_look_right"))
+	l_up.text = String.num(Input.get_action_strength("player_look_up"))
+	l_down.text = String.num(Input.get_action_strength("player_look_down"))
+	l_left.text = String.num(Input.get_action_strength("player_look_left"))
+	l_right.text = String.num(Input.get_action_strength("player_look_right"))
 
 	if GameManager.game_state.scene == "game_scene":
 		if is_instance_valid(player_instance):

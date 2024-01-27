@@ -7,7 +7,7 @@ extends Control
 @onready var quit_game_button = $Pause_Menu/VBC/Quit_Game
 @onready var web_link = $Pause_Menu/VBC/Developer_LinkButton
 
-@export (String) var web_link_url
+@export var web_link_url: String
 
 func _ready():
 	game_title.text = ProjectSettings.get_setting("application/config/name")

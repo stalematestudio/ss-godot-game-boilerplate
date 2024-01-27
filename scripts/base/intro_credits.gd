@@ -4,7 +4,7 @@ extends Control
 @onready var screen_display = $screen_display
 @onready var event_counter = 0
 
-@export var screens: Array
+@export var screens: Array[Resource]
 
 func _ready():
 	event_timer.connect("timeout", Callable(self, "_on_event_timer_timeout"))

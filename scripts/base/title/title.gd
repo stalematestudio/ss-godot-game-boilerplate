@@ -13,7 +13,7 @@ extends Control
 @onready var new_popup = $new
 @onready var continue_popup = $continue
 
-@export (String) var web_link_url
+@export var web_link_url: String
 
 func _ready():
 	game_title.set_text(ProjectSettings.get_setting("application/config/name"))
