@@ -1,6 +1,6 @@
 extends TabBar
 
-@export (PackedScene) var keybind_action
+@export var keybind_action: PackedScene
 
 @onready var gui_key_binding_vbc = $Settings_Scroll/Settings_VBC/Key_Bind_VBC
 

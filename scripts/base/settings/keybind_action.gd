@@ -1,7 +1,7 @@
 extends VBoxContainer
 
-@export (PackedScene) var keybind_event
-@export (PackedScene) var keybind_input
+@export var keybind_event: PackedScene
+@export var keybind_input: PackedScene
 
 var action
 @onready var action_label = $Action_HBC/Action_Label

@@ -46,7 +46,7 @@ func _ready():
 func apply_config():
 	emit_signal("debug_state_changed")
 	if game_state:
-		game_state.mouse_mode.call_func()
+		game_state.mouse_mode.call()
 	OS.set_low_processor_usage_mode(ConfigManager.config_data.game.low_processor_usage_mode)
 	if OS.is_in_low_processor_usage_mode():
 		OS.set_low_processor_usage_mode_sleep_usec(ConfigManager.config_data.game.low_processor_usage_mode_sleep_usec)
@@ -81,17 +81,17 @@ func _input(event):
 
 func _on_pause_game():
 	game_paused = true
-	game_state.mouse_mode.call_func()
+	game_state.mouse_mode.call()
 	get_tree().paused = game_paused
 
 func _on_resume_game():
 	game_paused = false
-	game_state.mouse_mode.call_func()
+	game_state.mouse_mode.call()
 	get_tree().paused = game_paused
 
 func game_state_change(state):
 	game_state = game_states[state].duplicate(true)
-	game_state.mouse_mode.call_func()
+	game_state.mouse_mode.call()
 	if not game_state.in_game:
 		emit_signal("resume_game")
 	emit_signal("game_state_changed")

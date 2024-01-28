@@ -1,6 +1,6 @@
 extends TabBar
 
-@export (PackedScene) var bus
+@export var bus: PackedScene
 
 @onready var gui_audio_vbc = $Settings_Scroll/Settings_VBC/Audio_Bus_Volume_VBC
 @onready var gui_playback = $Settings_Scroll/Settings_VBC/Audio_Playback_Device/OptionButton

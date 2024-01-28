@@ -130,7 +130,7 @@ func controllers_list():
 	gui_controller_option.clear()
 	if InputManager.joypad_present:
 		for j_pad in Input.get_connected_joypads():
-			gui_controller_option.add_item(String(j_pad) + " : " + Input.get_joy_name( j_pad ), j_pad )
+			gui_controller_option.add_item(String.num(j_pad) + " : " + Input.get_joy_name( j_pad ), j_pad )
 		gui_controller_option.select(InputManager.joypad_device_id)
 
 func controllers_list_changed(device, connected):

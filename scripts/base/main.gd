@@ -82,20 +82,20 @@ func _on_game_state_changed():
 		current_scene_instance.queue_free()
 	match GameManager.game_state.scene:
 		"intro_scene":
-			current_scene_instance = intro_scene.instance()
+			current_scene_instance = intro_scene.instantiate()
 		"title_scene":
-			current_scene_instance = title_scene.instance()
+			current_scene_instance = title_scene.instantiate()
 		"credits_scene":
-			current_scene_instance = credits_scene.instance()
+			current_scene_instance = credits_scene.instantiate()
 		"game_scene":
-			current_scene_instance = game_scene.instance()
+			current_scene_instance = game_scene.instantiate()
 	if is_instance_valid(current_scene_instance):
 		add_child(current_scene_instance)
 
 func _on_debug_state_changed():
 	if ConfigManager.config_data.game.debug:
 		if not is_instance_valid(debug_scene_instance):
-			debug_scene_instance = debug_scene.instance()
+			debug_scene_instance = debug_scene.instantiate()
 			add_child(debug_scene_instance)
 	else:
 		if is_instance_valid(debug_scene_instance):
@@ -103,7 +103,7 @@ func _on_debug_state_changed():
 
 func _on_pause_game():
 	if not is_instance_valid(pause_scene_instance):
-		pause_scene_instance = pause_scene.instance()
+		pause_scene_instance = pause_scene.instantiate()
 		add_child(pause_scene_instance)
 
 func _on_resume_game():
@@ -116,6 +116,6 @@ func set_settings_display(return_focus_target):
 	if is_instance_valid(settings_scene_instance):
 		settings_scene_instance.queue_free()
 	else:
-		settings_scene_instance = settings_scene.instance()
+		settings_scene_instance = settings_scene.instantiate()
 		settings_scene_instance.return_focus_target = return_focus_target
 		add_child(settings_scene_instance)

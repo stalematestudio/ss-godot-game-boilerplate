@@ -45,7 +45,7 @@ func _ready():
 	gui_fullscreen.connect("pressed", Callable(self, "fullscreen_adjust"))
 
 	for screen in range(DisplayServer.get_screen_count()):
-		gui_screen_option.add_item("Screen : " + String(screen), screen)
+		gui_screen_option.add_item("Screen : " + String.num(screen), screen)
 	gui_screen_option.connect("item_selected", Callable(self, "screen_option_adjust"))
 
 	gui_borderless.connect("pressed", Callable(self, "borderless_adjust"))
