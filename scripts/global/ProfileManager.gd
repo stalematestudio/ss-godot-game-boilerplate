@@ -207,7 +207,7 @@ func get_game_list():
 		el_name = dir.get_next()
 	dir.list_dir_end()
 	game_list.sort()
-	game_list.invert()
+	game_list.reverse()
 
 func get_game_save_list(game_index):
 	game_save_list.clear()

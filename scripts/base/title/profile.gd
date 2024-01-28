@@ -9,9 +9,9 @@ extends Window
 
 @onready var profile_create_button = $VBoxContainer/crsede/Create
 @onready var profile_create_dialog = $ProfileCreateDialog
-@onready var profile_create_dialog_close_button = profile_create_dialog.get_close_button()
-@onready var profile_create_dialog_ok_button = profile_create_dialog.get_ok_button()
-@onready var profile_create_dialog_cancel_button = profile_create_dialog.add_cancel_button("Cancel")
+# @onready var profile_create_dialog_close_button = profile_create_dialog.get_close_button()
+# @onready var profile_create_dialog_ok_button = profile_create_dialog.get_ok_button()
+# @onready var profile_create_dialog_cancel_button = profile_create_dialog.add_cancel_button("Cancel")
 @onready var profile_create_name = $ProfileCreateDialog/LineEdit
 
 @onready var profile_select_button = $VBoxContainer/crsede/Select
@@ -35,8 +35,8 @@ func _ready():
 	profile_create_dialog.connect("popup_hide", Callable(self, "list_profiles"))
 	
 	profile_create_dialog.register_text_enter(profile_create_name)
-	profile_create_dialog_ok_button.set_focus_neighbor(MARGIN_TOP, profile_create_name.get_path())
-	profile_create_dialog_cancel_button.set_focus_neighbor(MARGIN_TOP, profile_create_name.get_path())
+	# profile_create_dialog_ok_button.set_focus_neighbor(MARGIN_TOP, profile_create_name.get_path())
+	# profile_create_dialog_cancel_button.set_focus_neighbor(MARGIN_TOP, profile_create_name.get_path())
 
 	profile_create_name.connect("text_changed", Callable(self, "profile_create_name_text_changed"))	
 

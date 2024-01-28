@@ -95,7 +95,7 @@ func game_state_change(state):
 	if not game_state.in_game:
 		emit_signal("resume_game")
 	emit_signal("game_state_changed")
-	emit_signal("message", String( game_state ))
+	emit_signal("message", "True" if game_state else "False")
 
 func screenshot():
 	# Check if path exists

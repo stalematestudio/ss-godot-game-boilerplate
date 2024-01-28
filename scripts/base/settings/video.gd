@@ -129,7 +129,7 @@ func set_elements_disabled():
 
 func fov_adjust(new_val):
 	ConfigManager.config_data.video.fov = new_val
-	gui_fov_value.set_text(String(new_val))
+	gui_fov_value.set_text(String.num(new_val))
 
 func picture_adjust():
 	ConfigManager.config_data.video.picture_adjustments = gui_picture_adjustments.is_pressed()
@@ -139,17 +139,17 @@ func picture_adjust():
 func brightnes_adjust(new_val):
 	ConfigManager.config_data.video.picture_brightnes = new_val
 	VideoManager.picture_adjust()
-	gui_brightnes_display.set_text(String(new_val))
+	gui_brightnes_display.set_text(String.num(new_val))
 
 func contrast_adjust(new_val):
 	ConfigManager.config_data.video.picture_contrast = new_val
 	VideoManager.picture_adjust()
-	gui_contrast_display.set_text(String(new_val))
+	gui_contrast_display.set_text(String.num(new_val))
 
 func saturation_adjust(new_val):
 	ConfigManager.config_data.video.picture_saturation = new_val
 	VideoManager.picture_adjust()
-	gui_saturation_display.set_text(String(new_val))
+	gui_saturation_display.set_text(String.num(new_val))
 
 func keep_screen_on_adjust():
 	ConfigManager.config_data.video.keep_screen_on = gui_keep_screen_on.is_pressed()

@@ -47,8 +47,5 @@ func screen_adjust():
 	else:
 		get_window().set_size(resolution)
 		get_window().borderless = (ConfigManager.config_data.video.borderless)
-		# https://github.com/godotengine/godot/pull/81012
-		# needs to go in to a release that should re introduce
-		# center_window method but it will be in the DisplayManager
-		# if ConfigManager.config_data.video.center_window:
-		# 	OS.center_window()
+		if ConfigManager.config_data.video.center_window:
+			get_window().move_to_center()

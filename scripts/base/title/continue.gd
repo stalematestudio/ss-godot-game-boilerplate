@@ -15,14 +15,14 @@ extends Window
 @onready var game_delete_save_button = $VBoxContainer/games/GAME_DATA/DELETE_SAVE
 
 @onready var game_delete_game_dialog = $GameDeleteDialog
-@onready var game_delete_game_dialog_ok_button = game_delete_game_dialog.get_ok_button()
-@onready var game_delete_game_dialog_cancel_button = game_delete_game_dialog.get_cancel_button()
-@onready var game_delete_game_dialog_close_button = game_delete_game_dialog.get_close_button()
+# @onready var game_delete_game_dialog_ok_button = game_delete_game_dialog.get_ok_button()
+# @onready var game_delete_game_dialog_cancel_button = game_delete_game_dialog.get_cancel_button()
+# @onready var game_delete_game_dialog_close_button = game_delete_game_dialog.get_close_button()
 
 @onready var game_delete_save_dialog = $SaveDeleteDialog
-@onready var game_delete_save_dialog_ok_button = game_delete_save_dialog.get_ok_button()
-@onready var game_delete_save_dialog_cancel_button = game_delete_save_dialog.get_cancel_button()
-@onready var game_delete_save_dialog_close_button = game_delete_save_dialog.get_close_button()
+# @onready var game_delete_save_dialog_ok_button = game_delete_save_dialog.get_ok_button()
+# @onready var game_delete_save_dialog_cancel_button = game_delete_save_dialog.get_cancel_button()
+# @onready var game_delete_save_dialog_close_button = game_delete_save_dialog.get_close_button()
 
 @onready var game_cancel_button = $VBoxContainer/CANCEL
 
@@ -34,8 +34,8 @@ func _ready():
 	
 	# close_button.set_focus_neighbor(MARGIN_BOTTOM, games_list.get_path())
 	
-	game_delete_game_dialog_close_button.set_focus_neighbor(MARGIN_BOTTOM, game_delete_game_dialog_cancel_button.get_path())
-	game_delete_save_dialog_close_button.set_focus_neighbor(MARGIN_BOTTOM, game_delete_save_dialog_cancel_button.get_path())
+	# game_delete_game_dialog_close_button.set_focus_neighbor(MARGIN_BOTTOM, game_delete_game_dialog_cancel_button.get_path())
+	# game_delete_save_dialog_close_button.set_focus_neighbor(MARGIN_BOTTOM, game_delete_save_dialog_cancel_button.get_path())
 	
 	games_list.connect("item_selected", Callable(self, "_on_game_activated_selected"))
 	games_list.connect("item_activated", Callable(self, "_on_game_activated_selected"))
@@ -70,7 +70,8 @@ func _on_game_delete_button_pressed(what):
 	list_games()
 
 func _on_game_delete_dialog_about_to_show():
-	game_delete_game_dialog_cancel_button.grab_focus()
+	# game_delete_game_dialog_cancel_button.grab_focus()
+	pass
 
 func _on_game_delete_dialog_confirmed():
 	ProfileManager.del_game( int( games_list.get_item_text( games_list.get_selected_items()[0] ) ) )
