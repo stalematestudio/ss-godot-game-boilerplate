@@ -37,18 +37,18 @@ func mouse_horizontal_invert_adjust():
 
 func mouse_horizontal_sensitivity_adjust(new_val):
 	ConfigManager.config_data.mouse.mouse_sensitivity_x = new_val
-	gui_mouse_horizontal_sensitivity_display.text = String(ConfigManager.config_data.mouse.mouse_sensitivity_x)
+	gui_mouse_horizontal_sensitivity_display.text = String.num(ConfigManager.config_data.mouse.mouse_sensitivity_x)
 
 func mouse_vertical_invert_adjust():
 	ConfigManager.config_data.mouse.mouse_inverted_y = gui_mouse_vertical_invert.is_pressed()
 
 func mouse_vertical_sensitivity_adjust(new_val):
 	ConfigManager.config_data.mouse.mouse_sensitivity_y = new_val
-	gui_mouse_vertical_sensitivity_display.text = String(ConfigManager.config_data.mouse.mouse_sensitivity_y)
+	gui_mouse_vertical_sensitivity_display.text = String.num(ConfigManager.config_data.mouse.mouse_sensitivity_y)
 
 func mouse_scroll_invert_adjust():
 	ConfigManager.config_data.mouse.mouse_inverted_scroll = gui_mouse_scroll_invert.is_pressed()
 
 func mouse_scroll_sensitivity_adjust(new_val):
 	ConfigManager.config_data.mouse.mouse_sensitivity_scroll = new_val
-	gui_mouse_scroll_sensitivity_display.text = String(ConfigManager.config_data.mouse.mouse_sensitivity_scroll)
+	gui_mouse_scroll_sensitivity_display.text = String.num(ConfigManager.config_data.mouse.mouse_sensitivity_scroll)

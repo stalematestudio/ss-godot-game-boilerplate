@@ -70,7 +70,7 @@ func _on_item_activated(item_index):
 
 func _on_item_selected(item_index):
 	selected_profile_name.set_text( ProfileManager.get_profile_name(item_index) )
-	selected_profile_game_play_time.set_text( String( ProfileManager.game_play_time ) )
+	selected_profile_game_play_time.set_text( String.num( ProfileManager.game_play_time ) )
 	profile_select_button.set_disabled(false)
 	profile_delete_button.set_disabled(false)
 

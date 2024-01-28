@@ -4,10 +4,10 @@
 [ext_resource type="PackedScene" path="res://scenes/base/intro/intro.tscn" id="2"]
 [ext_resource type="PackedScene" path="res://scenes/base/debug/debug.tscn" id="3"]
 [ext_resource type="PackedScene" path="res://scenes/base/pause/pause.tscn" id="4"]
-[ext_resource type="PackedScene" path="res://scenes/base/title/title.tscn" id="5"]
+[ext_resource type="PackedScene" uid="uid://betheslgffy6l" path="res://scenes/base/title/title.tscn" id="5"]
 [ext_resource type="PackedScene" path="res://scenes/base/game/game.tscn" id="6"]
 [ext_resource type="PackedScene" path="res://scenes/base/credits/credits.tscn" id="7"]
-[ext_resource type="PackedScene" path="res://scenes/base/settings/settings.tscn" id="8"]
+[ext_resource type="PackedScene" uid="uid://d4m2nnm25357m" path="res://scenes/base/settings/settings.tscn" id="8"]
 [ext_resource type="AudioStream" uid="uid://45xcngosyca0" path="res://assets/audio/music/test_music.ogg" id="9"]
 [ext_resource type="Script" path="res://scripts/base/main.gd" id="10"]
 

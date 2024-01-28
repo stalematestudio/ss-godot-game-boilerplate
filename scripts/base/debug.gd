@@ -69,7 +69,7 @@ func _process(delta):
 		if is_instance_valid(player_instance):
 			if player_instance.raycast_target:
 				player_target_name.set_text(player_instance.raycast_target.name)
-				player_target_distance.set_text(String(snapped(player_instance.raycast_target_distance, 0.1)))
+				player_target_distance.set_text(String.num(snapped(player_instance.raycast_target_distance, 0.1)))
 			else:
 				player_target_name.set_text("")
 				player_target_distance.set_text("")

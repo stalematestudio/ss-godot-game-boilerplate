@@ -150,11 +150,11 @@ func vibration_adjust():
 
 func weak_magnitude_adjust(new_val):
 	ConfigManager.config_data.controller.weak_magnitude = new_val
-	gui_weak_magnitude_display.set_text(String(ConfigManager.config_data.controller.weak_magnitude))
+	gui_weak_magnitude_display.set_text(String.num(ConfigManager.config_data.controller.weak_magnitude))
 
 func strong_magnitude_adjust(new_val):
 	ConfigManager.config_data.controller.strong_magnitude = new_val
-	gui_strong_magnitude_display.set_text(String(ConfigManager.config_data.controller.strong_magnitude))
+	gui_strong_magnitude_display.set_text(String.num(ConfigManager.config_data.controller.strong_magnitude))
 
 func weak_magnitude_test():
 	Input.start_joy_vibration(InputManager.joypad_device_id, ConfigManager.config_data.controller.weak_magnitude, 0, 1)
@@ -171,7 +171,7 @@ func left_y_invert_adjust():
 
 func left_y_sensitivity_adjust(new_val):
 	ConfigManager.config_data.controller.left_y_sensitivity = new_val
-	gui_controller_left_y_sensitivity_display.text = String(ConfigManager.config_data.controller.left_y_sensitivity)
+	gui_controller_left_y_sensitivity_display.text = String.num(ConfigManager.config_data.controller.left_y_sensitivity)
 
 # Left X
 func left_x_invert_adjust():
@@ -179,7 +179,7 @@ func left_x_invert_adjust():
 
 func left_x_sensitivity_adjust(new_val):
 	ConfigManager.config_data.controller.left_x_sensitivity = new_val
-	gui_controller_left_x_sensitivity_display.text = String(ConfigManager.config_data.controller.left_x_sensitivity)
+	gui_controller_left_x_sensitivity_display.text = String.num(ConfigManager.config_data.controller.left_x_sensitivity)
 
 # Right Y
 func right_y_invert_adjust():
@@ -187,7 +187,7 @@ func right_y_invert_adjust():
 
 func right_y_sensitivity_adjust(new_val):
 	ConfigManager.config_data.controller.right_y_sensitivity = new_val
-	gui_controller_right_y_sensitivity_display.text = String(ConfigManager.config_data.controller.right_y_sensitivity)
+	gui_controller_right_y_sensitivity_display.text = String.num(ConfigManager.config_data.controller.right_y_sensitivity)
 
 # Right X
 func right_x_invert_adjust():
@@ -195,4 +195,4 @@ func right_x_invert_adjust():
 
 func right_x_sensitivity_adjust(new_val):
 	ConfigManager.config_data.controller.right_x_sensitivity = new_val
-	gui_controller_right_x_sensitivity_display.text = String(ConfigManager.config_data.controller.right_x_sensitivity)
+	gui_controller_right_x_sensitivity_display.text = String.num(ConfigManager.config_data.controller.right_x_sensitivity)

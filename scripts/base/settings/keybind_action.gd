@@ -15,7 +15,7 @@ func _ready():
 	action_label.set_text(action.replace('_', ' ').to_upper())
 	dead_zone_slider.set_value(ConfigManager.config_data.keybind[action].deadzone)
 	dead_zone_slider.connect("value_changed", Callable(self, "deadzone_adjust"))
-	dead_zone_display.set_text(String(ConfigManager.config_data.keybind[action].deadzone))
+	dead_zone_display.set_text(String.num(ConfigManager.config_data.keybind[action].deadzone))
 	display_events()
 
 func display_events():
@@ -29,7 +29,7 @@ func display_events():
 
 func deadzone_adjust(new_val):
 	ConfigManager.config_data.keybind[action].deadzone = new_val
-	dead_zone_display.set_text(String(ConfigManager.config_data.keybind[action].deadzone))
+	dead_zone_display.set_text(String.num(ConfigManager.config_data.keybind[action].deadzone))
 
 func add_event():
 	var add_event_node = keybind_input.instantiate()
