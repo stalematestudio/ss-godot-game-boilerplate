@@ -1,6 +1,6 @@
 extends Window
 
-@onready var close_button = get_close_button()
+# @onready var close_button = get_close_button()
 
 @onready var games_list = $VBoxContainer/games/GAMES
 @onready var saves_list = $VBoxContainer/games/SAVES
@@ -26,10 +26,14 @@ extends Window
 
 @onready var game_cancel_button = $VBoxContainer/CANCEL
 
+# TODO: remove this temporary MARGIN_BOTTOM
+const MARGIN_BOTTOM: int = 3
+
 func _ready():
 	connect("about_to_popup", Callable(self, "list_games"))
 	
-	close_button.set_focus_neighbor(MARGIN_BOTTOM, games_list.get_path())
+	# close_button.set_focus_neighbor(MARGIN_BOTTOM, games_list.get_path())
+	
 	game_delete_game_dialog_close_button.set_focus_neighbor(MARGIN_BOTTOM, game_delete_game_dialog_cancel_button.get_path())
 	game_delete_save_dialog_close_button.set_focus_neighbor(MARGIN_BOTTOM, game_delete_save_dialog_cancel_button.get_path())
 	
@@ -101,8 +105,7 @@ func _on_save_selected(item_index):
 	var game_index = int( games_list.get_item_text( games_list.get_selected_items()[0] ) )
 	ProfileManager.get_game_save_list( game_index )
 	var save_path = ProfileManager.get_game_save_path(game_index) + ProfileManager.game_save_list[item_index]
-	var save_file = File.new()
-	save_file.open(save_path ,File.READ)
+	var save_file = FileAccess.open(save_path ,FileAccess.READ)
 	var test_json_conv = JSON.new()
 	test_json_conv.parse( save_file.get_line() )
 	var game_data = test_json_conv.get_data()

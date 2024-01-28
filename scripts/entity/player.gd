@@ -1,7 +1,7 @@
 extends CharacterBody3D
 
 # Camera positions
-@export (Array, Transform3D) var camera_position
+@export var camera_position: Array[Transform3D]
 @onready var camera_position_selected = 0
 
 # Environmental Variables will be moved to level scene or game state
@@ -58,7 +58,7 @@ var mouse_scrolled = float()
 var target = float()
 var accel = float()
 
-var velocity = Vector3()
+# var velocity = Vector3()
 var direction = Vector3()
 
 var raycast_target = false
@@ -244,16 +244,7 @@ func process_movement(delta):
 	velocity.x = horizontal_velocity.x
 	velocity.z = horizontal_velocity.z
 	
-	velocity = move_and_slide_with_snap(
-	#velocity = move_and_slide(
-			velocity, 
-			player_move_snap, # Comment out for move and slide w/o snap
-			player_move_up_direction, 
-			player_move_stop_on_slope, 
-			player_move_max_slides, 
-			player_move_floor_max_angle, 
-			player_move_infinite_inertia
-			)
+	move_and_slide()
 	
 	if is_on_floor():
 		player_speed = velocity.length()

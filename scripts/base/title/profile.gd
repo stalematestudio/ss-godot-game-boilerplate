@@ -1,6 +1,6 @@
 extends Window
 
-@onready var close_button = get_close_button()
+# @onready var close_button = get_close_button()
 
 @onready var selected_profile_name = $VBoxContainer/Profiles/VBoxContainer_L/Profile_Name
 @onready var selected_profile_game_play_time = $VBoxContainer/Profiles/VBoxContainer_L/Profile_Play_Time
@@ -19,10 +19,13 @@ extends Window
 @onready var profile_delete_button = $VBoxContainer/crsede/Delete
 @onready var profile_delete_dialog = $ProfileDeleteDialog
 
+# TODO: remove this temporary MARGIN_BOTTOM
+const MARGIN_TOP: int = 1
+
 func _ready():
 	connect("about_to_popup", Callable(self, "list_profiles"))
 
-	close_button.set_focus_neighbor(MARGIN_BOTTOM, profile_list.get_path())
+	# close_button.set_focus_neighbor(MARGIN_BOTTOM, profile_list.get_path())
 
 	profile_list.connect("item_activated", Callable(self, "_on_item_activated"))
 	profile_list.connect("item_selected", Callable(self, "_on_item_selected"))
