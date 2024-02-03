@@ -78,3 +78,8 @@ static func recursive_non_empty_dir_deletion(path):
 static func dictionary_update(dict_a, dict_b):
 	for k in dict_b:
 		dict_a[k] = dict_b[k]
+
+static func array_difference(array_one, array_two):
+	for item in array_two:
+		while item in array_one:
+			array_one.remove_at(array_one.find(item))

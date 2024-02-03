@@ -14,8 +14,7 @@ func  _process(delta):
 
 func _on_save_game():
 	var game_data = []
-	var img = get_viewport().get_texture().get_data()
-	img.flip_y()
+	var img = get_viewport().get_texture().get_image()
 	img.resize(320, 180)
 	game_data.append({
 			"game_time": game_time,

@@ -112,10 +112,9 @@ func load_profile():
 func new_game(game_data):
 	# New game_current
 	var game_index = 0
-	var dir = DirAccess.open(get_game_save_path(game_index))
-	while dir.dir_exists(get_game_save_path(game_index)):
+	while DirAccess.dir_exists_absolute(get_game_save_path(game_index)):
 		game_index = game_index + 1
-	dir.make_dir_recursive(get_game_save_path(game_index))
+	DirAccess.make_dir_recursive_absolute(get_game_save_path(game_index))
 	game_current = game_index
 	game_data_path = ""
 	save_profile()
@@ -187,6 +186,7 @@ func get_profile_list():
 	
 	profile_list.clear()
 	profile_list = dir.get_directories()
+	Helpers.array_difference(profile_list, EXCLUDED_FOLDERS)
 	profile_list.reverse()
 
 func get_game_list():

@@ -31,10 +31,12 @@ func _ready():
 	profile_list.connect("item_selected", Callable(self, "_on_item_selected"))
 
 	profile_create_button.connect("pressed", Callable(self, "profile_create_button_pressed"))
+
 	profile_create_dialog.connect("confirmed", Callable(self, "profile_create_dialog_confirmed"))
 	profile_create_dialog.connect("popup_hide", Callable(self, "list_profiles"))
 	
 	profile_create_dialog.register_text_enter(profile_create_name)
+	profile_create_dialog.set_wrap_controls(true)
 	# profile_create_dialog_ok_button.set_focus_neighbor(MARGIN_TOP, profile_create_name.get_path())
 	# profile_create_dialog_cancel_button.set_focus_neighbor(MARGIN_TOP, profile_create_name.get_path())
 
@@ -48,6 +50,7 @@ func _ready():
 	profile_delete_dialog.connect("popup_hide", Callable(self, "list_profiles"))
 	profile_delete_dialog.connect("about_to_popup", Callable(self, "profile_delete_dialog_about_to_show"))
 	profile_delete_dialog.connect("focus_entered", Callable(self, "profile_delete_dialog_about_to_show"))
+	profile_delete_dialog.set_wrap_controls(true)
 
 func list_profiles():
 	profile_list.clear()
@@ -60,7 +63,7 @@ func list_profiles():
 		profile_list.grab_focus()
 	else:
 		selected_profile_name.set_text( ProfileManager.get_profile_name( ProfileManager.profile_current ) )
-		selected_profile_game_play_time.set_text( String( ProfileManager.game_play_time ) )
+		selected_profile_game_play_time.set_text( String.num( ProfileManager.game_play_time ) )
 		profile_create_button.grab_focus()
 		profile_select_button.set_disabled(true)
 		profile_delete_button.set_disabled(true)
@@ -75,7 +78,6 @@ func _on_item_selected(item_index):
 	profile_delete_button.set_disabled(false)
 
 func profile_create_button_pressed():
-	profile_create_dialog.set_as_minsize()
 	profile_create_dialog.popup_centered()
 	profile_create_name.clear()
 	profile_create_name.grab_focus()
@@ -95,7 +97,6 @@ func profile_select_button_pressed():
 
 func profile_delete_button_pressed():
 	profile_delete_dialog.set_text("Deleting " + ProfileManager.get_profile_name(profile_list.get_selected_items()[0]) + " profile will permanetly remove settings saved games and screenshots from your system. Are you sure???")
-	profile_delete_dialog.set_as_minsize()
 	profile_delete_dialog.popup_centered()
 
 func profile_delete_dialog_about_to_show():

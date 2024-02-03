@@ -123,7 +123,7 @@ func _on_save_selected(item_index):
 		game_thumbnail.set_texture( thumb_image_texture )
 	game_difficulty.set_text( game_data.game_difficulty )
 	game_level.set_text( game_data.game_level if game_data.has("game_level") else "" )
-	game_time.set_text( String( game_data.game_time ) if game_data.has("game_time") else "" )
+	game_time.set_text( String.num( game_data.game_time ) if game_data.has("game_time") else "" )
 
 func _on_save_activated(item_index):
 	ProfileManager.game_current = int( games_list.get_item_text( games_list.get_selected_items()[0] ) )
