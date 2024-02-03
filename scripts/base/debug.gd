@@ -74,17 +74,17 @@ func _process(delta):
 				player_target_name.set_text("")
 				player_target_distance.set_text("")
 			
-			player_velocity_vector.set_text(" x " + String(snapped(player_instance.velocity.x, 0.2)) + " y " + String(snapped(player_instance.velocity.y, 0.2)) + " z " + String(snapped(player_instance.velocity.z, 0.2)))
-			player_velocity_length.set_text(" l " + String(player_instance.velocity.length()))
+			player_velocity_vector.set_text(" x " + String.num(snapped(player_instance.velocity.x, 0.2)) + " y " + String.num(snapped(player_instance.velocity.y, 0.2)) + " z " + String.num(snapped(player_instance.velocity.z, 0.2)))
+			player_velocity_length.set_text(" l " + String.num(player_instance.velocity.length()))
 
-			player_direction_vector.set_text(" x " + String(snapped(player_instance.direction.x, 0.2)) + " y " + String(snapped(player_instance.direction.y, 0.2)) + " z " + String(snapped(player_instance.direction.z, 0.2)))
-			player_direction_length.set_text(" l " + String(player_instance.direction.length()))
+			player_direction_vector.set_text(" x " + String.num(snapped(player_instance.direction.x, 0.2)) + " y " + String.num(snapped(player_instance.direction.y, 0.2)) + " z " + String.num(snapped(player_instance.direction.z, 0.2)))
+			player_direction_length.set_text(" l " + String.num(player_instance.direction.length()))
 
-			player_on_ceiling.set_text(String(player_instance.is_on_ceiling()))
-			player_on_wall.set_text(String(player_instance.is_on_wall()))
-			player_on_floor.set_text(String(player_instance.is_on_floor()))
+			player_on_ceiling.set_text( "True" if player_instance.is_on_ceiling() else "False" )
+			player_on_wall.set_text( "True" if player_instance.is_on_wall() else "False" )
+			player_on_floor.set_text( "True" if player_instance.is_on_floor() else "False")
 			var player_slide_collisions = player_instance.get_slide_collision_count()
-			player_collisions.set_text(String(player_slide_collisions))
+			player_collisions.set_text(String.num(player_slide_collisions))
 			if player_slide_collisions > 0:
 				player_collider.set_text(String(player_instance.get_slide_collision(0).get_collider().name))
 			else:
@@ -93,7 +93,7 @@ func _process(delta):
 			player_instance = get_node_or_null("/root/main/game/player")
 
 		if is_instance_valid(game_instance):
-			game_time_display.set_text(String(game_instance.game_time))
+			# game_time_display.set_text(String(game_instance.game_time))
 			game_difficulty_display.set_text(String(game_instance.game_difficulty))
 			game_level_loaded_display.set_text(String(game_instance.game_level_loaded))
 		else:

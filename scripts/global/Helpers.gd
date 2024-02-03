@@ -3,12 +3,12 @@ extends Node
 static func date_time_string():
 	var dt = Time.get_datetime_dict_from_system()
 	
-	var year = String(dt.year)
-	var month = String(dt.month)
-	var day = String(dt.day)
-	var hour = String(dt.hour)
-	var minute = String(dt.minute)
-	var second = String(dt.second)
+	var year = String.num(dt.year)
+	var month = String.num(dt.month)
+	var day = String.num(dt.day)
+	var hour = String.num(dt.hour)
+	var minute = String.num(dt.minute)
+	var second = String.num(dt.second)
 	
 	month = month if month.length() == 2 else "0" + month
 	day = day if day.length() == 2 else "0" + day

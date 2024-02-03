@@ -1,6 +1,7 @@
 extends Node
 
-const PROFILE_CONFIG_FILE = "user://profile_config.ini"
+const PLAYER_DATA_PATH = "user://player_profiles/"
+const PROFILE_CONFIG_FILE = PLAYER_DATA_PATH + "profile_config.ini"
 const PROFILE_FILE = "profile.ini"
 const SCREEN_SHOT_FOLDER = "screenshots"
 const SAVED_GAMES_FOLDER = "saved_games"
@@ -31,7 +32,7 @@ signal profile_changed
 func _ready():
 	connect("profile_created", Callable(self, "_on_profile_created"))
 	connect("profile_changed", Callable(self, "_on_profile_changed"))
-	
+
 	await get_node("/root/main").ready
 	self.process_mode = Node.PROCESS_MODE_ALWAYS
 
@@ -45,17 +46,16 @@ func add_profile(new_profile):
 	get_profile_list()
 	if new_profile in profile_list:
 		return ProfileErrors.PROFILE_EXISTS
-	var dir = DirAccess.open("user://")
-	if dir.make_dir(new_profile) == OK:
-		
-		if dir.file_exists( "user://" + PROFILE_FILE ):
-			dir.rename( "user://" + PROFILE_FILE , "user://" + new_profile + "/" + PROFILE_FILE )
-		if dir.file_exists( "user://" + ConfigManager.CONFIG_FILE ):
-			dir.rename( "user://" + ConfigManager.CONFIG_FILE , "user://" + new_profile + "/" + ConfigManager.CONFIG_FILE )
-		if dir.dir_exists( "user://" + SCREEN_SHOT_FOLDER + "/" ):
-			dir.rename( "user://" + SCREEN_SHOT_FOLDER + "/" , "user://" + new_profile + "/" + SCREEN_SHOT_FOLDER + "/")
-		if dir.dir_exists( "user://" + SAVED_GAMES_FOLDER + "/" ):
-			dir.rename( "user://" + SAVED_GAMES_FOLDER + "/" , "user://" + new_profile + "/" + SAVED_GAMES_FOLDER + "/")
+	var dir = DirAccess.open(PLAYER_DATA_PATH)
+	if dir.make_dir_recursive(new_profile) == OK:
+		if dir.file_exists( PLAYER_DATA_PATH + PROFILE_FILE ):
+			dir.rename( PLAYER_DATA_PATH + PROFILE_FILE , PLAYER_DATA_PATH + new_profile + "/" + PROFILE_FILE )
+		if dir.file_exists( PLAYER_DATA_PATH + ConfigManager.CONFIG_FILE ):
+			dir.rename( PLAYER_DATA_PATH + ConfigManager.CONFIG_FILE , PLAYER_DATA_PATH + new_profile + "/" + ConfigManager.CONFIG_FILE )
+		if dir.dir_exists( PLAYER_DATA_PATH + SCREEN_SHOT_FOLDER + "/" ):
+			dir.rename( PLAYER_DATA_PATH + SCREEN_SHOT_FOLDER + "/" , PLAYER_DATA_PATH + new_profile + "/" + SCREEN_SHOT_FOLDER + "/")
+		if dir.dir_exists( PLAYER_DATA_PATH + SAVED_GAMES_FOLDER + "/" ):
+			dir.rename( PLAYER_DATA_PATH + SAVED_GAMES_FOLDER + "/" , PLAYER_DATA_PATH + new_profile + "/" + SAVED_GAMES_FOLDER + "/")
 		
 		get_profile_list()
 		profile_current = profile_list.find(new_profile)
@@ -181,47 +181,33 @@ func get_game_current():
 			save_profile()
 
 func get_profile_list():
+	if not DirAccess.dir_exists_absolute(PLAYER_DATA_PATH):
+		DirAccess.make_dir_recursive_absolute(PLAYER_DATA_PATH)
+	var dir = DirAccess.open(PLAYER_DATA_PATH)
+	
 	profile_list.clear()
-	var dir = DirAccess.open("user://")
-	dir.list_dir_begin() # TODOConverter3To4 fill missing arguments https://github.com/godotengine/godot/pull/40547
-	var el_name = dir.get_next()
-	while el_name != "":
-		if dir.current_is_dir() and ( not el_name in EXCLUDED_FOLDERS ) :
-			profile_list.append(el_name)
-		el_name = dir.get_next()
-	dir.list_dir_end()
-	profile_list.sort()
+	profile_list = dir.get_directories()
+	profile_list.reverse()
 
 func get_game_list():
-	game_list.clear()
 	var profile_saved_games_dir = get_profile_saved_games_path_current()
+	if not DirAccess.dir_exists_absolute(profile_saved_games_dir):
+		DirAccess.make_dir_recursive_absolute(profile_saved_games_dir)
 	var dir = DirAccess.open(profile_saved_games_dir)
-	if not dir.dir_exists(profile_saved_games_dir):
-		dir.make_dir(profile_saved_games_dir)
-	dir = DirAccess.open(profile_saved_games_dir)
-	dir.list_dir_begin() # TODOConverter3To4 fill missing arguments https://github.com/godotengine/godot/pull/40547
-	var el_name = dir.get_next()
-	while el_name != "":
-		if dir.current_is_dir() and ( not el_name in EXCLUDED_FOLDERS ) :
-			game_list.append(el_name)
-		el_name = dir.get_next()
-	dir.list_dir_end()
-	game_list.sort()
+	
+	game_list.clear()
+	game_list = dir.get_directories()
 	game_list.reverse()
 
 func get_game_save_list(game_index):
-	game_save_list.clear()
 	var game_save_dir = get_game_save_path(game_index)
+	if not DirAccess.dir_exists_absolute(game_save_dir):
+		DirAccess.make_dir_recursive_absolute(game_save_dir)
 	var dir = DirAccess.open(game_save_dir)
-	dir.list_dir_begin() # TODOConverter3To4 fill missing arguments https://github.com/godotengine/godot/pull/40547
-	var el_name = dir.get_next()
-	while el_name != "":
-		if not dir.current_is_dir():
-			game_save_list.append(el_name)
-		el_name = dir.get_next()
-	dir.list_dir_end()
-	game_save_list.sort()
-	game_save_list.invert()
+
+	game_save_list.clear()
+	game_save_list = dir.get_files()
+	game_save_list.reverse()
 
 func get_profile_name(profile_index):
 	profile_index = clamp( profile_index, -1, profile_list.size() - 1 )
@@ -233,7 +219,7 @@ func get_profile_name_current():
 
 func get_profile_path(profile_index):
 	profile_index = clamp( profile_index, -1, profile_list.size() - 1 )
-	return "user://" if profile_index == -1 else "user://" + get_profile_name(profile_index) + "/"
+	return PLAYER_DATA_PATH if profile_index == -1 else PLAYER_DATA_PATH + get_profile_name(profile_index) + "/"
 
 func get_profile_path_current():
 	get_profile_current()
@@ -264,7 +250,7 @@ func get_profile_saved_games_path_current():
 	return get_profile_saved_games_path(profile_current)
 
 func get_game_save_path(game_index):
-	return get_profile_saved_games_path_current() + String(game_index) + "/"
+	return get_profile_saved_games_path_current() + String.num(game_index) + "/"
 
 func get_game_save_path_current():
 	get_game_current()
