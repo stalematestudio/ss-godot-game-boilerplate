@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://4vp5srwunvh8"]
 
-[ext_resource type="Animation" path="res://scenes/entity/player/anim_playercrouch.tres" id="1"]
+[ext_resource type="Animation" uid="uid://dufhktbi1isod" path="res://scenes/entity/player/anim_playercrouch.tres" id="1"]
 [ext_resource type="Script" path="res://scripts/entity/player.gd" id="2"]
 [ext_resource type="Script" path="res://scripts/entity/camera.gd" id="3"]
 [ext_resource type="Texture2D" uid="uid://c2cog1c3psnbp" path="res://assets/images/croshair.png" id="4"]
@@ -36,7 +36,6 @@ light_bake_mode = 0
 shadow_enabled = true
 
 [node name="PlayerRayCast" type="RayCast3D" parent="PlayerHead"]
-visible = false
 target_position = Vector3(0, 0, 3)
 collide_with_areas = true
 

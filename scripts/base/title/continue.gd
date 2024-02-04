@@ -50,11 +50,14 @@ func _ready():
 	game_delete_game_button.connect("pressed", Callable(self, "_on_game_delete_button_pressed").bind("game"))
 	
 	game_delete_game_dialog.connect("about_to_popup", Callable(self, "_on_game_delete_dialog_about_to_show"))
-	
+	game_delete_game_dialog.set_wrap_controls(true)
 	
 	game_cancel_button.connect("pressed", Callable(self, "_on_game_cancel_button_pressed"))
 	
 	game_load_button.grab_focus()
+
+	set_wrap_controls(true)
+	child_controls_changed()
 
 func _on_game_load_button_pressed():
 	_on_save_activated( saves_list.get_selected_items()[0] )
@@ -65,7 +68,6 @@ func _on_game_delete_button_pressed(what):
 			pass
 		"game":
 			game_delete_game_dialog.set_text("Deleting game " + games_list.get_item_text( games_list.get_selected_items()[0] ) + " will permanetly remove saved games from your system. Are you sure???")
-			game_delete_game_dialog.set_as_minsize()
 			game_delete_game_dialog.popup_centered()
 	list_games()
 
@@ -88,6 +90,8 @@ func list_games():
 		games_list.select(ProfileManager.game_current)
 		_on_game_activated_selected(ProfileManager.game_current)
 		games_list.grab_focus()
+	
+	child_controls_changed()
 
 func list_saves(game_index):
 	saves_list.clear()
@@ -98,6 +102,8 @@ func list_saves(game_index):
 		#	saves_list.select( saves_list.get_item_count() -1 )
 	saves_list.select(0)
 	_on_save_selected(saves_list.get_selected_items()[0])
+	
+	child_controls_changed()
 
 func _on_game_activated_selected(item_index):
 	list_saves( int( games_list.get_item_text( item_index ) ) )
@@ -113,14 +119,11 @@ func _on_save_selected(item_index):
 	save_file.close()
 	#game_thumbnail
 	var thumb_image = Image.new()
-	var thumb_image_texture = ImageTexture.new()
 	if game_data.has("thumbnail"):
 		thumb_image.load_png_from_buffer( Marshalls.base64_to_raw( game_data.thumbnail ) )
-		thumb_image_texture.create_from_image( thumb_image )
-		game_thumbnail.set_texture( thumb_image_texture )
+		game_thumbnail.set_texture( ImageTexture.create_from_image( thumb_image ) )
 	else:
-		thumb_image_texture.create_from_image( thumb_image )
-		game_thumbnail.set_texture( thumb_image_texture )
+		game_thumbnail.set_texture( ImageTexture.create_from_image( thumb_image ) )
 	game_difficulty.set_text( game_data.game_difficulty )
 	game_level.set_text( game_data.game_level if game_data.has("game_level") else "" )
 	game_time.set_text( String.num( game_data.game_time ) if game_data.has("game_time") else "" )

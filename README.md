@@ -2,6 +2,12 @@
 
 Boilerplate code for developing Godot games. The base backend boring stuff that many games need but is a pain to develop.
 
+## Running the web deployment localy
+
+```bash
+./serve.py --root build/html5/
+```
+
 ## AutoLoad scripts
 
 ### Game Manager
