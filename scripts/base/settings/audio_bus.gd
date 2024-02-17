@@ -28,7 +28,7 @@ func set_elements_disabled():
 func volume_adjust(new_val):
 	ConfigManager.config_data.audio[self.name].volume = new_val
 	AudioManager.set_audio(bus, ConfigManager.config_data.audio[self.name].mute, ConfigManager.config_data.audio[self.name].volume)
-	display.text = String(ConfigManager.config_data.audio[self.name].volume)
+	display.text = String.num(ConfigManager.config_data.audio[self.name].volume)
 
 func mute_adjust():
 	ConfigManager.config_data.audio[self.name].mute = mute.is_pressed()

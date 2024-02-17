@@ -29,13 +29,16 @@ process_mode = 3
 stream = ExtResource("9")
 autoplay = true
 mix_target = 1
+bus = &"Music"
 
 [node name="Voice_Player" type="AudioStreamPlayer" parent="."]
 mix_target = 1
+bus = &"Voice"
 
 [node name="FX_Player" type="AudioStreamPlayer" parent="."]
 process_mode = 3
 mix_target = 1
+bus = &"FX"
 
 [node name="message_display" type="Label" parent="."]
 anchors_preset = 10
