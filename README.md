@@ -2,6 +2,8 @@
 
 Boilerplate code for developing Godot games. The base backend boring stuff that many games need but is a pain to develop.
 
+Playable online on [itch.io](https://sleepychild.itch.io/godot-game-boilerplate)
+
 ## Running the web deployment localy
 
 ```bash
