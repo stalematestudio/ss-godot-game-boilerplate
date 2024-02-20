@@ -1,81 +1,55 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://16dat6l4kb1o"]
 
-[ext_resource path="res://scripts/base/pause.gd" type="Script" id=1]
-[ext_resource path="res://assets/base/default_theme.tres" type="Theme" id=2]
-
-
-
-
+[ext_resource type="Script" path="res://scripts/base/pause.gd" id="1"]
+[ext_resource type="Theme" uid="uid://b87lntx1cb4rs" path="res://assets/base/default_theme.tres" id="2"]
 
 [node name="pause_scene" type="Control"]
 process_mode = 3
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-theme = ExtResource( 2 )
-script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+theme = ExtResource("2")
+script = ExtResource("1")
 web_link_url = "https://your_website.something"
 
 [node name="Pause_Menu" type="PanelContainer" parent="."]
+layout_mode = 0
 anchor_bottom = 1.0
-theme = ExtResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+theme = ExtResource("2")
 
 [node name="VBC" type="VBoxContainer" parent="Pause_Menu"]
-offset_left = 7.0
-offset_top = 7.0
-offset_right = 98.0
-offset_bottom = 473.0
-theme = ExtResource( 2 )
+layout_mode = 2
+theme = ExtResource("2")
 
 [node name="Game_Title" type="Label" parent="Pause_Menu/VBC"]
-offset_right = 91.0
-offset_bottom = 14.0
+layout_mode = 2
 text = "GAME TITLE"
-align = 1
 uppercase = true
 
 [node name="HSeparator_1" type="HSeparator" parent="Pause_Menu/VBC"]
-offset_top = 18.0
-offset_right = 91.0
-offset_bottom = 22.0
+layout_mode = 2
 
 [node name="Resume" type="Button" parent="Pause_Menu/VBC"]
-offset_top = 26.0
-offset_right = 91.0
-offset_bottom = 46.0
-theme = ExtResource( 2 )
+layout_mode = 2
+theme = ExtResource("2")
 text = "Resume"
 
 [node name="Settings" type="Button" parent="Pause_Menu/VBC"]
-offset_top = 50.0
-offset_right = 91.0
-offset_bottom = 70.0
+layout_mode = 2
 text = "Settings"
 
 [node name="Quit_To_Title" type="Button" parent="Pause_Menu/VBC"]
-offset_top = 74.0
-offset_right = 91.0
-offset_bottom = 94.0
+layout_mode = 2
 text = "Quit To Title"
 
 [node name="Quit_Game" type="Button" parent="Pause_Menu/VBC"]
-offset_top = 98.0
-offset_right = 91.0
-offset_bottom = 118.0
+layout_mode = 2
 text = "Quit Game"
 
 [node name="HSeparator_2" type="HSeparator" parent="Pause_Menu/VBC"]
-offset_top = 122.0
-offset_right = 91.0
-offset_bottom = 126.0
+layout_mode = 2
 
 [node name="Developer_LinkButton" type="LinkButton" parent="Pause_Menu/VBC"]
-offset_top = 130.0
-offset_right = 91.0
-offset_bottom = 144.0
-text = "Visir Website"
+layout_mode = 2
+text = "Visit website"

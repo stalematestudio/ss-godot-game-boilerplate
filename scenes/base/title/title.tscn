@@ -94,5 +94,4 @@ initial_position = 2
 visible = false
 
 [node name="continue" parent="." instance=ExtResource("5")]
-initial_position = 2
 visible = false
