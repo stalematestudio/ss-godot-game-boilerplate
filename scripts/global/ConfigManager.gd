@@ -20,7 +20,7 @@ const resolutions = [
 
 @onready var config_data_default = {
 		"game":{
-				"subtitles":false,
+				"subtitles": false,
 				"mouse_mode_confined": false,
 				"pause_on_focus_loss": true,
 				"resume_on_focus_grab": true,
@@ -30,7 +30,7 @@ const resolutions = [
 				"physics_jitter_fix": 0.5,
 				"max_fps": 0,
 				"time_scale": 1,
-				"debug":false
+				"debug": false
 				},
 		"video":{
 				"fov": 70,
@@ -42,7 +42,7 @@ const resolutions = [
 				"keep_screen_on": true,
 				"vsync": true,
 				"fullscreen": false,
-				"center_window":false,
+				"center_window": false,
 				"borderless": false,
 				"resolution_auto": false,
 				"resolution_option": 0
@@ -159,7 +159,7 @@ func reset_to_default(section):
 func keybind_defaults():
 	var config_data_default_keybind = {}
 	for action in InputMap.get_actions():
-		if not ( action.begins_with('ui_') or action.begins_with('util_') ):
+		if not (action.begins_with('ui_') or action.begins_with('util_')):
 			config_data_default_keybind[action] = {
 					"deadzone": 0.5,
 					"events": InputMap.action_get_events(action).duplicate(true)

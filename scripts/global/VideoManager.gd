@@ -38,7 +38,7 @@ func screen_adjust():
 	if ConfigManager.config_data.video.resolution_auto:
 		resolution = screen_res
 	else:
-		resolution = screen_res if ( config_res[0] > screen_res[0] ) else config_res
+		resolution = screen_res if (config_res[0] > screen_res[0]) else config_res
 	
 	get_viewport().set_size(resolution)
 

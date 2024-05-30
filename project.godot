@@ -43,6 +43,11 @@ window/size/viewport_width=854
 window/size/viewport_height=480
 window/size/resizable=false
 
+[editor]
+
+naming/node_name_num_separator=2
+naming/node_name_casing=2
+
 [gui]
 
 theme/custom="res://assets/base/default_theme.tres"

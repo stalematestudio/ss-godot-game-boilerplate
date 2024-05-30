@@ -19,9 +19,9 @@ func apply_config():
 	apply_config_keybind()
 
 func _input(event):
-	if ( event is InputEventJoypadButton ) or ( event is InputEventJoypadMotion ):
+	if (event is InputEventJoypadButton) or (event is InputEventJoypadMotion):
 		emit_signal("joypad_active")
-	elif ( event is InputEventMouseButton ) or ( event is InputEventMouseMotion ) :
+	elif (event is InputEventMouseButton) or (event is InputEventMouseMotion):
 		emit_signal("joypad_inactive")
 
 func apply_config_keybind():

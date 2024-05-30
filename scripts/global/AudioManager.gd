@@ -13,10 +13,10 @@ signal message(message)
 		"FX": AudioServer.get_bus_index("FX")
 		}
 
-@onready var navigate_audio = preload("res://assets/audio/ui_effects/navigate.wav")
-@onready var deny_audio = preload("res://assets/audio/ui_effects/deny.wav")
-@onready var accept_audio = preload("res://assets/audio/ui_effects/accept.wav")
-@onready var cancel_audio = preload("res://assets/audio/ui_effects/cancel.wav")
+@onready var navigate_audio = preload ("res://assets/audio/ui_effects/navigate.wav")
+@onready var deny_audio = preload ("res://assets/audio/ui_effects/deny.wav")
+@onready var accept_audio = preload ("res://assets/audio/ui_effects/accept.wav")
+@onready var cancel_audio = preload ("res://assets/audio/ui_effects/cancel.wav")
 
 func _ready():
 	await get_node("/root/main").ready # Wait For Main Scene to be ready.

@@ -128,7 +128,7 @@ func mouse_mode_ui():
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 func _on_joypad_active():
-	if ( Input.get_mouse_mode() == Input.MOUSE_MODE_CONFINED ) or ( Input.get_mouse_mode() == Input.MOUSE_MODE_VISIBLE ):
+	if (Input.get_mouse_mode() == Input.MOUSE_MODE_CONFINED) or (Input.get_mouse_mode() == Input.MOUSE_MODE_VISIBLE):
 		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 
 func _on_joypad_inactive():

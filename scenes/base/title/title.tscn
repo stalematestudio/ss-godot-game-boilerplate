@@ -16,7 +16,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1")
 script = ExtResource("2")
-web_link_url = "https://your_website.something"
+web_link_url = "https://github.com/stalematestudio/ss-godot-game-boilerplate"
 
 [node name="Start_Menu" type="PanelContainer" parent="."]
 layout_mode = 0

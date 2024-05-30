@@ -9,9 +9,11 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme = ExtResource("2")
 script = ExtResource("1")
-web_link_url = "https://your_website.something"
+web_link_url = "https://github.com/stalematestudio/ss-godot-game-boilerplate"
 
 [node name="Pause_Menu" type="PanelContainer" parent="."]
 layout_mode = 0
