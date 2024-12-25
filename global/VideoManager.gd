@@ -1,6 +1,6 @@
 extends Node
 
-signal message(message)
+# signal message(message)
 signal camera_config_changed
 
 func _ready():
@@ -11,7 +11,7 @@ func _ready():
 func apply_config():
 	picture_adjust()
 	screen_adjust()
-	emit_signal("camera_config_changed")
+	camera_config_changed.emit()
 
 	DisplayServer.screen_set_keep_on(ConfigManager.config_data.video.keep_screen_on)
 	DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED if (ConfigManager.config_data.video.vsync) else DisplayServer.VSYNC_DISABLED)

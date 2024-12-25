@@ -12,7 +12,7 @@ config_version=5
 
 config/name="ss-godot-game-boilerplate"
 config/description="Boilerplate code for developing godot games"
-run/main_scene="res://scenes/base/main.tscn"
+run/main_scene="res://main.tscn"
 config/features=PackedStringArray("4.3")
 boot_splash/bg_color=Color(0.141176, 0.141176, 0.141176, 1)
 boot_splash/fullsize=false
@@ -25,13 +25,13 @@ buses/default_bus_layout="res://assets/base/default_bus_layout.tres"
 
 [autoload]
 
-Helpers="*res://scripts/global/Helpers.gd"
-ProfileManager="*res://scripts/global/ProfileManager.gd"
-ConfigManager="*res://scripts/global/ConfigManager.gd"
-AudioManager="*res://scripts/global/AudioManager.gd"
-VideoManager="*res://scripts/global/VideoManager.gd"
-InputManager="*res://scripts/global/InputManager.gd"
-GameManager="*res://scripts/global/GameManager.gd"
+HelpersInstance="*res://global/Helpers.gd"
+ProfileManager="*res://global/ProfileManager.gd"
+ConfigManager="*res://global/ConfigManager.gd"
+AudioManager="*res://global/AudioManager.gd"
+VideoManager="*res://global/VideoManager.gd"
+InputManager="*res://global/InputManager.gd"
+GameManager="*res://global/GameManager.gd"
 
 [debug]
 

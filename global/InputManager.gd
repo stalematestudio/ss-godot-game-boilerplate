@@ -1,6 +1,6 @@
 extends Node
 
-signal message(message)
+# signal message(message)
 signal joypad_active
 signal joypad_inactive
 
@@ -20,9 +20,9 @@ func apply_config():
 
 func _input(event):
 	if (event is InputEventJoypadButton) or (event is InputEventJoypadMotion):
-		emit_signal("joypad_active")
+		joypad_active.emit()
 	elif (event is InputEventMouseButton) or (event is InputEventMouseMotion):
-		emit_signal("joypad_inactive")
+		joypad_inactive.emit()
 
 func apply_config_keybind():
 	for action in ConfigManager.config_data.keybind:

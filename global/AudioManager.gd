@@ -1,6 +1,6 @@
 extends Node
 
-signal message(message)
+# signal message(message)
 
 @onready var Music_Player = get_node("/root/main/Music_Player")
 @onready var Voice_Player = get_node("/root/main/Voice_Player")
@@ -31,18 +31,18 @@ func set_audio(bus=0, mute=false, volume=50):
 	AudioServer.set_bus_mute(bus, mute)
 	AudioServer.set_bus_volume_db(bus, linear_to_db(clamp(volume * 0.01, 0.01, 0.99)))
 
-func ui_navigate_audio_effect(val=false):
+func ui_navigate_audio_effect(_val=false):
 	FX_Player.set_stream(navigate_audio)
 	FX_Player.play()
 
-func ui_deny_audio_effect(val=false):
+func ui_deny_audio_effect(_val=false):
 	FX_Player.set_stream(deny_audio)
 	FX_Player.play()
 
-func ui_accept_audio_effect(val=false):
+func ui_accept_audio_effect(_val=false):
 	FX_Player.set_stream(accept_audio)
 	FX_Player.play()
 
-func ui_cancel_audio_effect(val=false):
+func ui_cancel_audio_effect(_val=false):
 	FX_Player.set_stream(cancel_audio)
 	FX_Player.play()

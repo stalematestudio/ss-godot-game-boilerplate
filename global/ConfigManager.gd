@@ -2,7 +2,7 @@ extends Node
 
 const CONFIG_FILE = "config.ini"
 
-signal message(message)
+# signal message(message)
 signal config_update
 
 const resolutions = [
@@ -108,7 +108,7 @@ func _on_profile_created():
 	save_config()
 
 func apply_config():
-	emit_signal("config_update")
+	config_update.emit()
 
 func save_config():
 	var config_file = ConfigFile.new()
@@ -117,7 +117,7 @@ func save_config():
 			config_file.set_value(section, setting, config_data[section][setting])
 	var err = config_file.save(config_path)
 	if err == OK:
-		emit_signal("config_update")
+		config_update.emit()
 		return true
 
 func load_config():
@@ -127,7 +127,7 @@ func load_config():
 		for section in config_data:
 			for setting in config_data[section]:
 				config_data[section][setting] = config_file.get_value(section, setting, config_data[section][setting])
-		emit_signal("config_update")
+		config_update.emit()
 		return true
 	elif err == ERR_FILE_NOT_FOUND:
 		return save_config()

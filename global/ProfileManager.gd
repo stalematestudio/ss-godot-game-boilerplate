@@ -30,8 +30,8 @@ signal profile_changed
 @onready var game_play_time = 0
 
 func _ready():
-	connect("profile_created", Callable(self, "_on_profile_created"))
-	connect("profile_changed", Callable(self, "_on_profile_changed"))
+	profile_created.connect(Callable(self, "_on_profile_created"))
+	profile_changed.connect(Callable(self, "_on_profile_changed"))
 
 	await get_node("/root/main").ready
 	self.process_mode = Node.PROCESS_MODE_ALWAYS
@@ -61,8 +61,8 @@ func add_profile(new_profile):
 		profile_current = profile_list.find(new_profile)
 		save_profile_current()
 
-		emit_signal("profile_created")
-		emit_signal("profile_changed")
+		profile_created.emit()
+		profile_changed.emit()
 		
 		return ProfileErrors.OK
 	else:
@@ -91,7 +91,7 @@ func save_profile():
 	profile_file.set_value("game", "game_current", game_current)
 	profile_file.set_value("game", "game_play_time", game_play_time)
 	profile_file.set_value("game", "game_data_path", game_data_path)
-	emit_signal("message", "PROFILE SAVED: " + "SUCCESS" if OK == profile_file.save(get_profile_file_path_current()) else "FAIL")
+	message.emit("PROFILE SAVED: " + "SUCCESS" if OK == profile_file.save(get_profile_file_path_current()) else "FAIL")
 
 func load_profile():
 	var profile_file = ConfigFile.new()
@@ -132,10 +132,10 @@ func save_game(game_data):
 		save_dir.make_dir_recursive(save_dir_path)
 	var save_file = FileAccess.open(game_data_path, FileAccess.WRITE)
 	for data in game_data:
-		save_file.store_line(JSON.new().stringify(data))
+		save_file.store_line(JSON.stringify(data))
 	save_file.close()
 	save_profile()
-	emit_signal("message", game_data_path)
+	message.emit(game_data_path)
 
 func load_game():
 	var game_data = []

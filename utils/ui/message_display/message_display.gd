@@ -5,10 +5,10 @@ extends Label
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	ProfileManager.connect("message", Callable(self, "_on_message"))
-	ConfigManager.connect("message", Callable(self, "_on_message"))
-	AudioManager.connect("message", Callable(self, "_on_message"))
-	VideoManager.connect("message", Callable(self, "_on_message"))
-	InputManager.connect("message", Callable(self, "_on_message"))
+	# ConfigManager.connect("message", Callable(self, "_on_message"))
+	# AudioManager.connect("message", Callable(self, "_on_message"))
+	# VideoManager.connect("message", Callable(self, "_on_message"))
+	# InputManager.connect("message", Callable(self, "_on_message"))
 	GameManager.connect("message", Callable(self, "_on_message"))
 
 	message_timer.connect("timeout", Callable(self, "_on_message_timer_timeout"))

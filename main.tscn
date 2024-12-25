@@ -1,0 +1,44 @@
+[gd_scene load_steps=12 format=3 uid="uid://cru8pff6vp31v"]
+
+[ext_resource type="Script" path="res://scripts/base/main.gd" id="1_tdg1b"]
+[ext_resource type="PackedScene" path="res://scenes/base/intro/intro.tscn" id="2_iugek"]
+[ext_resource type="PackedScene" uid="uid://betheslgffy6l" path="res://scenes/base/title/title.tscn" id="3_eafdj"]
+[ext_resource type="PackedScene" path="res://scenes/base/credits/credits.tscn" id="4_iwcea"]
+[ext_resource type="PackedScene" path="res://scenes/base/game/game.tscn" id="5_j466w"]
+[ext_resource type="PackedScene" path="res://utils/debug/debug.tscn" id="6_oiqvk"]
+[ext_resource type="PackedScene" uid="uid://d4m2nnm25357m" path="res://scenes/base/settings/settings.tscn" id="7_37n42"]
+[ext_resource type="PackedScene" uid="uid://16dat6l4kb1o" path="res://scenes/base/pause/pause.tscn" id="8_04kg6"]
+[ext_resource type="Environment" uid="uid://bi1vmxatm5tjq" path="res://assets/base/default_env.tres" id="9_l6lsn"]
+[ext_resource type="AudioStream" uid="uid://45xcngosyca0" path="res://assets/audio/music/test_music.ogg" id="10_nlrrd"]
+[ext_resource type="PackedScene" uid="uid://bfx1xmorf1a8r" path="res://utils/ui/message_display/message_display.tscn" id="11_m06xe"]
+
+[node name="main" type="Node"]
+script = ExtResource("1_tdg1b")
+intro_scene = ExtResource("2_iugek")
+title_scene = ExtResource("3_eafdj")
+credits_scene = ExtResource("4_iwcea")
+game_scene = ExtResource("5_j466w")
+debug_scene = ExtResource("6_oiqvk")
+settings_scene = ExtResource("7_37n42")
+pause_scene = ExtResource("8_04kg6")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("9_l6lsn")
+
+[node name="Music_Player" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("10_nlrrd")
+autoplay = true
+mix_target = 1
+bus = &"Music"
+
+[node name="Voice_Player" type="AudioStreamPlayer" parent="."]
+mix_target = 1
+bus = &"Voice"
+
+[node name="FX_Player" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+mix_target = 1
+bus = &"FX"
+
+[node name="message_display" parent="." instance=ExtResource("11_m06xe")]

@@ -1,4 +1,4 @@
-extends Node
+class_name Helpers extends Node
 
 static func date_time_string():
 	var dt = Time.get_datetime_dict_from_system()

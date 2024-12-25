@@ -44,7 +44,7 @@ func _ready():
 	game_state_change("INTRO")
 
 func apply_config():
-	emit_signal("debug_state_changed")
+	debug_state_changed.emit()
 	if game_state:
 		game_state.mouse_mode.call()
 	OS.set_low_processor_usage_mode(ConfigManager.config_data.game.low_processor_usage_mode)
@@ -60,24 +60,24 @@ func _notification(what):
 		match what:
 			NOTIFICATION_APPLICATION_FOCUS_IN:
 				if game_state.in_game and ConfigManager.config_data.game.resume_on_focus_grab:
-					emit_signal("resume_game")
+					resume_game.emit()
 			NOTIFICATION_APPLICATION_FOCUS_OUT:
 				if game_state.in_game and ConfigManager.config_data.game.pause_on_focus_loss:
-					emit_signal("pause_game")
+					pause_game.emit()
 
 func _input(event):
 	if event.is_action_released("util_pause") and game_state.in_game:
 		get_viewport().set_input_as_handled()
 		if game_paused:
-			emit_signal("resume_game")
+			resume_game.emit()
 		else:
-			emit_signal("pause_game")
+			pause_game.emit()
 	elif event.is_action_released("util_screenshot"):
 		screenshot()
 	elif event.is_action_released("util_quick_load") and game_state.in_game:
-		emit_signal("load_game")
+		load_game.emit()
 	elif event.is_action_released("util_quick_save") and game_state.in_game:
-		emit_signal("save_game")
+		save_game.emit()
 
 func _on_pause_game():
 	game_paused = true
@@ -93,9 +93,9 @@ func game_state_change(state):
 	game_state = game_states[state].duplicate(true)
 	game_state.mouse_mode.call()
 	if not game_state.in_game:
-		emit_signal("resume_game")
-	emit_signal("game_state_changed")
-	emit_signal("message", "True" if game_state else "False")
+		resume_game.emit()
+	game_state_changed.emit()
+	message.emit("True" if game_state else "False")
 
 func screenshot():
 	# Check if path exists

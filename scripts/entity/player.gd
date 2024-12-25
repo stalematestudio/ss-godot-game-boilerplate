@@ -88,7 +88,7 @@ func _ready():
 	player_stats_health.set_max(player_health_max)
 	player_stats_stamina.set_max(player_stamina_max)
 
-func _process(delta):
+func _process(_delta):
 	player_stats_health.set_value(player_health)
 	player_stats_stamina.set_value(player_stamina)
 
@@ -178,7 +178,7 @@ func process_movement(delta):
 			velocity.y = JUMP_SPEED * Input.get_action_strength("player_movement_jump")
 		
 		# Sprinting
-		if Input.is_action_just_pressed("player_movement_sprint") and ( player_stamina >= player_stamina_max / 2 ):
+		if Input.is_action_just_pressed("player_movement_sprint") and ( player_stamina >= player_stamina_max / 2.0 ):
 			is_sprinting = true
 			if is_crouching:
 				is_crouching = false

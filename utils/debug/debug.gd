@@ -52,7 +52,7 @@ func _input(event):
 				input_display.add_text(event.as_text())
 				input_display.newline()
 
-func _process(delta):
+func _process(_delta):
 	fps_display.text = String.num(Engine.get_frames_per_second())
 	
 	m_forward.text = String.num(Input.get_action_strength("player_movement_forward"))
