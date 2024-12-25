@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cru8pff6vp31v"]
+[gd_scene load_steps=12 format=3 uid="uid://cru8pff6vp31v"]
 
 [ext_resource type="Environment" uid="uid://bi1vmxatm5tjq" path="res://assets/base/default_env.tres" id="1"]
 [ext_resource type="PackedScene" path="res://scenes/base/intro/intro.tscn" id="2"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://d4m2nnm25357m" path="res://scenes/base/settings/settings.tscn" id="8"]
 [ext_resource type="AudioStream" uid="uid://45xcngosyca0" path="res://assets/audio/music/test_music.ogg" id="9"]
 [ext_resource type="Script" path="res://scripts/base/main.gd" id="10"]
+[ext_resource type="PackedScene" uid="uid://bfx1xmorf1a8r" path="res://utils/ui/message_display/message_display.tscn" id="11_x3j4d"]
 
 [node name="main" type="Node"]
 script = ExtResource("10")
@@ -40,13 +41,4 @@ process_mode = 3
 mix_target = 1
 bus = &"FX"
 
-[node name="message_display" type="Label" parent="."]
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 14.0
-grow_horizontal = 2
-uppercase = true
-
-[node name="message_timer" type="Timer" parent="."]
-wait_time = 5.0
-one_shot = true
+[node name="message_display" parent="." instance=ExtResource("11_x3j4d")]

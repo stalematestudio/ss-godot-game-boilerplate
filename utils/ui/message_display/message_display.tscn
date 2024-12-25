@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://bfx1xmorf1a8r"]
+
+[ext_resource type="Script" path="res://utils/ui/message_display/message_display.gd" id="1_a2eyd"]
+
+[node name="message_display" type="Label"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 14.0
+grow_horizontal = 2
+uppercase = true
+script = ExtResource("1_a2eyd")
+
+[node name="message_timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true

@@ -21,9 +21,6 @@ var pause_scene_instance
 var title_camera
 var background_environment
 
-@onready var message_display = $message_display
-@onready var message_timer = $message_timer
-
 @onready var ui_target
 
 func _ready():
@@ -37,22 +34,6 @@ func _ready():
 	
 	GameManager.connect("pause_game", Callable(self, "_on_pause_game"))
 	GameManager.connect("resume_game", Callable(self, "_on_resume_game"))
-
-	ProfileManager.connect("message", Callable(self, "_on_message"))
-	ConfigManager.connect("message", Callable(self, "_on_message"))
-	AudioManager.connect("message", Callable(self, "_on_message"))
-	VideoManager.connect("message", Callable(self, "_on_message"))
-	InputManager.connect("message", Callable(self, "_on_message"))
-	GameManager.connect("message", Callable(self, "_on_message"))
-	
-	message_timer.connect("timeout", Callable(self, "_on_message_timer_timeout"))
-
-func _on_message(message):
-	message_display.set_text( message if message_display.get_text() == "" else message_display.get_text() + "\n" + message )
-	message_timer.start()
-
-func _on_message_timer_timeout():
-	message_display.set_text("")
 
 func ui_target_disconnect():
 	if is_instance_valid(ui_target):
