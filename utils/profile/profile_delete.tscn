@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://dwvxqp01ac8tm"]
+
+[node name="profile_delete" type="ConfirmationDialog"]
+auto_translate_mode = 1
+initial_position = 2
+visible = true
+dialog_autowrap = true

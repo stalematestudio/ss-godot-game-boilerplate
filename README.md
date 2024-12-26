@@ -1,5 +1,8 @@
 # ss-godot-game-boilerplate
 
+>[!INFO]
+>Docs are out of date.
+
 Boilerplate code for developing Godot games. The base backend boring stuff that many games need but is a pain to develop.
 
 Playable online on [itch.io](https://sleepychild.itch.io/godot-game-boilerplate)
@@ -14,25 +17,25 @@ Playable online on [itch.io](https://sleepychild.itch.io/godot-game-boilerplate)
 
 ### Game Manager
 
-__res://scripts/global_scripts/GameManager.gd__
+__res://global/GameManager.gd__
 
 This is the main game control logic. All game state control should go through it.
 
 ### Config Manager
 
-__res://scripts/global_scripts/ConfigManager.gd__
+__res://global/ConfigManager.gd__
 
 Handles game configuration saving and loading. Holds an array of possible resolutions. Detects connected joypads.
 
 ### Audio Manager
 
-__res://scripts/global_scripts/AudioManager.gd__
+__res://global/AudioManager.gd__
 
 Holds references to non positional persistent AudioStreamPlayers from the Main Scene. Has the audio_bus_* indexes. And should be used for all non positional audio playbacks as in title music and user interface audio effects.
 
 ### Helpers
 
-__res://scripts/global_scripts/Helpers.gd__
+__res://global/Helpers.gd__
 
 Has utility functions.
 - ```RemoveChildren(p_node)``` removes all child nodes under p_node
@@ -43,7 +46,7 @@ Has utility functions.
 
 ### Main Scene ( Persistent )
 
-__res://scenes/main.tscn__
+__res://main.tscn__
 
 This is the project ‘Main Scene’. It is persistent during runtime and all other scenes in a project are loaded into it at runtime. It holds nodes that should be reused by the game and not duplicated in loaded sub scenes. It holds a "WorldEnvironment" node used to reference the "Environment" and AudioStreamPlayers for non positional Music, Voice and FX playback.
 

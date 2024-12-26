@@ -24,29 +24,29 @@ var background_environment
 @onready var ui_target
 
 func _ready():
-	get_node("/root").connect("gui_focus_changed", Callable(self, "_on_gui_focus_changed"))
+	get_node("/root").connect("gui_focus_changed", _on_gui_focus_changed)
 	
-	GameManager.connect("game_state_changed", Callable(self, "ui_target_disconnect"))
-	GameManager.connect("resume_game", Callable(self, "ui_target_disconnect"))
+	GameManager.game_state_changed.connect(ui_target_disconnect)
+	GameManager.resume_game.connect(ui_target_disconnect)
 	
-	GameManager.connect("game_state_changed", Callable(self, "_on_game_state_changed"))
-	GameManager.connect("debug_state_changed", Callable(self, "_on_debug_state_changed"))
+	GameManager.game_state_changed.connect(_on_game_state_changed)
+	GameManager.debug_state_changed.connect(_on_debug_state_changed)
 	
-	GameManager.connect("pause_game", Callable(self, "_on_pause_game"))
-	GameManager.connect("resume_game", Callable(self, "_on_resume_game"))
+	GameManager.pause_game.connect(_on_pause_game)
+	GameManager.resume_game.connect(_on_resume_game)
 
 func ui_target_disconnect():
 	if is_instance_valid(ui_target):
-		if ( ui_target is Button ) and ui_target.is_connected("pressed", Callable(AudioManager, "ui_accept_audio_effect")):
-			ui_target.disconnect("pressed", Callable(AudioManager, "ui_accept_audio_effect"))
-		elif ( ui_target is Slider ) and ui_target.is_connected("value_changed", Callable(AudioManager, "ui_navigate_audio_effect")) and ( ui_target.is_editable() ):
-			ui_target.disconnect("value_changed", Callable(AudioManager, "ui_navigate_audio_effect"))
+		if ( ui_target is Button ) and ui_target.pressed.is_connected(AudioManager.ui_accept_audio_effect):
+			ui_target.pressed.disconnect(AudioManager.ui_accept_audio_effect)
+		elif ( ui_target is Slider ) and ui_target.value_changed.is_connected(AudioManager.ui_navigate_audio_effect) and ( ui_target.is_editable() ):
+			ui_target.value_changed.disconnect(AudioManager.ui_navigate_audio_effect)
 
 func ui_target_connect():
-	if ( ui_target is Button ) and ( not ui_target.is_connected("pressed", Callable(AudioManager, "ui_accept_audio_effect")) ):
-		ui_target.connect("pressed", Callable(AudioManager, "ui_accept_audio_effect"))
-	elif ( ui_target is Slider ) and ( not ui_target.is_connected("value_changed", Callable(AudioManager, "ui_navigate_audio_effect")) ) and ( ui_target.is_editable() ):
-		ui_target.connect("value_changed", Callable(AudioManager, "ui_navigate_audio_effect"))
+	if ( ui_target is Button ) and ( not ui_target.pressed.is_connected(AudioManager.ui_accept_audio_effect) ):
+		ui_target.pressed.connect(AudioManager.ui_accept_audio_effect)
+	elif ( ui_target is Slider ) and ( not ui_target.value_changed.is_connected(AudioManager.ui_navigate_audio_effect) ) and ( ui_target.is_editable() ):
+		ui_target.value_changed.connect(AudioManager.ui_navigate_audio_effect)
 
 func _on_gui_focus_changed(target):
 	if ( target is Button ) or ( target is Slider ):

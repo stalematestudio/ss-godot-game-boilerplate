@@ -30,8 +30,8 @@ signal profile_changed
 @onready var game_play_time = 0
 
 func _ready():
-	profile_created.connect(Callable(self, "_on_profile_created"))
-	profile_changed.connect(Callable(self, "_on_profile_changed"))
+	profile_created.connect(_on_profile_created)
+	profile_changed.connect(_on_profile_changed)
 
 	await get_node("/root/main").ready
 	self.process_mode = Node.PROCESS_MODE_ALWAYS
@@ -42,9 +42,12 @@ func _on_profile_changed():
 func _on_profile_created():
 	pass
 
-func add_profile(new_profile):
+func profile_exists(new_profile_name: String) -> bool:
 	get_profile_list()
-	if new_profile in profile_list:
+	return new_profile_name in profile_list
+
+func add_profile(new_profile: String):
+	if profile_exists(new_profile):
 		return ProfileErrors.PROFILE_EXISTS
 	var dir = DirAccess.open(PLAYER_DATA_PATH)
 	if dir.make_dir_recursive(new_profile) == OK:
