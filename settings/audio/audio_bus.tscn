@@ -1,0 +1,76 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource type="Theme" uid="uid://b87lntx1cb4rs" path="res://assets/base/default_theme.tres" id="1"]
+[ext_resource type="Script" path="res://settings/audio/audio_bus.gd" id="2"]
+
+
+
+
+
+[node name="audio_bus" type="HBoxContainer"]
+offset_right = 854.0
+offset_bottom = 40.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+offset_right = 77.0
+offset_bottom = 60.0
+size_flags_horizontal = 3
+size_flags_vertical = 5
+size_flags_stretch_ratio = 0.1
+align = 1
+valign = 1
+
+[node name="VBC" type="VBoxContainer" parent="."]
+offset_left = 81.0
+offset_right = 854.0
+offset_bottom = 60.0
+size_flags_horizontal = 3
+
+[node name="Mute" type="CheckButton" parent="VBC"]
+offset_right = 773.0
+offset_bottom = 40.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "Mute"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBC" type="HBoxContainer" parent="VBC"]
+offset_top = 44.0
+offset_right = 773.0
+offset_bottom = 60.0
+
+[node name="Slider" type="HSlider" parent="VBC/HBC"]
+offset_right = 699.0
+offset_bottom = 16.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme = ExtResource( 1 )
+value = 50.0
+rounded = true
+tick_count = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Display" type="Label" parent="VBC/HBC"]
+offset_left = 703.0
+offset_right = 773.0
+offset_bottom = 16.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.1
+theme = ExtResource( 1 )
+text = "50"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}

@@ -1,0 +1,116 @@
+[gd_scene load_steps=9 format=3 uid="uid://d4m2nnm25357m"]
+
+[ext_resource type="Theme" uid="uid://b87lntx1cb4rs" path="res://assets/base/default_theme.tres" id="1"]
+[ext_resource type="Script" path="res://settings/setting.gd" id="3"]
+[ext_resource type="PackedScene" path="res://settings/mouse/mouse.tscn" id="5"]
+[ext_resource type="PackedScene" path="res://settings/game/game.tscn" id="6"]
+[ext_resource type="PackedScene" path="res://settings/controller/controller.tscn" id="7"]
+[ext_resource type="PackedScene" path="res://settings/audio/audio.tscn" id="8"]
+[ext_resource type="PackedScene" path="res://settings/keybind/keybind.tscn" id="9"]
+[ext_resource type="PackedScene" path="res://settings/video/video.tscn" id="10"]
+
+[node name="settings" type="PanelContainer"]
+process_mode = 3
+self_modulate = Color(1, 1, 1, 0.501961)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1")
+script = ExtResource("3")
+
+[node name="VBC" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme = ExtResource("1")
+
+[node name="Tab_Buttons" type="HBoxContainer" parent="VBC"]
+layout_mode = 2
+theme = ExtResource("1")
+
+[node name="Game_Tab_Button" type="Button" parent="VBC/Tab_Buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1")
+toggle_mode = true
+text = "Game"
+
+[node name="Video_Tab_Button" type="Button" parent="VBC/Tab_Buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1")
+toggle_mode = true
+text = "Video"
+
+[node name="Audio_Tab_Button" type="Button" parent="VBC/Tab_Buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1")
+toggle_mode = true
+text = "Audio"
+
+[node name="Mouse_Tab_Button" type="Button" parent="VBC/Tab_Buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1")
+toggle_mode = true
+text = "Mouse"
+
+[node name="Controller_Tab_Button" type="Button" parent="VBC/Tab_Buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1")
+toggle_mode = true
+text = "Controller"
+
+[node name="Keybind_Tab_Button" type="Button" parent="VBC/Tab_Buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1")
+toggle_mode = true
+text = "Key Binding"
+
+[node name="Settings_Tabs" type="TabContainer" parent="VBC"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("1")
+tabs_visible = false
+use_hidden_tabs_for_min_size = true
+
+[node name="game" parent="VBC/Settings_Tabs" instance=ExtResource("6")]
+layout_mode = 2
+
+[node name="video" parent="VBC/Settings_Tabs" instance=ExtResource("10")]
+visible = false
+layout_mode = 2
+
+[node name="audio" parent="VBC/Settings_Tabs" instance=ExtResource("8")]
+visible = false
+layout_mode = 2
+
+[node name="mouse" parent="VBC/Settings_Tabs" instance=ExtResource("5")]
+visible = false
+layout_mode = 2
+
+[node name="controller" parent="VBC/Settings_Tabs" instance=ExtResource("7")]
+visible = false
+layout_mode = 2
+
+[node name="keybind" parent="VBC/Settings_Tabs" instance=ExtResource("9")]
+visible = false
+layout_mode = 2
+
+[node name="Reset" type="Button" parent="VBC"]
+layout_mode = 2
+theme = ExtResource("1")
+text = "Reset"
+
+[node name="Apply" type="Button" parent="VBC"]
+layout_mode = 2
+theme = ExtResource("1")
+text = "Apply"
+
+[node name="Cancel" type="Button" parent="VBC"]
+layout_mode = 2
+theme = ExtResource("1")
+text = "Cancel"

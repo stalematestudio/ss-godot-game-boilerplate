@@ -1,0 +1,333 @@
+[gd_scene load_steps=20 format=3 uid="uid://c05588m64ut52"]
+
+[ext_resource type="PhysicsMaterial" path="res://level/demo/wall_physicsmaterial.tres" id="1"]
+[ext_resource type="PackedScene" path="res://props/cardboard_box/cardboard_box.tscn" id="2"]
+[ext_resource type="PhysicsMaterial" path="res://level/demo/surface_physicsmaterial.tres" id="3"]
+[ext_resource type="AudioStream" uid="uid://45xcngosyca0" path="res://assets/audio/music/test_music.ogg" id="4"]
+[ext_resource type="Material" uid="uid://cdmn6q34npg44" path="res://level/demo/surface_spatialmaterial.tres" id="5"]
+[ext_resource type="BoxMesh" path="res://level/demo/wall_cubemesh.tres" id="7"]
+[ext_resource type="PlaneMesh" path="res://level/demo/screen_planemesh.tres" id="8"]
+[ext_resource type="BoxMesh" path="res://level/demo/button_cubemesh.tres" id="9"]
+[ext_resource type="Material" path="res://level/demo/button_spatialmaterial.tres" id="9_y7xw2"]
+[ext_resource type="PlaneMesh" uid="uid://dlvkkeijivd6u" path="res://level/demo/surface_planemesh.tres" id="10"]
+[ext_resource type="BoxMesh" path="res://level/demo/roof_cubemesh.tres" id="11"]
+[ext_resource type="Script" path="res://level/demo/button.gd" id="12"]
+[ext_resource type="Shape3D" path="res://level/demo/surface_boxshape.tres" id="13"]
+[ext_resource type="Shape3D" path="res://level/demo/wall_boxshape.tres" id="14"]
+[ext_resource type="Shape3D" path="res://level/demo/screen_boxshape.tres" id="15"]
+[ext_resource type="Shape3D" path="res://level/demo/roof_boxshape.tres" id="16"]
+[ext_resource type="Shape3D" path="res://level/demo/button_boxshape.tres" id="17"]
+
+[sub_resource type="ViewportTexture" id="1"]
+viewport_path = NodePath("ScreenStaticBody/ScreenViewport")
+
+[sub_resource type="StandardMaterial3D" id="2"]
+resource_local_to_scene = true
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_operator = 1
+emission_texture = SubResource("1")
+
+[node name="demo" type="Node3D"]
+
+[node name="Structure" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 14)
+
+[node name="WallStaticBody_1" type="StaticBody3D" parent="Structure"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 2)
+input_ray_pickable = false
+physics_material_override = ExtResource("1")
+
+[node name="WallCollisionShape" type="CollisionShape3D" parent="Structure/WallStaticBody_1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+shape = ExtResource("14")
+
+[node name="WallMeshInstance" type="MeshInstance3D" parent="Structure/WallStaticBody_1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+mesh = ExtResource("7")
+surface_material_override/0 = ExtResource("5")
+
+[node name="WallStaticBody_2" type="StaticBody3D" parent="Structure"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -2)
+input_ray_pickable = false
+physics_material_override = ExtResource("1")
+
+[node name="WallCollisionShape" type="CollisionShape3D" parent="Structure/WallStaticBody_2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+shape = ExtResource("14")
+
+[node name="WallMeshInstance" type="MeshInstance3D" parent="Structure/WallStaticBody_2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+mesh = ExtResource("7")
+surface_material_override/0 = ExtResource("5")
+
+[node name="WallStaticBody_3" type="StaticBody3D" parent="Structure"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -2)
+input_ray_pickable = false
+physics_material_override = ExtResource("1")
+
+[node name="WallCollisionShape" type="CollisionShape3D" parent="Structure/WallStaticBody_3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+shape = ExtResource("14")
+
+[node name="WallMeshInstance" type="MeshInstance3D" parent="Structure/WallStaticBody_3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+mesh = ExtResource("7")
+surface_material_override/0 = ExtResource("5")
+
+[node name="WallStaticBody_4" type="StaticBody3D" parent="Structure"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 2)
+input_ray_pickable = false
+physics_material_override = ExtResource("1")
+
+[node name="WallCollisionShape" type="CollisionShape3D" parent="Structure/WallStaticBody_4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+shape = ExtResource("14")
+
+[node name="WallMeshInstance" type="MeshInstance3D" parent="Structure/WallStaticBody_4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+mesh = ExtResource("7")
+surface_material_override/0 = ExtResource("5")
+
+[node name="WallStaticBody_5" type="StaticBody3D" parent="Structure"]
+transform = Transform3D(-1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, -2, 0, -4)
+input_ray_pickable = false
+physics_material_override = ExtResource("1")
+
+[node name="WallCollisionShape" type="CollisionShape3D" parent="Structure/WallStaticBody_5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+shape = ExtResource("14")
+
+[node name="WallMeshInstance" type="MeshInstance3D" parent="Structure/WallStaticBody_5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+mesh = ExtResource("7")
+surface_material_override/0 = ExtResource("5")
+
+[node name="WallStaticBody_6" type="StaticBody3D" parent="Structure"]
+transform = Transform3D(-1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 2, 0, -4)
+input_ray_pickable = false
+physics_material_override = ExtResource("1")
+
+[node name="WallCollisionShape" type="CollisionShape3D" parent="Structure/WallStaticBody_6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+shape = ExtResource("14")
+
+[node name="WallMeshInstance" type="MeshInstance3D" parent="Structure/WallStaticBody_6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+mesh = ExtResource("7")
+surface_material_override/0 = ExtResource("5")
+
+[node name="WallStaticBody_7" type="StaticBody3D" parent="Structure"]
+transform = Transform3D(-1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 2, 0, 4)
+input_ray_pickable = false
+physics_material_override = ExtResource("1")
+
+[node name="WallCollisionShape" type="CollisionShape3D" parent="Structure/WallStaticBody_7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+shape = ExtResource("14")
+
+[node name="WallMeshInstance" type="MeshInstance3D" parent="Structure/WallStaticBody_7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+mesh = ExtResource("7")
+surface_material_override/0 = ExtResource("5")
+
+[node name="WallStaticBody_8" type="StaticBody3D" parent="Structure"]
+transform = Transform3D(-1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, -2, 0, -2)
+input_ray_pickable = false
+physics_material_override = ExtResource("1")
+
+[node name="WallCollisionShape" type="CollisionShape3D" parent="Structure/WallStaticBody_8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+shape = ExtResource("14")
+
+[node name="WallMeshInstance" type="MeshInstance3D" parent="Structure/WallStaticBody_8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+mesh = ExtResource("7")
+surface_material_override/0 = ExtResource("5")
+
+[node name="WallStaticBody_9" type="StaticBody3D" parent="Structure"]
+transform = Transform3D(0.707107, -0.707107, 0, 0.707107, 0.707107, 0, 0, 0, 1, 6.5, 0.95, 2)
+input_ray_pickable = false
+physics_material_override = ExtResource("1")
+
+[node name="WallCollisionShape" type="CollisionShape3D" parent="Structure/WallStaticBody_9"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+shape = ExtResource("14")
+
+[node name="WallMeshInstance" type="MeshInstance3D" parent="Structure/WallStaticBody_9"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+mesh = ExtResource("7")
+surface_material_override/0 = ExtResource("5")
+
+[node name="WallStaticBody_10" type="StaticBody3D" parent="Structure"]
+transform = Transform3D(0.252187, -0.967679, 0, 0.967679, 0.252187, 0, 0, 0, 1, 9.8, 0.03, 2)
+input_ray_pickable = false
+physics_material_override = ExtResource("1")
+
+[node name="WallCollisionShape" type="CollisionShape3D" parent="Structure/WallStaticBody_10"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+shape = ExtResource("14")
+
+[node name="WallMeshInstance" type="MeshInstance3D" parent="Structure/WallStaticBody_10"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+mesh = ExtResource("7")
+surface_material_override/0 = ExtResource("5")
+
+[node name="RoofStaticBody_1" type="StaticBody3D" parent="Structure"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.3, 0)
+
+[node name="RoofCollisionShape" type="CollisionShape3D" parent="Structure/RoofStaticBody_1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+shape = ExtResource("16")
+
+[node name="RoofMeshInstance" type="MeshInstance3D" parent="Structure/RoofStaticBody_1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+mesh = ExtResource("11")
+surface_material_override/0 = ExtResource("5")
+
+[node name="RoofStaticBody_2" type="StaticBody3D" parent="Structure"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 1.55, 0)
+
+[node name="RoofCollisionShape" type="CollisionShape3D" parent="Structure/RoofStaticBody_2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+shape = ExtResource("16")
+
+[node name="RoofMeshInstance" type="MeshInstance3D" parent="Structure/RoofStaticBody_2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+mesh = ExtResource("11")
+surface_material_override/0 = ExtResource("5")
+
+[node name="RoofStaticBody_3" type="StaticBody3D" parent="Structure"]
+transform = Transform3D(0.978148, -0.207912, 0, 0.207912, 0.978148, 0, 0, 0, 1, -16.0667, 0.691037, 0)
+
+[node name="RoofCollisionShape" type="CollisionShape3D" parent="Structure/RoofStaticBody_3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+shape = ExtResource("16")
+
+[node name="RoofMeshInstance" type="MeshInstance3D" parent="Structure/RoofStaticBody_3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+mesh = ExtResource("11")
+surface_material_override/0 = ExtResource("5")
+
+[node name="OmniLight_1" type="OmniLight3D" parent="Structure"]
+transform = Transform3D(1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 3, 2.9, 3)
+light_color = Color(1, 0.25098, 0.25098, 1)
+light_energy = 0.6
+light_indirect_energy = 0.3
+light_specular = 0.3
+shadow_enabled = true
+
+[node name="OmniLight_2" type="OmniLight3D" parent="Structure"]
+transform = Transform3D(1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, -3, 2.9, 3)
+light_color = Color(0.25098, 1, 0.25098, 1)
+light_energy = 0.6
+light_indirect_energy = 0.3
+light_specular = 0.3
+shadow_enabled = true
+
+[node name="OmniLight_3" type="OmniLight3D" parent="Structure"]
+transform = Transform3D(1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, -3, 2.9, -3)
+light_color = Color(0.25098, 0.25098, 1, 1)
+light_energy = 0.6
+light_indirect_energy = 0.3
+light_specular = 0.3
+shadow_enabled = true
+
+[node name="OmniLight_4" type="OmniLight3D" parent="Structure"]
+transform = Transform3D(1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 3, 2.9, -3)
+light_energy = 0.6
+light_indirect_energy = 0.3
+light_specular = 0.3
+shadow_enabled = true
+
+[node name="button" type="StaticBody3D" parent="Structure"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.8, 1.2, 0)
+script = ExtResource("12")
+
+[node name="button" type="MeshInstance3D" parent="Structure/button"]
+mesh = ExtResource("9")
+surface_material_override/0 = ExtResource("9_y7xw2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Structure/button"]
+shape = ExtResource("17")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Structure/button"]
+stream = ExtResource("4")
+unit_size = 20.0
+autoplay = true
+bus = &"FX"
+
+[node name="SurfaceStaticBody" type="StaticBody3D" parent="."]
+input_ray_pickable = false
+physics_material_override = ExtResource("3")
+
+[node name="SurfaceMeshInstance" type="MeshInstance3D" parent="SurfaceStaticBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+mesh = ExtResource("10")
+surface_material_override/0 = ExtResource("5")
+
+[node name="SurfaceCollisionShape" type="CollisionShape3D" parent="SurfaceStaticBody"]
+shape = ExtResource("13")
+
+[node name="ScreenStaticBody" type="StaticBody3D" parent="."]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 2, 10)
+
+[node name="ScreenViewport" type="SubViewport" parent="ScreenStaticBody"]
+disable_3d = true
+handle_input_locally = false
+size = Vector2i(854, 480)
+
+[node name="CenterContainer" type="CenterContainer" parent="ScreenStaticBody/ScreenViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScreenStaticBody/ScreenViewport/CenterContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScreenStaticBody/ScreenViewport/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Maybe some lorem ipsum.
+
+This is some serious shit."
+
+[node name="Button1" type="Button" parent="ScreenStaticBody/ScreenViewport/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "ON"
+
+[node name="Button2" type="Button" parent="ScreenStaticBody/ScreenViewport/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "OFF"
+
+[node name="Screen1" type="MeshInstance3D" parent="ScreenStaticBody"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0.15)
+material_override = SubResource("2")
+mesh = ExtResource("8")
+
+[node name="Screen2" type="MeshInstance3D" parent="ScreenStaticBody"]
+transform = Transform3D(-1, 8.74228e-08, -3.82137e-15, 0, -4.37114e-08, -1, -8.74228e-08, -1, 4.37114e-08, 0, 0, -0.15)
+material_override = SubResource("2")
+mesh = ExtResource("8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ScreenStaticBody"]
+shape = ExtResource("15")
+
+[node name="Props" type="Node" parent="."]
+
+[node name="cardboard_box1" parent="Props" instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.35, 6)
+
+[node name="cardboard_box2" parent="Props" instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 6)
+
+[node name="cardboard_box3" parent="Props" instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.35, 6)
+
+[node name="cardboard_box4" parent="Props" instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.85, 6)
+
+[node name="cardboard_box5" parent="Props" instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 6)
+
+[node name="cardboard_box6" parent="Props" instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.85, 6)

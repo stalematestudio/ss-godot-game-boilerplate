@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource type="Script" path="res://settings/keybind/keybind_event.gd" id="1"]
+
+
+[node name="keybind_event" type="HBoxContainer"]
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Event_Label" type="Label" parent="."]
+offset_bottom = 20.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.8
+
+[node name="Event_Remove" type="Button" parent="."]
+offset_left = 4.0
+offset_right = 68.0
+offset_bottom = 20.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.2
+text = "Remove"

@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource type="Script" path="res://menu/intro/intro_credits.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://cndrthuuyfdt7" path="res://assets/images/credits.png" id="2"]
+
+
+[node name="credits_scene" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+screens = [ ExtResource( 2 ) ]
+
+[node name="screen_display" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="event_timer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true

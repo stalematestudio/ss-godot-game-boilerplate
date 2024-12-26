@@ -1,0 +1,51 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource type="Script" path="res://menu/intro/intro_credits.gd" id="1"]
+[ext_resource type="Theme" uid="uid://b87lntx1cb4rs" path="res://assets/base/default_theme.tres" id="2"]
+[ext_resource type="Texture2D" uid="uid://hl0wf7o7qn8p" path="res://assets/images/disclaimer.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://bo2l6qtw6qni3" path="res://assets/images/made_by.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://csqssofix5xt3" path="res://assets/images/made_with.png" id="5"]
+
+
+
+
+
+[node name="intro_scene" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource( 2 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+screens = [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ) ]
+
+[node name="screen_display" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="instruction_position" type="CenterContainer" parent="."]
+anchor_top = 0.75
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="instruction" type="Label" parent="instruction_position"]
+offset_left = 380.0
+offset_top = 53.0
+offset_right = 473.0
+offset_bottom = 67.0
+text = "PRESS ANY KEY"
+
+[node name="event_timer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true

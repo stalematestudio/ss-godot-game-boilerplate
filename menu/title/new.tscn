@@ -1,0 +1,72 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource type="Script" path="res://menu/title/new.gd" id="1"]
+[ext_resource type="ButtonGroup" path="res://menu/title/difficulty_select_buttongroup.tres" id="2"]
+
+[node name="new" type="Window"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+window_title = "NEW GAME"
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BUTTON_VBOX" type="VBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -34.0
+offset_top = -34.0
+offset_right = 35.0
+offset_bottom = 34.0
+grow_horizontal = 2
+grow_vertical = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EASY" type="Button" parent="BUTTON_VBOX"]
+offset_right = 69.0
+offset_bottom = 20.0
+toggle_mode = true
+group = ExtResource( 2 )
+text = "EASY"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NORMAL" type="Button" parent="BUTTON_VBOX"]
+offset_top = 24.0
+offset_right = 69.0
+offset_bottom = 44.0
+toggle_mode = true
+pressed = true
+group = ExtResource( 2 )
+text = "NORMAL"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HARD" type="Button" parent="BUTTON_VBOX"]
+offset_top = 48.0
+offset_right = 69.0
+offset_bottom = 68.0
+toggle_mode = true
+group = ExtResource( 2 )
+text = "HARD"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HSeparator" type="HSeparator" parent="BUTTON_VBOX"]
+offset_top = 72.0
+offset_right = 69.0
+offset_bottom = 76.0
+
+[node name="START" type="Button" parent="BUTTON_VBOX"]
+offset_top = 80.0
+offset_right = 69.0
+offset_bottom = 100.0
+text = "START"

@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://liybr1b2c54b"]
+
+[ext_resource type="Script" path="res://player/camera.gd" id="1"]
+[ext_resource type="Animation" path="res://entity/title_camera/title_camera_animation.tres" id="2"]
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8bu83"]
+_data = {
+"Camera_Animation": ExtResource("2")
+}
+
+[node name="title_camera" type="Camera3D"]
+script = ExtResource("1")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_8bu83")
+}
+autoplay = "Camera_Animation"

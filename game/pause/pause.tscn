@@ -1,0 +1,57 @@
+[gd_scene load_steps=3 format=3 uid="uid://16dat6l4kb1o"]
+
+[ext_resource type="Script" path="res://game/pause/pause.gd" id="1"]
+[ext_resource type="Theme" uid="uid://b87lntx1cb4rs" path="res://assets/base/default_theme.tres" id="2"]
+
+[node name="pause_scene" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2")
+script = ExtResource("1")
+web_link_url = "https://github.com/stalematestudio/ss-godot-game-boilerplate"
+
+[node name="Pause_Menu" type="PanelContainer" parent="."]
+layout_mode = 0
+anchor_bottom = 1.0
+theme = ExtResource("2")
+
+[node name="VBC" type="VBoxContainer" parent="Pause_Menu"]
+layout_mode = 2
+theme = ExtResource("2")
+
+[node name="Game_Title" type="Label" parent="Pause_Menu/VBC"]
+layout_mode = 2
+text = "GAME TITLE"
+uppercase = true
+
+[node name="HSeparator_1" type="HSeparator" parent="Pause_Menu/VBC"]
+layout_mode = 2
+
+[node name="Resume" type="Button" parent="Pause_Menu/VBC"]
+layout_mode = 2
+theme = ExtResource("2")
+text = "Resume"
+
+[node name="Settings" type="Button" parent="Pause_Menu/VBC"]
+layout_mode = 2
+text = "Settings"
+
+[node name="Quit_To_Title" type="Button" parent="Pause_Menu/VBC"]
+layout_mode = 2
+text = "Quit To Title"
+
+[node name="Quit_Game" type="Button" parent="Pause_Menu/VBC"]
+layout_mode = 2
+text = "Quit Game"
+
+[node name="HSeparator_2" type="HSeparator" parent="Pause_Menu/VBC"]
+layout_mode = 2
+
+[node name="Developer_LinkButton" type="LinkButton" parent="Pause_Menu/VBC"]
+layout_mode = 2
+text = "Visit website"
