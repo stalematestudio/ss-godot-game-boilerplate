@@ -1,7 +1,7 @@
 # ss-godot-game-boilerplate
 
->[!INFO]
->Docs are out of date.
+> [!NOTE]
+> Docs are out of date.
 
 Boilerplate code for developing Godot games. The base backend boring stuff that many games need but is a pain to develop.
 
