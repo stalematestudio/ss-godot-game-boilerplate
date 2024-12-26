@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://mq7lhv3tr2m8"]
 
-[ext_resource type="Script" path="res://utils/profile/profile_create.gd" id="1_yu172"]
+[ext_resource type="Script" path="res://utils/profile_create/profile_create.gd" id="1_owrep"]
 
 [node name="profile_create" type="ConfirmationDialog"]
 auto_translate_mode = 1
@@ -14,7 +14,7 @@ popup_window = true
 ok_button_text = "Create"
 dialog_hide_on_ok = false
 dialog_autowrap = true
-script = ExtResource("1_yu172")
+script = ExtResource("1_owrep")
 
 [node name="line_edit" type="LineEdit" parent="."]
 offset_left = 8.0

@@ -1,12 +1,12 @@
 extends Node
 
-const PLAYER_DATA_PATH = "user://player_profiles/"
-const PROFILE_CONFIG_FILE = PLAYER_DATA_PATH + "profile_config.ini"
-const PROFILE_FILE = "profile.ini"
-const SCREEN_SHOT_FOLDER = "screenshots"
-const SAVED_GAMES_FOLDER = "saved_games"
+const PLAYER_DATA_PATH: String = "user://player_profiles/"
+const PROFILE_CONFIG_FILE: String = PLAYER_DATA_PATH + "profile_config.ini"
+const PROFILE_FILE: String = "profile.ini"
+const SCREEN_SHOT_FOLDER: String = "screenshots"
+const SAVED_GAMES_FOLDER: String = "saved_games"
 
-const EXCLUDED_FOLDERS = ['logs', SCREEN_SHOT_FOLDER, SAVED_GAMES_FOLDER]
+const EXCLUDED_FOLDERS: PackedStringArray = ['logs', SCREEN_SHOT_FOLDER, SAVED_GAMES_FOLDER]
 
 enum ProfileErrors {
 		OK,
@@ -18,35 +18,35 @@ signal message(message)
 signal profile_created
 signal profile_changed
 
-@onready var profile_list = []
-@onready var profile_current = -1
+@onready var profile_list: Array = []
+@onready var profile_current: int = -1
 
-@onready var game_list = []
-@onready var game_current = 0
+@onready var game_list: Array = []
+@onready var game_current: int = 0
 
-@onready var game_save_list = []
-@onready var game_data_path = ""
+@onready var game_save_list: Array = []
+@onready var game_data_path: String = ""
 
-@onready var game_play_time = 0
+@onready var game_play_time: float = 0.0
 
-func _ready():
+func _ready() -> void:
 	profile_created.connect(_on_profile_created)
 	profile_changed.connect(_on_profile_changed)
 
 	await get_node("/root/main").ready
 	self.process_mode = Node.PROCESS_MODE_ALWAYS
 
-func _on_profile_changed():
+func _on_profile_changed() -> void:
 	load_profile()
 
-func _on_profile_created():
-	pass
+func _on_profile_created() -> void:
+	save_profile()
 
 func profile_exists(new_profile_name: String) -> bool:
 	get_profile_list()
 	return new_profile_name in profile_list
 
-func add_profile(new_profile: String):
+func add_profile(new_profile: String) -> int:
 	if profile_exists(new_profile):
 		return ProfileErrors.PROFILE_EXISTS
 	var dir = DirAccess.open(PLAYER_DATA_PATH)
@@ -71,17 +71,17 @@ func add_profile(new_profile: String):
 	else:
 		return ProfileErrors.PROFILE_FOLDER_ERROR
 
-func del_profile(profile_index):
+func del_profile(profile_index) -> void:
 	get_profile_list()
 	Helpers.recursive_non_empty_dir_deletion(get_profile_path(profile_index))
 	set_profile_current(profile_current)
 
-func save_profile_current():
+func save_profile_current() -> void:
 	var profile_config_file = ConfigFile.new()
 	profile_config_file.set_value("profile", "current", profile_current)
 	profile_config_file.save(PROFILE_CONFIG_FILE)
 
-func load_profile_current():
+func load_profile_current() -> void:
 	var profile_config_file = ConfigFile.new()
 	var err = profile_config_file.load(PROFILE_CONFIG_FILE)
 	if err == OK:
@@ -89,14 +89,16 @@ func load_profile_current():
 	elif err == ERR_FILE_NOT_FOUND:
 		save_profile_current()
 
-func save_profile():
+func save_profile() -> bool:
 	var profile_file = ConfigFile.new()
 	profile_file.set_value("game", "game_current", game_current)
 	profile_file.set_value("game", "game_play_time", game_play_time)
 	profile_file.set_value("game", "game_data_path", game_data_path)
-	message.emit("PROFILE SAVED: " + "SUCCESS" if OK == profile_file.save(get_profile_file_path_current()) else "FAIL")
+	var success: bool = OK == profile_file.save(get_profile_file_path_current())
+	message.emit("PROFILE SAVED: " + "SUCCESS" if success else "FAIL")
+	return success
 
-func load_profile():
+func load_profile() -> bool:
 	var profile_file = ConfigFile.new()
 	var err = profile_file.load(get_profile_file_path_current())
 	if err == OK:
@@ -112,7 +114,7 @@ func load_profile():
 	else:
 		return false
 
-func new_game(game_data):
+func new_game(game_data) -> void:
 	# New game_current
 	var game_index = 0
 	while DirAccess.dir_exists_absolute(get_game_save_path(game_index)):
@@ -126,7 +128,7 @@ func new_game(game_data):
 func del_game(game_index):
 	Helpers.recursive_non_empty_dir_deletion(get_game_save_path(game_index))
 
-func save_game(game_data):
+func save_game(game_data) -> void:
 	var save_dir_path = get_game_save_path_current()
 	var save_file_path = Helpers.date_time_string() + ".save"
 	game_data_path = save_dir_path + save_file_path
@@ -140,8 +142,8 @@ func save_game(game_data):
 	save_profile()
 	message.emit(game_data_path)
 
-func load_game():
-	var game_data = []
+func load_game() -> Array:
+	var game_data: Array = []
 	var save_file = FileAccess.open(game_data_path, FileAccess.READ)
 	while not save_file.eof_reached():
 		var test_json_conv = JSON.new()
@@ -220,27 +222,27 @@ func get_profile_name_current():
 	get_profile_current()
 	return get_profile_name(profile_current)
 
-func get_profile_path(profile_index):
+func get_profile_path(profile_index: int) -> String:
 	profile_index = clamp(profile_index, -1, profile_list.size() - 1)
 	return PLAYER_DATA_PATH if profile_index == - 1 else PLAYER_DATA_PATH + get_profile_name(profile_index) + "/"
 
-func get_profile_path_current():
+func get_profile_path_current() -> String:
 	get_profile_current()
 	return get_profile_path(profile_current)
 
-func get_profile_file_path(profile_index):
+func get_profile_file_path(profile_index: int) -> String:
 	profile_index = clamp(profile_index, -1, profile_list.size() - 1)
 	return get_profile_path(profile_index) + PROFILE_FILE
 
-func get_profile_file_path_current():
+func get_profile_file_path_current() -> String:
 	get_profile_current()
 	return get_profile_file_path(profile_current)
 
-func get_profile_screenshot_path(profile_index):
+func get_profile_screenshot_path(profile_index) -> String:
 	profile_index = clamp(profile_index, -1, profile_list.size() - 1)
 	return get_profile_path(profile_index) + SCREEN_SHOT_FOLDER + "/"
 
-func get_profile_screenshot_path_current():
+func get_profile_screenshot_path_current() -> String:
 	get_profile_current()
 	return get_profile_screenshot_path(profile_current)
 
@@ -248,17 +250,17 @@ func get_profile_saved_games_path(profile_index):
 	profile_index = clamp(profile_index, -1, profile_list.size() - 1)
 	return get_profile_path(profile_index) + SAVED_GAMES_FOLDER + "/"
 
-func get_profile_saved_games_path_current():
+func get_profile_saved_games_path_current() -> String:
 	get_profile_current()
 	return get_profile_saved_games_path(profile_current)
 
-func get_game_save_path(game_index):
+func get_game_save_path(game_index: int) -> String:
 	return get_profile_saved_games_path_current() + String.num(game_index) + "/"
 
-func get_game_save_path_current():
+func get_game_save_path_current() -> String:
 	get_game_current()
 	return get_game_save_path(game_current)
 
-func profile_has_saved_games_current():
+func profile_has_saved_games_current() -> bool:
 	get_game_list()
 	return not game_list.is_empty()

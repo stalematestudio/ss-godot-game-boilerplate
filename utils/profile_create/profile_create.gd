@@ -17,17 +17,12 @@ func _ready() -> void:
 	profile_name_line_edit.text_changed.connect(_on_line_edit_text_changed)
 	ok_button.disabled = true
 	ok_button.pressed.connect(_on_ok_button_pressed)
-	
 	profile_name_line_edit.grab_focus()
 	profile_name_line_edit.focus_next = ok_button.get_path()
 	ok_button.set_focus_neighbor(SIDE_TOP, profile_name_line_edit.get_path())
 	cancel_button.set_focus_neighbor(SIDE_TOP, profile_name_line_edit.get_path())
 
-func _on_close_requested():
-	profile_create_cancel.emit()
-
-
-func _on_line_edit_text_changed(new_text: String):
+func _on_line_edit_text_changed(new_text: String) -> void:
 	for bad in bad_list:
 		new_text = new_text.replacen(bad, "")
 	car_col = profile_name_line_edit.get_caret_column()
@@ -35,5 +30,8 @@ func _on_line_edit_text_changed(new_text: String):
 	profile_name_line_edit.set_caret_column(car_col)
 	ok_button.disabled = ( new_text == "" ) || ProfileManager.profile_exists(new_text)
 
-func _on_ok_button_pressed():
+func _on_ok_button_pressed() -> void:
 	profile_create_confirm.emit(profile_name_line_edit.get_text())
+
+func _on_close_requested() -> void:
+	profile_create_cancel.emit()
