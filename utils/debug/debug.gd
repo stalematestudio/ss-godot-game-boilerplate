@@ -1,38 +1,38 @@
 extends Node
 
-@onready var vd_display = $VBC/VD_HBC/VD_Display
-@onready var fps_display = $VBC/FSP_HBC/FPS_Display
+@onready var vd_display = $h_box_container/v_box_container/VBC/VD_HBC/VD_Display
+@onready var fps_display = $h_box_container/v_box_container/VBC/FSP_HBC/FPS_Display
 
-@onready var game_time_display = $GAME_VBC/time
-@onready var game_difficulty_display = $GAME_VBC/difficulty
-@onready var game_level_loaded_display = $GAME_VBC/level
+@onready var game_time_display = $h_box_container/v_box_container/GAME_VBC/time
+@onready var game_difficulty_display = $h_box_container/v_box_container/GAME_VBC/difficulty
+@onready var game_level_loaded_display = $h_box_container/v_box_container/GAME_VBC/level
 
-@onready var m_forward = $player/HSplitContainer/VBoxContainerL/sticks/move/forward
-@onready var m_backward = $player/HSplitContainer/VBoxContainerL/sticks/move/backward
-@onready var m_left = $player/HSplitContainer/VBoxContainerL/sticks/move/HBoxContainer/left
-@onready var m_right = $player/HSplitContainer/VBoxContainerL/sticks/move/HBoxContainer/right
+@onready var m_forward = $h_box_container/v_box_container/player/HSplitContainer/VBoxContainerL/sticks/move/forward
+@onready var m_backward = $h_box_container/v_box_container/player/HSplitContainer/VBoxContainerL/sticks/move/backward
+@onready var m_left = $h_box_container/v_box_container/player/HSplitContainer/VBoxContainerL/sticks/move/HBoxContainer/left
+@onready var m_right = $h_box_container/v_box_container/player/HSplitContainer/VBoxContainerL/sticks/move/HBoxContainer/right
 
-@onready var l_up = $player/HSplitContainer/VBoxContainerL/sticks/look/up
-@onready var l_down = $player/HSplitContainer/VBoxContainerL/sticks/look/down
-@onready var l_left = $player/HSplitContainer/VBoxContainerL/sticks/look/HBoxContainer/left
-@onready var l_right = $player/HSplitContainer/VBoxContainerL/sticks/look/HBoxContainer/right
+@onready var l_up = $h_box_container/v_box_container/player/HSplitContainer/VBoxContainerL/sticks/look/up
+@onready var l_down = $h_box_container/v_box_container/player/HSplitContainer/VBoxContainerL/sticks/look/down
+@onready var l_left = $h_box_container/v_box_container/player/HSplitContainer/VBoxContainerL/sticks/look/HBoxContainer/left
+@onready var l_right = $h_box_container/v_box_container/player/HSplitContainer/VBoxContainerL/sticks/look/HBoxContainer/right
 
-@onready var player_target_name = $player/HSplitContainer/VBoxContainerL/player_target/player_target_name
-@onready var player_target_distance = $player/HSplitContainer/VBoxContainerL/player_target/player_target_distance
+@onready var player_target_name = $h_box_container/v_box_container/player/HSplitContainer/VBoxContainerL/player_target/player_target_name
+@onready var player_target_distance = $h_box_container/v_box_container/player/HSplitContainer/VBoxContainerL/player_target/player_target_distance
 
-@onready var player_velocity_vector = $player/HSplitContainer/VBoxContainerL/player_velocity/vector
-@onready var player_velocity_length = $player/HSplitContainer/VBoxContainerL/player_velocity/length
+@onready var player_velocity_vector = $h_box_container/v_box_container/player/HSplitContainer/VBoxContainerL/player_velocity/vector
+@onready var player_velocity_length = $h_box_container/v_box_container/player/HSplitContainer/VBoxContainerL/player_velocity/length
 
-@onready var player_direction_vector = $player/HSplitContainer/VBoxContainerL/player_direction/vector
-@onready var player_direction_length = $player/HSplitContainer/VBoxContainerL/player_direction/length
+@onready var player_direction_vector = $h_box_container/v_box_container/player/HSplitContainer/VBoxContainerL/player_direction/vector
+@onready var player_direction_length = $h_box_container/v_box_container/player/HSplitContainer/VBoxContainerL/player_direction/length
 
-@onready var player_on_ceiling = $player/HSplitContainer/VBoxContainerR/ceiling
-@onready var player_on_wall = $player/HSplitContainer/VBoxContainerR/wall
-@onready var player_on_floor = $player/HSplitContainer/VBoxContainerR/floor
-@onready var player_collisions = $player/HSplitContainer/VBoxContainerR/collisions
-@onready var player_collider = $player/HSplitContainer/VBoxContainerR/collider
+@onready var player_on_ceiling = $h_box_container/v_box_container/player/HSplitContainer/VBoxContainerR/ceiling
+@onready var player_on_wall = $h_box_container/v_box_container/player/HSplitContainer/VBoxContainerR/wall
+@onready var player_on_floor = $h_box_container/v_box_container/player/HSplitContainer/VBoxContainerR/floor
+@onready var player_collisions = $h_box_container/v_box_container/player/HSplitContainer/VBoxContainerR/collisions
+@onready var player_collider = $h_box_container/v_box_container/player/HSplitContainer/VBoxContainerR/collider
 
-@onready var input_display = $input_display
+@onready var input_display = $h_box_container/input_display
 
 var last_event
 var game_instance
@@ -54,12 +54,12 @@ func _input(event):
 
 func _process(_delta):
 	fps_display.text = String.num(Engine.get_frames_per_second())
-	
+
 	m_forward.text = String.num(Input.get_action_strength("player_movement_forward"))
 	m_backward.text = String.num(Input.get_action_strength("player_movement_backward"))
 	m_left.text = String.num(Input.get_action_strength("player_movement_left"))
 	m_right.text = String.num(Input.get_action_strength("player_movement_right"))
-	
+
 	l_up.text = String.num(Input.get_action_strength("player_look_up"))
 	l_down.text = String.num(Input.get_action_strength("player_look_down"))
 	l_left.text = String.num(Input.get_action_strength("player_look_left"))
@@ -73,7 +73,7 @@ func _process(_delta):
 			else:
 				player_target_name.set_text("")
 				player_target_distance.set_text("")
-			
+
 			player_velocity_vector.set_text(" x " + String.num(snapped(player_instance.velocity.x, 0.2)) + " y " + String.num(snapped(player_instance.velocity.y, 0.2)) + " z " + String.num(snapped(player_instance.velocity.z, 0.2)))
 			player_velocity_length.set_text(" l " + String.num(player_instance.velocity.length()))
 
@@ -93,9 +93,9 @@ func _process(_delta):
 			player_instance = get_node_or_null("/root/main/game/player")
 
 		if is_instance_valid(game_instance):
-			# game_time_display.set_text(String(game_instance.game_time))
-			game_difficulty_display.set_text(String(game_instance.game_difficulty))
-			game_level_loaded_display.set_text(String(game_instance.game_level_loaded))
+			game_time_display.set_text("%.2f" % game_instance.game_time)
+			game_difficulty_display.set_text(game_instance.game_difficulty)
+			game_level_loaded_display.set_text(game_instance.game_level_loaded)
 		else:
 			game_instance = get_node_or_null("/root/main/game")
 

@@ -1,11 +1,11 @@
 [gd_scene load_steps=2 format=3 uid="uid://dvq43tw4hi8bs"]
 
-[ext_resource type="Script" path="res://menu/title/continue.gd" id="1"]
+[ext_resource type="Script" path="res://utils/load_game/load_game.gd" id="1_xmwf5"]
 
-[node name="continue" type="Window"]
+[node name="load_game" type="Window"]
 initial_position = 2
 size = Vector2i(800, 400)
-script = ExtResource("1")
+script = ExtResource("1_xmwf5")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchors_preset = 15
@@ -79,7 +79,3 @@ text = "DELETE GAME"
 layout_mode = 2
 size_flags_horizontal = 3
 text = "CANCEL"
-
-[node name="GameDeleteDialog" type="ConfirmationDialog" parent="."]
-
-[node name="SaveDeleteDialog" type="ConfirmationDialog" parent="."]

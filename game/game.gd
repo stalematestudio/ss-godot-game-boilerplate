@@ -5,8 +5,8 @@ extends Node
 @onready var game_level_loaded = ""
 
 func _ready():
-	GameManager.connect("save_game", Callable(self, "_on_save_game"))
-	GameManager.connect("load_game", Callable(self, "_on_load_game"))
+	GameManager.save_game.connect(_on_save_game)
+	GameManager.load_game.connect(_on_load_game)
 	_on_load_game()
 
 func  _process(delta):

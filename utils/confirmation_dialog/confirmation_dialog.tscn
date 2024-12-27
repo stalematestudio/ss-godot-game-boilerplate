@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://b6tbax1p46ypf"]
+
+[ext_resource type="Script" path="res://utils/confirmation_dialog/confirmation_dialog.gd" id="1_hdbbd"]
+
+[node name="confirmation_dialog" type="ConfirmationDialog"]
+initial_position = 2
+visible = true
+script = ExtResource("1_hdbbd")

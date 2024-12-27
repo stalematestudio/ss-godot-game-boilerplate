@@ -1,5 +1,8 @@
 extends Node
 
+@export var confirmation_dialog_scene: PackedScene = preload("res://utils/confirmation_dialog/confirmation_dialog.tscn")
+@onready var confirmation_dialog: ExtendedConfirmationDialog
+
 func date_time_string() -> String:
 	var dt = Time.get_datetime_dict_from_system()
 	
@@ -63,19 +66,30 @@ func event_as_text(event) -> String:
 		label_text = event.as_text()
 	return label_text
 
-func recursive_non_empty_dir_deletion(path: String) -> void:
-	path = path if path.ends_with("/") else path + "/"
-	var dir = DirAccess.open(path)
-	dir.list_dir_begin() # TODOConverter3To4 fill missing arguments https://github.com/godotengine/godot/pull/40547
-	var el_name = dir.get_next()
-	while el_name != "":
-		if dir.current_is_dir():
-			recursive_non_empty_dir_deletion(path + el_name)
-		else:
-			print("Remove ", path, el_name, " SUCCESS" if dir.remove(path + el_name) == OK else " FAIL")
-		el_name = dir.get_next()
+func delete_file(file_path: String, file_name: String) -> void:
+	var dir: DirAccess = DirAccess.open(file_path)
+	dir.list_dir_begin()
+	var element: String = dir.get_next()
+	while element:
+		if element == file_name:
+			print_debug("Remove ", file_path, element, " SUCCESS" if dir.remove(file_path + element) == OK else " FAIL")
+			break
+		element = dir.get_next()
 	dir.list_dir_end()
-	print("Remove ", path, " SUCCESS" if dir.remove(path) == OK else " FAIL")
+
+func recursive_non_empty_dir_deletion(file_path: String) -> void:
+	file_path = file_path if file_path.ends_with("/") else file_path + "/"
+	var dir = DirAccess.open(file_path)
+	dir.list_dir_begin() # TODOConverter3To4 fill missing arguments https://github.com/godotengine/godot/pull/40547
+	var element = dir.get_next()
+	while element:
+		if dir.current_is_dir():
+			recursive_non_empty_dir_deletion(file_path + element)
+		else:
+			print_debug("Remove ", file_path, element, " SUCCESS" if dir.remove(file_path + element) == OK else " FAIL")
+		element = dir.get_next()
+	dir.list_dir_end()
+	print_debug("Remove ", file_path, " SUCCESS" if dir.remove(file_path) == OK else " FAIL")
 
 func dictionary_update(dict_a: Dictionary, dict_b: Dictionary) -> void:
 	for k in dict_b:
@@ -85,3 +99,15 @@ func array_difference(array_one, array_two) -> void:
 	for item in array_two:
 		while item in array_one:
 			array_one.remove_at(array_one.find(item))
+
+func confirm_action(action: Callable, message: String = "", confirm: String = "OK") -> void:
+	confirmation_dialog = confirmation_dialog_scene.instantiate()
+	confirmation_dialog.set_text(message)
+	confirmation_dialog.get_ok_button().set_text(confirm)
+	confirmation_dialog.initial_position = Window.WINDOW_INITIAL_POSITION_CENTER_MAIN_WINDOW_SCREEN
+	add_child(confirmation_dialog)
+	confirmation_dialog.confirmed.connect(action)
+	confirmation_dialog.canceled.connect(confirmation_dialog.queue_free)
+	confirmation_dialog.focus_exited.connect(confirmation_dialog.queue_free)
+	confirmation_dialog.popup_centered()
+	confirmation_dialog.get_cancel_button().grab_focus()

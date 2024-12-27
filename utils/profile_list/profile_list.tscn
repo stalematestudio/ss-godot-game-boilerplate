@@ -22,27 +22,23 @@ size_flags_vertical = 3
 collapsed = true
 dragger_visibility = 2
 
-[node name="VBoxContainer_L" type="VBoxContainer" parent="VBoxContainer/Profiles"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Profile_Name" type="Label" parent="VBoxContainer/Profiles/VBoxContainer_L"]
-layout_mode = 2
-
-[node name="Profile_Play_Time" type="Label" parent="VBoxContainer/Profiles/VBoxContainer_L"]
-layout_mode = 2
-
-[node name="VBoxContainer_R" type="VBoxContainer" parent="VBoxContainer/Profiles"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="ProfileList" type="ItemList" parent="VBoxContainer/Profiles/VBoxContainer_R"]
+[node name="Profile_List" type="ItemList" parent="VBoxContainer/Profiles"]
+clip_contents = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 allow_reselect = true
 auto_height = true
+
+[node name="Profile_Info" type="Label" parent="VBoxContainer/Profiles"]
+layout_mode = 2
+text = "NAME: Acelo
+PLAY_TIME: 3 days 04:23:05.23
+GAMES:
+ - 0 EASY
+ - 1 HARD"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="crsede" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -52,14 +48,14 @@ size_flags_horizontal = 3
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-focus_neighbor_top = NodePath("../../Profiles/VBoxContainer_R/ProfileList")
+focus_neighbor_top = NodePath("../../Profiles/Profile_List")
 text = "CREATE"
 
 [node name="Select" type="Button" parent="VBoxContainer/crsede"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-focus_neighbor_top = NodePath("../../Profiles/VBoxContainer_R/ProfileList")
+focus_neighbor_top = NodePath("../../Profiles/Profile_List")
 disabled = true
 text = "SELECT"
 
@@ -67,6 +63,6 @@ text = "SELECT"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-focus_neighbor_top = NodePath("../../Profiles/VBoxContainer_R/ProfileList")
+focus_neighbor_top = NodePath("../../Profiles/Profile_List")
 disabled = true
 text = "DELETE"

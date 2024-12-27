@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://betheslgffy6l"]
+[gd_scene load_steps=4 format=3 uid="uid://betheslgffy6l"]
 
 [ext_resource type="Theme" uid="uid://b87lntx1cb4rs" path="res://assets/base/default_theme.tres" id="1"]
 [ext_resource type="Script" path="res://menu/title/title.gd" id="2"]
 [ext_resource type="PackedScene" path="res://menu/title/new.tscn" id="4"]
-[ext_resource type="PackedScene" uid="uid://dvq43tw4hi8bs" path="res://menu/title/continue.tscn" id="5"]
 
 [node name="title_scene" type="Control"]
 self_modulate = Color(1, 1, 1, 0.501961)
@@ -50,15 +49,15 @@ focus_mode = 2
 [node name="HSeparator_2" type="HSeparator" parent="Start_Menu/VBC"]
 layout_mode = 2
 
-[node name="Continue" type="Button" parent="Start_Menu/VBC"]
-layout_mode = 2
-theme = ExtResource("1")
-text = "Continue"
-
 [node name="New_Game" type="Button" parent="Start_Menu/VBC"]
 layout_mode = 2
 theme = ExtResource("1")
 text = "New Game"
+
+[node name="Load_Game" type="Button" parent="Start_Menu/VBC"]
+layout_mode = 2
+theme = ExtResource("1")
+text = "Load Game"
 
 [node name="Settings" type="Button" parent="Start_Menu/VBC"]
 layout_mode = 2
@@ -86,7 +85,4 @@ text = "Visit website"
 
 [node name="new" parent="." instance=ExtResource("4")]
 initial_position = 2
-visible = false
-
-[node name="continue" parent="." instance=ExtResource("5")]
 visible = false
