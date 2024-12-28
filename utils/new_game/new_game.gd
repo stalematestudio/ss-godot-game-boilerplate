@@ -59,6 +59,5 @@ func start_button_pressed() -> void:
 	ProfileManager.save_game([{
 			"game_time": 0,
 			"game_difficulty": difficulty,
-			"game_level_loaded": '',
 			}])
 	GameManager.game_state_change("IN_GAME")

@@ -36,12 +36,15 @@ extends Node
 
 var last_event
 var game_instance
-var player_instance
+var player_instance: PlayerCharacter
+var player_ray_cast: PlayerRayCast3D
 
 func _ready():
 	vd_display.set_text( RenderingServer.get_video_adapter_name() )
 	game_instance = get_node_or_null("/root/main/game")
 	player_instance = get_node_or_null("/root/main/game/player")
+	if is_instance_valid(player_instance):
+		player_ray_cast = player_instance.find_child("PlayerRayCast")
 	GameManager.connect("game_state_changed", Callable(self, "_on_game_state_changed"))
 
 func _input(event):
@@ -67,12 +70,13 @@ func _process(_delta):
 
 	if GameManager.game_state.scene == "game_scene":
 		if is_instance_valid(player_instance):
-			if player_instance.raycast_target:
-				player_target_name.set_text(player_instance.raycast_target.name)
-				player_target_distance.set_text(String.num(snapped(player_instance.raycast_target_distance, 0.1)))
-			else:
-				player_target_name.set_text("")
-				player_target_distance.set_text("")
+			if is_instance_valid(player_ray_cast):
+				if player_ray_cast.raycast_target:
+					player_target_name.set_text(player_ray_cast.raycast_target.name)
+					player_target_distance.set_text(String.num(snapped(player_ray_cast.raycast_target_distance, 0.1)))
+				else:
+					player_target_name.set_text("")
+					player_target_distance.set_text("")
 
 			player_velocity_vector.set_text(" x " + String.num(snapped(player_instance.velocity.x, 0.2)) + " y " + String.num(snapped(player_instance.velocity.y, 0.2)) + " z " + String.num(snapped(player_instance.velocity.z, 0.2)))
 			player_velocity_length.set_text(" l " + String.num(player_instance.velocity.length()))

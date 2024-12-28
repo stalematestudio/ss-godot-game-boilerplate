@@ -1,8 +1,22 @@
 extends Node
 
+@export var player_scene: PackedScene = preload("res://player/player.tscn")
+@export var player: PlayerCharacter
+@export var player_position: Vector3 = Vector3()
+@export var player_rotation: Vector3 = Vector3()
+
+@onready var game_map: Dictionary = {
+	"demo": {
+		"scene": preload("res://level/demo/demo.tscn"),
+		"name": "demo",
+		"position": Vector3(),
+		"rotation": Vector3(),
+		},
+}
+
 @onready var game_time: float = 0.0
 @onready var game_difficulty: String = "normal"
-@onready var game_level_loaded: String = ""
+@onready var game_level_loaded: String = "demo"
 
 func _ready() -> void:
 	GameManager.save_game.connect(_on_save_game)
@@ -35,3 +49,15 @@ func _on_load_game() -> void:
 	game_time = game_data[0].game_time if "game_time" in game_data[0] else game_time
 	game_difficulty = game_data[0].game_difficulty if "game_difficulty" in game_data[0] else game_difficulty
 	game_level_loaded = game_data[0].game_level_loaded if "game_level_loaded" in game_data[0] else game_level_loaded
+	
+	var level: Node3D = game_map[game_level_loaded].scene.instantiate()
+	level.name = game_map[game_level_loaded].name
+	level.position = game_map[game_level_loaded].position
+	level.rotation = game_map[game_level_loaded].rotation
+	add_child(level)
+
+	player = player_scene.instantiate()
+	player.name = "player"
+	player.position = player_position
+	player.rotation = player_rotation
+	add_child(player)

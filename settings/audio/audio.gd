@@ -12,7 +12,7 @@ func _ready():
 	gui_playback.connect("item_selected", Callable(self, "set_playback_device"))
 
 func set_form_values():
-	Helpers.RemoveChildren(gui_audio_vbc)
+	Helpers.remove_children(gui_audio_vbc)
 	for key in ConfigManager.config_data.audio.keys():
 		var audio_bus = bus.instantiate()
 		audio_bus.name = key

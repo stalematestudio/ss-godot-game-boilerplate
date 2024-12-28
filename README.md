@@ -38,7 +38,7 @@ Holds references to non positional persistent AudioStreamPlayers from the Main S
 __res://global/Helpers.gd__
 
 Has utility functions.
-- ```RemoveChildren(p_node)``` removes all child nodes under p_node
+- ```remove_children(p_node)``` removes all child nodes under p_node
 - ```ButtonIndex2ButtonName(btn_index)``` returns mouse button name String from btn_index
 - ```event_as_text(event)``` alternate InputEvent.as_text() function
 

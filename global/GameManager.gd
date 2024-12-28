@@ -8,28 +8,28 @@ signal resume_game
 signal load_game(load_type)
 signal save_game(save_type)
 
-@onready var game_paused = false
-@onready var game_state = false
-@onready var game_states = {
+@onready var game_paused: bool = false
+@onready var game_state: Dictionary = {}
+@onready var game_states: Dictionary = {
 		"INTRO":{
 			"scene": "intro_scene",
 			"in_game": false,
-			"mouse_mode": Callable(self, "mouse_mode_game")
+			"mouse_mode": mouse_mode_game
 		},
 		"TITLE":{
 			"scene": "title_scene",
 			"in_game": false,
-			"mouse_mode": Callable(self, "mouse_mode_ui")
+			"mouse_mode": mouse_mode_ui
 		},
 		"CREDITS":{
 			"scene": "credits_scene",
 			"in_game": false,
-			"mouse_mode": Callable(self, "mouse_mode_game")
+			"mouse_mode": mouse_mode_game
 		},
 		"IN_GAME":{
 			"scene": "game_scene",
 			"in_game": true,
-			"mouse_mode": Callable(self, "mouse_mode_game")
+			"mouse_mode": mouse_mode_game
 		}
 		}
 

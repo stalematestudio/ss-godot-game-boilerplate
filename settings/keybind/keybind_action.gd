@@ -19,7 +19,7 @@ func _ready():
 	display_events()
 
 func display_events():
-	Helpers.RemoveChildren(events_vbc)
+	Helpers.remove_children(events_vbc)
 	for event in ConfigManager.config_data.keybind[action].events:
 		var event_node = keybind_event.instantiate()
 		event_node.action = action

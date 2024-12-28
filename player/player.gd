@@ -1,8 +1,4 @@
-extends CharacterBody3D
-
-# Camera positions
-@export var camera_position: Array[Transform3D]
-@onready var camera_position_selected = 0
+class_name PlayerCharacter extends CharacterBody3D
 
 # Environmental Variables will be moved to level scene or game state
 const GRAVITY = 9.8
@@ -38,9 +34,9 @@ var player_move_max_slides = 4
 var player_move_floor_max_angle = deg_to_rad(MAX_SLOPE_ANGLE)
 var player_move_infinite_inertia = false
 
-var is_jumping = false
-var is_sprinting = false
-var is_crouching = false
+var is_jumping: bool = false
+var is_sprinting: bool  = false
+var is_crouching: bool  = false
 
 var input_movement_vector = Vector2()
 var input_look_vector = Vector2()
@@ -61,25 +57,12 @@ var accel = float()
 # var velocity = Vector3()
 var direction = Vector3()
 
-var raycast_target = false
-var raycast_target_distance = false
-
-const OBJECT_THROW_FORCE = 1
-const OBJECT_GRAB_DISTANCE = 2
-var grabbed_object = null
-var grabbed_object_distance = 0.5
-
 # Player Nodes
 @onready var player_collision_shape = $PlayerCollisionShape
 @onready var player_head = $PlayerHead
-@onready var player_ray_cast = $PlayerHead/PlayerRayCast
-@onready var player_camera = $PlayerHead/PlayerCamera
-@onready var player_light = $PlayerHead/PlayerLight
 @onready var player_steps_player = $PlayerStepsAudio3D
-
 @onready var player_stats_health = $hud/stats/health
 @onready var player_stats_stamina = $hud/stats/stamina
-
 @onready var player_animation = $AnimationPlayer
 
 func _ready():
@@ -92,40 +75,9 @@ func _process(_delta):
 	player_stats_health.set_value(player_health)
 	player_stats_stamina.set_value(player_stamina)
 
-	process_input()
-	process_ray_cast()
-
 func _physics_process(delta):
 	process_look()
 	process_movement(delta)
-
-func process_input():
-	#Change Camera
-	if Input.is_action_just_pressed("util_camera_switch"):
-		camera_position_selected = camera_position_selected + 1 if camera_position_selected < camera_position.size() - 1 else 0
-		player_camera.transform = camera_position[camera_position_selected]
-
-	# Grabbin and throwing objects
-	if Input.is_action_just_pressed("player_primary_action"):
-		if ( grabbed_object == null ) and ( player_ray_cast.is_colliding() ) and ( raycast_target is RigidBody3D ) and ( raycast_target_distance < OBJECT_GRAB_DISTANCE ) :
-			grabbed_object = raycast_target
-			grabbed_object_distance = raycast_target_distance
-			add_collision_exception_with(grabbed_object)
-		elif grabbed_object != null:
-			grabbed_object.apply_central_impulse(player_head.global_transform.basis.z.normalized() * OBJECT_THROW_FORCE)
-			remove_collision_exception_with(grabbed_object)
-			grabbed_object = null
-	
-	# Holding object
-	if grabbed_object != null:
-		grabbed_object.global_transform.origin = player_head.global_transform.origin + ( player_head.global_transform.basis.z.normalized() * grabbed_object_distance )
-
-	# Flashlight
-	if Input.is_action_just_pressed("player_flashlight"):
-		if player_light.is_visible_in_tree():
-			player_light.hide()
-		else:
-			player_light.show()
 
 func process_look():
 	if Input.get_mouse_mode() != Input.MOUSE_MODE_CAPTURED:
@@ -289,11 +241,3 @@ func _input(event):
 					mouse_scroll_value += mouse_scrolled
 				elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 					mouse_scroll_value -= mouse_scrolled
-
-func process_ray_cast():
-	if player_ray_cast.is_colliding():
-		raycast_target = player_ray_cast.get_collider()
-		raycast_target_distance = player_ray_cast.get_global_transform().origin.distance_to(player_ray_cast.get_collision_point())
-	else:
-		raycast_target = false
-		raycast_target_distance = false

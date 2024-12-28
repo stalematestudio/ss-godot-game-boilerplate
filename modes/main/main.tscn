@@ -25,6 +25,10 @@ pause_scene = ExtResource("8_04kg6")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("9_l6lsn")
 
+[node name="directional_light_3d" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.910669, -0.310893, 0.27208, 0, 0.658571, 0.752518, -0.413136, -0.685295, 0.599741, 0, 0, 0)
+shadow_enabled = true
+
 [node name="Music_Player" type="AudioStreamPlayer" parent="."]
 process_mode = 3
 stream = ExtResource("10_nlrrd")
