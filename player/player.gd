@@ -187,7 +187,7 @@ func process_movement(delta):
 			is_sprinting = false
 		
 		# Crouching
-		if is_on_ceiling():
+		if is_on_ceiling() and not is_crouching:
 			is_crouching = true
 			is_sprinting = false
 			player_animation.play("crouch")
