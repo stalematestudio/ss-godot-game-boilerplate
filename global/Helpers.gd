@@ -18,12 +18,12 @@ func date_time_string() -> String:
 
 	return year + "_" + month + "_" + day + "_" + hour + "_" + minute + "_" + second
 
-func RemoveChildren(p_node: Node) -> void:
+func remove_children(p_node: Node) -> void:
 	for c_node in p_node.get_children():
 		p_node.remove_child(c_node)
 		c_node.queue_free()
 
-func ButtonIndex2ButtonName(btn_index: int) -> String:
+func button_index_to_button_name(btn_index: int) -> String:
 	match btn_index:
 		1:
 			return "Left mouse button"
@@ -76,9 +76,9 @@ func delete_file(file_path: String, file_name: String) -> void:
 
 func recursive_non_empty_dir_deletion(file_path: String) -> void:
 	file_path = file_path if file_path.ends_with("/") else file_path + "/"
-	var dir = DirAccess.open(file_path)
+	var dir: DirAccess = DirAccess.open(file_path)
 	dir.list_dir_begin() # TODOConverter3To4 fill missing arguments https://github.com/godotengine/godot/pull/40547
-	var element = dir.get_next()
+	var element: String = dir.get_next()
 	while element:
 		if dir.current_is_dir():
 			recursive_non_empty_dir_deletion(file_path + element)
@@ -92,7 +92,7 @@ func dictionary_update(dict_a: Dictionary, dict_b: Dictionary) -> void:
 	for k in dict_b:
 		dict_a[k] = dict_b[k]
 
-func array_difference(array_one, array_two) -> void:
+func array_difference(array_one: Array, array_two: Array) -> void:
 	for item in array_two:
 		while item in array_one:
 			array_one.remove_at(array_one.find(item))

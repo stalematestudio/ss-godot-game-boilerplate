@@ -31,7 +31,7 @@ func _on_save_game() -> void:
 	ProfileManager.save_game(game_data)
 
 func _on_load_game() -> void:
-	var game_data = ProfileManager.load_game()
+	var game_data: Array = ProfileManager.load_game(ProfileManager.game_data_path)
 	game_time = game_data[0].game_time if "game_time" in game_data[0] else game_time
 	game_difficulty = game_data[0].game_difficulty if "game_difficulty" in game_data[0] else game_difficulty
-	game_level_loaded = game_data[0].game_level_loaded if "game_level_loaded" in game_data[0] else game_level_loaded	
+	game_level_loaded = game_data[0].game_level_loaded if "game_level_loaded" in game_data[0] else game_level_loaded

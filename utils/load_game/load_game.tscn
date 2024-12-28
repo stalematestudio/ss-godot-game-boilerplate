@@ -19,14 +19,13 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="GAMES" type="ItemList" parent="VBoxContainer/games"]
+[node name="scroll_container" type="ScrollContainer" parent="VBoxContainer/games"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 3
-allow_reselect = true
-auto_height = true
+follow_focus = true
+horizontal_scroll_mode = 0
 
-[node name="SAVES" type="ItemList" parent="VBoxContainer/games"]
+[node name="SAVES_LIST" type="ItemList" parent="VBoxContainer/games/scroll_container"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -65,17 +64,12 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "LOAD"
 
-[node name="DELETE_SAVE" type="Button" parent="VBoxContainer/games/GAME_DATA"]
+[node name="DELETE" type="Button" parent="VBoxContainer/games/GAME_DATA"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "DELETE SAVE"
+text = "DELETE"
 
-[node name="DELETE_GAME" type="Button" parent="VBoxContainer/games/GAME_DATA"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "DELETE GAME"
-
-[node name="CANCEL" type="Button" parent="VBoxContainer"]
+[node name="CANCEL" type="Button" parent="VBoxContainer/games/GAME_DATA"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "CANCEL"

@@ -25,8 +25,9 @@ buses/default_bus_layout="res://assets/base/default_bus_layout.tres"
 
 [autoload]
 
-Utils="*res://global/Utils.gd"
+Constants="*res://global/Constants.gd"
 Helpers="*res://global/Helpers.gd"
+Utils="*res://global/Utils.gd"
 ProfileManager="*res://global/ProfileManager.gd"
 ConfigManager="*res://global/ConfigManager.gd"
 AudioManager="*res://global/AudioManager.gd"

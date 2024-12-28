@@ -99,18 +99,16 @@ func game_state_change(state):
 
 func screenshot():
 	# Check if path exists
-	var dir_path = ProfileManager.get_profile_screenshot_path_current()
+	var dir_path = Constants.PLAYER_DATA_PATH + Constants.SCREEN_SHOT_FOLDER
 	if not DirAccess.dir_exists_absolute(dir_path):
 		DirAccess.make_dir_recursive_absolute(dir_path)
-
 	var img = get_viewport().get_texture().get_image()
-
 	var img_path = dir_path + Helpers.date_time_string() + ".png"
 	var err = img.save_png(img_path)
 	if err == OK:
-		emit_signal("message", "Screenshot saved: " + img_path)
+		message.emit("Screenshot saved: " + img_path)
 	else:
-		emit_signal("message", "Screenshot save " + img_path + " error: " + String.num(err))
+		message.emit("Screenshot save " + img_path + " error: " + String.num(err))
 
 func mouse_mode_hidden():
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)

@@ -1,11 +1,9 @@
 extends Node
 
-const CONFIG_FILE = "config.ini"
-
 # signal message(message)
 signal config_update
 
-const resolutions = [
+const resolutions: Array = [
 		{"name": "854x480", "value": Vector2(854, 480)},
 		{"name": "1024x576", "value": Vector2(1024, 576)},
 		{"name": "1280x720", "value": Vector2(1280, 720)},
@@ -16,9 +14,7 @@ const resolutions = [
 		{"name": "3840x2160", "value": Vector2(3840, 2160)},
 		]
 
-@onready var config_path = ProfileManager.get_profile_path_current() + CONFIG_FILE
-
-@onready var config_data_default = {
+@onready var config_data_default: Dictionary = {
 		"game":{
 				"subtitles": false,
 				"mouse_mode_confined": false,
@@ -89,28 +85,19 @@ const resolutions = [
 		"keybind": keybind_defaults()
 		}
 
-@onready var config_data = config_data_default.duplicate(true)
+@onready var config_data: Dictionary = config_data_default.duplicate(true)
+@onready var config_path: String = Constants.PLAYER_DATA_PATH + Constants.CONFIG_FILE
 
-func _ready():
+func _ready() -> void:
 	await get_node("/root/main").ready # Wait For Main Scene to be ready.
 	self.process_mode = Node.PROCESS_MODE_ALWAYS
 	GameManager.connect("game_state_changed", Callable(self, "apply_config"))
-	ProfileManager.connect("profile_changed", Callable(self, "_on_profile_changed"))
-	ProfileManager.connect("profile_created", Callable(self, "_on_profile_created"))
 	load_config()
 
-func _on_profile_changed():
-	config_path = ProfileManager.get_profile_path_current() + CONFIG_FILE
-	load_config()
-
-func _on_profile_created():
-	config_path = ProfileManager.get_profile_path_current() + CONFIG_FILE
-	save_config()
-
-func apply_config():
+func apply_config() -> void:
 	config_update.emit()
 
-func save_config():
+func save_config() -> bool:
 	var config_file = ConfigFile.new()
 	for section in config_data:
 		for setting in config_data[section]:
@@ -119,8 +106,10 @@ func save_config():
 	if err == OK:
 		config_update.emit()
 		return true
+	else:
+		return false
 
-func load_config():
+func load_config() -> bool:
 	var config_file = ConfigFile.new()
 	var err = config_file.load(config_path)
 	if err == OK:
@@ -134,7 +123,7 @@ func load_config():
 	else:
 		return false
 
-func reset_to_default(section):
+func reset_to_default(section: String) -> void:
 	match section:
 		"game":
 			config_data.game = config_data_default.game.duplicate(true)
@@ -156,7 +145,7 @@ func reset_to_default(section):
 			InputManager.apply_config_keybind()
 	save_config()
 
-func keybind_defaults():
+func keybind_defaults() -> Dictionary:
 	var config_data_default_keybind = {}
 	for action in InputMap.get_actions():
 		if not (action.begins_with('ui_') or action.begins_with('util_')):
