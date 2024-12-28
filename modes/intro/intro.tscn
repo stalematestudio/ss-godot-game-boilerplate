@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource type="Script" path="res://menu/intro/intro_credits.gd" id="1"]
+[ext_resource type="Script" path="res://modes/intro/intro_credits.gd" id="1"]
 [ext_resource type="Theme" uid="uid://b87lntx1cb4rs" path="res://assets/base/default_theme.tres" id="2"]
 [ext_resource type="Texture2D" uid="uid://hl0wf7o7qn8p" path="res://assets/images/disclaimer.png" id="3"]
 [ext_resource type="Texture2D" uid="uid://bo2l6qtw6qni3" path="res://assets/images/made_by.png" id="4"]

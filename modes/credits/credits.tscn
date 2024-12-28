@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource type="Script" path="res://menu/intro/intro_credits.gd" id="1"]
+[ext_resource type="Script" path="res://modes/intro/intro_credits.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://cndrthuuyfdt7" path="res://assets/images/credits.png" id="2"]
 
 

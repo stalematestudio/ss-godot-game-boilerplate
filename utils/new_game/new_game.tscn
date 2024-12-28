@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource type="Script" path="res://menu/title/new.gd" id="1"]
-[ext_resource type="ButtonGroup" path="res://menu/title/difficulty_select_buttongroup.tres" id="2"]
+[ext_resource type="Script" path="res://utils/new_game/new_game.gd" id="1"]
+[ext_resource type="ButtonGroup" path="res://utils/new_game/difficulty_select_buttongroup.tres" id="2"]
 
 [node name="new" type="Window"]
 anchor_right = 1.0

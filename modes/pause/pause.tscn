@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://16dat6l4kb1o"]
 
-[ext_resource type="Script" path="res://game/pause/pause.gd" id="1"]
+[ext_resource type="Script" path="res://modes/pause/pause.gd" id="1"]
 [ext_resource type="Theme" uid="uid://b87lntx1cb4rs" path="res://assets/base/default_theme.tres" id="2"]
 
 [node name="pause_scene" type="Control"]
