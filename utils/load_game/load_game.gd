@@ -1,7 +1,5 @@
 class_name LoadGameWindow extends Window
 
-# @onready var close_button = get_close_button()
-
 @onready var games_list: ItemList = $VBoxContainer/games/GAMES
 @onready var saves_list: ItemList = $VBoxContainer/games/SAVES
 
@@ -25,7 +23,7 @@ func _ready() -> void:
 	game_load_button.pressed.connect(_on_game_load_button_pressed)
 	game_delete_save_button.pressed.connect(_on_game_delete_button_pressed.bind("save"))
 	game_delete_game_button.pressed.connect(_on_game_delete_button_pressed.bind("game"))
-	game_cancel_button.pressed.connect(_on_game_cancel_button_pressed)
+	game_cancel_button.pressed.connect(close_requested.emit)
 	ProfileManager.game_deleted.connect(list_games)
 	ProfileManager.save_file_deleted.connect(list_saves)
 	game_load_button.grab_focus()
@@ -102,17 +100,14 @@ func _on_game_delete_button_pressed(what: String) -> void:
 		match what:
 			"save":
 				var save_file_name: String = saves_list.get_item_text(saves_list.get_selected_items()[0])
-				Helpers.confirm_action(
+				Utils.confirm_action(
 					ProfileManager.del_save_file.bind(game_index, save_file_name),
 					"DELETE: " + String.num(game_index) + " / " + save_file_name,
 					"Delete",
 					)
 			"game":
-				Helpers.confirm_action(
+				Utils.confirm_action(
 					ProfileManager.del_game.bind(game_index),
 					"DELETE GAME: " + String.num(game_index),
 					"Delete",
 				)
-
-func _on_game_cancel_button_pressed() -> void:
-	close_requested.emit()

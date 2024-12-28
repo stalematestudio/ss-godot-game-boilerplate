@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://betheslgffy6l"]
+[gd_scene load_steps=3 format=3 uid="uid://betheslgffy6l"]
 
 [ext_resource type="Theme" uid="uid://b87lntx1cb4rs" path="res://assets/base/default_theme.tres" id="1"]
 [ext_resource type="Script" path="res://modes/title/title.gd" id="2"]
-[ext_resource type="PackedScene" path="res://utils/new_game/new_game.tscn" id="4"]
 
 [node name="title_scene" type="Control"]
 self_modulate = Color(1, 1, 1, 0.501961)
@@ -82,7 +81,3 @@ layout_mode = 2
 focus_mode = 2
 theme = ExtResource("1")
 text = "Visit website"
-
-[node name="new" parent="." instance=ExtResource("4")]
-initial_position = 2
-visible = false

@@ -1,18 +1,18 @@
 extends Node
 
-@onready var game_time = 0
-@onready var game_difficulty = "normal"
-@onready var game_level_loaded = ""
+@onready var game_time: float = 0.0
+@onready var game_difficulty: String = "normal"
+@onready var game_level_loaded: String = ""
 
-func _ready():
+func _ready() -> void:
 	GameManager.save_game.connect(_on_save_game)
 	GameManager.load_game.connect(_on_load_game)
 	_on_load_game()
 
-func  _process(delta):
+func  _process(delta) -> void:
 	game_time += delta
 
-func _on_save_game():
+func _on_save_game() -> void:
 	var game_data = []
 	var img = get_viewport().get_texture().get_image()
 	img.resize(320, 180)
@@ -30,7 +30,7 @@ func _on_save_game():
 				})
 	ProfileManager.save_game(game_data)
 
-func _on_load_game():
+func _on_load_game() -> void:
 	var game_data = ProfileManager.load_game()
 	game_time = game_data[0].game_time if "game_time" in game_data[0] else game_time
 	game_difficulty = game_data[0].game_difficulty if "game_difficulty" in game_data[0] else game_difficulty
