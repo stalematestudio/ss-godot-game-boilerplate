@@ -1,8 +1,7 @@
 class_name PlayerCharacter extends CharacterBody3D
 
 # Environmental Variables will be moved to level scene or game state
-const GRAVITY = 9.8
-const GRAVITY_VECTOR = Vector3(0,1,0)
+var default_gravity = ProjectSettings.get_setting("physics/3d/default_gravity", 9.8)
 
 # Player stats
 const MAX_WALK_SPEED = 4.5
@@ -158,7 +157,7 @@ func process_movement(delta):
 	direction.y = 0
 	direction = direction.normalized()
 	
-	velocity.y = velocity.y + ( delta * GRAVITY * -1 )
+	velocity.y = velocity.y + ( delta * default_gravity * -1 )
 	
 	horizontal_velocity = velocity
 	horizontal_velocity.y = 0
