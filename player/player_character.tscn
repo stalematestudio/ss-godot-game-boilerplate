@@ -34,7 +34,6 @@ script = ExtResource("3_n458s")
 transform = Transform3D(-1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, 0, 0)
 visible = false
 light_bake_mode = 0
-shadow_enabled = true
 script = ExtResource("4_2pauq")
 
 [node name="PlayerRayCast" type="RayCast3D" parent="PlayerHead"]

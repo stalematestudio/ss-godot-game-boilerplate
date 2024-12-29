@@ -123,13 +123,15 @@ func process_movement(delta):
 		
 		# Sprinting
 		if Input.is_action_just_pressed("player_movement_sprint") and ( player_stamina >= player_stamina_max / 2.0 ):
-			is_sprinting = true
+			is_sprinting = ( input_movement_vector.y > 0 )
 			if is_crouching:
 				is_crouching = false
 				player_animation.play_backwards("crouch")
 		elif player_stamina <= 0 :
 			is_sprinting = false
-		
+		# Sprint only forward
+		is_sprinting = is_sprinting and ( input_movement_vector.y > 0 )
+
 		# Crouching
 		if is_on_ceiling() and not is_crouching:
 			is_crouching = true
