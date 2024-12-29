@@ -27,13 +27,6 @@ const JUMP_SPEED = 6
 @onready var player_stamina_max = 30
 @onready var player_stamina = 30
 
-var player_move_snap = Vector3(0,1,0)
-var player_move_up_direction = GRAVITY_VECTOR
-var player_move_stop_on_slope = true 
-var player_move_max_slides = 4
-var player_move_floor_max_angle = deg_to_rad(MAX_SLOPE_ANGLE)
-var player_move_infinite_inertia = false
-
 var is_jumping: bool = false
 var is_sprinting: bool  = false
 var is_crouching: bool  = false
@@ -215,7 +208,7 @@ func process_movement(delta):
 	else:
 		is_jumping = true
 
-func _input(event):
+func _input(event: InputEvent) -> void:
 	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		if event is InputEventMouseMotion:
 			if ConfigManager.config_data.mouse.mouse_inverted_y:
@@ -236,7 +229,7 @@ func _input(event):
 				if ConfigManager.config_data.mouse.mouse_inverted_scroll:
 					mouse_scrolled = ConfigManager.config_data.mouse.mouse_sensitivity_scroll * -1
 				else:
-					mouse_scrolled = ConfigManager.config_data.mouse.mouse_sensitivity_scroll				
+					mouse_scrolled = ConfigManager.config_data.mouse.mouse_sensitivity_scroll
 				if event.button_index == MOUSE_BUTTON_WHEEL_UP:
 					mouse_scroll_value += mouse_scrolled
 				elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:

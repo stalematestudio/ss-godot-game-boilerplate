@@ -21,3 +21,5 @@ func _input(event: InputEvent) -> void:
 		set_fov(fov-1)
 	if event.is_action_pressed("zoom_out"):
 		set_fov(fov+1)
+	if event.is_action_pressed("zoom_reset"):
+		set_fov(ConfigManager.config_data.video.fov)

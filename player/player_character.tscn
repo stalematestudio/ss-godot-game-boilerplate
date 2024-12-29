@@ -1,26 +1,26 @@
 [gd_scene load_steps=10 format=3 uid="uid://4vp5srwunvh8"]
 
-[ext_resource type="Animation" uid="uid://dufhktbi1isod" path="res://player/player_anim_crouch.tres" id="1"]
-[ext_resource type="Script" path="res://player/player.gd" id="2"]
-[ext_resource type="Script" path="res://player/player_camera.gd" id="3"]
-[ext_resource type="Texture2D" uid="uid://c2cog1c3psnbp" path="res://assets/images/croshair.png" id="4"]
-[ext_resource type="Script" path="res://player/player_light.gd" id="4_704ka"]
-[ext_resource type="Shape3D" uid="uid://6gpd8v46fkoc" path="res://player/player_capsuleshape.tres" id="5"]
-[ext_resource type="Script" path="res://player/player_ray_cast.gd" id="5_i7nax"]
-[ext_resource type="AudioStream" uid="uid://b4nciekqn81lu" path="res://assets/audio/collision_effects/166506__yoyodaman234__concrete-footstep-4.wav" id="6"]
+[ext_resource type="Script" path="res://player/player_character.gd" id="1_bensu"]
+[ext_resource type="Shape3D" uid="uid://6gpd8v46fkoc" path="res://player/player_capsuleshape.tres" id="2_7x1sa"]
+[ext_resource type="Script" path="res://player/player_camera.gd" id="3_n458s"]
+[ext_resource type="Script" path="res://player/player_light.gd" id="4_2pauq"]
+[ext_resource type="Script" path="res://player/player_ray_cast.gd" id="5_8k6yf"]
+[ext_resource type="AudioStream" uid="uid://b4nciekqn81lu" path="res://assets/audio/collision_effects/166506__yoyodaman234__concrete-footstep-4.wav" id="6_vbwu3"]
+[ext_resource type="Animation" uid="uid://dufhktbi1isod" path="res://player/player_anim_crouch.tres" id="7_tdx3g"]
+[ext_resource type="Texture2D" uid="uid://c2cog1c3psnbp" path="res://assets/images/croshair.png" id="8_vkdkv"]
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gdv1m"]
 _data = {
-"crouch": ExtResource("1")
+"crouch": ExtResource("7_tdx3g")
 }
 
-[node name="player" type="CharacterBody3D"]
+[node name="player_character" type="CharacterBody3D"]
 input_ray_pickable = false
-script = ExtResource("2")
+script = ExtResource("1_bensu")
 
 [node name="PlayerCollisionShape" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
-shape = ExtResource("5")
+shape = ExtResource("2_7x1sa")
 
 [node name="PlayerHead" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.65, 0)
@@ -28,23 +28,23 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.65, 0)
 [node name="PlayerCamera" type="Camera3D" parent="PlayerHead"]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
 current = true
-script = ExtResource("3")
+script = ExtResource("3_n458s")
 
 [node name="PlayerLight" type="SpotLight3D" parent="PlayerHead"]
 transform = Transform3D(-1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, 0, 0)
 visible = false
 light_bake_mode = 0
 shadow_enabled = true
-script = ExtResource("4_704ka")
+script = ExtResource("4_2pauq")
 
 [node name="PlayerRayCast" type="RayCast3D" parent="PlayerHead"]
 target_position = Vector3(0, 0, 3)
 hit_back_faces = false
 collide_with_areas = true
-script = ExtResource("5_i7nax")
+script = ExtResource("5_8k6yf")
 
 [node name="PlayerStepsAudio3D" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource("6")
+stream = ExtResource("6_vbwu3")
 unit_size = 3.0
 bus = &"FX"
 
@@ -65,7 +65,7 @@ grow_vertical = 2
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-texture = ExtResource("4")
+texture = ExtResource("8_vkdkv")
 stretch_mode = 3
 
 [node name="stats" type="VBoxContainer" parent="hud"]

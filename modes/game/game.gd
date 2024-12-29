@@ -1,6 +1,6 @@
 extends Node
 
-@export var player_scene: PackedScene = preload("res://player/player.tscn")
+@export var player_scene: PackedScene = preload("res://player/player_character.tscn")
 @export var player: PlayerCharacter
 @export var player_position: Vector3 = Vector3()
 @export var player_rotation: Vector3 = Vector3()
@@ -57,7 +57,7 @@ func _on_load_game() -> void:
 	add_child(level)
 
 	player = player_scene.instantiate()
-	player.name = "player"
+	player.name = "player_character"
 	player.position = player_position
 	player.rotation = player_rotation
 	add_child(player)

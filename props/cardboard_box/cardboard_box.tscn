@@ -1,15 +1,13 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://bhvq7376kjv1"]
 
 [ext_resource type="BoxMesh" path="res://props/cardboard_box/cardboard_box_cubemesh.tres" id="1"]
 [ext_resource type="Shape3D" path="res://props/cardboard_box/cardboard_box_boxshape.tres" id="2"]
 
 [node name="cardboard_box" type="RigidBody3D"]
 mass = 0.5
-can_sleep = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = ExtResource( 2 )
+shape = ExtResource("2")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = ExtResource( 1 )
-material/0 = null
+mesh = ExtResource("1")
