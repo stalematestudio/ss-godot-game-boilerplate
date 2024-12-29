@@ -34,20 +34,16 @@ extends Node
 
 @onready var input_display = $h_box_container/input_display
 
-var last_event
-var game_instance
+var last_event: String
+var game_instance: Node
 var player_instance: PlayerCharacter
 var player_ray_cast: PlayerRayCast3D
 
 func _ready():
 	vd_display.set_text( RenderingServer.get_video_adapter_name() )
-	game_instance = get_node_or_null("/root/main/game")
-	player_instance = get_node_or_null("/root/main/game/player")
-	if is_instance_valid(player_instance):
-		player_ray_cast = player_instance.find_child("PlayerRayCast")
-	GameManager.connect("game_state_changed", Callable(self, "_on_game_state_changed"))
+	GameManager.game_state_changed.connect(_on_game_state_changed)
 
-func _input(event):
+func _input(event: InputEvent):
 	if event.is_pressed():
 		if not last_event == event.as_text():
 			last_event = event.as_text()
@@ -70,14 +66,6 @@ func _process(_delta):
 
 	if GameManager.game_state.scene == "game_scene":
 		if is_instance_valid(player_instance):
-			if is_instance_valid(player_ray_cast):
-				if player_ray_cast.raycast_target:
-					player_target_name.set_text(player_ray_cast.raycast_target.name)
-					player_target_distance.set_text(String.num(snapped(player_ray_cast.raycast_target_distance, 0.1)))
-				else:
-					player_target_name.set_text("")
-					player_target_distance.set_text("")
-
 			player_velocity_vector.set_text(" x " + String.num(snapped(player_instance.velocity.x, 0.2)) + " y " + String.num(snapped(player_instance.velocity.y, 0.2)) + " z " + String.num(snapped(player_instance.velocity.z, 0.2)))
 			player_velocity_length.set_text(" l " + String.num(player_instance.velocity.length()))
 
@@ -87,26 +75,38 @@ func _process(_delta):
 			player_on_ceiling.set_text( "True" if player_instance.is_on_ceiling() else "False" )
 			player_on_wall.set_text( "True" if player_instance.is_on_wall() else "False" )
 			player_on_floor.set_text( "True" if player_instance.is_on_floor() else "False")
+
 			var player_slide_collisions = player_instance.get_slide_collision_count()
 			player_collisions.set_text(String.num(player_slide_collisions))
+
 			if player_slide_collisions > 0:
 				player_collider.set_text(String(player_instance.get_slide_collision(0).get_collider().name))
 			else:
 				player_collider.set_text("")
+
+			if is_instance_valid(player_ray_cast):
+				if player_ray_cast.raycast_target:
+					player_target_name.set_text(player_ray_cast.raycast_target.name)
+					player_target_distance.set_text(String.num(snapped(player_ray_cast.raycast_target_distance, 0.1)))
+				else:
+					player_target_name.set_text("")
+					player_target_distance.set_text("")
 		else:
-			player_instance = get_node_or_null("/root/main/game/player")
+			_on_game_state_changed()
 
 		if is_instance_valid(game_instance):
 			game_time_display.set_text("%.2f" % game_instance.game_time)
 			game_difficulty_display.set_text(game_instance.game_difficulty)
 			game_level_loaded_display.set_text(game_instance.game_level_loaded)
 		else:
-			game_instance = get_node_or_null("/root/main/game")
+			_on_game_state_changed()
 
 func _on_game_state_changed():
 	if GameManager.game_state.scene == "game_scene":
 		game_instance = get_node_or_null("/root/main/game")
-		player_instance = get_node_or_null("/root/main/game/player")
+		player_instance = get_node_or_null("/root/main/game/player_character")
+		if is_instance_valid(player_instance):
+			player_ray_cast = player_instance.find_child("PlayerRayCast")
 	else:
 		game_time_display.set_text("")
 		game_difficulty_display.set_text("")

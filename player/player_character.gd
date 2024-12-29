@@ -53,21 +53,13 @@ var direction = Vector3()
 @onready var player_collision_shape = $PlayerCollisionShape
 @onready var player_head = $PlayerHead
 @onready var player_steps_player = $PlayerStepsAudio3D
-@onready var player_stats_health = $hud/stats/health
-@onready var player_stats_stamina = $hud/stats/stamina
 @onready var player_animation = $AnimationPlayer
 
-func _ready():
+func _ready() -> void:
 	if is_inside_tree() and not is_in_group("game_save_objects"):
 		add_to_group("game_save_objects", true)
-	player_stats_health.set_max(player_health_max)
-	player_stats_stamina.set_max(player_stamina_max)
 
-func _process(_delta):
-	player_stats_health.set_value(player_health)
-	player_stats_stamina.set_value(player_stamina)
-
-func _physics_process(delta):
+func _physics_process(delta: float) -> void:
 	process_look()
 	process_movement(delta)
 

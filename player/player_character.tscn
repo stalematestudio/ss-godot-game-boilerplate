@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://4vp5srwunvh8"]
+[gd_scene load_steps=9 format=3 uid="uid://4vp5srwunvh8"]
 
 [ext_resource type="Script" path="res://player/player_character.gd" id="1_bensu"]
 [ext_resource type="Shape3D" uid="uid://6gpd8v46fkoc" path="res://player/player_capsuleshape.tres" id="2_7x1sa"]
@@ -7,7 +7,6 @@
 [ext_resource type="Script" path="res://player/player_ray_cast.gd" id="5_8k6yf"]
 [ext_resource type="AudioStream" uid="uid://b4nciekqn81lu" path="res://assets/audio/collision_effects/166506__yoyodaman234__concrete-footstep-4.wav" id="6_vbwu3"]
 [ext_resource type="Animation" uid="uid://dufhktbi1isod" path="res://player/player_anim_crouch.tres" id="7_tdx3g"]
-[ext_resource type="Texture2D" uid="uid://c2cog1c3psnbp" path="res://assets/images/croshair.png" id="8_vkdkv"]
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gdv1m"]
 _data = {
@@ -51,35 +50,3 @@ bus = &"FX"
 libraries = {
 "": SubResource("AnimationLibrary_gdv1m")
 }
-
-[node name="hud" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="croshair" type="TextureRect" parent="hud"]
-layout_mode = 0
-anchor_right = 1.0
-anchor_bottom = 1.0
-texture = ExtResource("8_vkdkv")
-stretch_mode = 3
-
-[node name="stats" type="VBoxContainer" parent="hud"]
-layout_mode = 0
-anchor_top = 1.0
-anchor_right = 0.2
-anchor_bottom = 1.0
-grow_vertical = 0
-
-[node name="health" type="ProgressBar" parent="hud/stats"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="stamina" type="ProgressBar" parent="hud/stats"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
