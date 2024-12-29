@@ -96,3 +96,8 @@ func array_difference(array_one: Array, array_two: Array) -> void:
 	for item in array_two:
 		while item in array_one:
 			array_one.remove_at(array_one.find(item))
+
+func list_files(dir_path: String) -> PackedStringArray:
+	if DirAccess.dir_exists_absolute(dir_path):
+		return DirAccess.open(dir_path).get_files()
+	return PackedStringArray()

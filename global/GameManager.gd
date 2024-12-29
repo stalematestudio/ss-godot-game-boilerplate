@@ -73,7 +73,7 @@ func _input(event):
 		else:
 			pause_game.emit()
 	elif event.is_action_released("util_screenshot"):
-		screenshot()
+		ProfileManager.screenshot()
 	elif event.is_action_released("util_quick_load") and game_state.in_game:
 		load_game.emit()
 	elif event.is_action_released("util_quick_save") and game_state.in_game:
@@ -96,19 +96,6 @@ func game_state_change(state):
 		resume_game.emit()
 	game_state_changed.emit()
 	message.emit("True" if game_state else "False")
-
-func screenshot():
-	# Check if path exists
-	var dir_path = Constants.PLAYER_DATA_PATH + Constants.SCREEN_SHOT_FOLDER
-	if not DirAccess.dir_exists_absolute(dir_path):
-		DirAccess.make_dir_recursive_absolute(dir_path)
-	var img = get_viewport().get_texture().get_image()
-	var img_path = dir_path + Helpers.date_time_string() + ".png"
-	var err = img.save_png(img_path)
-	if err == OK:
-		message.emit("Screenshot saved: " + img_path)
-	else:
-		message.emit("Screenshot save " + img_path + " error: " + String.num(err))
 
 func mouse_mode_hidden():
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
