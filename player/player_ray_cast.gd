@@ -10,7 +10,7 @@ const OBJECT_GRAB_MAX_MASS: float = 0.5
 var grabbed_object: Node
 var grabbed_object_distance = OBJECT_GRAB_DISTANCE
 
-@onready var player_instance: PlayerCharacter = get_node_or_null("/root/main/game/player_character")
+@onready var player_instance: PlayerCharacter = get_node("/root/main/game/player_manager/player_character")
 
 func _process(_delta: float) -> void:
 	if is_colliding():

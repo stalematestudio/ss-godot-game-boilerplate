@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://d17bkep2o4mne"]
+
+[ext_resource type="Script" path="res://utils/health/health.gd" id="1_qfops"]
+[ext_resource type="Theme" uid="uid://1v4jp2ajoikx" path="res://utils/health/health.tres" id="2_8oke6"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_8cscj"]
+viewport_path = NodePath("health_viewport")
+
+[node name="health" type="Sprite3D"]
+modulate = Color(1, 1, 1, 0.501961)
+billboard = 1
+no_depth_test = true
+texture = SubResource("ViewportTexture_8cscj")
+script = ExtResource("1_qfops")
+
+[node name="health_viewport" type="SubViewport" parent="."]
+transparent_bg = true
+size = Vector2i(128, 16)
+
+[node name="health_bar" type="ProgressBar" parent="health_viewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_8oke6")
+value = 50.0
+show_percentage = false

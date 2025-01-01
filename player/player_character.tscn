@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://4vp5srwunvh8"]
+[gd_scene load_steps=10 format=3 uid="uid://4vp5srwunvh8"]
 
 [ext_resource type="Script" path="res://player/player_character.gd" id="1_bensu"]
 [ext_resource type="Shape3D" uid="uid://6gpd8v46fkoc" path="res://player/player_capsuleshape.tres" id="2_7x1sa"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://player/player_ray_cast.gd" id="5_8k6yf"]
 [ext_resource type="AudioStream" uid="uid://b4nciekqn81lu" path="res://assets/audio/collision_effects/166506__yoyodaman234__concrete-footstep-4.wav" id="6_vbwu3"]
 [ext_resource type="Animation" uid="uid://dufhktbi1isod" path="res://player/player_anim_crouch.tres" id="7_tdx3g"]
+[ext_resource type="Script" path="res://player/animation_player.gd" id="8_6durd"]
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gdv1m"]
 _data = {
@@ -50,3 +51,4 @@ bus = &"FX"
 libraries = {
 "": SubResource("AnimationLibrary_gdv1m")
 }
+script = ExtResource("8_6durd")

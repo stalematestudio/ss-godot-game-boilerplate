@@ -14,8 +14,6 @@ const MAX_CROUCH_SPEED = 2
 const CROUCH_ACCEL = 0.4
 
 const DEACCEL = 9
-const MAX_SLOPE_ANGLE = 40
-
 const JUMP_SPEED = 6
 
 # Player Health
@@ -53,7 +51,7 @@ var direction = Vector3()
 @onready var player_collision_shape = $PlayerCollisionShape
 @onready var player_head = $PlayerHead
 @onready var player_steps_player = $PlayerStepsAudio3D
-@onready var player_animation = $AnimationPlayer
+@onready var player_animation: PlayerAnimationPlayer = $AnimationPlayer
 
 func _ready() -> void:
 	if is_inside_tree() and not is_in_group("game_save_objects"):
@@ -118,7 +116,7 @@ func process_movement(delta):
 			is_sprinting = ( input_movement_vector.y > 0 )
 			if is_crouching:
 				is_crouching = false
-				player_animation.play_backwards("crouch")
+				player_animation.un_crouch()
 		elif player_stamina <= 0 :
 			is_sprinting = false
 		# Sprint only forward
@@ -128,16 +126,16 @@ func process_movement(delta):
 		if is_on_ceiling() and not is_crouching:
 			is_crouching = true
 			is_sprinting = false
-			player_animation.play("crouch")
+			player_animation.crouch()
 			
 	if Input.is_action_just_pressed("player_movement_crouch"):
 		if is_crouching:
 			is_crouching = false
-			player_animation.play_backwards("crouch")
+			player_animation.un_crouch()
 		else:
 			is_crouching = true
 			is_sprinting = false
-			player_animation.play("crouch")
+			player_animation.crouch()
 	
 	# Basis vectors are normalized
 	input_movement_vector_magnitude = min(input_movement_vector.length(), 1)
