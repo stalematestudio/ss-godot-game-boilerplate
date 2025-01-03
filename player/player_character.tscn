@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://4vp5srwunvh8"]
+[gd_scene load_steps=11 format=3 uid="uid://4vp5srwunvh8"]
 
 [ext_resource type="Script" path="res://player/player_character.gd" id="1_bensu"]
 [ext_resource type="Shape3D" uid="uid://6gpd8v46fkoc" path="res://player/player_capsuleshape.tres" id="2_7x1sa"]
 [ext_resource type="Script" path="res://player/player_camera.gd" id="3_n458s"]
+[ext_resource type="Script" path="res://player/player_head.gd" id="3_o4ax8"]
 [ext_resource type="Script" path="res://player/player_light.gd" id="4_2pauq"]
 [ext_resource type="Script" path="res://player/player_ray_cast.gd" id="5_8k6yf"]
 [ext_resource type="AudioStream" uid="uid://b4nciekqn81lu" path="res://assets/audio/collision_effects/166506__yoyodaman234__concrete-footstep-4.wav" id="6_vbwu3"]
@@ -24,6 +25,7 @@ shape = ExtResource("2_7x1sa")
 
 [node name="PlayerHead" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.65, 0)
+script = ExtResource("3_o4ax8")
 
 [node name="PlayerCamera" type="Camera3D" parent="PlayerHead"]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)

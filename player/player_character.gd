@@ -4,90 +4,56 @@ class_name PlayerCharacter extends CharacterBody3D
 var default_gravity = ProjectSettings.get_setting("physics/3d/default_gravity", 9.8)
 
 # Player stats
-const MAX_WALK_SPEED = 4.5
-const WALK_ACCEL = 0.8
+const MAX_WALK_SPEED: float = 4.5
+const WALK_ACCEL: float = 0.8
 
-const MAX_SPRINT_SPEED = 9
-const SPRINT_ACCEL = 1.6
+const MAX_SPRINT_SPEED: float = 9.0
+const SPRINT_ACCEL: float = 1.6
 
-const MAX_CROUCH_SPEED = 2
-const CROUCH_ACCEL = 0.4
+const MAX_CROUCH_SPEED: float = 2.0
+const CROUCH_ACCEL: float = 0.4
 
-const DEACCEL = 9
-const JUMP_SPEED = 6
+const DEACCEL: float = 9.0
+const JUMP_SPEED: float = 6.0
 
 # Player Health
-@onready var player_health_max = 100
-@onready var player_health = 100
+@onready var player_health_max: float = 100
+@onready var player_health: float = 100
 
 # Player Stamina
-@onready var player_stamina_max = 30
-@onready var player_stamina = 30
+@onready var player_stamina_max: float = 30
+@onready var player_stamina: float = 30
 
 var is_jumping: bool = false
 var is_sprinting: bool  = false
 var is_crouching: bool  = false
 
-var input_movement_vector = Vector2()
-var input_look_vector = Vector2()
-
+var input_movement_vector: Vector2 = Vector2()
 var player_control_orientation = Transform2D()
-var player_head_rotation = float()
 
-var player_speed = float()
-var player_step_distance = float()
-var input_movement_vector_magnitude = float()
-var horizontal_velocity = Vector3()
-var mouse_scroll_value = 0
-var mouse_scrolled = float()
+var player_speed: float = float()
+var player_step_distance: float = float()
+var input_movement_vector_magnitude: float = float()
+var horizontal_velocity: Vector3 = Vector3()
+var mouse_scroll_value: float = float()
+var mouse_scrolled: float  = float()
 
-var target = float()
-var accel = float()
-
-# var velocity = Vector3()
-var direction = Vector3()
+var target: Vector3 = Vector3()
+var accel: float = float()
+var direction: Vector3 = Vector3()
 
 # Player Nodes
-@onready var player_collision_shape = $PlayerCollisionShape
-@onready var player_head = $PlayerHead
-@onready var player_steps_player = $PlayerStepsAudio3D
+@onready var player_collision_shape: CollisionShape3D = $PlayerCollisionShape
+@onready var player_head: PlayerHead = $PlayerHead
+@onready var player_steps_player: AudioStreamPlayer3D = $PlayerStepsAudio3D
 @onready var player_animation: PlayerAnimationPlayer = $AnimationPlayer
 
 func _ready() -> void:
-	if is_inside_tree() and not is_in_group("game_save_objects"):
-		add_to_group("game_save_objects", true)
+	# if is_inside_tree() and not is_in_group("game_save_objects"):
+	# 	add_to_group("game_save_objects", true)
+	pass
 
 func _physics_process(delta: float) -> void:
-	process_look()
-	process_movement(delta)
-
-func process_look():
-	if Input.get_mouse_mode() != Input.MOUSE_MODE_CAPTURED:
-		return
-
-	input_look_vector = Vector2()
-	if Input.is_action_pressed("player_look_up"):
-		input_look_vector.y = input_look_vector.y - Input.get_action_strength("player_look_up") 
-	if Input.is_action_pressed("player_look_down"):
-		input_look_vector.y = input_look_vector.y + Input.get_action_strength("player_look_down")
-	if Input.is_action_pressed("player_look_left"):
-		input_look_vector.x = input_look_vector.x + Input.get_action_strength("player_look_left")
-	if Input.is_action_pressed("player_look_right"):
-		input_look_vector.x = input_look_vector.x - Input.get_action_strength("player_look_right")
-
-	if ConfigManager.config_data.controller.right_y_inverted:
-		input_look_vector.y = input_look_vector.y * -1
-	
-	if ConfigManager.config_data.controller.right_x_inverted:
-		input_look_vector.x = input_look_vector.x * -1
-
-	player_head.rotate_x(deg_to_rad( input_look_vector.y * ConfigManager.config_data.controller.right_y_sensitivity ))
-	rotate_y(deg_to_rad( input_look_vector.x * ConfigManager.config_data.controller.right_x_sensitivity ))
-	player_head_rotation = player_head.rotation_degrees
-	player_head_rotation.x = clamp(player_head_rotation.x, -70, 70)
-	player_head.rotation_degrees = player_head_rotation
-
-func process_movement(delta):	
 	#Get movement inputs
 	input_movement_vector = Vector2()
 	if is_on_floor():
@@ -199,29 +165,15 @@ func process_movement(delta):
 	else:
 		is_jumping = true
 
-func _input(event: InputEvent) -> void:
-	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
-		if event is InputEventMouseMotion:
-			if ConfigManager.config_data.mouse.mouse_inverted_y:
-				player_head.rotate_x(deg_to_rad(event.relative.y * ConfigManager.config_data.mouse.mouse_sensitivity_y * -1))
-			else:
-				player_head.rotate_x(deg_to_rad(event.relative.y * ConfigManager.config_data.mouse.mouse_sensitivity_y))
-			
-			if ConfigManager.config_data.mouse.mouse_inverted_x:
-				self.rotate_y(deg_to_rad(event.relative.x * ConfigManager.config_data.mouse.mouse_sensitivity_x))
-			else:
-				self.rotate_y(deg_to_rad(event.relative.x * ConfigManager.config_data.mouse.mouse_sensitivity_x * -1))
-			
-			player_head_rotation = player_head.rotation_degrees
-			player_head_rotation.x = clamp(player_head_rotation.x, -55, 55)
-			player_head.rotation_degrees = player_head_rotation
-		if event is InputEventMouseButton:
-			if event.button_index == MOUSE_BUTTON_WHEEL_UP or event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
-				if ConfigManager.config_data.mouse.mouse_inverted_scroll:
-					mouse_scrolled = ConfigManager.config_data.mouse.mouse_sensitivity_scroll * -1
-				else:
-					mouse_scrolled = ConfigManager.config_data.mouse.mouse_sensitivity_scroll
-				if event.button_index == MOUSE_BUTTON_WHEEL_UP:
-					mouse_scroll_value += mouse_scrolled
-				elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
-					mouse_scroll_value -= mouse_scrolled
+# Not sure what I needed this for.
+# func _input(event: InputEvent) -> void:
+# 	if (Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED) and (event is InputEventMouseButton):
+# 		if event.button_index == MOUSE_BUTTON_WHEEL_UP or event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+# 			if ConfigManager.config_data.mouse.mouse_inverted_scroll:
+# 				mouse_scrolled = ConfigManager.config_data.mouse.mouse_sensitivity_scroll * -1
+# 			else:
+# 				mouse_scrolled = ConfigManager.config_data.mouse.mouse_sensitivity_scroll
+# 			if event.button_index == MOUSE_BUTTON_WHEEL_UP:
+# 				mouse_scroll_value += mouse_scrolled
+# 			elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+# 				mouse_scroll_value -= mouse_scrolled

@@ -97,7 +97,7 @@ func _process(_delta):
 		if is_instance_valid(game_instance):
 			game_time_display.set_text("%.2f" % game_instance.game_time)
 			game_difficulty_display.set_text(game_instance.game_difficulty)
-			game_level_loaded_display.set_text(game_instance.game_level_loaded)
+			game_level_loaded_display.set_text(" | ".join(game_instance.game_levels_loaded))
 		else:
 			_on_game_state_changed()
 

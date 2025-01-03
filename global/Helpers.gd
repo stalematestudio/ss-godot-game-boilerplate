@@ -101,3 +101,8 @@ func list_files(dir_path: String) -> PackedStringArray:
 	if DirAccess.dir_exists_absolute(dir_path):
 		return DirAccess.open(dir_path).get_files()
 	return PackedStringArray()
+
+func string_to_vector(vector_string: String) -> Vector3:
+	var float_array: PackedFloat64Array = vector_string.split_floats(',', false)
+	print_debug(float_array)
+	return Vector3(float_array[0],float_array[1],float_array[2])
