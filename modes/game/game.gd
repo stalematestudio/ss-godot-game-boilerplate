@@ -1,7 +1,9 @@
 extends Node
 
-@export var player_scene: PackedScene = preload("res://player/player_manager.tscn")
+@export var player_scene: PackedScene = preload("res://player/scenes/player_manager.tscn")
 @export var player_manager: PlayerManager
+
+
 
 @onready var game_map: Dictionary = {
 	"demo": {
@@ -25,8 +27,9 @@ func _ready() -> void:
 	GameManager.load_game.connect(_on_load_game)
 	_on_load_game()
 
-func  _process(delta) -> void:
+func  _process(delta: float) -> void:
 	game_time += delta
+
 
 func _on_save_game() -> void:
 	var game_data = []

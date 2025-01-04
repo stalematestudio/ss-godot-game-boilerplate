@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cxmdiyhhxo5gj"]
 
-[ext_resource type="Script" path="res://player/player_hud.gd" id="1_4j05r"]
+[ext_resource type="Script" path="res://player/scripts/player_hud.gd" id="1_4j05r"]
 [ext_resource type="Texture2D" uid="uid://c2cog1c3psnbp" path="res://assets/images/croshair.png" id="1_xjrvp"]
 
 [node name="player_hud" type="Control"]

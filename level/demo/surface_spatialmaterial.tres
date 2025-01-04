@@ -3,5 +3,6 @@
 [ext_resource type="Texture2D" uid="uid://i832tgubxcvc" path="res://assets/images/tile_texture.png" id="1"]
 
 [resource]
+cull_mode = 2
 albedo_texture = ExtResource("1")
 uv1_triplanar = true

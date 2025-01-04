@@ -1,9 +1,9 @@
 class_name PlayerManager extends Node
 
-@export var player_character_scene: PackedScene = preload("res://player/player_character.tscn")
+@export var player_character_scene: PackedScene = preload("res://player/scenes/player_character.tscn")
 @onready var player_character: PlayerCharacter
 
-@export var player_hud_scene: PackedScene = preload("res://player/player_hud.tscn")
+@export var player_hud_scene: PackedScene = preload("res://player/scenes/player_hud.tscn")
 @onready var player_hud: PlayerHud
 
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cru8pff6vp31v"]
+[gd_scene load_steps=15 format=3 uid="uid://cru8pff6vp31v"]
 
 [ext_resource type="Script" path="res://modes/main/main.gd" id="1_tdg1b"]
 [ext_resource type="PackedScene" path="res://modes/intro/intro.tscn" id="2_iugek"]
@@ -11,6 +11,165 @@
 [ext_resource type="Environment" uid="uid://bi1vmxatm5tjq" path="res://assets/base/default_env.tres" id="9_l6lsn"]
 [ext_resource type="AudioStream" uid="uid://45xcngosyca0" path="res://assets/audio/music/test_music.ogg" id="10_nlrrd"]
 [ext_resource type="PackedScene" uid="uid://bfx1xmorf1a8r" path="res://utils/ui/message_display/message_display.tscn" id="11_m06xe"]
+
+[sub_resource type="Animation" id="Animation_igufh"]
+resource_name = "day"
+length = 60.0
+loop_mode = 1
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sun:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 15, 30, 45, 60),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(1.5708, 0, 0), Vector3(3.14159, 0, 0), Vector3(4.71239, 0, 0), Vector3(6.28319, 0, 0), Vector3(7.85398, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("sun:light_energy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 11, 16, 22, 30, 42, 45, 48, 60),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 0.5, 1.0, 1.5, 0.7, 0.5, 0.0, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("sun:light_indirect_energy")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 11, 16, 22, 30, 42, 45, 48, 60),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 0.5, 1.0, 1.5, 0.7, 0.5, 0.0, 0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("sun:light_volumetric_fog_energy")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 11, 16, 22, 30, 42, 45, 48, 60),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 0.5, 1.0, 1.5, 0.7, 0.5, 0.0, 0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("sun:light_color")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 11, 16, 22, 42, 60),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 0.607843, 0.384314, 1), Color(1, 0.607843, 0.384314, 1), Color(1, 0.607843, 0.384314, 1), Color(1, 1, 1, 1), Color(1, 0.77591, 0.648179, 1), Color(1, 0.607843, 0.384314, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("WorldEnvironment:environment:sky:sky_material:energy_multiplier")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 11, 16, 22, 30, 42, 45, 48),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 0.5, 1.0, 1.5, 0.7, 0.5, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_fqju2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sun:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1.5708, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("sun:light_energy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("sun:light_indirect_energy")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("sun:light_volumetric_fog_energy")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("sun:light_color")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 0.607843, 0.384314, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("WorldEnvironment:environment:sky:sky_material:energy_multiplier")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_filtf"]
+_data = {
+"RESET": SubResource("Animation_fqju2"),
+"day": SubResource("Animation_igufh")
+}
 
 [node name="main" type="Node"]
 script = ExtResource("1_tdg1b")
@@ -25,8 +184,13 @@ pause_scene = ExtResource("8_04kg6")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("9_l6lsn")
 
-[node name="directional_light_3d" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.910669, -0.310893, 0.27208, 0, 0.658571, 0.752518, -0.413136, -0.685295, 0.599741, 0, 0, 0)
+[node name="sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+light_color = Color(1, 0.607843, 0.384314, 1)
+light_energy = 0.0
+light_indirect_energy = 0.0
+light_volumetric_fog_energy = 0.0
+light_bake_mode = 0
 shadow_enabled = true
 
 [node name="Music_Player" type="AudioStreamPlayer" parent="."]
@@ -46,3 +210,9 @@ mix_target = 1
 bus = &"FX"
 
 [node name="message_display" parent="." instance=ExtResource("11_m06xe")]
+
+[node name="animation_player" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_filtf")
+}
+autoplay = "day"
