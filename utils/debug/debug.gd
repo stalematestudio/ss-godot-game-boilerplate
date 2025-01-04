@@ -80,9 +80,8 @@ func _process(_delta):
 			player_collisions.set_text(String.num(player_slide_collisions))
 
 			if player_slide_collisions > 0:
-				player_collider.set_text(String(player_instance.get_slide_collision(0).get_collider().name))
-			else:
-				player_collider.set_text("")
+				var colider = player_instance.get_slide_collision(0).get_collider()
+				player_collider.set_text(colider.name if colider else "")
 
 			if is_instance_valid(player_ray_cast):
 				if player_ray_cast.raycast_target:

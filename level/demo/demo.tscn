@@ -1,6 +1,7 @@
-[gd_scene load_steps=20 format=3 uid="uid://c05588m64ut52"]
+[gd_scene load_steps=22 format=3 uid="uid://c05588m64ut52"]
 
 [ext_resource type="PhysicsMaterial" path="res://level/demo/wall_physicsmaterial.tres" id="1"]
+[ext_resource type="Script" path="res://entity/play_area/play_area.gd" id="1_k5urs"]
 [ext_resource type="PackedScene" uid="uid://bhvq7376kjv1" path="res://props/cardboard_box/cardboard_box.tscn" id="2"]
 [ext_resource type="PhysicsMaterial" path="res://level/demo/surface_physicsmaterial.tres" id="3"]
 [ext_resource type="AudioStream" uid="uid://45xcngosyca0" path="res://assets/audio/music/test_music.ogg" id="4"]
@@ -17,6 +18,9 @@
 [ext_resource type="Shape3D" path="res://level/demo/roof_boxshape.tres" id="16"]
 [ext_resource type="Shape3D" path="res://level/demo/button_boxshape.tres" id="17"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_a0myg"]
+size = Vector3(160, 160, 160)
+
 [sub_resource type="BoxMesh" id="BoxMesh_fdsrn"]
 size = Vector3(160, 10, 160)
 
@@ -30,7 +34,11 @@ emission = Color(1, 1, 1, 1)
 emission_operator = 1
 emission_texture = SubResource("1")
 
-[node name="demo" type="Node3D"]
+[node name="demo" type="Area3D"]
+script = ExtResource("1_k5urs")
+
+[node name="collision_shape_3d" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_a0myg")
 
 [node name="Structure" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 14)
@@ -314,7 +322,7 @@ mesh = ExtResource("8")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ScreenStaticBody"]
 shape = ExtResource("15")
 
-[node name="Props" type="Node" parent="."]
+[node name="Props" type="Node3D" parent="."]
 
 [node name="cardboard_box1" parent="Props" instance=ExtResource("2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.35, 6)
