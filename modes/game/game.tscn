@@ -1,10 +1,20 @@
-[gd_scene load_steps=3 format=3 uid="uid://dl2qpqv80wqny"]
+[gd_scene load_steps=5 format=3 uid="uid://dl2qpqv80wqny"]
 
 [ext_resource type="Script" path="res://modes/game/game.gd" id="1"]
 [ext_resource type="Script" path="res://modes/game/world_manager.gd" id="2_570dx"]
+[ext_resource type="Script" path="res://modes/game/player_manager.gd" id="3_cfn5v"]
+[ext_resource type="Script" path="res://modes/game/maps_manager.gd" id="3_d28el"]
 
 [node name="game" type="Node"]
 script = ExtResource("1")
 
 [node name="world_manager" type="Node" parent="."]
 script = ExtResource("2_570dx")
+
+[node name="maps_manager" type="Node" parent="."]
+script = ExtResource("3_d28el")
+
+[node name="props_manager" type="Node" parent="."]
+
+[node name="player_manager" type="Node" parent="."]
+script = ExtResource("3_cfn5v")

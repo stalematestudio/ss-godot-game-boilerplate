@@ -120,7 +120,7 @@ mesh = ExtResource("7")
 surface_material_override/0 = ExtResource("5")
 
 [node name="WallStaticBody_7" type="StaticBody3D" parent="Structure"]
-transform = Transform3D(-1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 2, 0, 4.2)
+transform = Transform3D(-1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 2.1, 0, 4.2)
 input_ray_pickable = false
 physics_material_override = ExtResource("1")
 
@@ -148,7 +148,7 @@ mesh = ExtResource("7")
 surface_material_override/0 = ExtResource("5")
 
 [node name="WallStaticBody_9" type="StaticBody3D" parent="Structure"]
-transform = Transform3D(0.707107, -0.707107, 0, 0.707107, 0.707107, 0, 0, 0, 1, 6.5, 0.95, 2)
+transform = Transform3D(0.707107, -0.707107, 0, 0.707107, 0.707107, 0, 0, 0, 1, 6.775, 0.983, 2)
 input_ray_pickable = false
 physics_material_override = ExtResource("1")
 
@@ -162,7 +162,7 @@ mesh = ExtResource("7")
 surface_material_override/0 = ExtResource("5")
 
 [node name="WallStaticBody_10" type="StaticBody3D" parent="Structure"]
-transform = Transform3D(0.295808, -0.955248, 0, 0.955248, 0.295808, 0, 0, 0, 1, 8.17654, 0.430796, 2)
+transform = Transform3D(0.300706, -0.953717, 0, 0.953717, 0.300706, 0, 0, 0, 1, 8.45147, 0.442833, 2)
 input_ray_pickable = false
 physics_material_override = ExtResource("1")
 
@@ -198,7 +198,7 @@ mesh = ExtResource("11")
 surface_material_override/0 = ExtResource("5")
 
 [node name="RoofStaticBody_3" type="StaticBody3D" parent="Structure"]
-transform = Transform3D(0.984808, -0.173648, 0, 0.173648, 0.984808, 0, 0, 0, 1, -16.5469, 0.768483, 0)
+transform = Transform3D(0.976296, -0.21644, 0, 0.21644, 0.976296, 0, 0, 0, 1, -16.4594, 0.666617, 0)
 
 [node name="RoofCollisionShape" type="CollisionShape3D" parent="Structure/RoofStaticBody_3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)

@@ -1,10 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://bhvq7376kjv1"]
+[gd_scene load_steps=4 format=3 uid="uid://bhvq7376kjv1"]
 
 [ext_resource type="BoxMesh" path="res://props/cardboard_box/cardboard_box_cubemesh.tres" id="1"]
+[ext_resource type="Script" path="res://props/cardboard_box/cardboard_box.gd" id="1_mhb7c"]
 [ext_resource type="Shape3D" path="res://props/cardboard_box/cardboard_box_boxshape.tres" id="2"]
 
 [node name="cardboard_box" type="RigidBody3D"]
 mass = 0.5
+sleeping = true
+freeze_mode = 1
+script = ExtResource("1_mhb7c")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = ExtResource("2")

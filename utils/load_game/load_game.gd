@@ -49,17 +49,17 @@ func _on_save_selected(index: int) -> void:
 	save_file.close()
 	# THUMB
 	var thumb_image: Image
-	if game_data.has("thumbnail"):
+	if game_data.game.has("thumbnail"):
 		thumb_image = Image.new()
-		thumb_image.load_png_from_buffer( Marshalls.base64_to_raw( game_data.thumbnail ) )
+		thumb_image.load_png_from_buffer( Marshalls.base64_to_raw( game_data.game.thumbnail ) )
 		game_thumbnail.set_texture( ImageTexture.create_from_image( thumb_image ) )
 	else:
 		thumb_image = Image.create(1,1,false,Image.FORMAT_RGB8)
 		thumb_image.fill_rect(Rect2i(0,0,1,1), Color.DARK_GRAY)
 		game_thumbnail.set_texture( ImageTexture.create_from_image( thumb_image ) )
-	game_difficulty.set_text( game_data.game_difficulty )
-	game_level.set_text( game_data.game_level if game_data.has("game_level") else "" )
-	game_time.set_text( String.num( game_data.game_time ) if game_data.has("game_time") else "" )
+	game_difficulty.set_text( game_data.game.difficulty )
+	game_level.set_text( " | ".join(game_data.game.levels_loaded) if game_data.game.has("levels_loaded") else "" )
+	game_time.set_text( String.num( game_data.game.time ) if game_data.game.has("time") else "" )
 
 func _on_save_activated(item_index: int) -> void:
 	ProfileManager.game_data_path = ProfileManager.save_dir_path + saves_list.get_item_text(item_index)

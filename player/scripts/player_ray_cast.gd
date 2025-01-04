@@ -21,7 +21,7 @@ func _process(_delta: float) -> void:
 		raycast_target_distance = float()
 
 	# Holding object
-	if grabbed_object != null:
+	if is_instance_valid(grabbed_object):
 		grabbed_object.global_transform.origin = global_transform.origin + ( global_transform.basis.z.normalized() * grabbed_object_distance )
 
 func _input(event: InputEvent) -> void:

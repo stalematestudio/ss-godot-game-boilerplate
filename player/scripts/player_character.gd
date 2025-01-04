@@ -48,11 +48,6 @@ var direction: Vector3 = Vector3()
 @onready var player_steps_player: AudioStreamPlayer3D = $PlayerStepsAudio3D
 @onready var player_animation: PlayerAnimationPlayer = $AnimationPlayer
 
-func _ready() -> void:
-	# if is_inside_tree() and not is_in_group("game_save_objects"):
-	# 	add_to_group("game_save_objects", true)
-	pass
-
 func _physics_process(delta: float) -> void:
 	#Get movement inputs
 	input_movement_vector = Vector2()

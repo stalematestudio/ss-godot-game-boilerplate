@@ -103,6 +103,12 @@ func list_files(dir_path: String) -> PackedStringArray:
 	return PackedStringArray()
 
 func string_to_vector(vector_string: String) -> Vector3:
-	var float_array: PackedFloat64Array = vector_string.split_floats(',', false)
-	print_debug(float_array)
+	var float_array: PackedFloat64Array = vector_string.substr(1, vector_string.length()-1).split_floats(', ', false)
 	return Vector3(float_array[0],float_array[1],float_array[2])
+
+func string_to_packed_byte_array(variant_string: String) -> PackedByteArray:
+	var string_array: PackedStringArray = variant_string.substr(1, variant_string.length()-1).split(', ', false)
+	var int_array: PackedInt64Array = PackedInt64Array()
+	for string_val in string_array:
+		int_array.append(string_val.to_int())
+	return int_array.to_byte_array()

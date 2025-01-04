@@ -56,8 +56,7 @@ func difficulty_button_double_pressed(difficulty_selected: String) -> void:
 	start_button_pressed()
 
 func start_button_pressed() -> void:
-	ProfileManager.save_game([{
-			"game_time": 0,
-			"game_difficulty": difficulty,
-			}])
+	ProfileManager.save_game({"game":{
+			"difficulty": difficulty,
+			}})
 	GameManager.game_state_change("IN_GAME")
