@@ -29,18 +29,14 @@ var is_sprinting: bool  = false
 var is_crouching: bool  = false
 
 var input_movement_vector: Vector2 = Vector2()
-var player_control_orientation = Transform2D()
-
-var player_speed: float = float()
-var player_step_distance: float = float()
 var input_movement_vector_magnitude: float = float()
 var horizontal_velocity: Vector3 = Vector3()
-var mouse_scroll_value: float = float()
-var mouse_scrolled: float  = float()
 
 var target: Vector3 = Vector3()
 var accel: float = float()
 var direction: Vector3 = Vector3()
+
+var player_step_distance: float = float()
 
 # Player Nodes
 @onready var player_collision_shape: CollisionShape3D = $PlayerCollisionShape
@@ -50,16 +46,8 @@ var direction: Vector3 = Vector3()
 
 func _physics_process(delta: float) -> void:
 	#Get movement inputs
-	input_movement_vector = Vector2()
 	if is_on_floor():
-		if Input.is_action_pressed("player_movement_forward"):
-			input_movement_vector.y = input_movement_vector.y + Input.get_action_strength("player_movement_forward")
-		if Input.is_action_pressed("player_movement_backward"):
-			input_movement_vector.y = input_movement_vector.y - Input.get_action_strength("player_movement_backward")
-		if Input.is_action_pressed("player_movement_left"):
-			input_movement_vector.x = input_movement_vector.x + Input.get_action_strength("player_movement_left")
-		if Input.is_action_pressed("player_movement_right"):
-			input_movement_vector.x = input_movement_vector.x - Input.get_action_strength("player_movement_right")
+		input_movement_vector = Input.get_vector("player_movement_right", "player_movement_left", "player_movement_backward", "player_movement_forward")
 
 		if ConfigManager.config_data.controller.left_y_inverted:
 			input_movement_vector.y = input_movement_vector.y * -1
@@ -101,15 +89,8 @@ func _physics_process(delta: float) -> void:
 	# Basis vectors are normalized
 	input_movement_vector_magnitude = min(input_movement_vector.length(), 1)
 	input_movement_vector = input_movement_vector.normalized()
-	
-	direction = Vector3()
-	player_control_orientation = player_head.get_global_transform()
-	direction += player_control_orientation.basis.z * input_movement_vector.y
-	direction += player_control_orientation.basis.x * input_movement_vector.x
-	
-	direction.y = 0
-	direction = direction.normalized()
-	
+
+	direction = (transform.basis * Vector3(input_movement_vector.x, 0, input_movement_vector.y)).normalized()
 	velocity.y = velocity.y + ( delta * default_gravity * -1 )
 	
 	horizontal_velocity = velocity
@@ -144,23 +125,24 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	
 	if is_on_floor():
-		player_speed = velocity.length()
 		if is_jumping:
 			is_jumping = false
 			player_step_distance = 0
 			if not player_steps_player.is_playing():
 				player_steps_player.set_pitch_scale(1)
 				player_steps_player.play()
-		player_step_distance = player_step_distance + ( player_speed * delta )
+		player_step_distance = player_step_distance + ( velocity.length() * delta )
 		if player_step_distance >= 1:
 			player_step_distance = 0
 			if not player_steps_player.is_playing():
-				player_steps_player.set_pitch_scale( player_speed )
+				player_steps_player.set_pitch_scale( velocity.length() )
 				player_steps_player.play()
 	else:
 		is_jumping = true
 
 # Not sure what I needed this for.
+# var mouse_scroll_value: float = float()
+# var mouse_scrolled: float  = float()
 # func _input(event: InputEvent) -> void:
 # 	if (Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED) and (event is InputEventMouseButton):
 # 		if event.button_index == MOUSE_BUTTON_WHEEL_UP or event.button_index == MOUSE_BUTTON_WHEEL_DOWN:

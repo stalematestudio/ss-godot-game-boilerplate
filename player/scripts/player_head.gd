@@ -12,10 +12,7 @@ func _physics_process(_delta: float) -> void:
 	if Input.get_mouse_mode() != Input.MOUSE_MODE_CAPTURED:
 		return
 
-	input_look_vector = Vector2(
-		Input.get_axis("player_look_right", "player_look_left"),
-		Input.get_axis("player_look_up", "player_look_down"),
-	)
+	input_look_vector = Input.get_vector("player_look_right", "player_look_left", "player_look_up", "player_look_down")
 
 	if ConfigManager.config_data.controller.right_y_inverted:
 		input_look_vector.y = input_look_vector.y * -1
@@ -30,18 +27,21 @@ func _physics_process(_delta: float) -> void:
 	rotation_degrees = player_head_rotation
 
 func _input(event: InputEvent) -> void:
-	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
-		if event is InputEventMouseMotion:
-			if ConfigManager.config_data.mouse.mouse_inverted_y:
-				rotate_x(deg_to_rad(event.relative.y * ConfigManager.config_data.mouse.mouse_sensitivity_y * -1))
-			else:
-				rotate_x(deg_to_rad(event.relative.y * ConfigManager.config_data.mouse.mouse_sensitivity_y))
-			
-			if ConfigManager.config_data.mouse.mouse_inverted_x:
-				player_character.rotate_y(deg_to_rad(event.relative.x * ConfigManager.config_data.mouse.mouse_sensitivity_x))
-			else:
-				player_character.rotate_y(deg_to_rad(event.relative.x * ConfigManager.config_data.mouse.mouse_sensitivity_x * -1))
-			
-			player_head_rotation = rotation_degrees
-			player_head_rotation.x = clamp(player_head_rotation.x, HEAD_ROTATION_MIN, HEAD_ROTATION_MAX)
-			rotation_degrees = player_head_rotation
+	if not Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+		return
+	if not event is InputEventMouseMotion:
+		return
+
+	if ConfigManager.config_data.mouse.mouse_inverted_y:
+		rotate_x(deg_to_rad(event.relative.y * ConfigManager.config_data.mouse.mouse_sensitivity_y * -1))
+	else:
+		rotate_x(deg_to_rad(event.relative.y * ConfigManager.config_data.mouse.mouse_sensitivity_y))
+	
+	if ConfigManager.config_data.mouse.mouse_inverted_x:
+		player_character.rotate_y(deg_to_rad(event.relative.x * ConfigManager.config_data.mouse.mouse_sensitivity_x))
+	else:
+		player_character.rotate_y(deg_to_rad(event.relative.x * ConfigManager.config_data.mouse.mouse_sensitivity_x * -1))
+	
+	player_head_rotation = rotation_degrees
+	player_head_rotation.x = clamp(player_head_rotation.x, HEAD_ROTATION_MIN, HEAD_ROTATION_MAX)
+	rotation_degrees = player_head_rotation
