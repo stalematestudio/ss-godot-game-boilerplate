@@ -28,6 +28,9 @@ extends TabBar
 @onready var gui_ts_spin_minus = $Settings_Scroll/Settings_VBC/TS_HBC/Minus_Button
 @onready var gui_ts_spin = $Settings_Scroll/Settings_VBC/TS_HBC/SpinBox
 
+@onready var link_userdata_folder = $Settings_Scroll/Settings_VBC/link_userdata_folder
+@onready var link_screenshot_folder = $Settings_Scroll/Settings_VBC/link_screenshot_folder
+
 func _ready():
 	gui_subtitles.connect("pressed", Callable(self, "subtitle_adjust"))
 	gui_mouse_mode_confined.connect("pressed", Callable(self, "mouse_mode_confined_adjust"))
@@ -55,6 +58,9 @@ func _ready():
 	gui_ts_spin_plus.connect("pressed", Callable(self, "ts_plus_adjust"))
 	gui_ts_spin_minus.connect("pressed", Callable(self, "ts_minus_adjust"))
 	gui_ts_spin.connect("value_changed", Callable(self, "ts_adjust"))
+
+	link_userdata_folder.pressed.connect(OS.shell_open.bind(OS.get_user_data_dir()))
+	link_screenshot_folder.pressed.connect(OS.shell_open.bind(OS.get_user_data_dir() + "/" + Constants.SCREEN_SHOT_FOLDER))
 
 func set_form_values():
 	gui_subtitles.set_pressed(ConfigManager.config_data.game.subtitles)

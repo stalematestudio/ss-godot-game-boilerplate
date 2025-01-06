@@ -3,7 +3,7 @@
 [ext_resource type="Theme" uid="uid://b87lntx1cb4rs" path="res://assets/base/default_theme.tres" id="1"]
 [ext_resource type="Script" path="res://settings/setting.gd" id="3"]
 [ext_resource type="PackedScene" path="res://settings/mouse/mouse.tscn" id="5"]
-[ext_resource type="PackedScene" path="res://settings/game/game.tscn" id="6"]
+[ext_resource type="PackedScene" uid="uid://brr2latojjs2k" path="res://settings/game/game.tscn" id="6"]
 [ext_resource type="PackedScene" path="res://settings/controller/controller.tscn" id="7"]
 [ext_resource type="PackedScene" path="res://settings/audio/audio.tscn" id="8"]
 [ext_resource type="PackedScene" path="res://settings/keybind/keybind.tscn" id="9"]
@@ -74,31 +74,38 @@ text = "Key Binding"
 layout_mode = 2
 size_flags_vertical = 3
 theme = ExtResource("1")
+current_tab = 0
 tabs_visible = false
 use_hidden_tabs_for_min_size = true
 
 [node name="game" parent="VBC/Settings_Tabs" instance=ExtResource("6")]
 layout_mode = 2
+metadata/_tab_index = 0
 
 [node name="video" parent="VBC/Settings_Tabs" instance=ExtResource("10")]
 visible = false
 layout_mode = 2
+metadata/_tab_index = 1
 
 [node name="audio" parent="VBC/Settings_Tabs" instance=ExtResource("8")]
 visible = false
 layout_mode = 2
+metadata/_tab_index = 2
 
 [node name="mouse" parent="VBC/Settings_Tabs" instance=ExtResource("5")]
 visible = false
 layout_mode = 2
+metadata/_tab_index = 3
 
 [node name="controller" parent="VBC/Settings_Tabs" instance=ExtResource("7")]
 visible = false
 layout_mode = 2
+metadata/_tab_index = 4
 
 [node name="keybind" parent="VBC/Settings_Tabs" instance=ExtResource("9")]
 visible = false
 layout_mode = 2
+metadata/_tab_index = 5
 
 [node name="Reset" type="Button" parent="VBC"]
 layout_mode = 2
