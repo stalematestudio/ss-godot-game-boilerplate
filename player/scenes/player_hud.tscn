@@ -39,7 +39,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="h_box_container" type="HBoxContainer" parent="."]
+[node name="action" type="HBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -48,18 +48,16 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="pri" type="Label" parent="h_box_container"]
+[node name="pri" type="Label" parent="action"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
-text = "PRIMARY ACTION"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="sec" type="Label" parent="h_box_container"]
+[node name="sec" type="Label" parent="action"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
-text = "SECONDARY ACTION"
 horizontal_alignment = 1
 vertical_alignment = 1

@@ -4,14 +4,14 @@ extends Label
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	ProfileManager.connect("message", Callable(self, "_on_message"))
-	# ConfigManager.connect("message", Callable(self, "_on_message"))
-	# AudioManager.connect("message", Callable(self, "_on_message"))
-	# VideoManager.connect("message", Callable(self, "_on_message"))
-	# InputManager.connect("message", Callable(self, "_on_message"))
-	GameManager.connect("message", Callable(self, "_on_message"))
+	ProfileManager.message.connect(_on_message)
+	# ConfigManager.message.connect(_on_message)
+	# AudioManager.message.connect(_on_message)
+	# VideoManager.message.connect(_on_message)
+	# InputManager.message.connect(_on_message)
+	GameManager.message.connect(_on_message)
 
-	message_timer.connect("timeout", Callable(self, "_on_message_timer_timeout"))
+	message_timer.timeout.connect(_on_message_timer_timeout)
 
 func _on_message(message):
 	set_text( message if get_text() == "" else get_text() + "\n" + message )

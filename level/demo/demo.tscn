@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://c05588m64ut52"]
+[gd_scene load_steps=19 format=3 uid="uid://c05588m64ut52"]
 
 [ext_resource type="PhysicsMaterial" path="res://level/demo/wall_physicsmaterial.tres" id="1"]
 [ext_resource type="Script" path="res://entity/play_area/play_area.gd" id="1_k5urs"]
@@ -7,14 +7,13 @@
 [ext_resource type="AudioStream" uid="uid://45xcngosyca0" path="res://assets/audio/music/test_music.ogg" id="4"]
 [ext_resource type="Material" uid="uid://cdmn6q34npg44" path="res://level/demo/surface_spatialmaterial.tres" id="5"]
 [ext_resource type="BoxMesh" path="res://level/demo/wall_cubemesh.tres" id="7"]
-[ext_resource type="PlaneMesh" path="res://level/demo/screen_planemesh.tres" id="8"]
 [ext_resource type="BoxMesh" path="res://level/demo/button_cubemesh.tres" id="9"]
 [ext_resource type="Material" path="res://level/demo/button_spatialmaterial.tres" id="9_y7xw2"]
 [ext_resource type="BoxMesh" path="res://level/demo/roof_cubemesh.tres" id="11"]
 [ext_resource type="Script" path="res://level/demo/button.gd" id="12"]
 [ext_resource type="Shape3D" uid="uid://bhlboyoj0hwg4" path="res://level/demo/surface_boxshape.tres" id="13"]
 [ext_resource type="Shape3D" path="res://level/demo/wall_boxshape.tres" id="14"]
-[ext_resource type="Shape3D" path="res://level/demo/screen_boxshape.tres" id="15"]
+[ext_resource type="PackedScene" uid="uid://d24o2u6fm810m" path="res://props/base_screen/base_screen.tscn" id="15_kpcml"]
 [ext_resource type="Shape3D" path="res://level/demo/roof_boxshape.tres" id="16"]
 [ext_resource type="Shape3D" path="res://level/demo/button_boxshape.tres" id="17"]
 
@@ -23,16 +22,6 @@ size = Vector3(160, 160, 160)
 
 [sub_resource type="BoxMesh" id="BoxMesh_fdsrn"]
 size = Vector3(160, 10, 160)
-
-[sub_resource type="ViewportTexture" id="1"]
-viewport_path = NodePath("ScreenStaticBody/ScreenViewport")
-
-[sub_resource type="StandardMaterial3D" id="2"]
-resource_local_to_scene = true
-emission_enabled = true
-emission = Color(1, 1, 1, 1)
-emission_operator = 1
-emission_texture = SubResource("1")
 
 [node name="demo" type="Area3D"]
 script = ExtResource("1_k5urs")
@@ -279,49 +268,6 @@ surface_material_override/0 = ExtResource("5")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 0)
 shape = ExtResource("13")
 
-[node name="ScreenStaticBody" type="StaticBody3D" parent="."]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 2, 9.8)
-
-[node name="ScreenViewport" type="SubViewport" parent="ScreenStaticBody"]
-disable_3d = true
-handle_input_locally = false
-size = Vector2i(854, 480)
-
-[node name="CenterContainer" type="CenterContainer" parent="ScreenStaticBody/ScreenViewport"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="ScreenStaticBody/ScreenViewport/CenterContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScreenStaticBody/ScreenViewport/CenterContainer/VBoxContainer"]
-layout_mode = 2
-text = "Maybe some lorem ipsum.
-
-This is some serious shit."
-
-[node name="Button1" type="Button" parent="ScreenStaticBody/ScreenViewport/CenterContainer/VBoxContainer"]
-layout_mode = 2
-text = "ON"
-
-[node name="Button2" type="Button" parent="ScreenStaticBody/ScreenViewport/CenterContainer/VBoxContainer"]
-layout_mode = 2
-text = "OFF"
-
-[node name="Screen1" type="MeshInstance3D" parent="ScreenStaticBody"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0.15)
-material_override = SubResource("2")
-mesh = ExtResource("8")
-
-[node name="Screen2" type="MeshInstance3D" parent="ScreenStaticBody"]
-transform = Transform3D(-1, 8.74228e-08, -3.82137e-15, 0, -4.37114e-08, -1, -8.74228e-08, -1, 4.37114e-08, 0, 0, -0.15)
-material_override = SubResource("2")
-mesh = ExtResource("8")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ScreenStaticBody"]
-shape = ExtResource("15")
-
 [node name="Props" type="Node3D" parent="."]
 
 [node name="cardboard_box1" parent="Props" instance=ExtResource("2")]
@@ -341,3 +287,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 6)
 
 [node name="cardboard_box6" parent="Props" instance=ExtResource("2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.85, 6)
+
+[node name="screen" parent="." instance=ExtResource("15_kpcml")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1.5, 5)

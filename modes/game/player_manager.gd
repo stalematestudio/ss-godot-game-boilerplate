@@ -3,6 +3,7 @@ class_name PlayerManager extends Node
 @export var player_character_scene: PackedScene = preload("res://player/scenes/player_character.tscn")
 @onready var player_character: PlayerCharacter = player_character_scene.instantiate()
 @onready var player_head: PlayerHead = player_character.find_child("PlayerHead")
+@onready var player_raycast: PlayerRayCast3D = player_character.find_child("PlayerRayCast")
 
 @export var player_hud_scene: PackedScene = preload("res://player/scenes/player_hud.tscn")
 @onready var player_hud: PlayerHud = player_hud_scene.instantiate()
@@ -13,7 +14,8 @@ var initial_player_rotation_head: Vector3 = Vector3()
 
 func _ready() -> void:
 	player_hud.player_character = player_character
-	
+	player_raycast.raycast_target_changed.connect(player_hud._on_raycast_target_changed)
+
 	add_child(player_character)
 	add_child(player_hud)
 

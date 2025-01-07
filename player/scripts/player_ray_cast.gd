@@ -1,6 +1,18 @@
 class_name PlayerRayCast3D extends RayCast3D
 
-var raycast_target: Node
+var _raycast_target: Node
+var raycast_target: Node:
+	get:
+		return _raycast_target
+	set(new_raycast_target):
+		if not _raycast_target == new_raycast_target:
+			if _raycast_target and _raycast_target.has_method("un_highlight_interactible"):
+				_raycast_target.un_highlight_interactible()
+			_raycast_target = new_raycast_target
+			raycast_target_changed.emit(_raycast_target)
+			if _raycast_target and _raycast_target.has_method("highlight_interactible"):
+				_raycast_target.highlight_interactible()
+
 var raycast_target_distance: float = 0.0
 
 const OBJECT_THROW_FORCE: float = 0.5
@@ -11,6 +23,8 @@ var grabbed_object: Node
 var grabbed_object_distance = OBJECT_GRAB_DISTANCE
 
 @onready var player_instance: PlayerCharacter = get_node("/root/main/game/player_manager/player_character")
+
+signal raycast_target_changed
 
 func _process(_delta: float) -> void:
 	if is_colliding():
