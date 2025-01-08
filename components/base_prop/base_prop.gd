@@ -3,20 +3,16 @@ class_name BaseProp extends RigidBody3D
 @onready var outline_mesh_array: Array[Node] = find_children("outline_mesh")
 
 @export var interactive: bool = true
-@export_enum(
-	"GRAB",
-	"PUSH",
-	"DROP",
-	"THROW",
-	"PRESS",
-) var primary_action: String
-@export_enum(
-	"GRAB",
-	"PUSH",
-	"DROP",
-	"THROW",
-	"PRESS",
-) var secondary_action: String
+
+var is_grabbed: bool = false
+
+var primary_action: String:
+	get:
+		return "DROP" if is_grabbed else "GRAB"
+
+var secondary_action: String:
+	get:
+		return "THROW" if is_grabbed else "PUSH"
 
 func _ready() -> void:
 	if is_inside_tree() and not is_in_group("game_objects_props"):

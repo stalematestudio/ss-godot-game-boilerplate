@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bsaqk2gt8m8e"]
 
-[ext_resource type="Script" path="res://props/base_prop/base_prop.gd" id="1_lc4sg"]
+[ext_resource type="Script" path="res://components/base_prop/base_prop.gd" id="1_lc4sg"]
 
 [node name="base_prop" type="RigidBody3D"]
 script = ExtResource("1_lc4sg")

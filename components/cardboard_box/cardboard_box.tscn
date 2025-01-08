@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=4 uid="uid://bhvq7376kjv1"]
 
-[ext_resource type="BoxMesh" path="res://props/cardboard_box/cardboard_box_cubemesh.tres" id="1"]
-[ext_resource type="Script" path="res://props/cardboard_box/cardboard_box.gd" id="1_mhb7c"]
-[ext_resource type="Shape3D" path="res://props/cardboard_box/cardboard_box_boxshape.tres" id="2"]
-[ext_resource type="Material" uid="uid://bn47l102fwgcq" path="res://assets/mterials/outline_material.tres" id="4_bugpw"]
+[ext_resource type="BoxMesh" path="res://components/cardboard_box/cardboard_box_cubemesh.tres" id="1"]
+[ext_resource type="Script" path="res://components/cardboard_box/cardboard_box.gd" id="1_mhb7c"]
+[ext_resource type="Shape3D" path="res://components/cardboard_box/cardboard_box_boxshape.tres" id="2"]
+[ext_resource type="Material" uid="uid://bn47l102fwgcq" path="res://assets/materials/outline_material.tres" id="4_bugpw"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_oqxpr"]
 _surfaces = [{

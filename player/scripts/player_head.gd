@@ -32,15 +32,16 @@ func _input(event: InputEvent) -> void:
 	if not event is InputEventMouseMotion:
 		return
 
+	# This can use `relative` or a prefered `screen_relative`
 	if ConfigManager.config_data.mouse.mouse_inverted_y:
-		rotate_x(deg_to_rad(event.relative.y * ConfigManager.config_data.mouse.mouse_sensitivity_y * -1))
+		rotate_x(deg_to_rad(event.screen_relative.y * ConfigManager.config_data.mouse.mouse_sensitivity_y * -1))
 	else:
-		rotate_x(deg_to_rad(event.relative.y * ConfigManager.config_data.mouse.mouse_sensitivity_y))
+		rotate_x(deg_to_rad(event.screen_relative.y * ConfigManager.config_data.mouse.mouse_sensitivity_y))
 	
 	if ConfigManager.config_data.mouse.mouse_inverted_x:
-		player_character.rotate_y(deg_to_rad(event.relative.x * ConfigManager.config_data.mouse.mouse_sensitivity_x))
+		player_character.rotate_y(deg_to_rad(event.screen_relative.x * ConfigManager.config_data.mouse.mouse_sensitivity_x))
 	else:
-		player_character.rotate_y(deg_to_rad(event.relative.x * ConfigManager.config_data.mouse.mouse_sensitivity_x * -1))
+		player_character.rotate_y(deg_to_rad(event.screen_relative.x * ConfigManager.config_data.mouse.mouse_sensitivity_x * -1))
 	
 	player_head_rotation = rotation_degrees
 	player_head_rotation.x = clamp(player_head_rotation.x, HEAD_ROTATION_MIN, HEAD_ROTATION_MAX)

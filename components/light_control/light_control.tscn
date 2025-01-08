@@ -1,0 +1,109 @@
+[gd_scene load_steps=2 format=3 uid="uid://cy4tju4lpdatw"]
+
+[ext_resource type="Script" path="res://components/light_control/light_control.gd" id="1_ttdv4"]
+
+[node name="light_control" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+script = ExtResource("1_ttdv4")
+
+[node name="light_control_elements" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="label" type="Label" parent="light_control_elements"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "press `Q` to change interaction mode"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="switch" type="CheckButton" parent="light_control_elements"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "LIGHTS ON"
+
+[node name="power" type="HBoxContainer" parent="light_control_elements"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="label" type="Label" parent="light_control_elements/power"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "POWER"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="power" type="HScrollBar" parent="light_control_elements/power"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+
+[node name="red" type="HBoxContainer" parent="light_control_elements"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="label" type="Label" parent="light_control_elements/red"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "RED"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="red" type="HScrollBar" parent="light_control_elements/red"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 255.0
+step = 1.0
+rounded = true
+
+[node name="green" type="HBoxContainer" parent="light_control_elements"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="label" type="Label" parent="light_control_elements/green"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "GREEN"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="green" type="HScrollBar" parent="light_control_elements/green"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 255.0
+step = 1.0
+rounded = true
+
+[node name="blue" type="HBoxContainer" parent="light_control_elements"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="label" type="Label" parent="light_control_elements/blue"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "BLUE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="blue" type="HScrollBar" parent="light_control_elements/blue"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 255.0
+step = 1.0
+rounded = true

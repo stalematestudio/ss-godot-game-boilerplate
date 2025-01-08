@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://d24o2u6fm810m"]
+
+[ext_resource type="Script" path="res://components/base_screen/base_screen.gd" id="1_5bql2"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jhi8q"]
+size = Vector3(1, 1, 0.01)
+
+[sub_resource type="QuadMesh" id="QuadMesh_p6ji7"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_1ewcv"]
+viewport_path = NodePath("sub_viewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_arfme"]
+resource_local_to_scene = true
+shading_mode = 0
+albedo_texture = SubResource("ViewportTexture_1ewcv")
+
+[node name="screen" type="Area3D"]
+input_capture_on_drag = true
+script = ExtResource("1_5bql2")
+
+[node name="sub_viewport" type="SubViewport" parent="."]
+disable_3d = true
+canvas_item_default_texture_filter = 0
+physics_object_picking = true
+size_2d_override_stretch = true
+render_target_update_mode = 3
+
+[node name="collision_shape_3d" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_jhi8q")
+
+[node name="display" type="MeshInstance3D" parent="."]
+mesh = SubResource("QuadMesh_p6ji7")
+surface_material_override/0 = SubResource("StandardMaterial3D_arfme")
