@@ -4,4 +4,6 @@
 
 [resource]
 albedo_texture = ExtResource("1")
+backlight = Color(1, 1, 1, 1)
 uv1_triplanar = true
+point_size = 0.1

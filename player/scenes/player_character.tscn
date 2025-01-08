@@ -80,7 +80,7 @@ light_bake_mode = 0
 script = ExtResource("5_tsgpj")
 
 [node name="PlayerRayCast" type="RayCast3D" parent="PlayerHead"]
-target_position = Vector3(0, 0, 3)
+target_position = Vector3(0, 0, 1.5)
 hit_back_faces = false
 collide_with_areas = true
 script = ExtResource("6_hgym2")

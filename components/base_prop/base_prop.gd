@@ -1,8 +1,8 @@
 class_name BaseProp extends RigidBody3D
 
-@onready var outline_mesh_array: Array[Node] = find_children("outline_mesh")
-
 @export var interactive: bool = true
+
+@onready var outline_mesh_array: Array[Node] = find_children("outline_mesh*")
 
 var is_grabbed: bool = false
 

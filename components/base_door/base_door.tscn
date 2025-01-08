@@ -1,0 +1,80 @@
+[gd_scene load_steps=10 format=4 uid="uid://wiqqgakbjh8t"]
+
+[ext_resource type="Shape3D" uid="uid://0811yocfr517" path="res://components/base_door/door_box_shape.tres" id="1_fnmpk"]
+[ext_resource type="Script" path="res://components/base_door/base_door.gd" id="1_ypy04"]
+[ext_resource type="Material" uid="uid://cdmn6q34npg44" path="res://level/demo/surface_spatialmaterial.tres" id="2_gq5pi"]
+[ext_resource type="Material" uid="uid://bn47l102fwgcq" path="res://assets/materials/outline_material.tres" id="4_fe7ig"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_s623i"]
+material = ExtResource("2_gq5pi")
+size = Vector3(0.8, 2, 0.1)
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_jby0d"]
+_surfaces = [{
+"aabb": AABB(-0.428868, -1.02887, -0.0788675, 0.857735, 2.05773, 0.157735),
+"attribute_data": PackedByteArray("AAAAAAAAAACrqio/AAAAAKuqqj4AAAAAAACAPwAAAAAAAAAAAAAAP6uqKj8AAAA/q6qqPgAAAD8AAIA/AAAAP6uqqj4AAAAAAAAAAAAAAD+rqio/AAAAAKuqqj4AAAA/q6qqPgAAAD8AAAAAAACAP6uqKj8AAAA/q6qqPgAAgD+rqqo+AAAAP6uqKj8AAAA/q6oqPwAAAD8AAIA/AAAAP6uqqj4AAIA/q6oqPwAAgD+rqio/AACAPwAAgD8AAIA/"),
+"format": 34359742487,
+"index_count": 36,
+"index_data": PackedByteArray("AAAEAAIAAgAEAAYAAQAFAAMAAwAFAAcACAAMAAoACgAMAA4ACQANAAsACwANAA8AEAAUABIAEgAUABYAEQAVABMAEwAVABcA"),
+"material": ExtResource("4_fe7ig"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 24,
+"vertex_data": PackedByteArray("hpTbvu6xgz9KhaE9hpTbPu6xgz9KhaG9hpTbPu6xgz9KhaE9hpTbvu6xgz9KhaG9hpTbvu6xg79KhaE9hpTbPu6xg79KhaG9hpTbPu6xg79KhaE9hpTbvu6xg79KhaG9hpTbPu6xgz9KhaE9hpTbvu6xgz9KhaG9hpTbPu6xgz9KhaG9hpTbvu6xgz9KhaE9hpTbPu6xg79KhaE9hpTbvu6xg79KhaG9hpTbPu6xg79KhaG9hpTbvu6xg79KhaE9hpTbPu6xgz9KhaE9hpTbvu6xg79KhaE9hpTbvu6xgz9KhaE9hpTbPu6xg79KhaE9hpTbPu6xgz9KhaG9hpTbvu6xg79KhaG9hpTbvu6xgz9KhaG9hpTbPu6xg79KhaG9/3//f////7//////AAD/v/9//3////+//////wAA/7//f/9/////v/////8AAP+//3//f////7//////AAD/v///AID/////AAAAgP9//7///wCA/////wAAAID/f/+///8AgP////8AAACA/3//v///AID/////AAAAgP9//78AgP//AAD/vwCAAAD///+/AID//wAA/78AgAAA////vwCA//8AAP+/AIAAAP///78AgP//AAD/vwCAAAD///+/")
+}]
+
+[sub_resource type="Animation" id="Animation_1nfbr"]
+resource_name = "open"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("collision_shape_3d:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 1, 0), Vector3(-0.8, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_4wwhl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("collision_shape_3d:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vf55b"]
+_data = {
+"RESET": SubResource("Animation_4wwhl"),
+"open": SubResource("Animation_1nfbr")
+}
+
+[node name="base_door" type="AnimatableBody3D"]
+script = ExtResource("1_ypy04")
+
+[node name="collision_shape_3d" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = ExtResource("1_fnmpk")
+
+[node name="mesh_instance_3d" type="MeshInstance3D" parent="collision_shape_3d"]
+mesh = SubResource("BoxMesh_s623i")
+
+[node name="outline_mesh" type="MeshInstance3D" parent="collision_shape_3d"]
+visible = false
+mesh = SubResource("ArrayMesh_jby0d")
+skeleton = NodePath("../mesh_instance_3d")
+
+[node name="animation_player" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_vf55b")
+}

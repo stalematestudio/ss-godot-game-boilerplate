@@ -24,8 +24,6 @@ mass = 0.5
 sleeping = true
 freeze_mode = 1
 script = ExtResource("1_mhb7c")
-primary_action = "GRAB"
-secondary_action = "PUSH"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = ExtResource("2")

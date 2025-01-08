@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://c05588m64ut52"]
+[gd_scene load_steps=21 format=3 uid="uid://c05588m64ut52"]
 
 [ext_resource type="PhysicsMaterial" path="res://level/demo/wall_physicsmaterial.tres" id="1"]
 [ext_resource type="Script" path="res://components/play_area/play_area.gd" id="1_k5urs"]
@@ -6,12 +6,13 @@
 [ext_resource type="PhysicsMaterial" path="res://level/demo/surface_physicsmaterial.tres" id="3"]
 [ext_resource type="AudioStream" uid="uid://45xcngosyca0" path="res://assets/audio/music/test_music.ogg" id="4"]
 [ext_resource type="Material" uid="uid://cdmn6q34npg44" path="res://level/demo/surface_spatialmaterial.tres" id="5"]
-[ext_resource type="BoxMesh" path="res://level/demo/wall_cubemesh.tres" id="7"]
+[ext_resource type="BoxMesh" uid="uid://h8bu6xhgegb5" path="res://level/demo/wall_cubemesh.tres" id="7"]
 [ext_resource type="BoxMesh" path="res://level/demo/button_cubemesh.tres" id="9"]
 [ext_resource type="Material" path="res://level/demo/button_spatialmaterial.tres" id="9_y7xw2"]
 [ext_resource type="BoxMesh" path="res://level/demo/roof_cubemesh.tres" id="11"]
 [ext_resource type="Script" path="res://level/demo/button.gd" id="12"]
 [ext_resource type="Shape3D" uid="uid://bhlboyoj0hwg4" path="res://level/demo/surface_boxshape.tres" id="13"]
+[ext_resource type="PackedScene" uid="uid://wiqqgakbjh8t" path="res://components/base_door/base_door.tscn" id="13_688nr"]
 [ext_resource type="Shape3D" path="res://level/demo/wall_boxshape.tres" id="14"]
 [ext_resource type="PackedScene" uid="uid://d24o2u6fm810m" path="res://components/base_screen/base_screen.tscn" id="15_kpcml"]
 [ext_resource type="Shape3D" path="res://level/demo/roof_boxshape.tres" id="16"]
@@ -129,7 +130,6 @@ shape = ExtResource("14")
 [node name="WallMeshInstance" type="MeshInstance3D" parent="Structure/WallStaticBody_7"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 mesh = ExtResource("7")
-surface_material_override/0 = ExtResource("5")
 
 [node name="WallStaticBody_8" type="StaticBody3D" parent="Structure"]
 transform = Transform3D(-1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, -2, 0, -2)
@@ -224,6 +224,13 @@ unit_size = 20.0
 autoplay = true
 bus = &"FX"
 
+[node name="base_door" parent="Structure" instance=ExtResource("13_688nr")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, -2.6)
+
+[node name="base_door_2" parent="Structure" instance=ExtResource("13_688nr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0, 4.2)
+is_open = true
+
 [node name="SurfaceStaticBody" type="StaticBody3D" parent="."]
 input_ray_pickable = false
 physics_material_override = ExtResource("3")
@@ -287,10 +294,3 @@ transform = Transform3D(1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 3, 2.9
 shadow_enabled = true
 omni_range = 7.0
 omni_attenuation = 2.0
-
-[node name="lightmap_gi" type="LightmapGI" parent="."]
-quality = 3
-generate_probes_subdiv = 4
-
-[node name="lightmap_probe" type="LightmapProbe" parent="lightmap_gi"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 14)
