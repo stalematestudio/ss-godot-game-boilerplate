@@ -1,8 +1,9 @@
 class_name BaseDoor extends AnimatableBody3D
 
 @export var interactive: bool = true
-
 @onready var outline_mesh_array: Array[Node] = find_children("outline_mesh*")
+var interactor: PlayerRayCast3D = null
+
 @onready var animation: AnimationPlayer = $animation_player
 
 @export var is_open: bool = false
@@ -19,7 +20,30 @@ func _ready() -> void:
 	if is_open == true:
 		animation.play("open")
 
-func do_primary() -> void:
+func activate(new_interactor: PlayerRayCast3D) -> void:
+	if not interactive:
+		return
+	highlight()
+	interactor = new_interactor
+	interactor.raycast_target_changed.connect(_on_interactor_raycast_target_changed)
+	interactor.raycast_primary_action.connect(_on_interactor_raycast_primary_action)
+	interactor.raycast_in_action.connect(_on_interactor_raycast_in_action)
+	interactor.raycast_out_action.connect(_on_interactor_raycast_out_action)
+
+func deactivate() -> void:
+	un_highlight()
+	interactor.raycast_target_changed.disconnect(_on_interactor_raycast_target_changed)
+	interactor.raycast_primary_action.disconnect(_on_interactor_raycast_primary_action)
+	interactor.raycast_in_action.disconnect(_on_interactor_raycast_in_action)
+	interactor.raycast_out_action.disconnect(_on_interactor_raycast_out_action)
+	interactor = null
+
+func _on_interactor_raycast_target_changed(new_target: Node) -> void:
+	if self == new_target:
+		return
+	deactivate()
+
+func _on_interactor_raycast_primary_action() -> void:
 	if animation.is_playing():
 		return
 	if is_open:
@@ -28,9 +52,20 @@ func do_primary() -> void:
 	else:
 		is_open = true
 		animation.play("open")
+	interactor.raycast_target = null
 
-func do_secondary() -> void:
-	pass
+func _on_interactor_raycast_in_action() -> void:
+	increment_door(-0.05)
+
+func _on_interactor_raycast_out_action() -> void:
+	increment_door(0.05)
+
+func increment_door(step: float) -> void:
+	if animation.is_playing():
+		return
+	animation.seek(animation.current_animation_position+step, true)
+	is_open = animation.current_animation_position != 0
+	interactor.raycast_target = null
 
 func highlight() -> void:
 	for outline_mesh in outline_mesh_array:

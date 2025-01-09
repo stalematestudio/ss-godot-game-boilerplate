@@ -23,21 +23,6 @@ _surfaces = [{
 "vertex_data": PackedByteArray("hpTbvu6xgz9KhaE9hpTbPu6xgz9KhaG9hpTbPu6xgz9KhaE9hpTbvu6xgz9KhaG9hpTbvu6xg79KhaE9hpTbPu6xg79KhaG9hpTbPu6xg79KhaE9hpTbvu6xg79KhaG9hpTbPu6xgz9KhaE9hpTbvu6xgz9KhaG9hpTbPu6xgz9KhaG9hpTbvu6xgz9KhaE9hpTbPu6xg79KhaE9hpTbvu6xg79KhaG9hpTbPu6xg79KhaG9hpTbvu6xg79KhaE9hpTbPu6xgz9KhaE9hpTbvu6xg79KhaE9hpTbvu6xgz9KhaE9hpTbPu6xg79KhaE9hpTbPu6xgz9KhaG9hpTbvu6xg79KhaG9hpTbvu6xgz9KhaG9hpTbPu6xg79KhaG9/3//f////7//////AAD/v/9//3////+//////wAA/7//f/9/////v/////8AAP+//3//f////7//////AAD/v///AID/////AAAAgP9//7///wCA/////wAAAID/f/+///8AgP////8AAACA/3//v///AID/////AAAAgP9//78AgP//AAD/vwCAAAD///+/AID//wAA/78AgAAA////vwCA//8AAP+/AIAAAP///78AgP//AAD/vwCAAAD///+/")
 }]
 
-[sub_resource type="Animation" id="Animation_1nfbr"]
-resource_name = "open"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("collision_shape_3d:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 1, 0), Vector3(-0.8, 1, 0)]
-}
-
 [sub_resource type="Animation" id="Animation_4wwhl"]
 length = 0.001
 tracks/0/type = "value"
@@ -51,6 +36,21 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector3(0, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_1nfbr"]
+resource_name = "open"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("collision_shape_3d:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 1, 0), Vector3(-0.8, 1, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_vf55b"]
@@ -71,6 +71,7 @@ mesh = SubResource("BoxMesh_s623i")
 
 [node name="outline_mesh" type="MeshInstance3D" parent="collision_shape_3d"]
 visible = false
+cast_shadow = 0
 mesh = SubResource("ArrayMesh_jby0d")
 skeleton = NodePath("../mesh_instance_3d")
 

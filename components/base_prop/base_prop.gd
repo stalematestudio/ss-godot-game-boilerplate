@@ -1,18 +1,41 @@
 class_name BaseProp extends RigidBody3D
 
 @export var interactive: bool = true
-
 @onready var outline_mesh_array: Array[Node] = find_children("outline_mesh*")
-@onready var initial_parent: Node = get_parent()
-
-var is_grabbed: bool = false
 var interactor: PlayerRayCast3D = null
+
+@onready var initial_parent: Node = get_parent()
+@onready var geometry_instances: Array[Node] = find_children("*", "GeometryInstance3D")
+
+var _is_grabbed: bool = false
+var is_grabbed: bool:
+	get:
+		return _is_grabbed
+	set(new_is_grabbed):
+		if _is_grabbed == new_is_grabbed:
+			return
+		_is_grabbed = new_is_grabbed
+		freeze = _is_grabbed
+		reparent(interactor.spring_arm_3d if _is_grabbed else initial_parent)
+		for geometry_instance in geometry_instances:
+			geometry_instance.set_transparency(.75 if _is_grabbed else 0.0)
+		if _is_grabbed:
+			add_collision_exception_with(interactor.player_instance)
+			interactor.spring_arm_3d.add_excluded_object(get_rid())
+		else:
+			remove_collision_exception_with(interactor.player_instance)
+			interactor.spring_arm_3d.remove_excluded_object(get_rid())
+
+
 var rotate_vector: Vector2 = Vector2()
+
 var grab_distance: float:
 	get:
 		return grab_distance
 	set(new_grab_distance):
-		grab_distance = clamp(new_grab_distance, 0.5, 1.0)
+		grab_distance = clamp(new_grab_distance, 0.5, 1)
+		if is_instance_valid(interactor):
+			interactor.spring_arm_3d.spring_length = grab_distance
 
 var primary_action: String:
 	get:
@@ -25,7 +48,8 @@ var secondary_action: String:
 func _ready() -> void:
 	if is_inside_tree() and not is_in_group("game_objects_props"):
 		add_to_group("game_objects_props", true)
-	
+
+	sleeping_state_changed.connect(_on_sleeping_state_changed)
 	mouse_entered.connect(highlight)
 	mouse_exited.connect(un_highlight)
 
@@ -33,7 +57,7 @@ func _physics_process(_delta: float) -> void:
 	if not is_grabbed:
 		return
 
-	global_transform.origin = interactor.global_transform.origin + ( interactor.global_transform.basis.z.normalized() * grab_distance )
+	# global_transform.origin = interactor.global_transform.origin + ( interactor.global_transform.basis.z.normalized() * grab_distance )
 
 	if not Input.is_action_pressed("player_mode_action"):
 		return
@@ -118,25 +142,23 @@ func _on_interactor_raycast_out_action() -> void:
 	if is_grabbed:
 		grab_distance += 0.1
 
+func _on_sleeping_state_changed() -> void:
+	print_debug(name, " - ", sleeping)
+
 func get_grabbed() -> void:
 	is_grabbed = true
-	add_collision_exception_with(interactor.player_instance)
-	freeze = true
 	grab_distance = interactor.raycast_target_distance
-	reparent(interactor)
 	interactor.raycast_target = null
 
 func get_dropped() -> void:
 	is_grabbed = false
-	remove_collision_exception_with(interactor.player_instance)
-	freeze = false
-	reparent(initial_parent)
 
 func get_thrown() -> void:
-	pass
+	is_grabbed = false
+	apply_central_impulse(interactor.global_transform.basis.z.normalized() * 5)
 
 func get_pushed() -> void:
-	pass
+	apply_central_impulse(interactor.global_transform.basis.z.normalized() * 5)
 
 func highlight() -> void:
 	for outline_mesh in outline_mesh_array:

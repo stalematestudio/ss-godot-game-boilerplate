@@ -139,18 +139,3 @@ func _physics_process(delta: float) -> void:
 				player_steps_player.play()
 	else:
 		is_jumping = true
-
-# Not sure what I needed this for.
-# var mouse_scroll_value: float = float()
-# var mouse_scrolled: float  = float()
-# func _input(event: InputEvent) -> void:
-# 	if (Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED) and (event is InputEventMouseButton):
-# 		if event.button_index == MOUSE_BUTTON_WHEEL_UP or event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
-# 			if ConfigManager.config_data.mouse.mouse_inverted_scroll:
-# 				mouse_scrolled = ConfigManager.config_data.mouse.mouse_sensitivity_scroll * -1
-# 			else:
-# 				mouse_scrolled = ConfigManager.config_data.mouse.mouse_sensitivity_scroll
-# 			if event.button_index == MOUSE_BUTTON_WHEEL_UP:
-# 				mouse_scroll_value += mouse_scrolled
-# 			elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
-# 				mouse_scroll_value -= mouse_scrolled

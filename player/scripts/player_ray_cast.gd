@@ -4,6 +4,8 @@ var player_manager: PlayerManager
 var player_instance: PlayerCharacter
 var player_camera: Camera3D
 
+@onready var spring_arm_3d: SpringArm3D = $spring_arm_3d
+
 var _raycast_target: Node
 var raycast_target: Node:
 	get:
@@ -29,9 +31,6 @@ const OBJECT_INTERACT_DISTANCE: float = 1.5
 const OBJECT_GRAB_MAX_MASS: float = 0.5
 const OBJECT_THROW_FORCE: float = 10
 
-# var grabbed_object: Node
-# var grabbed_object_distance = OBJECT_INTERACT_DISTANCE
-
 var active_screen: Node
 
 signal raycast_target_changed
@@ -50,6 +49,8 @@ func _process(_delta: float) -> void:
 		raycast_target = null
 		raycast_collision_point = Vector3()
 		raycast_target_distance = float()
+	
+	print(spring_arm_3d.get_hit_length())
 
 func _input(event: InputEvent) -> void:
 	if not is_instance_valid(raycast_target):
@@ -71,7 +72,7 @@ func _input(event: InputEvent) -> void:
 			active_screen.mouse_exited_area.connect(_on_interaction_end)
 		return
 
-	if raycast_target is BaseProp:
+	if ( raycast_target is BaseProp ) or ( raycast_target is BaseDoor ):
 		if event.is_action_pressed("player_primary_action"):
 			raycast_primary_action.emit()
 		elif event.is_action_pressed("player_secondary_action"):
@@ -82,17 +83,6 @@ func _input(event: InputEvent) -> void:
 			raycast_in_action.emit()
 		elif event.is_action_pressed("player_out_action"):
 			raycast_out_action.emit()
-
-	if raycast_target is BaseDoor: 
-		if event.is_action_pressed("player_primary_action") and (raycast_target.has_method("do_primary")):
-			raycast_target.do_primary()
-			raycast_target = null
-			return
-	
-		if event.is_action_pressed("player_secondary_action") and (raycast_target.has_method("do_secondary")):
-			raycast_target.do_secondary()
-			raycast_target = null
-			return
 
 func _on_interaction_end() -> void:
 	active_screen.mouse_exited_area.disconnect(_on_interaction_end)

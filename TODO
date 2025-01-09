@@ -1,5 +1,2 @@
-Stop base BaseProp objects from clipping into and through walls when caried by the player.
-BaseProp throw action.
-BaseDoor should adopt the call logic used in BaseProp.
 Mouse movement should be converted into a vector and should generate the player look events... Maybe...
 Mouse movement and input look get vector generic methods to enforce DRY.

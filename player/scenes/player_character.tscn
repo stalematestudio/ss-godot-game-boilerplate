@@ -85,6 +85,8 @@ hit_back_faces = false
 collide_with_areas = true
 script = ExtResource("6_hgym2")
 
+[node name="spring_arm_3d" type="SpringArm3D" parent="PlayerHead/PlayerRayCast"]
+
 [node name="PlayerStepsAudio3D" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("7_2gnjy")
 unit_size = 3.0
