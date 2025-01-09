@@ -49,7 +49,6 @@ func _ready() -> void:
 	if is_inside_tree() and not is_in_group("game_objects_props"):
 		add_to_group("game_objects_props", true)
 
-	sleeping_state_changed.connect(_on_sleeping_state_changed)
 	mouse_entered.connect(highlight)
 	mouse_exited.connect(un_highlight)
 
@@ -141,9 +140,6 @@ func _on_interactor_raycast_in_action() -> void:
 func _on_interactor_raycast_out_action() -> void:
 	if is_grabbed:
 		grab_distance += 0.1
-
-func _on_sleeping_state_changed() -> void:
-	print_debug(name, " - ", sleeping)
 
 func get_grabbed() -> void:
 	is_grabbed = true

@@ -49,6 +49,7 @@ func _on_load_game() -> void:
 	maps_manager.load_data(game_data.maps if game_data.has("maps") else Dictionary())
 	player_manager.load_data(game_data.player if game_data.has("player") else Dictionary())
 
+	# This willbe reworked for prop save/load
 	# if game_data.has("player") and game_data.props:
 	# 	for game_object_prop in get_tree().get_nodes_in_group("game_objects_props"):
 	# 		game_object_prop.queue_free()

@@ -49,8 +49,6 @@ func _process(_delta: float) -> void:
 		raycast_target = null
 		raycast_collision_point = Vector3()
 		raycast_target_distance = float()
-	
-	print(spring_arm_3d.get_hit_length())
 
 func _input(event: InputEvent) -> void:
 	if not is_instance_valid(raycast_target):

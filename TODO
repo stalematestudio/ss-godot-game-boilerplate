@@ -1,2 +1,3 @@
+Prop reparenting to closest prop manager.
 Mouse movement should be converted into a vector and should generate the player look events... Maybe...
 Mouse movement and input look get vector generic methods to enforce DRY.
