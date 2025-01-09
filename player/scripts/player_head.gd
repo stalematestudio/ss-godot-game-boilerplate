@@ -11,6 +11,8 @@ var player_head_rotation: Vector3 = Vector3()
 func _physics_process(_delta: float) -> void:
 	if Input.get_mouse_mode() != Input.MOUSE_MODE_CAPTURED:
 		return
+	if Input.is_action_pressed("player_mode_action"):
+		return
 
 	input_look_vector = Input.get_vector("player_look_right", "player_look_left", "player_look_up", "player_look_down")
 
@@ -31,6 +33,8 @@ func _input(event: InputEvent) -> void:
 		return
 	if not event is InputEventMouseMotion:
 		return
+	if Input.is_action_pressed("player_mode_action"):
+		return
 
 	# This can use `relative` or a prefered `screen_relative`
 	if ConfigManager.config_data.mouse.mouse_inverted_y:
@@ -42,7 +46,3 @@ func _input(event: InputEvent) -> void:
 		player_character.rotate_y(deg_to_rad(event.screen_relative.x * ConfigManager.config_data.mouse.mouse_sensitivity_x))
 	else:
 		player_character.rotate_y(deg_to_rad(event.screen_relative.x * ConfigManager.config_data.mouse.mouse_sensitivity_x * -1))
-	
-	player_head_rotation = rotation_degrees
-	player_head_rotation.x = clamp(player_head_rotation.x, HEAD_ROTATION_MIN, HEAD_ROTATION_MAX)
-	rotation_degrees = player_head_rotation

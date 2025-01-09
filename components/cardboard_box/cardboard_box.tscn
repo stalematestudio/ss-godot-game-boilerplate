@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=4 uid="uid://bhvq7376kjv1"]
 
-[ext_resource type="BoxMesh" path="res://components/cardboard_box/cardboard_box_cubemesh.tres" id="1"]
+[ext_resource type="BoxMesh" uid="uid://bpa30l754pw1" path="res://components/cardboard_box/cardboard_box_cubemesh.tres" id="1"]
 [ext_resource type="Script" path="res://components/cardboard_box/cardboard_box.gd" id="1_mhb7c"]
 [ext_resource type="Shape3D" path="res://components/cardboard_box/cardboard_box_boxshape.tres" id="2"]
 [ext_resource type="Material" uid="uid://bn47l102fwgcq" path="res://assets/materials/outline_material.tres" id="4_bugpw"]
@@ -22,7 +22,6 @@ _surfaces = [{
 [node name="cardboard_box" type="RigidBody3D"]
 mass = 0.5
 sleeping = true
-freeze_mode = 1
 script = ExtResource("1_mhb7c")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -33,4 +32,5 @@ mesh = ExtResource("1")
 
 [node name="outline_mesh" type="MeshInstance3D" parent="MeshInstance3D"]
 visible = false
+cast_shadow = 0
 mesh = SubResource("ArrayMesh_oqxpr")

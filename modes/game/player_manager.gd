@@ -1,16 +1,5 @@
 class_name PlayerManager extends Node
 
-@export var player_character_scene: PackedScene = preload("res://player/scenes/player_character.tscn")
-@onready var player_character: PlayerCharacter = player_character_scene.instantiate()
-
-@onready var player_head: PlayerHead = player_character.find_child("PlayerHead")
-@onready var player_camera: PlayerCamera = player_character.find_child("PlayerCamera")
-@onready var player_light: PlayerLight = player_character.find_child("PlayerLight")
-@onready var player_raycast: PlayerRayCast3D = player_character.find_child("PlayerRayCast")
-
-@export var player_hud_scene: PackedScene = preload("res://player/scenes/player_hud.tscn")
-@onready var player_hud: PlayerHud = player_hud_scene.instantiate()
-
 var initial_player_health: float = 100
 var initial_player_stamina: float = 100
 
@@ -25,10 +14,22 @@ var initial_player_rotation_head: Vector3 = Vector3()
 
 var mouse_mode_current: String = "ray_cast"
 
+@export var player_character_scene: PackedScene = preload("res://player/scenes/player_character.tscn")
+@onready var player_character: PlayerCharacter = player_character_scene.instantiate()
+
+@onready var player_head: PlayerHead = player_character.find_child("PlayerHead")
+@onready var player_camera: PlayerCamera = player_character.find_child("PlayerCamera")
+@onready var player_light: PlayerLight = player_character.find_child("PlayerLight")
+@onready var player_raycast: PlayerRayCast3D = player_character.find_child("PlayerRayCast")
+
+@export var player_hud_scene: PackedScene = preload("res://player/scenes/player_hud.tscn")
+@onready var player_hud: PlayerHud = player_hud_scene.instantiate()
+
 func _ready() -> void:
 	player_hud.player_character = player_character
 	player_raycast.raycast_target_changed.connect(player_hud._on_raycast_target_changed)
 	player_raycast.player_manager = self
+	player_raycast.player_instance = player_character
 	player_raycast.player_camera = player_camera
 
 	add_child(player_character)

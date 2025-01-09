@@ -1,6 +1,7 @@
 class_name PlayerRayCast3D extends RayCast3D
 
 var player_manager: PlayerManager
+var player_instance: PlayerCharacter
 var player_camera: Camera3D
 
 var _raycast_target: Node
@@ -10,35 +11,35 @@ var raycast_target: Node:
 	set(new_raycast_target):
 		if _raycast_target == new_raycast_target:
 			return
-		if _raycast_target:
-			if _raycast_target.has_method("un_highlight_interactible"):
-				_raycast_target.un_highlight_interactible()
+		if is_instance_valid(_raycast_target):
 			if _raycast_target.has_method("_mouse_exited_area"):
 				_raycast_target._mouse_exited_area()
 		_raycast_target = new_raycast_target
 		raycast_target_changed.emit(_raycast_target)
-		if _raycast_target:
-			if _raycast_target.has_method("highlight_interactible"):
-				_raycast_target.highlight_interactible()
+		if is_instance_valid(_raycast_target):
 			if _raycast_target.has_method("_mouse_entered_area"):
 				_raycast_target._mouse_entered_area()
+			if raycast_target.has_method("activate"):
+				raycast_target.activate(self)
 
 var raycast_target_distance: float = 0.0
 var raycast_collision_point: Vector3 = Vector3()
 
 const OBJECT_INTERACT_DISTANCE: float = 1.5
-
 const OBJECT_GRAB_MAX_MASS: float = 0.5
-const OBJECT_THROW_FORCE: float = 0.5
+const OBJECT_THROW_FORCE: float = 10
 
-var grabbed_object: Node
-var grabbed_object_distance = OBJECT_INTERACT_DISTANCE
+# var grabbed_object: Node
+# var grabbed_object_distance = OBJECT_INTERACT_DISTANCE
 
 var active_screen: Node
 
-@onready var player_instance: PlayerCharacter = get_node("/root/main/game/player_manager/player_character")
-
 signal raycast_target_changed
+signal raycast_primary_action
+signal raycast_secondary_action
+signal raycast_mode_action
+signal raycast_in_action
+signal raycast_out_action
 
 func _process(_delta: float) -> void:
 	if is_colliding():
@@ -50,12 +51,14 @@ func _process(_delta: float) -> void:
 		raycast_collision_point = Vector3()
 		raycast_target_distance = float()
 
-	# Holding object
-	if is_instance_valid(grabbed_object):
-		grabbed_object.global_transform.origin = global_transform.origin + ( global_transform.basis.z.normalized() * grabbed_object_distance )
-
 func _input(event: InputEvent) -> void:
+	if not is_instance_valid(raycast_target):
+		return
 	if raycast_target_distance > OBJECT_INTERACT_DISTANCE:
+		return
+	if not "interactive" in raycast_target:
+		return
+	if not raycast_target.interactive:
 		return
 
 	if raycast_target is BaseScreen:
@@ -67,23 +70,18 @@ func _input(event: InputEvent) -> void:
 			player_manager.interaction_mouse()
 			active_screen.mouse_exited_area.connect(_on_interaction_end)
 		return
-	
 
-	if raycast_target is BaseProp and event.is_action_pressed("player_primary_action"):
-		if grabbed_object:
-			grabbed_object.apply_central_impulse(global_transform.basis.z.normalized() * OBJECT_THROW_FORCE)
-			player_instance.remove_collision_exception_with(grabbed_object)
-			grabbed_object.is_grabbed = false
-			grabbed_object = null
-			return
-		
-		if ( raycast_target is BaseProp ) and ( raycast_target.mass <= OBJECT_GRAB_MAX_MASS ):
-			grabbed_object = raycast_target
-			grabbed_object_distance = raycast_target_distance
-			player_instance.add_collision_exception_with(grabbed_object)
-			grabbed_object.is_grabbed = true
-			raycast_target = null
-			return
+	if raycast_target is BaseProp:
+		if event.is_action_pressed("player_primary_action"):
+			raycast_primary_action.emit()
+		elif event.is_action_pressed("player_secondary_action"):
+			raycast_secondary_action.emit()
+		elif event.is_action_pressed("player_mode_action"):
+			raycast_mode_action.emit()
+		elif event.is_action_pressed("player_in_action"):
+			raycast_in_action.emit()
+		elif event.is_action_pressed("player_out_action"):
+			raycast_out_action.emit()
 
 	if raycast_target is BaseDoor: 
 		if event.is_action_pressed("player_primary_action") and (raycast_target.has_method("do_primary")):
@@ -100,20 +98,3 @@ func _on_interaction_end() -> void:
 	active_screen.mouse_exited_area.disconnect(_on_interaction_end)
 	active_screen = null
 	player_manager.interaction_ray_cast()
-
-func interaction_action(action_name: String) -> void:
-	match action_name:
-		"GRAB":
-			pass
-		"PUSH":
-			pass
-		"DROP":
-			pass
-		"THROW":
-			pass
-		"PRESS":
-			pass
-		"INTERACT":
-			pass
-		_:
-			pass

@@ -19,14 +19,6 @@ func _ready() -> void:
 	if is_open == true:
 		animation.play("open")
 
-func un_highlight_interactible() -> void:
-	for outline_mesh in outline_mesh_array:
-		outline_mesh.hide()
-
-func highlight_interactible() -> void:
-	for outline_mesh in outline_mesh_array:
-		outline_mesh.show()
-
 func do_primary() -> void:
 	if animation.is_playing():
 		return
@@ -39,3 +31,11 @@ func do_primary() -> void:
 
 func do_secondary() -> void:
 	pass
+
+func highlight() -> void:
+	for outline_mesh in outline_mesh_array:
+		outline_mesh.show()
+
+func un_highlight() -> void:
+	for outline_mesh in outline_mesh_array:
+		outline_mesh.hide()

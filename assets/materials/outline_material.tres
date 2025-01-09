@@ -1,4 +1,8 @@
 [gd_resource type="StandardMaterial3D" format=3 uid="uid://bn47l102fwgcq"]
 
 [resource]
+transparency = 4
+blend_mode = 1
 shading_mode = 0
+specular_mode = 2
+disable_receive_shadows = true
