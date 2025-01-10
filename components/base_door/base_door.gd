@@ -17,6 +17,8 @@ var secondary_action: String = ""
 func _ready() -> void:
 	if is_inside_tree() and not is_in_group("game_objects_doors"):
 		add_to_group("game_objects_doors", true)
+	
+	animation.assigned_animation = "open"
 	if is_open == true:
 		animation.play("open")
 

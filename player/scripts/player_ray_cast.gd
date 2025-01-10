@@ -50,7 +50,7 @@ func _process(_delta: float) -> void:
 		raycast_collision_point = Vector3()
 		raycast_target_distance = float()
 
-func _input(event: InputEvent) -> void:
+func _unhandled_input(event: InputEvent) -> void:
 	if not is_instance_valid(raycast_target):
 		return
 	if raycast_target_distance > OBJECT_INTERACT_DISTANCE:

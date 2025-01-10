@@ -55,40 +55,13 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
 	if not is_grabbed:
 		return
-
-	# global_transform.origin = interactor.global_transform.origin + ( interactor.global_transform.basis.z.normalized() * grab_distance )
-
 	if not Input.is_action_pressed("player_mode_action"):
 		return
 
-	rotate_vector = Input.get_vector("player_look_right", "player_look_left", "player_look_up", "player_look_down")
+	rotate_vector = PlayerUtils.get_look_vector()
 
-	if ConfigManager.config_data.controller.right_y_inverted:
-		rotate_vector.y = rotate_vector.y * -1
-	
-	if ConfigManager.config_data.controller.right_x_inverted:
-		rotate_vector.x = rotate_vector.x * -1
-
-	rotate_x(deg_to_rad( rotate_vector.y * ConfigManager.config_data.controller.right_y_sensitivity ))
-	rotate_y(deg_to_rad( rotate_vector.x * ConfigManager.config_data.controller.right_x_sensitivity ))
-	
-func _input(event: InputEvent) -> void:
-	if not is_grabbed:
-		return
-	if not event is InputEventMouseMotion:
-		return
-	if not Input.is_action_pressed("player_mode_action"):
-		return
-
-	if ConfigManager.config_data.mouse.mouse_inverted_y:
-		rotate_x(deg_to_rad(event.screen_relative.y * ConfigManager.config_data.mouse.mouse_sensitivity_y * -1))
-	else:
-		rotate_x(deg_to_rad(event.screen_relative.y * ConfigManager.config_data.mouse.mouse_sensitivity_y))
-	
-	if ConfigManager.config_data.mouse.mouse_inverted_x:
-		rotate_y(deg_to_rad(event.screen_relative.x * ConfigManager.config_data.mouse.mouse_sensitivity_x))
-	else:
-		rotate_y(deg_to_rad(event.screen_relative.x * ConfigManager.config_data.mouse.mouse_sensitivity_x * -1))
+	rotate_x(deg_to_rad( rotate_vector.y ))
+	rotate_y(deg_to_rad( rotate_vector.x ))
 
 func activate(new_interactor: PlayerRayCast3D) -> void:
 	if not interactive or is_grabbed:

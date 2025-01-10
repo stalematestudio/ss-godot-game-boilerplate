@@ -47,13 +47,7 @@ var player_step_distance: float = float()
 func _physics_process(delta: float) -> void:
 	#Get movement inputs
 	if is_on_floor():
-		input_movement_vector = Input.get_vector("player_movement_right", "player_movement_left", "player_movement_backward", "player_movement_forward")
-
-		if ConfigManager.config_data.controller.left_y_inverted:
-			input_movement_vector.y = input_movement_vector.y * -1
-		
-		if ConfigManager.config_data.controller.left_x_inverted:
-			input_movement_vector.x = input_movement_vector.x * -1
+		input_movement_vector = PlayerUtils.get_move_vector()
 
 		# Jumping
 		if Input.is_action_just_pressed("player_movement_jump"):
