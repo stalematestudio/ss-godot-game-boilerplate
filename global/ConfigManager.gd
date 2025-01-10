@@ -37,10 +37,10 @@ const resolutions: Array = [
 				"use_screen": 0,
 				"keep_screen_on": true,
 				"vsync": true,
-				"fullscreen": false,
+				"fullscreen": true,
 				"center_window": false,
 				"borderless": false,
-				"resolution_auto": false,
+				"resolution_auto": true,
 				"resolution_option": 0
 				},
 		"audio":{
