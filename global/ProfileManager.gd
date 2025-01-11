@@ -23,7 +23,7 @@ func _ready() -> void:
 		DirAccess.make_dir_recursive_absolute(screenshot_dir_path)
 
 func save_game(game_data: Dictionary) -> void:
-	var save_file_name: String = Helpers.date_time_string() + "_" + game_data.game.difficulty + ".save"
+	var save_file_name: String = Helpers.date_time_string_for_saves() + "_" + game_data.game.difficulty + ".save"
 	game_data_path = save_dir_path + save_file_name
 	var player_dir: DirAccess = DirAccess.open(Constants.PLAYER_DATA_PATH)
 	if not player_dir.dir_exists(save_dir_path):

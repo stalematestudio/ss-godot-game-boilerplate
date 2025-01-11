@@ -1,7 +1,7 @@
 class_name BaseProp extends RigidBody3D
 
 @export var interactive: bool = true
-@onready var outline_mesh_array: Array[Node] = find_children("outline_mesh*")
+@onready var outline_mesh_array: Array[Node] = find_children("outline_mesh*", "MeshInstance3D")
 var interactor: PlayerRayCast3D = null
 
 @onready var initial_parent: Node = get_parent()
@@ -16,7 +16,15 @@ var is_grabbed: bool:
 			return
 		_is_grabbed = new_is_grabbed
 		freeze = _is_grabbed
-		reparent(interactor.spring_arm_3d if _is_grabbed else initial_parent)
+		if _is_grabbed:
+			initial_parent = get_parent()
+			reparent(interactor.spring_arm_3d)
+		else:
+			if is_instance_valid(initial_parent):
+				Helpers.reparent_w_renaming(self, initial_parent)
+			else:
+				# TODO: Find new parent
+				pass
 		for geometry_instance in geometry_instances:
 			geometry_instance.set_transparency(.75 if _is_grabbed else 0.0)
 		if _is_grabbed:
@@ -25,7 +33,6 @@ var is_grabbed: bool:
 		else:
 			remove_collision_exception_with(interactor.player_instance)
 			interactor.spring_arm_3d.remove_excluded_object(get_rid())
-
 
 var rotate_vector: Vector2 = Vector2()
 

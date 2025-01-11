@@ -12,7 +12,23 @@ var initial_player_rotation: Vector3 = Vector3()
 var initial_player_velocity: Vector3 = Vector3()
 var initial_player_rotation_head: Vector3 = Vector3()
 
-var mouse_mode_current: String = "ray_cast"
+var _mouse_mode_current: String = "ray_cast"
+var mouse_mode_current: String:
+	get:
+		return _mouse_mode_current
+	set(new_mouse_mode):
+		if not new_mouse_mode in ["ray_cast", "mouse"]:
+			return
+		_mouse_mode_current = new_mouse_mode
+		match new_mouse_mode:
+			"ray_cast":
+				player_raycast.enabled = true
+				Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)				
+			"mouse":
+				player_raycast.enabled = false
+				player_raycast.raycast_target = null
+				Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+				Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
 
 @export var player_character_scene: PackedScene = preload("res://player/scenes/player_character.tscn")
 @onready var player_character: PlayerCharacter = player_character_scene.instantiate()
@@ -46,7 +62,6 @@ func save_data() -> Dictionary:
 		"rotation":	player_character.rotation,
 		"velocity" : player_character.velocity,
 		"rotation_head": player_head.rotation_degrees,
-		"mouse_mode": mouse_mode_current,
 	}} if is_instance_valid(player_character) else {"player":{
 		"player_health": initial_player_health,
 		"player_stamina":initial_player_stamina,
@@ -57,7 +72,6 @@ func save_data() -> Dictionary:
 		"rotation":	initial_player_rotation,
 		"velocity": initial_player_velocity,
 		"rotation_head": initial_player_rotation_head,
-		"mouse_mode": mouse_mode_current,
 	}}
 
 func load_data(player: Dictionary = Dictionary()) -> void:
@@ -74,22 +88,14 @@ func load_data(player: Dictionary = Dictionary()) -> void:
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_released("mouse_mode_switch"):
-		interaction_switch()
-
-func interaction_switch() -> void:
-	if mouse_mode_current == "ray_cast":
-		interaction_mouse()
-	else:
-		interaction_ray_cast()
+		match mouse_mode_current:
+			"ray_cast":
+				interaction_mouse()
+			"mouse":
+				interaction_ray_cast()
 
 func interaction_ray_cast() -> void:
 	mouse_mode_current = "ray_cast"
-	player_raycast.enabled = true
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func interaction_mouse() -> void:
 	mouse_mode_current = "mouse"
-	player_raycast.enabled = false
-	player_raycast.raycast_target = null
-	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)

@@ -6,7 +6,9 @@ class_name PlayerHud extends Control
 @onready var player_action_pri: Label = $action/pri
 @onready var player_action_sec: Label = $action/sec
 
-@onready var player_character: PlayerCharacter
+@onready var player_croshair: TextureRect = $croshair
+
+var player_character: PlayerCharacter
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -20,8 +22,10 @@ func _process(_delta: float) -> void:
 
 func _on_raycast_target_changed(raycast_target: Node) -> void:
 	if raycast_target and ("interactive" in raycast_target) and (raycast_target.interactive):
+		player_croshair.modulate = Color.GREEN
 		player_action_pri.text = raycast_target.primary_action
 		player_action_sec.text = raycast_target.secondary_action
 	else:
+		player_croshair.modulate = Color.WHITE
 		player_action_pri.text = ""
 		player_action_sec.text = ""

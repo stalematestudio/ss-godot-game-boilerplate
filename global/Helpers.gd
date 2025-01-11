@@ -18,6 +18,22 @@ func date_time_string() -> String:
 
 	return year + "_" + month + "_" + day + "_" + hour + "_" + minute + "_" + second
 
+func date_time_string_for_saves() -> String:
+	var dt = Time.get_datetime_dict_from_system()
+	
+	var year = String.num(dt.year)
+	var month = String.num(dt.month)
+	var day = String.num(dt.day)
+	var hour = String.num(dt.hour)
+	var minute = String.num(dt.minute)
+	
+	month = month if month.length() == 2 else "0" + month
+	day = day if day.length() == 2 else "0" + day
+	hour = hour if hour.length() == 2 else "0" + hour
+	minute = minute if minute.length() == 2 else "0" + minute
+
+	return year + "_" + month + "_" + day + "_" + hour + "_" + minute
+
 func remove_children(p_node: Node) -> void:
 	for c_node in p_node.get_children():
 		p_node.remove_child(c_node)
@@ -77,7 +93,7 @@ func delete_file(file_path: String, file_name: String) -> void:
 func recursive_non_empty_dir_deletion(file_path: String) -> void:
 	file_path = file_path if file_path.ends_with("/") else file_path + "/"
 	var dir: DirAccess = DirAccess.open(file_path)
-	dir.list_dir_begin() # TODOConverter3To4 fill missing arguments https://github.com/godotengine/godot/pull/40547
+	dir.list_dir_begin() # TODO: Converter3To4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 	var element: String = dir.get_next()
 	while element:
 		if dir.current_is_dir():
@@ -112,3 +128,23 @@ func string_to_packed_byte_array(variant_string: String) -> PackedByteArray:
 	for string_val in string_array:
 		int_array.append(string_val.to_int())
 	return int_array.to_byte_array()
+
+func name_reindex(current_name: String, names_list: PackedStringArray) -> String:
+	if not current_name in names_list:
+		return current_name
+	var current_name_parts = current_name.split("_")
+	var new_index: int = 0
+	while new_index <= 1000:
+		current_name_parts[-1] = String.num_int64(new_index)
+		if not "_".join(current_name_parts) in names_list:
+			return "_".join(current_name_parts)
+		new_index += 1
+	return current_name + "_0"
+
+func reparent_w_renaming(child: Node, new_parent: Node) -> void:
+	if is_instance_valid(new_parent.find_child(child.name, false)):
+		var child_names: PackedStringArray = PackedStringArray()
+		for new_parent_child in new_parent.get_children():
+			child_names.append(new_parent_child.name)
+		child.name = name_reindex(child.name, child_names)
+	child.reparent(new_parent)

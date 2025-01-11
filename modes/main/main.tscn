@@ -197,7 +197,7 @@ directional_shadow_mode = 1
 directional_shadow_blend_splits = true
 script = ExtResource("10_s5li4")
 
-[node name="animation_player" type="AnimationPlayer" parent="."]
+[node name="day_cycle_animation_player" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_filtf")
 }
