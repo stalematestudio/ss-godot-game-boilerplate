@@ -3,7 +3,7 @@
 [ext_resource type="PhysicsMaterial" path="res://level/demo/wall_physicsmaterial.tres" id="1"]
 [ext_resource type="Script" path="res://level/demo/demo.gd" id="1_svvsg"]
 [ext_resource type="PackedScene" uid="uid://bhvq7376kjv1" path="res://components/cardboard_box/cardboard_box.tscn" id="2"]
-[ext_resource type="PhysicsMaterial" path="res://level/demo/surface_physicsmaterial.tres" id="3"]
+[ext_resource type="PackedScene" uid="uid://cl2q50u0k226n" path="res://components/props_parent/props_parent.tscn" id="2_7ldje"]
 [ext_resource type="AudioStream" uid="uid://45xcngosyca0" path="res://assets/audio/music/test_music.ogg" id="4"]
 [ext_resource type="Material" uid="uid://cdmn6q34npg44" path="res://level/demo/surface_spatialmaterial.tres" id="5"]
 [ext_resource type="BoxMesh" uid="uid://h8bu6xhgegb5" path="res://level/demo/wall_cubemesh.tres" id="7"]
@@ -20,16 +20,58 @@
 [ext_resource type="PackedScene" uid="uid://cy4tju4lpdatw" path="res://components/light_control/light_control.tscn" id="17_fic3i"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_a0myg"]
-size = Vector3(160, 160, 160)
+size = Vector3(80, 80, 80)
 
 [sub_resource type="BoxMesh" id="BoxMesh_fdsrn"]
-size = Vector3(160, 10, 160)
+size = Vector3(80, 10, 80)
 
 [node name="demo" type="Area3D"]
 script = ExtResource("1_svvsg")
 
 [node name="collision_shape_3d" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_a0myg")
+
+[node name="SurfaceStaticBody" type="StaticBody3D" parent="."]
+input_ray_pickable = false
+
+[node name="SurfaceMeshInstance" type="MeshInstance3D" parent="SurfaceStaticBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 0)
+cast_shadow = 2
+mesh = SubResource("BoxMesh_fdsrn")
+surface_material_override/0 = ExtResource("5")
+
+[node name="SurfaceCollisionShape" type="CollisionShape3D" parent="SurfaceStaticBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 0)
+shape = ExtResource("13")
+
+[node name="props_parent" parent="." instance=ExtResource("2_7ldje")]
+
+[node name="cardboard_box_1" parent="props_parent" instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.35, 6)
+
+[node name="cardboard_box_2" parent="props_parent" instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 6)
+
+[node name="cardboard_box_3" parent="props_parent" instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.35, 6)
+
+[node name="cardboard_box_4" parent="props_parent" instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.85, 6)
+
+[node name="cardboard_box_5" parent="props_parent" instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 6)
+
+[node name="cardboard_box_8" parent="props_parent" instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1.35, 6)
+
+[node name="cardboard_box_9" parent="props_parent" instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, 6)
+
+[node name="cardboard_box_6" parent="props_parent" instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.85, 6)
+
+[node name="cardboard_box_7" parent="props_parent" instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1.35, 6)
 
 [node name="Structure" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 14)
@@ -230,49 +272,6 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 
 [node name="base_door_2" parent="Structure" instance=ExtResource("13_688nr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0, 4.2)
 is_open = true
-
-[node name="SurfaceStaticBody" type="StaticBody3D" parent="."]
-input_ray_pickable = false
-physics_material_override = ExtResource("3")
-
-[node name="SurfaceMeshInstance" type="MeshInstance3D" parent="SurfaceStaticBody"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 0)
-cast_shadow = 2
-mesh = SubResource("BoxMesh_fdsrn")
-surface_material_override/0 = ExtResource("5")
-
-[node name="SurfaceCollisionShape" type="CollisionShape3D" parent="SurfaceStaticBody"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 0)
-shape = ExtResource("13")
-
-[node name="props_parent" type="Node3D" parent="."]
-
-[node name="cardboard_box_1" parent="props_parent" instance=ExtResource("2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.35, 6)
-
-[node name="cardboard_box_2" parent="props_parent" instance=ExtResource("2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 6)
-
-[node name="cardboard_box_3" parent="props_parent" instance=ExtResource("2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.35, 6)
-
-[node name="cardboard_box_4" parent="props_parent" instance=ExtResource("2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.85, 6)
-
-[node name="cardboard_box_5" parent="props_parent" instance=ExtResource("2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 6)
-
-[node name="cardboard_box_8" parent="props_parent" instance=ExtResource("2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1.35, 6)
-
-[node name="cardboard_box_9" parent="props_parent" instance=ExtResource("2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, 6)
-
-[node name="cardboard_box_6" parent="props_parent" instance=ExtResource("2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.85, 6)
-
-[node name="cardboard_box_7" parent="props_parent" instance=ExtResource("2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1.35, 6)
 
 [node name="lighting" type="Node3D" parent="."]
 

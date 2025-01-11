@@ -27,7 +27,7 @@ func _on_save_game() -> void:
 	game_data.merge(world_manager.save_data())
 	game_data.merge(maps_manager.save_data())
 	game_data.merge(player_manager.save_data())
-	# game_data.merge(props_manager.save_data())
+	game_data.merge(props_manager.save_data())
 	ProfileManager.save_game(game_data)
 
 func _on_load_game() -> void:
@@ -38,4 +38,4 @@ func _on_load_game() -> void:
 	world_manager.load_data(game_data.world if game_data.has("world") else Dictionary())
 	maps_manager.load_data(game_data.maps if game_data.has("maps") else Dictionary())
 	player_manager.load_data(game_data.player if game_data.has("player") else Dictionary())
-	# props_manager.load_data(game_data.props if game_data.has("props") else Dictionary())
+	props_manager.load_data(game_data.props if game_data.has("props") else Dictionary())

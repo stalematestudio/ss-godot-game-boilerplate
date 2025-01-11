@@ -122,13 +122,6 @@ func string_to_vector(vector_string: String) -> Vector3:
 	var float_array: PackedFloat64Array = vector_string.substr(1, vector_string.length()-1).split_floats(', ', false)
 	return Vector3(float_array[0],float_array[1],float_array[2])
 
-func string_to_packed_byte_array(variant_string: String) -> PackedByteArray:
-	var string_array: PackedStringArray = variant_string.substr(1, variant_string.length()-1).split(', ', false)
-	var int_array: PackedInt64Array = PackedInt64Array()
-	for string_val in string_array:
-		int_array.append(string_val.to_int())
-	return int_array.to_byte_array()
-
 func name_reindex(current_name: String, names_list: PackedStringArray) -> String:
 	if not current_name in names_list:
 		return current_name
@@ -148,3 +141,9 @@ func reparent_w_renaming(child: Node, new_parent: Node) -> void:
 			child_names.append(new_parent_child.name)
 		child.name = name_reindex(child.name, child_names)
 	child.reparent(new_parent)
+
+func get_game_manager(manager_name: String) -> Node:
+	for manager in get_tree().get_nodes_in_group("game_managers"):
+		if manager.name == manager_name:
+			return manager
+	return null

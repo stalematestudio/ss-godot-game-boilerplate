@@ -1,5 +1,7 @@
 class_name PlayerManager extends Node
 
+@onready var game: GameplayManager = get_parent()
+
 var initial_player_health: float = 100
 var initial_player_stamina: float = 100
 
@@ -42,6 +44,9 @@ var mouse_mode_current: String:
 @onready var player_hud: PlayerHud = player_hud_scene.instantiate()
 
 func _ready() -> void:
+	if is_inside_tree() and not is_in_group("game_managers"):
+		add_to_group("game_managers", true)
+
 	player_hud.player_character = player_character
 	player_raycast.raycast_target_changed.connect(player_hud._on_raycast_target_changed)
 	player_raycast.player_manager = self

@@ -1,26 +1,42 @@
 class_name PropsManager extends Node
 
+@onready var game: GameplayManager = get_parent()
 
-# func save_data() -> Dictionary:
+var _props_parents: Array[PropsParent]
+var props_parents: Array[PropsParent]:
+	get:
+		_props_parents.clear()
+		for play_area in game.maps_manager.active_play_areas:
+			var prop_parent: PropsParent = get_prop_parent(play_area)
+			if prop_parent:
+				_props_parents.append(prop_parent)
+		return _props_parents
 
-# 	var game_objects_props: Array = []
+var props_data: Dictionary = Dictionary()
 
-# 	for game_object_prop in get_tree().get_nodes_in_group("game_objects_props"):
-# 		game_objects_props.append({
-# 				"name" : game_object_prop.name,
-# 				"scene" : game_object_prop.get_scene_file_path(),
-# 				"path" : game_object_prop.get_parent().get_path(),
-# 				"object" : var_to_bytes_with_objects(game_object_prop),
-# 				})
+var scan_map_interval: float = 1.0
+var scan_map_time: float = scan_map_interval
 
-# 	return {"props": game_objects_props}
+func _ready() -> void:
+	if is_inside_tree() and not is_in_group("game_managers"):
+		add_to_group("game_managers", true)
 
-# func load_data(props: Dictionary = Dictionary()) -> void:
-# 	if game_data.has("props"):
-# 		for game_object_prop in get_tree().get_nodes_in_group("game_objects_props"):
-# 			game_object_prop.queue_free()
-# 		for game_prop in game_data.props:
-# 			var game_prop_instance = bytes_to_var_with_objects(Helpers.string_to_packed_byte_array(game_prop.object))
-# 			print_debug(game_prop_instance)
-# 			game_prop_instance.name = game_prop.name
-# 			get_node(game_prop.path).add_child(game_prop_instance)
+func save_data() -> Dictionary:
+	for props_parent in props_parents:
+		props_data[props_parent.play_area.name] = props_parent.save_data()
+	return {
+		"props": props_data
+	}
+
+func load_data(props: Dictionary = Dictionary()) -> void:
+	props_data = props if props else props_data
+	for props_parent in props_parents:
+		if props_data.has(props_parent.play_area.name):
+			props_parent.load_data(props_data[props_parent.play_area.name])
+
+func get_prop_parent(play_area: PlayArea) -> PropsParent:
+	var play_area_children: Array[Node] = play_area.get_children()
+	for child in play_area_children:
+		if child is PropsParent:
+			return child
+	return null

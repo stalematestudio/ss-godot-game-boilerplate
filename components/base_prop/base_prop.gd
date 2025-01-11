@@ -1,5 +1,7 @@
 class_name BaseProp extends RigidBody3D
 
+# TODO: Implement prop TTL
+
 @export var interactive: bool = true
 @onready var outline_mesh_array: Array[Node] = find_children("outline_mesh*", "MeshInstance3D")
 var interactor: PlayerRayCast3D = null
@@ -143,3 +145,20 @@ func highlight() -> void:
 func un_highlight() -> void:
 	for outline_mesh in outline_mesh_array:
 		outline_mesh.hide()
+
+func save_data() -> Dictionary:
+	return {
+	"name": name,
+	"scene": get_scene_file_path(),
+	"position": position,
+	"rotation":	rotation,
+	"angular_velocity": angular_velocity,
+	"linear_velocity": linear_velocity,
+	}
+
+func load_data(data: Dictionary) -> void:
+	name = data.name
+	position = Helpers.string_to_vector(data.position) if data.position is String else data.position
+	rotation = Helpers.string_to_vector(data.rotation) if data.rotation is String else data.rotation
+	angular_velocity = Helpers.string_to_vector(data.angular_velocity) if data.angular_velocity is String else data.angular_velocity
+	linear_velocity = Helpers.string_to_vector(data.linear_velocity) if data.linear_velocity is String else data.linear_velocity
