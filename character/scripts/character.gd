@@ -30,9 +30,9 @@ var input_movement_vector: Vector2 = Vector2()
 var input_movement_vector_magnitude: float = float()
 var horizontal_velocity: Vector3 = Vector3()
 
-var target: Vector3 = Vector3()
-var accel: float = float()
-var direction: Vector3 = Vector3()
+var movement_target_speed: Vector3 = Vector3()
+var movement_accel: float = float()
+var movement_direction: Vector3 = Vector3()
 
 var step_distance: float = float()
 
@@ -82,7 +82,7 @@ func _physics_process(delta: float) -> void:
 	input_movement_vector_magnitude = min(input_movement_vector.length(), 1)
 	input_movement_vector = input_movement_vector.normalized()
 
-	direction = (transform.basis * Vector3(input_movement_vector.x, 0, input_movement_vector.y)).normalized()
+	movement_direction = (transform.basis * Vector3(input_movement_vector.x, 0, input_movement_vector.y)).normalized()
 	
 	velocity.y -= default_gravity * delta
 	
@@ -90,27 +90,27 @@ func _physics_process(delta: float) -> void:
 	horizontal_velocity.y = 0
 	
 	if is_sprinting:
-		target = direction * ( MAX_SPRINT_SPEED * input_movement_vector_magnitude ) 
+		movement_target_speed = movement_direction * ( MAX_SPRINT_SPEED * input_movement_vector_magnitude ) 
 	elif is_crouching:
-		target = direction * ( MAX_CROUCH_SPEED * input_movement_vector_magnitude ) 
+		movement_target_speed = movement_direction * ( MAX_CROUCH_SPEED * input_movement_vector_magnitude ) 
 	else:
-		target = direction * ( MAX_WALK_SPEED * input_movement_vector_magnitude ) 
+		movement_target_speed = movement_direction * ( MAX_WALK_SPEED * input_movement_vector_magnitude ) 
 
-	if direction.dot(horizontal_velocity) > 0:
+	if movement_direction.dot(horizontal_velocity) > 0:
 		if is_sprinting:
 			stamina = clamp( stamina - delta , 0 , stamina_max ) 
-			accel = SPRINT_ACCEL * input_movement_vector_magnitude
+			movement_accel = SPRINT_ACCEL * input_movement_vector_magnitude
 		elif is_crouching:
-			accel = CROUCH_ACCEL * input_movement_vector_magnitude
+			movement_accel = CROUCH_ACCEL * input_movement_vector_magnitude
 		else:
-			accel = WALK_ACCEL * input_movement_vector_magnitude
+			movement_accel = WALK_ACCEL * input_movement_vector_magnitude
 	else:
-		accel = DEACCEL
+		movement_accel = DEACCEL
 		is_sprinting = false
 		stamina = clamp( stamina + delta / 2 , 0 ,  stamina_max )
 		
 	if is_on_floor():
-		horizontal_velocity = horizontal_velocity.lerp(target, accel * delta)
+		horizontal_velocity = horizontal_velocity.lerp(movement_target_speed, movement_accel * delta)
 
 	velocity.x = horizontal_velocity.x
 	velocity.z = horizontal_velocity.z

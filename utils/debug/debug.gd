@@ -69,8 +69,8 @@ func _process(_delta):
 			player_velocity_vector.set_text(" x " + String.num(snapped(player_instance.velocity.x, 0.2)) + " y " + String.num(snapped(player_instance.velocity.y, 0.2)) + " z " + String.num(snapped(player_instance.velocity.z, 0.2)))
 			player_velocity_length.set_text(" l " + String.num(player_instance.velocity.length()))
 
-			player_direction_vector.set_text(" x " + String.num(snapped(player_instance.direction.x, 0.2)) + " y " + String.num(snapped(player_instance.direction.y, 0.2)) + " z " + String.num(snapped(player_instance.direction.z, 0.2)))
-			player_direction_length.set_text(" l " + String.num(player_instance.direction.length()))
+			player_direction_vector.set_text(" x " + String.num(snapped(player_instance.movement_direction.x, 0.2)) + " y " + String.num(snapped(player_instance.movement_direction.y, 0.2)) + " z " + String.num(snapped(player_instance.movement_direction.z, 0.2)))
+			player_direction_length.set_text(" l " + String.num(player_instance.movement_direction.length()))
 
 			player_on_ceiling.set_text( "True" if player_instance.is_on_ceiling() else "False" )
 			player_on_wall.set_text( "True" if player_instance.is_on_wall() else "False" )

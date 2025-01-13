@@ -22,9 +22,9 @@ var input_movement_vector: Vector2 = Vector2()
 var input_movement_vector_magnitude: float = float()
 var horizontal_velocity: Vector3 = Vector3()
 
-var target: Vector3 = Vector3()
-var accel: float = float()
-var direction: Vector3 = Vector3()
+var movement_target_speed: Vector3 = Vector3()
+var movement_accel: float = float()
+var movement_direction: Vector3 = Vector3()
 
 var step_distance: float = float()
 
@@ -55,9 +55,11 @@ func _ready() -> void:
 		global_position.z,
 	)
 
-func _physics_process(delta: float) -> void:
+func _process(delta):
 	if ( raycast.is_colliding() ) and ( raycast.get_collider() is Character ):
 		player_character = raycast.get_collider()
+
+func _physics_process(delta: float) -> void:
 
 	if player_character:
 		player_character_position = player_character.global_position
@@ -77,7 +79,7 @@ func _physics_process(delta: float) -> void:
 		nav_target_direction.z,
 	)
 
-	look_at(global_position + nav_target_direction_horizontal, Vector3.UP, true)
+	# look_at(global_position + nav_target_direction_horizontal, Vector3.UP, true)
 
 	navigation_next_path_direction = global_position.direction_to(navigation_next_path_position)
 
@@ -98,22 +100,22 @@ func _physics_process(delta: float) -> void:
 	input_movement_vector_magnitude = min(input_movement_vector.length(), 1)
 	input_movement_vector = input_movement_vector.normalized()
 
-	direction = (transform.basis * Vector3(input_movement_vector.x, 0, input_movement_vector.y)).normalized()
+	movement_direction = (transform.basis * Vector3(input_movement_vector.x, 0, input_movement_vector.y)).normalized()
 	
 	velocity.y -= default_gravity * delta
 	
 	horizontal_velocity = velocity
 	horizontal_velocity.y = 0
 
-	target = direction * ( MAX_WALK_SPEED * input_movement_vector_magnitude ) 
+	movement_target_speed = movement_direction * ( MAX_WALK_SPEED * input_movement_vector_magnitude ) 
 
-	if direction.dot(horizontal_velocity) > 0:
-		accel = WALK_ACCEL * input_movement_vector_magnitude
+	if movement_direction.dot(horizontal_velocity) > 0:
+		movement_accel = WALK_ACCEL * input_movement_vector_magnitude
 	else:
-		accel = DEACCEL
+		movement_accel = DEACCEL
 		
 	if is_on_floor():
-		horizontal_velocity = horizontal_velocity.lerp(target, accel * delta)
+		horizontal_velocity = horizontal_velocity.lerp(movement_target_speed, movement_accel * delta)
 
 	velocity.x = horizontal_velocity.x
 	velocity.z = horizontal_velocity.z
