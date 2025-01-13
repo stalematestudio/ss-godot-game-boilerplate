@@ -1,4 +1,5 @@
 Figure out NAV.
+    Try switching the map manager node type to a navigation region 3d and see if something weird happens.
 Prop reparenting to relevant / closest prop manager.
 Grabbed prop reparent to player on save.
 Save load doors.

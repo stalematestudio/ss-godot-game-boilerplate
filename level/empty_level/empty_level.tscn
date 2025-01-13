@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bxr1pl5xcwv25"]
+[gd_scene load_steps=12 format=3 uid="uid://bxr1pl5xcwv25"]
 
 [ext_resource type="Script" path="res://components/play_area/play_area.gd" id="1_dnbqi"]
 [ext_resource type="PackedScene" uid="uid://d24o2u6fm810m" path="res://components/base_screen/base_screen.tscn" id="2_5pktj"]
@@ -6,18 +6,13 @@
 [ext_resource type="PackedScene" uid="uid://cy4tju4lpdatw" path="res://components/light_control/light_control.tscn" id="2_qnspi"]
 [ext_resource type="PackedScene" uid="uid://bhvq7376kjv1" path="res://components/cardboard_box/cardboard_box.tscn" id="3_t7eiq"]
 [ext_resource type="PackedScene" uid="uid://cm2eldp8ef11y" path="res://components/ground/ground.tscn" id="3_top4j"]
-[ext_resource type="Script" path="res://level/empty_level/navigation_region_3d.gd" id="4_oe5ki"]
 [ext_resource type="PackedScene" uid="uid://cm23m05tb1cp4" path="res://components/structural/wall_full.tscn" id="6_qwaks"]
 [ext_resource type="PackedScene" uid="uid://dxlplqxxf6j1k" path="res://components/structural/platform.tscn" id="7_felvd"]
 [ext_resource type="PackedScene" uid="uid://ba5e17ecsmtdd" path="res://components/structural/wall_part.tscn" id="8_3e717"]
-[ext_resource type="PackedScene" uid="uid://r5r6i3iw2daa" path="res://character_np/scenes/character_np.tscn" id="11_r8ruf"]
+[ext_resource type="PackedScene" uid="uid://widpsym4ycpe" path="res://character_np/scenes/character_np.tscn" id="11_r8ruf"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_bkf0v"]
 size = Vector3(80, 80, 80)
-
-[sub_resource type="NavigationMesh" id="NavigationMesh_7akvd"]
-vertices = PackedVector3Array(-11, 1.90205, 13, -11, 1.90205, 11, -14, 1.90205, 10.75, -16, 1.90205, 13, -17, 0.402045, 6, -16, 0.652045, 6, -12.5, 0.402045, -39.5, -14, 0.652045, 6, -16, 1.90205, 10.2, -39.5, 0.402045, -39.5, -39.5, 0.402045, 8, -17, 0.402045, 8, -12.75, 0.402045, 6, -12.75, 0.402045, 10, -11, 0.402045, 10, -10.75, 0.402045, 7, -6, 0.402045, 7, -6, 0.402045, -39.5, -4, 0.402045, 7, -3.75, 0.402045, 8.75, 39.5, 0.402045, 8.5, 39.5, 0.402045, -39.5, -39.5, 0.402045, 12, -17, 0.402045, 12, -10, 3.40205, 8, -10, 3.40205, 13, -5, 3.40205, 13, -5, 3.40205, 8, -9.5, 0.402045, 8.25, -9.75, 0.402045, 12.75, -7, 0.402045, 12.75, -5.25, 0.402045, 8.25, -17.25, 0.402045, 39.5, -3.75, 0.402045, 39.5, -7.25, 0.402045, 14.25, -16.75, 0.402045, 14.25, -5.25, 0.402045, 14, -6.75, 0.402045, 13.75, -17, 0.402045, 13.75, -4.25, 0.402045, 14.25, -3.75, 0.402045, 13.75, -3.75, 0.402045, 12.25, 39.5, 0.402045, 12.5, -39.5, 0.402045, 39.5, 39.5, 0.402045, 39.5)
-polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 3), PackedInt32Array(6, 5, 4), PackedInt32Array(3, 8, 2), PackedInt32Array(2, 8, 5), PackedInt32Array(2, 5, 7), PackedInt32Array(10, 9, 4), PackedInt32Array(4, 9, 6), PackedInt32Array(4, 11, 10), PackedInt32Array(6, 12, 7), PackedInt32Array(6, 7, 5), PackedInt32Array(14, 13, 15), PackedInt32Array(15, 13, 12), PackedInt32Array(15, 12, 16), PackedInt32Array(16, 12, 6), PackedInt32Array(16, 6, 17), PackedInt32Array(19, 18, 20), PackedInt32Array(20, 18, 21), PackedInt32Array(21, 18, 17), PackedInt32Array(18, 16, 17), PackedInt32Array(10, 11, 22), PackedInt32Array(22, 11, 23), PackedInt32Array(27, 26, 24), PackedInt32Array(24, 26, 25), PackedInt32Array(29, 28, 30), PackedInt32Array(30, 28, 31), PackedInt32Array(35, 34, 32), PackedInt32Array(32, 34, 33), PackedInt32Array(37, 30, 36), PackedInt32Array(36, 30, 31), PackedInt32Array(35, 32, 38), PackedInt32Array(37, 36, 34), PackedInt32Array(34, 36, 39), PackedInt32Array(34, 39, 33), PackedInt32Array(39, 40, 33), PackedInt32Array(19, 20, 41), PackedInt32Array(41, 20, 42), PackedInt32Array(23, 38, 22), PackedInt32Array(22, 38, 32), PackedInt32Array(22, 32, 43), PackedInt32Array(40, 41, 42), PackedInt32Array(33, 40, 44), PackedInt32Array(44, 40, 42)]
 
 [node name="play_area" type="Area3D"]
 script = ExtResource("1_dnbqi")
@@ -75,115 +70,111 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1, 12.4)
 [node name="cardboard_box_15" parent="props_parent" instance=ExtResource("3_t7eiq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1.4, 12.4)
 
-[node name="navigation_region_3d" type="NavigationRegion3D" parent="."]
-navigation_mesh = SubResource("NavigationMesh_7akvd")
-script = ExtResource("4_oe5ki")
+[node name="ground" parent="." instance=ExtResource("3_top4j")]
 
-[node name="ground" parent="navigation_region_3d" instance=ExtResource("3_top4j")]
+[node name="structure" type="Node3D" parent="."]
 
-[node name="structure" type="Node3D" parent="navigation_region_3d"]
-
-[node name="platform_0" parent="navigation_region_3d/structure" instance=ExtResource("7_felvd")]
+[node name="platform_0" parent="structure" instance=ExtResource("7_felvd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 3.1, 9)
 
-[node name="platform_1" parent="navigation_region_3d/structure" instance=ExtResource("7_felvd")]
+[node name="platform_1" parent="structure" instance=ExtResource("7_felvd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 3.1, 12)
 
-[node name="platform_2" parent="navigation_region_3d/structure" instance=ExtResource("7_felvd")]
+[node name="platform_2" parent="structure" instance=ExtResource("7_felvd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.5, 1.5, 12)
 
-[node name="platform_3" parent="navigation_region_3d/structure" instance=ExtResource("7_felvd")]
+[node name="platform_3" parent="structure" instance=ExtResource("7_felvd")]
 transform = Transform3D(-4.23191e-08, 1.09445e-08, -1, 0.25038, 0.968148, 0, 0.968148, -0.25038, -4.37114e-08, -15, 0.75, 7.6)
 
-[node name="wall_full_0" parent="navigation_region_3d/structure" instance=ExtResource("6_qwaks")]
+[node name="wall_full_0" parent="structure" instance=ExtResource("6_qwaks")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -4.5, 0, 9)
 
-[node name="wall_full_1" parent="navigation_region_3d/structure" instance=ExtResource("6_qwaks")]
+[node name="wall_full_1" parent="structure" instance=ExtResource("6_qwaks")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -4.5, 0, 12)
 
-[node name="wall_full_2" parent="navigation_region_3d/structure" instance=ExtResource("6_qwaks")]
+[node name="wall_full_2" parent="structure" instance=ExtResource("6_qwaks")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5, 0, 9)
 
-[node name="wall_full_3" parent="navigation_region_3d/structure" instance=ExtResource("6_qwaks")]
+[node name="wall_full_3" parent="structure" instance=ExtResource("6_qwaks")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5, 0, 12)
 
-[node name="wall_part_0" parent="navigation_region_3d/structure" instance=ExtResource("8_3e717")]
+[node name="wall_part_0" parent="structure" instance=ExtResource("8_3e717")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -6.05, 0, 7.5)
 
-[node name="wall_part_1" parent="navigation_region_3d/structure" instance=ExtResource("8_3e717")]
+[node name="wall_part_1" parent="structure" instance=ExtResource("8_3e717")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -8.95, 0, 7.5)
 
-[node name="wall_part_2" parent="navigation_region_3d/structure" instance=ExtResource("8_3e717")]
+[node name="wall_part_2" parent="structure" instance=ExtResource("8_3e717")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -8.95, 0, 13.5)
 
-[node name="screen" parent="navigation_region_3d/structure" instance=ExtResource("2_5pktj")]
+[node name="screen" parent="structure" instance=ExtResource("2_5pktj")]
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -10, 1.5, 8)
 sub_viewport_control_scene = ExtResource("2_qnspi")
 
-[node name="omni_light_3d_0" type="OmniLight3D" parent="navigation_region_3d/structure"]
+[node name="omni_light_3d_0" type="OmniLight3D" parent="structure"]
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -10, 2.4, 8)
 light_color = Color(0, 0, 0, 1)
 light_energy = 0.0
 light_indirect_energy = 0.0
 light_volumetric_fog_energy = 0.0
 
-[node name="omni_light_3d_1" type="OmniLight3D" parent="navigation_region_3d/structure"]
+[node name="omni_light_3d_1" type="OmniLight3D" parent="structure"]
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -5, 2.4, 8)
 light_color = Color(0, 0, 0, 1)
 light_energy = 0.0
 light_indirect_energy = 0.0
 light_volumetric_fog_energy = 0.0
 
-[node name="omni_light_3d_2" type="OmniLight3D" parent="navigation_region_3d/structure"]
+[node name="omni_light_3d_2" type="OmniLight3D" parent="structure"]
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -4, 2.4, 8)
 light_color = Color(0, 0, 0, 1)
 light_energy = 0.0
 light_indirect_energy = 0.0
 light_volumetric_fog_energy = 0.0
 
-[node name="omni_light_3d_3" type="OmniLight3D" parent="navigation_region_3d/structure"]
+[node name="omni_light_3d_3" type="OmniLight3D" parent="structure"]
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -11, 2.4, 8)
 light_color = Color(0, 0, 0, 1)
 light_energy = 0.0
 light_indirect_energy = 0.0
 light_volumetric_fog_energy = 0.0
 
-[node name="omni_light_3d_4" type="OmniLight3D" parent="navigation_region_3d/structure"]
+[node name="omni_light_3d_4" type="OmniLight3D" parent="structure"]
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -11, 2.4, 13)
 light_color = Color(0, 0, 0, 1)
 light_energy = 0.0
 light_indirect_energy = 0.0
 light_volumetric_fog_energy = 0.0
 
-[node name="omni_light_3d_5" type="OmniLight3D" parent="navigation_region_3d/structure"]
+[node name="omni_light_3d_5" type="OmniLight3D" parent="structure"]
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -10, 2.4, 13)
 light_color = Color(0, 0, 0, 1)
 light_energy = 0.0
 light_indirect_energy = 0.0
 light_volumetric_fog_energy = 0.0
 
-[node name="omni_light_3d_6" type="OmniLight3D" parent="navigation_region_3d/structure"]
+[node name="omni_light_3d_6" type="OmniLight3D" parent="structure"]
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -5, 2.4, 13)
 light_color = Color(0, 0, 0, 1)
 light_energy = 0.0
 light_indirect_energy = 0.0
 light_volumetric_fog_energy = 0.0
 
-[node name="omni_light_3d_7" type="OmniLight3D" parent="navigation_region_3d/structure"]
+[node name="omni_light_3d_7" type="OmniLight3D" parent="structure"]
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -4, 2.4, 13)
 light_color = Color(0, 0, 0, 1)
 light_energy = 0.0
 light_indirect_energy = 0.0
 light_volumetric_fog_energy = 0.0
 
-[node name="omni_light_3d_8" type="OmniLight3D" parent="navigation_region_3d/structure"]
+[node name="omni_light_3d_8" type="OmniLight3D" parent="structure"]
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -5, 2.4, 7)
 light_color = Color(0, 0, 0, 1)
 light_energy = 0.0
 light_indirect_energy = 0.0
 light_volumetric_fog_energy = 0.0
 
-[node name="omni_light_3d_9" type="OmniLight3D" parent="navigation_region_3d/structure"]
+[node name="omni_light_3d_9" type="OmniLight3D" parent="structure"]
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -10, 2.4, 7)
 light_color = Color(0, 0, 0, 1)
 light_energy = 0.0
@@ -191,4 +182,4 @@ light_indirect_energy = 0.0
 light_volumetric_fog_energy = 0.0
 
 [node name="character_np" parent="." instance=ExtResource("11_r8ruf")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 1, 9)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, 24)

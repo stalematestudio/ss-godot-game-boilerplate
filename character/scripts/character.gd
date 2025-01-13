@@ -37,7 +37,6 @@ var movement_direction: Vector3 = Vector3()
 var step_distance: float = float()
 
 # Player Nodes
-@onready var collision_shape: CollisionShape3D = $character_collision_shape_3D
 @onready var head: CharacterHead = $character_head
 @onready var steps_player: AudioStreamPlayer3D = $character_steps_audio_stream_player_3D
 @onready var animation: CharacterAnimationPlayer = $character_animation_player

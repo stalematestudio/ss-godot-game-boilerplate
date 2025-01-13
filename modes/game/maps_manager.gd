@@ -40,7 +40,7 @@ var game_map: Dictionary = {
 		"neightbours": ["demo_2A","demo_2B","demo_3B"]
 		},
 	"demo_0B": {
-		"scene": preload("res://level/demo_level/demo_level.tscn"),
+		"scene": preload("res://level/empty_level/empty_level.tscn"),
 		"name": "demo_0B",
 		"position": Vector3(0,0,80),
 		"rotation_degrees": Vector3(),

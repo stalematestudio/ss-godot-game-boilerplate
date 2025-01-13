@@ -1,1 +1,0 @@
-extends NavigationRegion3D

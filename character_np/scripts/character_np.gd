@@ -7,15 +7,14 @@ const HEAD_ROTATION_MIN: int = -90
 const HEAD_ROTATION_MAX: int = 90
 
 # Player stats
-const MAX_WALK_SPEED: float = 4.5
-const WALK_ACCEL: float = 0.8
+const MAX_WALK_SPEED: float = 2
+const WALK_ACCEL: float = 0.2
 
 const DEACCEL: float = 9.0
 
 var nav_target: Vector3 = Vector3.ZERO
 var nav_target_direction: Vector3 = Vector3.ZERO
 var nav_target_direction_horizontal: Vector3 = Vector3.ZERO
-var nav_target_direction_vertical: Vector3 = Vector3.ZERO
 
 var input_look_vector: Vector2 = Vector2()
 var input_movement_vector: Vector2 = Vector2()
@@ -31,9 +30,8 @@ var step_distance: float = float()
 @onready var home_possition: Vector3
 
 # Player Nodes
-@onready var collision_shape: CollisionShape3D = $character_collision_shape_3D
-@onready var head: Node3D = $character_np_head
-@onready var raycast: RayCast3D = $character_np_head/ray_cast_3d
+@onready var head: Node3D = $character_head
+@onready var raycast: RayCast3D = $character_head/character_ray_cast_3D
 @onready var navigation: NavigationAgent3D = $navigation_agent_3d
 @onready var steps_player: AudioStreamPlayer3D = $character_steps_audio_stream_player_3D
 
@@ -46,52 +44,53 @@ var navigation_next_path_position: Vector3 = Vector3.ZERO
 var navigation_next_path_direction: Vector3 = Vector3.ZERO
 
 func _ready() -> void:
-	navigation.target_reached.connect(_on_target_reached)
-	navigation.navigation_finished.connect(_on_navigation_finished)
+	# navigation.target_reached.connect(_on_target_reached)
+	# navigation.navigation_finished.connect(_on_navigation_finished)
 
-	home_possition = Vector3(
-		global_position.x,
-		global_position.y,
-		global_position.z,
-	)
+	home_possition = global_position
 
-func _process(delta):
-	if ( raycast.is_colliding() ) and ( raycast.get_collider() is Character ):
-		player_character = raycast.get_collider()
-
-func _physics_process(delta: float) -> void:
-
+func _process(_delta: float) -> void:
 	if player_character:
 		player_character_position = player_character.global_position
 		player_character_direction = global_position.direction_to(player_character_position)
 		player_character_distance = global_position.distance_to(player_character_position)
 		nav_target = player_character_position
+	elif ( raycast.is_colliding() ) and ( raycast.get_collider() is Character ):
+		player_character = raycast.get_collider()
 	else:
 		nav_target = home_possition
 
+var vector_report_interval: float = 1
+var vector_report_time: float = vector_report_interval
+
+func _physics_process(delta: float) -> void:
+	if player_character:
+		head.look_at(player_character.head.global_position, Vector3.UP, true)
+		# This turns the body towars the player character
+		# look_at(Vector3(
+		# 	player_character.global_position.x,
+		# 	global_position.y,
+		# 	player_character.global_position.z,
+		# ), Vector3.UP, true)
+	else:
+		head.rotation_degrees = Vector3.ZERO
+
 	navigation.target_position = nav_target
 	navigation_next_path_position = navigation.get_next_path_position()
-
-	nav_target_direction = global_position.direction_to(nav_target)
-	nav_target_direction_horizontal = Vector3(
-		nav_target_direction.x,
-		0,
-		nav_target_direction.z,
-	)
-
-	# look_at(global_position + nav_target_direction_horizontal, Vector3.UP, true)
-
+	# if global_position.distance_to(navigation_next_path_position) > 1:
+	look_at(Vector3(
+		navigation_next_path_position.x,
+		global_position.y,
+		navigation_next_path_position.z,
+	), Vector3.UP, true)
 	navigation_next_path_direction = global_position.direction_to(navigation_next_path_position)
-
-	# head.rotate_x(deg_to_rad( input_look_vector.y ))
-	# rotate_y(deg_to_rad( input_look_vector.x ))
-	# rotation_degrees.x = clamp(rotation_degrees.x, HEAD_ROTATION_MIN, HEAD_ROTATION_MAX)
 
 	#Get movement inputs
 	if is_on_floor() and navigation_next_path_direction:
+		# x is side movement, y is back and forth
 		input_movement_vector = Vector2(
-			navigation_next_path_direction.x,
-			navigation_next_path_direction.z,
+			0,
+			global_position.distance_to(navigation_next_path_position),
 		)
 	else:
 		input_movement_vector = Vector2()
@@ -131,11 +130,10 @@ func _physics_process(delta: float) -> void:
 				steps_player.play()
 
 func _on_target_reached() -> void:
-	# print_debug("_on_target_reached")
 	if player_character:
 		player_character = null
 	else:
 		navigation.target_position = home_possition
 
 func _on_navigation_finished() -> void:
-	print_debug("_on_navigation_finished ", navigation.is_target_reachable())
+	pass

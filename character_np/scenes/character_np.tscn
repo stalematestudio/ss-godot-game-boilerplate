@@ -1,32 +1,49 @@
-[gd_scene load_steps=7 format=3 uid="uid://r5r6i3iw2daa"]
+[gd_scene load_steps=7 format=3 uid="uid://widpsym4ycpe"]
 
 [ext_resource type="Script" path="res://character_np/scripts/character_np.gd" id="1_bct6c"]
-[ext_resource type="Shape3D" uid="uid://6gpd8v46fkoc" path="res://character/resources/character_capsuleshape.tres" id="4_sdgo0"]
 [ext_resource type="Material" uid="uid://dmqe65362q88x" path="res://assets/materials/agent_material_0.tres" id="6_4w5jv"]
 [ext_resource type="AudioStream" uid="uid://b4nciekqn81lu" path="res://assets/audio/collision_effects/166506__yoyodaman234__concrete-footstep-4.wav" id="10_os557"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_sbjag"]
-material = ExtResource("6_4w5jv")
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_dv8kr"]
 radius = 0.3
-height = 1.4
+height = 1.8
 
 [sub_resource type="SphereMesh" id="SphereMesh_2e5bl"]
 material = ExtResource("6_4w5jv")
 radius = 0.3
 height = 0.6
 
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_sbjag"]
+material = ExtResource("6_4w5jv")
+radius = 0.3
+height = 1.2
+
 [node name="character_np" type="CharacterBody3D"]
 input_ray_pickable = false
 script = ExtResource("1_bct6c")
 
 [node name="navigation_agent_3d" type="NavigationAgent3D" parent="."]
-simplify_path = true
-keep_y_velocity = false
+path_desired_distance = 0.5
 debug_enabled = true
+debug_use_custom = true
+debug_path_custom_color = Color(0, 1, 0, 1)
+debug_path_custom_point_size = 16.0
 
 [node name="character_collision_shape_3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
-shape = ExtResource("4_sdgo0")
+shape = SubResource("CapsuleShape3D_dv8kr")
+
+[node name="character_head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="character_head_mesh_instance_3D" type="MeshInstance3D" parent="character_head"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+mesh = SubResource("SphereMesh_2e5bl")
+
+[node name="character_ray_cast_3D" type="RayCast3D" parent="character_head"]
+target_position = Vector3(0, 0, 5)
+hit_back_faces = false
+collide_with_areas = true
 
 [node name="character_steps_audio_stream_player_3D" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("10_os557")
@@ -34,17 +51,5 @@ unit_size = 3.0
 bus = &"FX"
 
 [node name="character_mesh_instance_3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
 mesh = SubResource("CapsuleMesh_sbjag")
-
-[node name="character_np_head" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.65, 0)
-
-[node name="character_head_mesh_instance_3D" type="MeshInstance3D" parent="character_np_head"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
-mesh = SubResource("SphereMesh_2e5bl")
-skeleton = NodePath("")
-
-[node name="ray_cast_3d" type="RayCast3D" parent="character_np_head"]
-target_position = Vector3(0, 0, 3)
-hit_back_faces = false
