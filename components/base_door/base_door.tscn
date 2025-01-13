@@ -2,7 +2,7 @@
 
 [ext_resource type="Shape3D" uid="uid://0811yocfr517" path="res://components/base_door/door_box_shape.tres" id="1_fnmpk"]
 [ext_resource type="Script" path="res://components/base_door/base_door.gd" id="1_ypy04"]
-[ext_resource type="Material" uid="uid://cdmn6q34npg44" path="res://level/demo/surface_spatialmaterial.tres" id="2_gq5pi"]
+[ext_resource type="Material" uid="uid://cdmn6q34npg44" path="res://assets/materials/surface_spatialmaterial.tres" id="2_gq5pi"]
 [ext_resource type="Material" uid="uid://bn47l102fwgcq" path="res://assets/materials/outline_material.tres" id="4_fe7ig"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_s623i"]

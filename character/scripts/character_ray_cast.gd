@@ -1,10 +1,27 @@
-class_name PlayerRayCast3D extends RayCast3D
+class_name CharacterRayCast3D extends RayCast3D
 
-var player_manager: PlayerManager
-var player_instance: PlayerCharacter
-var player_camera: Camera3D
+var character_instance: Character
+var character_camera: CharacterCamera3D
 
-@onready var spring_arm_3d: SpringArm3D = $spring_arm_3d
+@onready var spring_arm_3d: SpringArm3D = $character_spring_arm_3D
+
+var _mouse_mode_current: String = "ray_cast"
+var mouse_mode_current: String:
+	get:
+		return _mouse_mode_current
+	set(new_mouse_mode):
+		if not new_mouse_mode in ["ray_cast", "mouse"]:
+			return
+		_mouse_mode_current = new_mouse_mode
+		match new_mouse_mode:
+			"ray_cast":
+				enabled = true
+				Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+			"mouse":
+				enabled = false
+				raycast_target = null
+				Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+				Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
 
 var _raycast_target: Node
 var raycast_target: Node:
@@ -40,6 +57,9 @@ signal raycast_mode_action
 signal raycast_in_action
 signal raycast_out_action
 
+func _ready() -> void:
+	add_exception(character_instance)
+
 func _process(_delta: float) -> void:
 	if is_colliding():
 		raycast_target = get_collider()
@@ -64,9 +84,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		active_screen = raycast_target
 		if ( event is InputEventMouse ):
 			if active_screen.has_method("_mouse_input_event"):
-				active_screen._mouse_input_event(player_camera, event, raycast_collision_point, Vector3(), int())
+				active_screen._mouse_input_event(character_camera, event, raycast_collision_point, Vector3(), int())
 		if event.is_action_pressed("player_secondary_action") and active_screen.has_signal("mouse_exited_area"):
-			player_manager.interaction_mouse()
+			mouse_mode_current = "mouse"
 			active_screen.mouse_exited_area.connect(_on_interaction_end)
 		return
 
@@ -82,7 +102,15 @@ func _unhandled_input(event: InputEvent) -> void:
 		elif event.is_action_pressed("player_out_action"):
 			raycast_out_action.emit()
 
+func _unhandled_key_input(event: InputEvent) -> void:
+	if event.is_action_released("mouse_mode_switch"):
+		match mouse_mode_current:
+			"ray_cast":
+				mouse_mode_current = "mouse"
+			"mouse":
+				mouse_mode_current = "ray_cast"
+
 func _on_interaction_end() -> void:
 	active_screen.mouse_exited_area.disconnect(_on_interaction_end)
 	active_screen = null
-	player_manager.interaction_ray_cast()
+	mouse_mode_current = "ray_cast"

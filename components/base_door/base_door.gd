@@ -2,7 +2,7 @@ class_name BaseDoor extends AnimatableBody3D
 
 @export var interactive: bool = true
 @onready var outline_mesh_array: Array[Node] = find_children("outline_mesh*")
-var interactor: PlayerRayCast3D = null
+var interactor: CharacterRayCast3D = null
 
 @onready var animation: AnimationPlayer = $animation_player
 
@@ -22,7 +22,7 @@ func _ready() -> void:
 	if is_open == true:
 		animation.play("open")
 
-func activate(new_interactor: PlayerRayCast3D) -> void:
+func activate(new_interactor: CharacterRayCast3D) -> void:
 	if not interactive:
 		return
 	highlight()

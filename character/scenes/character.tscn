@@ -1,0 +1,117 @@
+[gd_scene load_steps=15 format=3 uid="uid://4vp5srwunvh8"]
+
+[ext_resource type="Script" path="res://character/scripts/character.gd" id="1_3uwsb"]
+[ext_resource type="Shape3D" uid="uid://6gpd8v46fkoc" path="res://character/resources/character_capsuleshape.tres" id="2_148lm"]
+[ext_resource type="Script" path="res://character/scripts/character_head.gd" id="3_msplp"]
+[ext_resource type="Script" path="res://character/scripts/character_camera.gd" id="4_gq4hp"]
+[ext_resource type="Script" path="res://character/scripts/character_light.gd" id="5_tsgpj"]
+[ext_resource type="Script" path="res://character/scripts/character_ray_cast.gd" id="6_hgym2"]
+[ext_resource type="Material" uid="uid://dmqe65362q88x" path="res://assets/materials/agent_material_0.tres" id="6_oibuc"]
+[ext_resource type="AudioStream" uid="uid://b4nciekqn81lu" path="res://assets/audio/collision_effects/166506__yoyodaman234__concrete-footstep-4.wav" id="7_2gnjy"]
+[ext_resource type="Animation" uid="uid://dufhktbi1isod" path="res://character/resources/character_anim_crouch.tres" id="8_ypiba"]
+[ext_resource type="Script" path="res://character/scripts/animation_player.gd" id="9_sccne"]
+
+[sub_resource type="Animation" id="Animation_nomt0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("character_mesh_instance_3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.7, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("character_mesh_instance_3D:mesh:height")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.4]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("character_head:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 1.65, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gdv1m"]
+_data = {
+"RESET": SubResource("Animation_nomt0"),
+"crouch": ExtResource("8_ypiba")
+}
+
+[sub_resource type="SphereMesh" id="SphereMesh_2e5bl"]
+material = ExtResource("6_oibuc")
+radius = 0.3
+height = 0.6
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_sbjag"]
+material = ExtResource("6_oibuc")
+radius = 0.3
+height = 1.4
+
+[node name="character" type="CharacterBody3D"]
+input_ray_pickable = false
+script = ExtResource("1_3uwsb")
+
+[node name="character_animation_player" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_gdv1m")
+}
+script = ExtResource("9_sccne")
+
+[node name="character_collision_shape_3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = ExtResource("2_148lm")
+
+[node name="character_head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.65, 0)
+script = ExtResource("3_msplp")
+
+[node name="character_head_mesh_instance_3D" type="MeshInstance3D" parent="character_head"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+mesh = SubResource("SphereMesh_2e5bl")
+
+[node name="character_camera_3D" type="Camera3D" parent="character_head"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+current = true
+script = ExtResource("4_gq4hp")
+
+[node name="character_spot_light_3D" type="SpotLight3D" parent="character_head"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+visible = false
+light_bake_mode = 0
+script = ExtResource("5_tsgpj")
+
+[node name="character_ray_cast_3D" type="RayCast3D" parent="character_head"]
+target_position = Vector3(0, 0, 1.5)
+hit_back_faces = false
+collide_with_areas = true
+script = ExtResource("6_hgym2")
+
+[node name="character_spring_arm_3D" type="SpringArm3D" parent="character_head/character_ray_cast_3D"]
+
+[node name="character_steps_audio_stream_player_3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("7_2gnjy")
+unit_size = 3.0
+bus = &"FX"
+
+[node name="character_mesh_instance_3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+mesh = SubResource("CapsuleMesh_sbjag")

@@ -9,7 +9,6 @@ var lights: Array[Light3D] = []
 @onready var green_slider: HScrollBar = $light_control_elements/green/green
 @onready var blue_slider: HScrollBar = $light_control_elements/blue/blue
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	for element in display_parent.get_children():
 		if element is Light3D:

@@ -1,4 +1,4 @@
-[gd_resource type="Animation" format=3 uid="uid://dufhktbi1isod"]
+[gd_resource type="Animation" format=3 uid="uid://bgsi7b4lw31yf"]
 
 [resource]
 resource_name = "crouch"
@@ -6,7 +6,7 @@ length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("PlayerCollisionShape:shape:height")
+tracks/0/path = NodePath("character_collision_shape_3D:shape:height")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -18,7 +18,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("PlayerCollisionShape:position")
+tracks/1/path = NodePath("character_collision_shape_3D:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -30,31 +30,31 @@ tracks/1/keys = {
 tracks/2/type = "position_3d"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("PlayerHead")
+tracks/2/path = NodePath("character_head")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = PackedFloat32Array(0, 1, 0, 1.65, 0, 0.5, 1, 0, 0.75, 0)
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("player_mesh:position")
+tracks/3/path = NodePath("character_mesh_instance_3D:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(0, 0.9, 0), Vector3(0, 0.45, 0)]
+"values": [Vector3(0, 0.7, 0), Vector3(0, 0.35, 0)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("player_mesh:mesh:height")
+tracks/4/path = NodePath("character_mesh_instance_3D:mesh:height")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [1.8, 0.9]
+"values": [1.4, 0.7]
 }

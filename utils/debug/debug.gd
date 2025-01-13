@@ -36,8 +36,8 @@ extends Node
 
 var last_event: String
 var game_instance: Node
-var player_instance: PlayerCharacter
-var player_ray_cast: PlayerRayCast3D
+var player_instance: Character
+var player_ray_cast: CharacterRayCast3D
 
 func _ready():
 	vd_display.set_text( RenderingServer.get_video_adapter_name() )
@@ -103,9 +103,9 @@ func _process(_delta):
 func _on_game_state_changed():
 	if GameManager.game_state.scene == "game_scene":
 		game_instance = get_node_or_null("/root/main/game")
-		player_instance = get_node_or_null("/root/main/game/player_manager/player_character")
+		player_instance = get_node_or_null("/root/main/game/player_manager/character")
 		if is_instance_valid(player_instance):
-			player_ray_cast = player_instance.find_child("PlayerRayCast")
+			player_ray_cast = get_node_or_null("/root/main/game/player_manager/character/character_head/character_ray_cast_3D")
 	else:
 		game_time_display.set_text("")
 		game_difficulty_display.set_text("")

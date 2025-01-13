@@ -12,7 +12,7 @@ Map:
 
 var game_map: Dictionary = {
 	"demo_0A": {
-		"scene": preload("res://level/demo_clear/demo_clear.tscn"),
+		"scene": preload("res://level/empty_level/empty_level.tscn"),
 		"name": "demo_0A",
 		"position": Vector3(0,0,0),
 		"rotation_degrees": Vector3(),

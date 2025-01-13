@@ -1,4 +1,4 @@
-class_name PlayerCharacter extends CharacterBody3D
+class_name Character extends CharacterBody3D
 
 # Environmental Variables will be moved to level scene or game state
 var default_gravity = ProjectSettings.get_setting("physics/3d/default_gravity", 9.8)
@@ -16,13 +16,11 @@ const CROUCH_ACCEL: float = 0.4
 const DEACCEL: float = 9.0
 const JUMP_SPEED: float = 6.0
 
-# Player Health
-@onready var player_health_max: float = 100
-@onready var player_health: float = 100
+@onready var health_max: float = 100
+@onready var health: float = 100
 
-# Player Stamina
-@onready var player_stamina_max: float = 30
-@onready var player_stamina: float = 30
+@onready var stamina_max: float = 30
+@onready var stamina: float = 30
 
 var is_jumping: bool = false
 var is_sprinting: bool  = false
@@ -36,13 +34,13 @@ var target: Vector3 = Vector3()
 var accel: float = float()
 var direction: Vector3 = Vector3()
 
-var player_step_distance: float = float()
+var step_distance: float = float()
 
 # Player Nodes
-@onready var player_collision_shape: CollisionShape3D = $PlayerCollisionShape
-@onready var player_head: PlayerHead = $PlayerHead
-@onready var player_steps_player: AudioStreamPlayer3D = $PlayerStepsAudio3D
-@onready var player_animation: PlayerAnimationPlayer = $AnimationPlayer
+@onready var collision_shape: CollisionShape3D = $character_collision_shape_3D
+@onready var head: CharacterHead = $character_head
+@onready var steps_player: AudioStreamPlayer3D = $character_steps_audio_stream_player_3D
+@onready var animation: CharacterAnimationPlayer = $character_animation_player
 
 func _physics_process(delta: float) -> void:
 	#Get movement inputs
@@ -55,12 +53,12 @@ func _physics_process(delta: float) -> void:
 			velocity.y = JUMP_SPEED * Input.get_action_strength("player_movement_jump")
 		
 		# Sprinting
-		if Input.is_action_just_pressed("player_movement_sprint") and ( player_stamina >= player_stamina_max / 2.0 ):
+		if Input.is_action_just_pressed("player_movement_sprint") and ( stamina >= stamina_max / 2.0 ):
 			is_sprinting = ( input_movement_vector.y > 0 )
 			if is_crouching:
 				is_crouching = false
-				player_animation.un_crouch()
-		elif player_stamina <= 0 :
+				animation.un_crouch()
+		elif stamina <= 0 :
 			is_sprinting = false
 		# Sprint only forward
 		is_sprinting = is_sprinting and ( input_movement_vector.y > 0 )
@@ -69,23 +67,24 @@ func _physics_process(delta: float) -> void:
 		if is_on_ceiling() and not is_crouching:
 			is_crouching = true
 			is_sprinting = false
-			player_animation.crouch()
+			animation.crouch()
 			
 	if Input.is_action_just_pressed("player_movement_crouch"):
 		if is_crouching:
 			is_crouching = false
-			player_animation.un_crouch()
+			animation.un_crouch()
 		else:
 			is_crouching = true
 			is_sprinting = false
-			player_animation.crouch()
+			animation.crouch()
 	
 	# Basis vectors are normalized
 	input_movement_vector_magnitude = min(input_movement_vector.length(), 1)
 	input_movement_vector = input_movement_vector.normalized()
 
 	direction = (transform.basis * Vector3(input_movement_vector.x, 0, input_movement_vector.y)).normalized()
-	velocity.y = velocity.y + ( delta * default_gravity * -1 )
+	
+	velocity.y -= default_gravity * delta
 	
 	horizontal_velocity = velocity
 	horizontal_velocity.y = 0
@@ -99,7 +98,7 @@ func _physics_process(delta: float) -> void:
 
 	if direction.dot(horizontal_velocity) > 0:
 		if is_sprinting:
-			player_stamina = clamp( player_stamina - delta , 0 , player_stamina_max ) 
+			stamina = clamp( stamina - delta , 0 , stamina_max ) 
 			accel = SPRINT_ACCEL * input_movement_vector_magnitude
 		elif is_crouching:
 			accel = CROUCH_ACCEL * input_movement_vector_magnitude
@@ -108,7 +107,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		accel = DEACCEL
 		is_sprinting = false
-		player_stamina = clamp( player_stamina + delta / 2 , 0 ,  player_stamina_max )
+		stamina = clamp( stamina + delta / 2 , 0 ,  stamina_max )
 		
 	if is_on_floor():
 		horizontal_velocity = horizontal_velocity.lerp(target, accel * delta)
@@ -121,15 +120,15 @@ func _physics_process(delta: float) -> void:
 	if is_on_floor():
 		if is_jumping:
 			is_jumping = false
-			player_step_distance = 0
-			if not player_steps_player.is_playing():
-				player_steps_player.set_pitch_scale(1)
-				player_steps_player.play()
-		player_step_distance = player_step_distance + ( velocity.length() * delta )
-		if player_step_distance >= 1:
-			player_step_distance = 0
-			if not player_steps_player.is_playing():
-				player_steps_player.set_pitch_scale( velocity.length() )
-				player_steps_player.play()
+			step_distance = 0
+			if not steps_player.is_playing():
+				steps_player.set_pitch_scale(1)
+				steps_player.play()
+		step_distance = step_distance + ( velocity.length() * delta )
+		if step_distance >= 1:
+			step_distance = 0
+			if not steps_player.is_playing():
+				steps_player.set_pitch_scale( velocity.length() )
+				steps_player.play()
 	else:
 		is_jumping = true

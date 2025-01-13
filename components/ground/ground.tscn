@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://cm2eldp8ef11y"]
+
+[ext_resource type="Material" uid="uid://cdmn6q34npg44" path="res://assets/materials/surface_spatialmaterial.tres" id="1_kcauf"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7ob67"]
+size = Vector3(80, 5, 80)
+
+[sub_resource type="QuadMesh" id="QuadMesh_thw1y"]
+material = ExtResource("1_kcauf")
+size = Vector2(80, 80)
+orientation = 1
+
+[node name="ground" type="StaticBody3D"]
+
+[node name="collision_shape_3d" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.5, 0)
+shape = SubResource("BoxShape3D_7ob67")
+
+[node name="mesh_instance_3d" type="MeshInstance3D" parent="."]
+mesh = SubResource("QuadMesh_thw1y")

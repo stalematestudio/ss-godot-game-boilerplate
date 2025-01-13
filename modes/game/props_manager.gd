@@ -14,9 +14,6 @@ var props_parents: Array[PropsParent]:
 
 var props_data: Dictionary = Dictionary()
 
-var scan_map_interval: float = 1.0
-var scan_map_time: float = scan_map_interval
-
 func _ready() -> void:
 	if is_inside_tree() and not is_in_group("game_managers"):
 		add_to_group("game_managers", true)

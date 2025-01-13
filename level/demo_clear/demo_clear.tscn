@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://b4u5dqj5f453b"]
 
 [ext_resource type="Script" path="res://components/play_area/play_area.gd" id="1_cc5s7"]
-[ext_resource type="Material" uid="uid://cdmn6q34npg44" path="res://level/demo/surface_spatialmaterial.tres" id="2_etq52"]
+[ext_resource type="Material" uid="uid://cdmn6q34npg44" path="res://assets/materials/surface_spatialmaterial.tres" id="2_etq52"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx4ts"]
 size = Vector3(80, 80, 80)

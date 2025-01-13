@@ -47,9 +47,10 @@ func load_data(props: Array = Array()) -> void:
 			child.queue_free()
 	for prop in props:
 		var prop_instance = load(prop.scene).instantiate()
-		prop_instance.name = prop.name
 		prop_instance.load_data(prop)
-		add_child(prop_instance)		
+		add_child(prop_instance)
+		# Looks like the name can only be set after the node enters the sceen
+		prop_instance.name = prop.name	
 
 func _on_tree_exiting() -> void:
 	props_manager.props_data[play_area.name] = save_data()

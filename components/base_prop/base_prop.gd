@@ -4,7 +4,7 @@ class_name BaseProp extends RigidBody3D
 
 @export var interactive: bool = true
 @onready var outline_mesh_array: Array[Node] = find_children("outline_mesh*", "MeshInstance3D")
-var interactor: PlayerRayCast3D = null
+var interactor: CharacterRayCast3D = null
 
 @onready var initial_parent: Node = get_parent()
 @onready var geometry_instances: Array[Node] = find_children("*", "GeometryInstance3D")
@@ -30,10 +30,10 @@ var is_grabbed: bool:
 		for geometry_instance in geometry_instances:
 			geometry_instance.set_transparency(.75 if _is_grabbed else 0.0)
 		if _is_grabbed:
-			add_collision_exception_with(interactor.player_instance)
+			add_collision_exception_with(interactor.character_instance)
 			interactor.spring_arm_3d.add_excluded_object(get_rid())
 		else:
-			remove_collision_exception_with(interactor.player_instance)
+			remove_collision_exception_with(interactor.character_instance)
 			interactor.spring_arm_3d.remove_excluded_object(get_rid())
 
 var rotate_vector: Vector2 = Vector2()
@@ -72,7 +72,7 @@ func _physics_process(_delta: float) -> void:
 	rotate_x(deg_to_rad( rotate_vector.y ))
 	rotate_y(deg_to_rad( rotate_vector.x ))
 
-func activate(new_interactor: PlayerRayCast3D) -> void:
+func activate(new_interactor: CharacterRayCast3D) -> void:
 	if not interactive or is_grabbed:
 		return
 	highlight()
@@ -157,7 +157,6 @@ func save_data() -> Dictionary:
 	}
 
 func load_data(data: Dictionary) -> void:
-	name = data.name
 	position = Helpers.string_to_vector(data.position) if data.position is String else data.position
 	rotation = Helpers.string_to_vector(data.rotation) if data.rotation is String else data.rotation
 	angular_velocity = Helpers.string_to_vector(data.angular_velocity) if data.angular_velocity is String else data.angular_velocity

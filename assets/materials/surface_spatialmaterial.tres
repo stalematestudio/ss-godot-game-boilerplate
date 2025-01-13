@@ -1,9 +1,9 @@
 [gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://cdmn6q34npg44"]
 
-[ext_resource type="Texture2D" uid="uid://i832tgubxcvc" path="res://assets/images/tile_texture.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://i832tgubxcvc" path="res://assets/images/tile_texture.png" id="1_fw5ja"]
 
 [resource]
-albedo_texture = ExtResource("1")
+albedo_texture = ExtResource("1_fw5ja")
 backlight = Color(1, 1, 1, 1)
 uv1_triplanar = true
 point_size = 0.1

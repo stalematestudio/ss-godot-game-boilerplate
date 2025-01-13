@@ -1,4 +1,10 @@
+Figure out NAV.
 Prop reparenting to relevant / closest prop manager.
 Grabbed prop reparent to player on save.
 Save load doors.
 Save load screens.
+Player 3rd person camera goes through walls.
+    One mode on a spring.
+    One mode with transparency.
+A litle bit of in air control for the player.
+    If you jump high enough straight up next to a ledge you should be able to step on it.
