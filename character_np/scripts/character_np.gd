@@ -44,8 +44,8 @@ var navigation_next_path_position: Vector3 = Vector3.ZERO
 var navigation_next_path_direction: Vector3 = Vector3.ZERO
 
 func _ready() -> void:
-	# navigation.target_reached.connect(_on_target_reached)
-	# navigation.navigation_finished.connect(_on_navigation_finished)
+	navigation.target_reached.connect(_on_target_reached)
+	navigation.navigation_finished.connect(_on_navigation_finished)
 
 	home_possition = global_position
 
@@ -90,7 +90,7 @@ func _physics_process(delta: float) -> void:
 		# x is side movement, y is back and forth
 		input_movement_vector = Vector2(
 			0,
-			global_position.distance_to(navigation_next_path_position),
+			global_position.distance_to(navigation.target_position),
 		)
 	else:
 		input_movement_vector = Vector2()
@@ -130,10 +130,7 @@ func _physics_process(delta: float) -> void:
 				steps_player.play()
 
 func _on_target_reached() -> void:
-	if player_character:
-		player_character = null
-	else:
-		navigation.target_position = home_possition
+	pass
 
 func _on_navigation_finished() -> void:
 	pass

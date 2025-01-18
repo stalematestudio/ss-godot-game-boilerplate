@@ -24,6 +24,12 @@ mass = 0.5
 sleeping = true
 script = ExtResource("1_mhb7c")
 
+[node name="navigation_obstacle_3d" type="NavigationObstacle3D" parent="."]
+vertices = PackedVector3Array(0.5, 0, 0.5, -0.5, 0, 0.5, -0.5, 0, -0.5, 0.5, 0, -0.5)
+affect_navigation_mesh = true
+carve_navigation_mesh = true
+use_3d_avoidance = true
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = ExtResource("2")
 

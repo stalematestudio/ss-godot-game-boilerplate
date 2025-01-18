@@ -1,3 +1,5 @@
+Fix player character movement should not be dependant on parent orientation.
+All Character input must be handled in one script. Can't be part of character.
 Figure out NAV.
     Try switching the map manager node type to a navigation region 3d and see if something weird happens.
 Prop reparenting to relevant / closest prop manager.

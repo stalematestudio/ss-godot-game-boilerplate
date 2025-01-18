@@ -280,7 +280,7 @@ script = ExtResource("10_s5li4")
 libraries = {
 "": SubResource("AnimationLibrary_filtf")
 }
-autoplay = "just_day"
+autoplay = "day"
 
 [node name="Music_Player" type="AudioStreamPlayer" parent="."]
 process_mode = 3

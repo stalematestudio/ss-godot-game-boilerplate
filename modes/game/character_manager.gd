@@ -1,6 +1,18 @@
-class_name PlayerManager extends Node
+class_name CharactersManager extends Node
 
 @onready var game: GameplayManager = get_parent()
+
+var _character_parents: Array[CharactersParent]
+var character_parents: Array[CharactersParent]:
+	get:
+		_character_parents.clear()
+		for play_area in game.maps_manager.active_play_areas:
+			var character_parent: CharactersParent = get_character_parent(play_area)
+			if character_parent:
+				_character_parents.append(character_parent)
+		return _character_parents
+
+var characters_data: Dictionary = Dictionary()
 
 var initial_character_health: float = 100
 var initial_character_stamina: float = 100
@@ -71,3 +83,10 @@ func load_data(player: Dictionary = Dictionary()) -> void:
 	character.rotation = Helpers.string_to_vector(player.rotation) if player.has("rotation") else initial_character_rotation
 	character.velocity = Helpers.string_to_vector(player.velocity) if player.has("velocity") else initial_character_velocity
 	character_head.rotation_degrees = Helpers.string_to_vector(player.rotation_head) if player.has("rotation_head") else initial_character_rotation_head
+
+func get_character_parent(play_area: PlayArea) -> CharactersParent:
+	var play_area_children: Array[Node] = play_area.get_children()
+	for child in play_area_children:
+		if child is CharactersParent:
+			return child
+	return null

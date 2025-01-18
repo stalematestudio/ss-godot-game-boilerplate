@@ -4,5 +4,4 @@
 
 [resource]
 next_pass = ExtResource("1_vthc7")
-shading_mode = 0
 albedo_color = Color(0.501961, 0.501961, 0.501961, 1)

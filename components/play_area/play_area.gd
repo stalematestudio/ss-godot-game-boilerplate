@@ -10,5 +10,5 @@ func _ready() -> void:
 	body_entered.connect(_on_body_entered)
 
 func _on_body_entered(body: Node3D) -> void:
-	if body is Character:
+	if (body is Character) and (body.is_player_controlled):
 		maps_manager.level_active = name

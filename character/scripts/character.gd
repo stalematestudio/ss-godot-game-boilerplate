@@ -22,6 +22,8 @@ const JUMP_SPEED: float = 6.0
 @onready var stamina_max: float = 30
 @onready var stamina: float = 30
 
+var is_player_controlled: bool = false
+
 var is_jumping: bool = false
 var is_sprinting: bool  = false
 var is_crouching: bool  = false
@@ -40,6 +42,10 @@ var step_distance: float = float()
 @onready var head: CharacterHead = $character_head
 @onready var steps_player: AudioStreamPlayer3D = $character_steps_audio_stream_player_3D
 @onready var animation: CharacterAnimationPlayer = $character_animation_player
+
+@onready var navigation: NavigationAgent3D = $navigation_agent_3d
+@onready var ray_cast_3d_obstacle_top: RayCast3D = $ray_cast_3d_obstacle_top
+@onready var ray_cast_3d_obstacle_bottom: RayCast3D = $ray_cast_3d_obstacle_bottom
 
 func _physics_process(delta: float) -> void:
 	#Get movement inputs

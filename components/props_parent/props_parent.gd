@@ -22,7 +22,7 @@ func _ready() -> void:
 	if props_manager.props_data.has(play_area.name):
 		load_data(props_manager.props_data[play_area.name])
 
-func _physics_process(delta: float) -> void:
+func _process(delta: float) -> void:
 	scan_map_time -= delta
 	if scan_map_time > 0.0:
 		return

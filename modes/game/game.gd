@@ -2,7 +2,7 @@ class_name GameplayManager extends Node
 
 @onready var world_manager: WorldManager = get_node("world_manager")
 @onready var maps_manager: MapsManager = get_node("maps_manager")
-@onready var player_manager: PlayerManager = get_node("player_manager")
+@onready var characters_manager: CharactersManager = get_node("characters_manager")
 @onready var props_manager: PropsManager = get_node("props_manager")
 
 @onready var game_time: float = 0.0
@@ -26,7 +26,7 @@ func _on_save_game() -> void:
 	}}
 	game_data.merge(world_manager.save_data())
 	game_data.merge(maps_manager.save_data())
-	game_data.merge(player_manager.save_data())
+	game_data.merge(characters_manager.save_data())
 	game_data.merge(props_manager.save_data())
 	ProfileManager.save_game(game_data)
 
@@ -37,5 +37,5 @@ func _on_load_game() -> void:
 
 	world_manager.load_data(game_data.world if game_data.has("world") else Dictionary())
 	maps_manager.load_data(game_data.maps if game_data.has("maps") else Dictionary())
-	player_manager.load_data(game_data.player if game_data.has("player") else Dictionary())
+	characters_manager.load_data(game_data.player if game_data.has("player") else Dictionary())
 	props_manager.load_data(game_data.props if game_data.has("props") else Dictionary())
