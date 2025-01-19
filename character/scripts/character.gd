@@ -22,7 +22,7 @@ const JUMP_SPEED: float = 6.0
 @onready var stamina_max: float = 30
 @onready var stamina: float = 30
 
-var is_player_controlled: bool = false
+var is_player_controlled: bool = true
 
 var is_jumping: bool = false
 var is_sprinting: bool  = false
@@ -87,7 +87,7 @@ func _physics_process(delta: float) -> void:
 	input_movement_vector_magnitude = min(input_movement_vector.length(), 1)
 	input_movement_vector = input_movement_vector.normalized()
 
-	movement_direction = (transform.basis * Vector3(input_movement_vector.x, 0, input_movement_vector.y)).normalized()
+	movement_direction = (global_basis * Vector3(input_movement_vector.x, 0, input_movement_vector.y)).normalized()
 	
 	velocity.y -= default_gravity * delta
 	
