@@ -15,7 +15,7 @@ var area_b: PackedScene = preload("res://level/area_b/scene.tscn")
 
 var game_map: Dictionary = {
 	"demo_0A": {
-		"scene": area_b,
+		"scene": area_a,
 		"name": "demo_0A",
 		"position": Vector3(0,0,0),
 		"rotation_degrees": Vector3(),
@@ -29,14 +29,14 @@ var game_map: Dictionary = {
 		"neightbours": ["demo_0A","demo_2A","demo_0B","demo_1B","demo_2B"]
 		},
 	"demo_2A": {
-		"scene": area_a,
+		"scene": area_b,
 		"name": "demo_2A",
 		"position": Vector3(160,0,0),
 		"rotation_degrees": Vector3(),
 		"neightbours": ["demo_1A","demo_3A","demo_1B","demo_2B","demo_3B"]
 		},
 	"demo_3A": {
-		"scene": area_a,
+		"scene": area_b,
 		"name": "demo_3A",
 		"position": Vector3(240,0,0),
 		"rotation_degrees": Vector3(),
@@ -50,77 +50,77 @@ var game_map: Dictionary = {
 		"neightbours": ["demo_0A","demo_1A","demo_1B","demo_0C","demo_1C"]
 		},
 	"demo_1B": {
-		"scene": area_a,
+		"scene": area_b,
 		"name": "demo_1B",
 		"position": Vector3(80,0,80),
 		"rotation_degrees": Vector3(),
 		"neightbours": ["demo_0A","demo_1A","demo_2A","demo_0B","demo_2B","demo_0C","demo_1C","demo_2C"]
 		},
 	"demo_2B": {
-		"scene": area_a,
+		"scene": area_b,
 		"name": "demo_2B",
 		"position": Vector3(160,0,80),
 		"rotation_degrees": Vector3(),
 		"neightbours": ["demo_1A","demo_2A","demo_3A","demo_1B","demo_3B","demo_1C","demo_2C","demo_3C"]
 		},
 	"demo_3B": {
-		"scene": area_a,
+		"scene": area_b,
 		"name": "demo_3B",
 		"position": Vector3(240,0,80),
 		"rotation_degrees": Vector3(),
 		"neightbours": ["demo_2A","demo_3A","demo_2B","demo_2C","demo_3C"]
 		},
 	"demo_0C": {
-		"scene": area_a,
+		"scene": area_b,
 		"name": "demo_0C",
 		"position": Vector3(0,0,160),
 		"rotation_degrees": Vector3(),
 		"neightbours": ["demo_0B","demo_1B","demo_1C","demo_0D","demo_1D"]
 		},
 	"demo_1C": {
-		"scene": area_a,
+		"scene": area_b,
 		"name": "demo_1C",
 		"position": Vector3(80,0,160),
 		"rotation_degrees": Vector3(),
 		"neightbours": ["demo_0B","demo_1B","demo_2B","demo_0C","demo_2C","demo_0D","demo_1D","demo_2D"]
 		},
 	"demo_2C": {
-		"scene": area_a,
+		"scene": area_b,
 		"name": "demo_2C",
 		"position": Vector3(160,0,160),
 		"rotation_degrees": Vector3(),
 		"neightbours": ["demo_1B","demo_2B","demo_3B","demo_1C","demo_3C","demo_1D","demo_2D","demo_3D"]
 		},
 	"demo_3C": {
-		"scene": area_a,
+		"scene": area_b,
 		"name": "demo_3C",
 		"position": Vector3(240,0,160),
 		"rotation_degrees": Vector3(),
 		"neightbours": ["demo_2B","demo_3B","demo_2C","demo_2D","demo_3D"]
 		},
 	"demo_0D": {
-		"scene": area_a,
+		"scene": area_b,
 		"name": "demo_0D",
 		"position": Vector3(0,0,240),
 		"rotation_degrees": Vector3(),
 		"neightbours": ["demo_0C","demo_1C","demo_1D"]
 		},
 	"demo_1D": {
-		"scene": area_a,
+		"scene": area_b,
 		"name": "demo_1D",
 		"position": Vector3(80,0,240),
 		"rotation_degrees": Vector3(),
 		"neightbours": ["demo_0C","demo_1C","demo_2C","demo_0D","demo_2D"]
 		},
 	"demo_2D": {
-		"scene": area_a,
+		"scene": area_b,
 		"name": "demo_2D",
 		"position": Vector3(160,0,240),
 		"rotation_degrees": Vector3(),
 		"neightbours": ["demo_1C","demo_2C","demo_3C","demo_1D","demo_3D"]
 		},
 	"demo_3D": {
-		"scene": area_a,
+		"scene": area_b,
 		"name": "demo_3D",
 		"position": Vector3(240,0,240),
 		"rotation_degrees": Vector3(),

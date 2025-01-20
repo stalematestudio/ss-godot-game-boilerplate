@@ -147,3 +147,9 @@ func get_game_manager(manager_name: String) -> Node:
 		if manager.name == manager_name:
 			return manager
 	return null
+
+func get_character_controler(character_controler_name: String) -> Node:
+	for character_controler in get_tree().get_nodes_in_group("character_controlers"):
+		if character_controler.name == character_controler_name:
+			return character_controler
+	return null

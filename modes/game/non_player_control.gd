@@ -1,4 +1,4 @@
-class_name CharacterNP extends CharacterBody3D
+class_name NonPlayerController extends Node
 
 # Environmental Variables will be moved to level scene or game state
 var default_gravity = ProjectSettings.get_setting("physics/3d/default_gravity", 9.8)

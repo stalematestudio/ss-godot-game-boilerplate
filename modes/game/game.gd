@@ -5,6 +5,8 @@ class_name GameplayManager extends Node
 @onready var characters_manager: CharactersManager = get_node("characters_manager")
 @onready var props_manager: PropsManager = get_node("props_manager")
 
+@onready var player_control: PlayerController = get_node("player_control")
+
 @onready var game_time: float = 0.0
 @onready var game_difficulty: String = "normal"
 
@@ -37,5 +39,5 @@ func _on_load_game() -> void:
 
 	world_manager.load_data(game_data.world if game_data.has("world") else Dictionary())
 	maps_manager.load_data(game_data.maps if game_data.has("maps") else Dictionary())
-	characters_manager.load_data(game_data.player if game_data.has("player") else Dictionary())
+	characters_manager.load_data(game_data.characters if game_data.has("characters") else Dictionary())
 	props_manager.load_data(game_data.props if game_data.has("props") else Dictionary())

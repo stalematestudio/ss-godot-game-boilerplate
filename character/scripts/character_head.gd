@@ -7,14 +7,7 @@ var input_look_vector: Vector2 = Vector2()
 
 @onready var character: Character = get_parent()
 
-func _physics_process(_delta: float) -> void:
-	if Input.get_mouse_mode() != Input.MOUSE_MODE_CAPTURED:
-		return
-	if Input.is_action_pressed("player_mode_action"):
-		return
-
-	input_look_vector = PlayerUtils.get_look_vector()
-
+func freelook() -> void:
 	rotate_x(deg_to_rad( input_look_vector.y ))
 	character.rotate_y(deg_to_rad( input_look_vector.x ))
 	rotation_degrees.x = clamp(rotation_degrees.x, HEAD_ROTATION_MIN, HEAD_ROTATION_MAX)

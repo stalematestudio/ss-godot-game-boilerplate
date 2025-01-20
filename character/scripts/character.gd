@@ -22,7 +22,18 @@ const JUMP_SPEED: float = 6.0
 @onready var stamina_max: float = 30
 @onready var stamina: float = 30
 
-var is_player_controlled: bool = true
+var _is_player_controlled: bool = false
+@export var is_player_controlled: bool:
+	get:
+		return _is_player_controlled
+	set(new_is_player_controlled):
+		if new_is_player_controlled == _is_player_controlled:
+			return
+		var player_control: PlayerController = Helpers.get_character_controler("player_control")
+		if player_control.character:
+			return
+		_is_player_controlled = new_is_player_controlled
+		Helpers.get_character_controler("player_control").character = self
 
 var is_jumping: bool = false
 var is_sprinting: bool  = false
@@ -43,46 +54,11 @@ var step_distance: float = float()
 @onready var steps_player: AudioStreamPlayer3D = $character_steps_audio_stream_player_3D
 @onready var animation: CharacterAnimationPlayer = $character_animation_player
 
-@onready var navigation: NavigationAgent3D = $navigation_agent_3d
-@onready var ray_cast_3d_obstacle_top: RayCast3D = $ray_cast_3d_obstacle_top
-@onready var ray_cast_3d_obstacle_bottom: RayCast3D = $ray_cast_3d_obstacle_bottom
+func _ready() -> void:
+	if is_inside_tree() and not is_in_group("chracters"):
+		add_to_group("chracters", true)
 
-func _physics_process(delta: float) -> void:
-	#Get movement inputs
-	if is_on_floor():
-		input_movement_vector = PlayerUtils.get_move_vector()
-
-		# Jumping
-		if Input.is_action_just_pressed("player_movement_jump"):
-			is_jumping = true
-			velocity.y = JUMP_SPEED * Input.get_action_strength("player_movement_jump")
-		
-		# Sprinting
-		if Input.is_action_just_pressed("player_movement_sprint") and ( stamina >= stamina_max / 2.0 ):
-			is_sprinting = ( input_movement_vector.y > 0 )
-			if is_crouching:
-				is_crouching = false
-				animation.un_crouch()
-		elif stamina <= 0 :
-			is_sprinting = false
-		# Sprint only forward
-		is_sprinting = is_sprinting and ( input_movement_vector.y > 0 )
-
-		# Crouching
-		if is_on_ceiling() and not is_crouching:
-			is_crouching = true
-			is_sprinting = false
-			animation.crouch()
-			
-	if Input.is_action_just_pressed("player_movement_crouch"):
-		if is_crouching:
-			is_crouching = false
-			animation.un_crouch()
-		else:
-			is_crouching = true
-			is_sprinting = false
-			animation.crouch()
-	
+func movement(delta: float) -> void:
 	# Basis vectors are normalized
 	input_movement_vector_magnitude = min(input_movement_vector.length(), 1)
 	input_movement_vector = input_movement_vector.normalized()
@@ -137,3 +113,32 @@ func _physics_process(delta: float) -> void:
 				steps_player.play()
 	else:
 		is_jumping = true
+
+func save_data() -> Dictionary:
+	return {
+	"name": name,
+	"scene": get_scene_file_path(),
+	"is_player_controlled": is_player_controlled,
+	"player_health": health,
+	"player_stamina": stamina,
+	"is_jumping": is_jumping,
+	"is_sprinting": is_sprinting,
+	"is_crouching": is_crouching,
+	"position": position,
+	"rotation":	rotation,
+	"velocity" : velocity,
+	"rotation_head": head.rotation_degrees,
+	}
+
+func load_data(data: Dictionary) -> void:
+	is_player_controlled = data.is_player_controlled if data.has("is_player_controlled") else is_player_controlled
+	health = data.player_health if data.has("player_health") else health
+	stamina = data.player_stamina if data.has("player_stamina") else stamina
+	is_jumping = data.is_jumping if data.has("is_jumping") else is_jumping
+	is_sprinting = data.is_sprinting if data.has("is_sprinting") else is_sprinting
+	# TODO: crouching doesn't work on load game
+	is_crouching = data.is_crouching if data.has("is_crouching") else is_crouching
+	position = Helpers.string_to_vector(data.position) if data.position is String else data.position
+	rotation = Helpers.string_to_vector(data.rotation) if data.rotation is String else data.rotation
+	velocity = Helpers.string_to_vector(data.velocity) if data.velocity is String else data.velocity
+	head.rotation_degrees = Helpers.string_to_vector(data.rotation_head) if data.rotation_head is String else data.rotation_head

@@ -1,13 +1,13 @@
 [gd_scene load_steps=15 format=3 uid="uid://4vp5srwunvh8"]
 
-[ext_resource type="Script" path="res://character/scripts/character.gd" id="1_3uwsb"]
+[ext_resource type="Script" path="res://character/scripts/character.gd" id="1_dm3xb"]
+[ext_resource type="Script" path="res://character/scripts/character_animation_player.gd" id="2_s8sgh"]
 [ext_resource type="Script" path="res://character/scripts/character_head.gd" id="3_msplp"]
 [ext_resource type="Script" path="res://character/scripts/character_camera.gd" id="4_gq4hp"]
 [ext_resource type="Script" path="res://character/scripts/character_light.gd" id="5_tsgpj"]
-[ext_resource type="Script" path="res://character/scripts/character_ray_cast.gd" id="6_hgym2"]
 [ext_resource type="Material" uid="uid://dmqe65362q88x" path="res://assets/materials/agent_material_0.tres" id="6_oibuc"]
 [ext_resource type="AudioStream" uid="uid://b4nciekqn81lu" path="res://assets/audio/collision_effects/166506__yoyodaman234__concrete-footstep-4.wav" id="7_2gnjy"]
-[ext_resource type="Script" path="res://character/scripts/animation_player.gd" id="9_sccne"]
+[ext_resource type="Script" path="res://character/scripts/character_ray_cast.gd" id="7_a0gct"]
 
 [sub_resource type="Animation" id="Animation_4i510"]
 length = 0.001
@@ -214,6 +214,7 @@ _data = {
 }
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_dv8kr"]
+resource_local_to_scene = true
 radius = 0.3
 height = 1.8
 
@@ -223,18 +224,19 @@ radius = 0.3
 height = 0.6
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_sbjag"]
+resource_local_to_scene = true
 material = ExtResource("6_oibuc")
 radius = 0.3
 height = 1.2
 
 [node name="character" type="CharacterBody3D"]
-script = ExtResource("1_3uwsb")
+script = ExtResource("1_dm3xb")
 
 [node name="character_animation_player" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_gdv1m")
 }
-script = ExtResource("9_sccne")
+script = ExtResource("2_s8sgh")
 
 [node name="character_collision_shape_3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
@@ -263,7 +265,7 @@ script = ExtResource("5_tsgpj")
 target_position = Vector3(0, 0, 1.5)
 hit_back_faces = false
 collide_with_areas = true
-script = ExtResource("6_hgym2")
+script = ExtResource("7_a0gct")
 
 [node name="character_spring_arm_3D" type="SpringArm3D" parent="character_head/character_ray_cast_3D"]
 
