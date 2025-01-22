@@ -49,8 +49,6 @@ func load_data(characters: Array = Array()) -> void:
 		var character_instance = load(character.scene).instantiate()
 		add_child(character_instance)
 		character_instance.load_data(character)
-		# Looks like the name can only be set after the node enters the sceen
-		character_instance.name = character.name
 
 func _on_tree_exiting() -> void:
 	characters_manager.characters_data[play_area.name] = save_data()

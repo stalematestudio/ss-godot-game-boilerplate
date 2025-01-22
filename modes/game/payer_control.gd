@@ -1,17 +1,20 @@
 class_name PlayerController extends Node
 
-var head: CharacterHead
+var character_hud_scene: Resource = preload("res://character/scenes/character_hud.tscn")
+var character_hud: CharacterHud
 
-var camera: CharacterCamera3D
-var character_spot_light_3D: CharacterSpotLight3D
-var character_ray_cast_3D: CharacterRayCast3D
+var head: CharacterHead = null
 
-var steps_player: AudioStreamPlayer3D
-var animation: CharacterAnimationPlayer
+var camera: CharacterCamera3D = null
+var character_spot_light_3D: CharacterSpotLight3D = null
+var character_ray_cast_3D: CharacterRayCast3D = null
 
-var navigation: NavigationAgent3D
-var ray_cast_3d_obstacle_top: RayCast3D
-var ray_cast_3d_obstacle_bottom: RayCast3D
+var steps_player: AudioStreamPlayer3D = null
+var animation: CharacterAnimationPlayer = null
+
+var navigation: NavigationAgent3D = null
+var ray_cast_3d_obstacle_top: RayCast3D = null
+var ray_cast_3d_obstacle_bottom: RayCast3D = null
 
 var _mouse_mode_current: String = "ray_cast"
 var mouse_mode_current: String:
@@ -40,32 +43,50 @@ var character: Character:
 			return
 		if _character:
 			camera.set_fov(ConfigManager.config_data.video.fov)
-			_character.is_player_controlled = false
 		_character = new_character
-		print_debug("Switching to character: ", _character.name)
+		if _character:
+			print_debug("Switching to character: ", _character.name)
+			head = _character.get_node("character_head")
+			camera = head.get_node("character_camera_3D")
+			character_spot_light_3D = head.get_node("character_spot_light_3D")
+			character_ray_cast_3D = head.get_node("character_ray_cast_3D")
+			steps_player = _character.get_node("character_steps_audio_stream_player_3D")
+			animation = _character.get_node("character_animation_player")
+			navigation = _character.get_node("navigation_agent_3d")
+			ray_cast_3d_obstacle_top = _character.get_node("ray_cast_3d_obstacle_top")
+			ray_cast_3d_obstacle_bottom = _character.get_node("ray_cast_3d_obstacle_bottom")
+			set_hud()
+		else:
+			print_debug("Switching to character: null")
+			head = null
+			camera = null
+			character_spot_light_3D = null
+			character_ray_cast_3D = null
+			steps_player = null
+			animation = null
+			navigation = null
+			ray_cast_3d_obstacle_top = null
+			ray_cast_3d_obstacle_bottom = null
 
-		head = _character.get_node("character_head")
-
-		camera = head.get_node("character_camera_3D")
-		character_spot_light_3D = head.get_node("character_spot_light_3D")
-		character_ray_cast_3D = head.get_node("character_ray_cast_3D")
-
-		steps_player = _character.get_node("character_steps_audio_stream_player_3D")
-		animation = _character.get_node("character_animation_player")
-
-		navigation = _character.get_node("navigation_agent_3d")
-		ray_cast_3d_obstacle_top = _character.get_node("ray_cast_3d_obstacle_top")
-		ray_cast_3d_obstacle_bottom = _character.get_node("ray_cast_3d_obstacle_bottom")
+func set_hud() -> void:
+	character_hud = character_hud_scene.instantiate()
+	character_hud.character = character
+	character_hud.character_ray_cast_3D = character_ray_cast_3D
+	add_child(character_hud)
 
 func _ready() -> void:
 	if is_inside_tree() and not is_in_group("character_controlers"):
 		add_to_group("character_controlers", true)
 
 func _process(_delta: float) -> void:
+	if not character:
+		return
 	# CAMERA
 	camera.set_fov(camera.fov + Input.get_axis("zoom_in", "zoom_out"))
 
 func _physics_process(delta: float) -> void:
+	if not character:
+		return
 	# Get look inputs
 	if Input.get_mouse_mode() != Input.MOUSE_MODE_CAPTURED:
 		pass
@@ -76,9 +97,8 @@ func _physics_process(delta: float) -> void:
 		head.freelook()
 
 	# Get movement inputs
+	_character.input_movement_vector = PlayerUtils.get_move_vector()
 	if _character.is_on_floor():
-		_character.input_movement_vector = PlayerUtils.get_move_vector()
-
 		# Jumping
 		if Input.is_action_just_pressed("player_movement_jump"):
 			_character.is_jumping = true
@@ -113,6 +133,8 @@ func _physics_process(delta: float) -> void:
 	_character.movement(delta)
 
 func _unhandled_input(event: InputEvent) -> void:
+	if not character:
+		return
 	# Raycast
 	if not is_instance_valid(character_ray_cast_3D.raycast_target):
 		return
@@ -147,6 +169,8 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _unhandled_key_input(event: InputEvent) -> void:
+	if not character:
+		return
 	# CAMERA
 	if event.is_action_pressed("util_camera_switch"):
 		camera.camera_position_selected += 1

@@ -49,8 +49,6 @@ func load_data(props: Array = Array()) -> void:
 		var prop_instance = load(prop.scene).instantiate()
 		add_child(prop_instance)
 		prop_instance.load_data(prop)
-		# Looks like the name can only be set after the node enters the sceen
-		prop_instance.name = prop.name
 
 func _on_tree_exiting() -> void:
 	props_manager.props_data[play_area.name] = save_data()

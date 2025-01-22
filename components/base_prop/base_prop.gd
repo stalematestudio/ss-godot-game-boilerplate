@@ -87,12 +87,13 @@ func deactivate() -> void:
 	if is_grabbed:
 		return
 	un_highlight()
-	interactor.raycast_target_changed.disconnect(_on_interactor_raycast_target_changed)
-	interactor.raycast_primary_action.disconnect(_on_interactor_raycast_primary_action)
-	interactor.raycast_secondary_action.disconnect(_on_interactor_raycast_secondary_action)
-	interactor.raycast_in_action.disconnect(_on_interactor_raycast_in_action)
-	interactor.raycast_out_action.disconnect(_on_interactor_raycast_out_action)
-	interactor = null
+	if interactor:
+		interactor.raycast_target_changed.disconnect(_on_interactor_raycast_target_changed)
+		interactor.raycast_primary_action.disconnect(_on_interactor_raycast_primary_action)
+		interactor.raycast_secondary_action.disconnect(_on_interactor_raycast_secondary_action)
+		interactor.raycast_in_action.disconnect(_on_interactor_raycast_in_action)
+		interactor.raycast_out_action.disconnect(_on_interactor_raycast_out_action)
+		interactor = null
 
 func _on_interactor_raycast_target_changed(new_target: Node) -> void:
 	if self == new_target:
@@ -157,6 +158,7 @@ func save_data() -> Dictionary:
 	}
 
 func load_data(data: Dictionary) -> void:
+	name = data.name
 	position = Helpers.string_to_vector(data.position) if data.position is String else data.position
 	rotation = Helpers.string_to_vector(data.rotation) if data.rotation is String else data.rotation
 	angular_velocity = Helpers.string_to_vector(data.angular_velocity) if data.angular_velocity is String else data.angular_velocity

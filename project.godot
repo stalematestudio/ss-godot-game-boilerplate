@@ -270,6 +270,12 @@ nav_target_set={
 
 limits/message_queue/max_size_kb=16384
 
+[navigation]
+
+3d/default_cell_size=0.15
+3d/default_cell_height=0.2
+3d/default_edge_connection_margin=0.15
+
 [physics]
 
 3d/run_on_separate_thread=true

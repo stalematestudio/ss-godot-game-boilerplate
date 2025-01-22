@@ -36,8 +36,7 @@ extends Node
 
 var last_event: String
 var game_instance: Node
-var player_instance: Character
-var player_ray_cast: CharacterRayCast3D
+var player_control: PlayerController
 
 func _ready():
 	vd_display.set_text( RenderingServer.get_video_adapter_name() )
@@ -65,28 +64,28 @@ func _process(_delta):
 	l_right.text = String.num(Input.get_action_strength("player_look_right"))
 
 	if GameManager.game_state.scene == "game_scene":
-		if is_instance_valid(player_instance):
-			player_velocity_vector.set_text(" x " + String.num(snapped(player_instance.velocity.x, 0.2)) + " y " + String.num(snapped(player_instance.velocity.y, 0.2)) + " z " + String.num(snapped(player_instance.velocity.z, 0.2)))
-			player_velocity_length.set_text(" l " + String.num(player_instance.velocity.length()))
+		if is_instance_valid(player_control.character):
+			player_velocity_vector.set_text(" x " + String.num(snapped(player_control.character.velocity.x, 0.2)) + " y " + String.num(snapped(player_control.character.velocity.y, 0.2)) + " z " + String.num(snapped(player_control.character.velocity.z, 0.2)))
+			player_velocity_length.set_text(" l " + String.num(player_control.character.velocity.length()))
 
-			player_direction_vector.set_text(" x " + String.num(snapped(player_instance.movement_direction.x, 0.2)) + " y " + String.num(snapped(player_instance.movement_direction.y, 0.2)) + " z " + String.num(snapped(player_instance.movement_direction.z, 0.2)))
-			player_direction_length.set_text(" l " + String.num(player_instance.movement_direction.length()))
+			player_direction_vector.set_text(" x " + String.num(snapped(player_control.character.movement_direction.x, 0.2)) + " y " + String.num(snapped(player_control.character.movement_direction.y, 0.2)) + " z " + String.num(snapped(player_control.character.movement_direction.z, 0.2)))
+			player_direction_length.set_text(" l " + String.num(player_control.character.movement_direction.length()))
 
-			player_on_ceiling.set_text( "True" if player_instance.is_on_ceiling() else "False" )
-			player_on_wall.set_text( "True" if player_instance.is_on_wall() else "False" )
-			player_on_floor.set_text( "True" if player_instance.is_on_floor() else "False")
+			player_on_ceiling.set_text( "True" if player_control.character.is_on_ceiling() else "False" )
+			player_on_wall.set_text( "True" if player_control.character.is_on_wall() else "False" )
+			player_on_floor.set_text( "True" if player_control.character.is_on_floor() else "False")
 
-			var player_slide_collisions = player_instance.get_slide_collision_count()
+			var player_slide_collisions = player_control.character.get_slide_collision_count()
 			player_collisions.set_text(String.num(player_slide_collisions))
 
 			if player_slide_collisions > 0:
-				var colider = player_instance.get_slide_collision(0).get_collider()
+				var colider = player_control.character.get_slide_collision(0).get_collider()
 				player_collider.set_text(colider.name if colider else "")
 
-			if is_instance_valid(player_ray_cast):
-				if player_ray_cast.raycast_target:
-					player_target_name.set_text(player_ray_cast.raycast_target.name)
-					player_target_distance.set_text(String.num(snapped(player_ray_cast.raycast_target_distance, 0.1)))
+			if is_instance_valid(player_control.character_ray_cast_3D):
+				if player_control.character_ray_cast_3D.raycast_target:
+					player_target_name.set_text(player_control.character_ray_cast_3D.raycast_target.name)
+					player_target_distance.set_text(String.num(snapped(player_control.character_ray_cast_3D.raycast_target_distance, 0.1)))
 				else:
 					player_target_name.set_text("")
 					player_target_distance.set_text("")
@@ -103,9 +102,7 @@ func _process(_delta):
 func _on_game_state_changed():
 	if GameManager.game_state.scene == "game_scene":
 		game_instance = get_node_or_null("/root/main/game")
-		player_instance = get_node_or_null("/root/main/game/player_manager/character")
-		if is_instance_valid(player_instance):
-			player_ray_cast = get_node_or_null("/root/main/game/player_manager/character/character_head/character_ray_cast_3D")
+		player_control = get_node_or_null("/root/main/game/player_control")
 	else:
 		game_time_display.set_text("")
 		game_difficulty_display.set_text("")

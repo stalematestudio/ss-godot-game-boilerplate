@@ -1,6 +1,7 @@
+Ensure characters are removed before creating new ones.
 Fix player character movement should not be dependant on parent orientation. (I think done)
 All Character input must be handled in one script. Can't be part of character. Almost done but needs refactoring.
-Characters saved nd loaded like the props are but now there is a bump up when quick loading (maybe even if normal loading).
+Characters saved and loaded like the props are but now there is a bump up when quick loading (maybe even if normal loading).
 Figure out NAV.
     Try switching the map manager node type to a navigation region 3d and see if something weird happens.
 Prop reparenting to relevant / closest prop manager.

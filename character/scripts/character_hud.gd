@@ -9,10 +9,13 @@ class_name CharacterHud extends Control
 @onready var croshair: TextureRect = $croshair
 
 var character: Character
+var character_ray_cast_3D: CharacterRayCast3D
 
 func _ready() -> void:
+	await character.ready
 	stats_health.set_max(character.health_max)
 	stats_stamina.set_max(character.stamina_max)
+	character_ray_cast_3D.raycast_target_changed.connect(_on_raycast_target_changed)
 
 func _process(_delta: float) -> void:
 	stats_health.set_value(character.health)

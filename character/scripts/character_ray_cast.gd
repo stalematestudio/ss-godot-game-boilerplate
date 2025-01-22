@@ -40,6 +40,7 @@ signal raycast_out_action
 func _ready() -> void:
 	add_exception(character_instance)
 
+# func _physics_process(_delta: float) -> void:
 func _process(_delta: float) -> void:
 	if is_colliding():
 		raycast_target = get_collider()

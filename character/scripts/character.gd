@@ -30,10 +30,10 @@ var _is_player_controlled: bool = false
 		if new_is_player_controlled == _is_player_controlled:
 			return
 		var player_control: PlayerController = Helpers.get_character_controler("player_control")
-		if player_control.character:
-			return
+		# if player_control.character:
+		# 	return
 		_is_player_controlled = new_is_player_controlled
-		Helpers.get_character_controler("player_control").character = self
+		player_control.character = self
 
 var is_jumping: bool = false
 var is_sprinting: bool  = false
@@ -89,8 +89,11 @@ func movement(delta: float) -> void:
 		movement_accel = DEACCEL
 		is_sprinting = false
 		stamina = clamp( stamina + delta / 2 , 0 ,  stamina_max )
-		
+	
 	if is_on_floor():
+		horizontal_velocity = horizontal_velocity.lerp(movement_target_speed, movement_accel * delta)
+	else:
+		# Mid air movement
 		horizontal_velocity = horizontal_velocity.lerp(movement_target_speed, movement_accel * delta)
 
 	velocity.x = horizontal_velocity.x
@@ -98,6 +101,7 @@ func movement(delta: float) -> void:
 	
 	move_and_slide()
 	
+	# Steps audio control needs to be moved out of here
 	if is_on_floor():
 		if is_jumping:
 			is_jumping = false
@@ -118,7 +122,6 @@ func save_data() -> Dictionary:
 	return {
 	"name": name,
 	"scene": get_scene_file_path(),
-	"is_player_controlled": is_player_controlled,
 	"player_health": health,
 	"player_stamina": stamina,
 	"is_jumping": is_jumping,
@@ -128,10 +131,11 @@ func save_data() -> Dictionary:
 	"rotation":	rotation,
 	"velocity" : velocity,
 	"rotation_head": head.rotation_degrees,
+	"is_player_controlled": is_player_controlled,
 	}
 
 func load_data(data: Dictionary) -> void:
-	is_player_controlled = data.is_player_controlled if data.has("is_player_controlled") else is_player_controlled
+	name = data.name if data.has("name") else name
 	health = data.player_health if data.has("player_health") else health
 	stamina = data.player_stamina if data.has("player_stamina") else stamina
 	is_jumping = data.is_jumping if data.has("is_jumping") else is_jumping
@@ -142,3 +146,4 @@ func load_data(data: Dictionary) -> void:
 	rotation = Helpers.string_to_vector(data.rotation) if data.rotation is String else data.rotation
 	velocity = Helpers.string_to_vector(data.velocity) if data.velocity is String else data.velocity
 	head.rotation_degrees = Helpers.string_to_vector(data.rotation_head) if data.rotation_head is String else data.rotation_head
+	is_player_controlled = data.is_player_controlled if data.has("is_player_controlled") else is_player_controlled
