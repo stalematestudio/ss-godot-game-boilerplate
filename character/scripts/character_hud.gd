@@ -8,8 +8,8 @@ class_name CharacterHud extends Control
 
 @onready var croshair: TextureRect = $croshair
 
-var character: Character
-var character_ray_cast_3D: CharacterRayCast3D
+@onready var character: Character = get_parent()
+@onready var character_ray_cast_3D: CharacterRayCast3D =  get_node("../character_head/character_ray_cast_3D")
 
 func _ready() -> void:
 	await character.ready

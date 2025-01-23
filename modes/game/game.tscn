@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://modes/game/maps_manager.gd" id="3_d28el"]
 [ext_resource type="Script" path="res://modes/game/props_manager.gd" id="4_iqxkd"]
 [ext_resource type="Script" path="res://modes/game/nav_manager.gd" id="6_6jb3s"]
-[ext_resource type="Script" path="res://modes/game/payer_control.gd" id="7_2jx6x"]
+[ext_resource type="Script" path="res://modes/game/player_control.gd" id="7_2jx6x"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_fmlex"]
 sample_partition_type = 1

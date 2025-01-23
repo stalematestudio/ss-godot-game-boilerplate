@@ -1,0 +1,1 @@
+class_name CharacterSpringArm3D extends SpringArm3D

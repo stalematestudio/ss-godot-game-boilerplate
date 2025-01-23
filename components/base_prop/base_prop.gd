@@ -18,9 +18,9 @@ var is_grabbed: bool:
 			return
 		_is_grabbed = new_is_grabbed
 		freeze = _is_grabbed
-		if _is_grabbed:
+		if _is_grabbed and is_instance_valid(interactor.character_spring_arm_3D):
 			initial_parent = get_parent()
-			reparent(interactor.spring_arm_3d)
+			reparent(interactor.character_spring_arm_3D)
 		else:
 			if is_instance_valid(initial_parent):
 				Helpers.reparent_w_renaming(self, initial_parent)
@@ -31,10 +31,10 @@ var is_grabbed: bool:
 			geometry_instance.set_transparency(.75 if _is_grabbed else 0.0)
 		if _is_grabbed:
 			add_collision_exception_with(interactor.character_instance)
-			interactor.spring_arm_3d.add_excluded_object(get_rid())
+			interactor.character_spring_arm_3D.add_excluded_object(get_rid())
 		else:
 			remove_collision_exception_with(interactor.character_instance)
-			interactor.spring_arm_3d.remove_excluded_object(get_rid())
+			interactor.character_spring_arm_3D.remove_excluded_object(get_rid())
 
 var rotate_vector: Vector2 = Vector2()
 
@@ -44,7 +44,7 @@ var grab_distance: float:
 	set(new_grab_distance):
 		grab_distance = clamp(new_grab_distance, 0.5, 1)
 		if is_instance_valid(interactor):
-			interactor.spring_arm_3d.spring_length = grab_distance
+			interactor.character_spring_arm_3D.spring_length = grab_distance
 
 var primary_action: String:
 	get:

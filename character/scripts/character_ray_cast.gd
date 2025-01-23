@@ -1,7 +1,7 @@
 class_name CharacterRayCast3D extends RayCast3D
 
 @onready var character_instance: Character = get_parent().get_parent()
-@onready var spring_arm_3d: SpringArm3D = $character_spring_arm_3D
+@onready var character_spring_arm_3D: CharacterSpringArm3D = get_parent().get_node("character_spring_arm_3D")
 
 var _raycast_target: Node
 var raycast_target: Node:

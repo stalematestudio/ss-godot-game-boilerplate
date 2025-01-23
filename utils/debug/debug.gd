@@ -78,9 +78,14 @@ func _process(_delta):
 			var player_slide_collisions = player_control.character.get_slide_collision_count()
 			player_collisions.set_text(String.num(player_slide_collisions))
 
-			if player_slide_collisions > 0:
-				var colider = player_control.character.get_slide_collision(0).get_collider()
-				player_collider.set_text(colider.name if colider else "")
+			if player_slide_collisions == 0:
+				player_collider.set_text("")
+			else:
+				var list_of_colliders: String = ""
+				for collision_index in range(player_slide_collisions):
+					list_of_colliders += player_control.character.get_slide_collision(collision_index).get_collider().name
+					list_of_colliders += "\n"
+				player_collider.set_text(list_of_colliders)
 
 			if is_instance_valid(player_control.character_ray_cast_3D):
 				if player_control.character_ray_cast_3D.raycast_target:

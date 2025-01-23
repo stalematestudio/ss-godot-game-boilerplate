@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://c2cog1c3psnbp" path="res://assets/images/croshair.png" id="1_xjrvp"]
 
 [node name="character_hud" type="Control"]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

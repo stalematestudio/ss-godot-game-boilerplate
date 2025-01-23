@@ -1,8 +1,6 @@
 class_name PlayerController extends Node
 
-var character_hud_scene: Resource = preload("res://character/scenes/character_hud.tscn")
-var character_hud: CharacterHud
-
+var character_hud: CharacterHud = null
 var head: CharacterHead = null
 
 var camera: CharacterCamera3D = null
@@ -46,6 +44,8 @@ var character: Character:
 		_character = new_character
 		if _character:
 			print_debug("Switching to character: ", _character.name)
+			character_hud = _character.get_node("character_hud")
+			character_hud.show()
 			head = _character.get_node("character_head")
 			camera = head.get_node("character_camera_3D")
 			character_spot_light_3D = head.get_node("character_spot_light_3D")
@@ -55,9 +55,10 @@ var character: Character:
 			navigation = _character.get_node("navigation_agent_3d")
 			ray_cast_3d_obstacle_top = _character.get_node("ray_cast_3d_obstacle_top")
 			ray_cast_3d_obstacle_bottom = _character.get_node("ray_cast_3d_obstacle_bottom")
-			set_hud()
 		else:
 			print_debug("Switching to character: null")
+			character_hud.hide()
+			character_hud = null
 			head = null
 			camera = null
 			character_spot_light_3D = null
@@ -67,12 +68,6 @@ var character: Character:
 			navigation = null
 			ray_cast_3d_obstacle_top = null
 			ray_cast_3d_obstacle_bottom = null
-
-func set_hud() -> void:
-	character_hud = character_hud_scene.instantiate()
-	character_hud.character = character
-	character_hud.character_ray_cast_3D = character_ray_cast_3D
-	add_child(character_hud)
 
 func _ready() -> void:
 	if is_inside_tree() and not is_in_group("character_controlers"):
