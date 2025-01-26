@@ -37,7 +37,6 @@ script = ExtResource("4_iqxkd")
 navigation_mesh = SubResource("NavigationMesh_fmlex")
 use_edge_connections = false
 script = ExtResource("6_6jb3s")
-rebake_interval = 0.1
 
 [node name="player_control" type="Node" parent="."]
 script = ExtResource("7_2jx6x")

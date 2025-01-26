@@ -1,6 +1,8 @@
 The whole parent (prop/character) idea for saving and loading needs to go. Try just using groups.
     Loading the game while holding a prop deletes the prop.
     Grabbed prop reparent to player on save.
+Nav mesh rebaking makes the game unplayable in the browser.
+    Nav mesh rebake only when needed.
 Ensure characters are removed before creating new ones.
 Fix player character movement should not be dependant on parent orientation. (I think done)
 All Character input must be handled in one script. Can't be part of character. Almost done but needs refactoring.

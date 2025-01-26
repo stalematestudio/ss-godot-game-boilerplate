@@ -67,11 +67,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 8)
 [node name="character_1" parent="character_parent" instance=ExtResource("5_ry273")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 0, 8)
 
-[node name="character_2" parent="character_parent" instance=ExtResource("5_ry273")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 8)
-
 [node name="character_3" parent="character_parent" instance=ExtResource("5_ry273")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, 8)
+
+[node name="character_2" parent="character_parent" instance=ExtResource("5_ry273")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 8)
 
 [node name="SurfaceStaticBody" type="StaticBody3D" parent="."]
 input_ray_pickable = false

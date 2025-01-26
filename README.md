@@ -10,7 +10,7 @@ Playable online on [itch.io](https://sleepychild.itch.io/godot-game-boilerplate)
 ## Running the web deployment localy
 
 ```bash
-./serve.py --root build/html5/
+./serve.py --root build/html/
 ```
 
 ## AutoLoad scripts
