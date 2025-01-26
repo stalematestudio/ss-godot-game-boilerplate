@@ -8,7 +8,6 @@ var character_spot_light_3D: CharacterSpotLight3D = null
 var character_ray_cast_3D: CharacterRayCast3D = null
 
 var steps_player: AudioStreamPlayer3D = null
-var animation: CharacterAnimationPlayer = null
 
 var navigation: NavigationAgent3D = null
 var ray_cast_3d_obstacle_top: RayCast3D = null
@@ -41,7 +40,7 @@ var character: Character:
 			return
 		_character = new_character
 		if _character:
-			print_debug("Switching to character: ", _character.name)
+			# print_debug("Switching to character: ", _character.name)
 			character_hud = _character.get_node("character_hud")
 			character_hud.show()
 			head = _character.get_node("character_head")
@@ -49,12 +48,11 @@ var character: Character:
 			character_spot_light_3D = head.get_node("character_spot_light_3D")
 			character_ray_cast_3D = head.get_node("character_ray_cast_3D")
 			steps_player = _character.get_node("character_steps_audio_stream_player_3D")
-			animation = _character.get_node("character_animation_player")
 			navigation = _character.get_node("navigation_agent_3d")
 			ray_cast_3d_obstacle_top = _character.get_node("ray_cast_3d_obstacle_top")
 			ray_cast_3d_obstacle_bottom = _character.get_node("ray_cast_3d_obstacle_bottom")
 		else:
-			print_debug("Switching to character: null")
+			# print_debug("Switching to character: null")
 			character_hud.hide()
 			character_hud = null
 			head = null
@@ -62,7 +60,6 @@ var character: Character:
 			character_spot_light_3D = null
 			character_ray_cast_3D = null
 			steps_player = null
-			animation = null
 			navigation = null
 			ray_cast_3d_obstacle_top = null
 			ray_cast_3d_obstacle_bottom = null
@@ -104,7 +101,6 @@ func _physics_process(delta: float) -> void:
 			_character.is_sprinting = ( _character.input_movement_vector.y > 0 )
 			if _character.is_crouching:
 				_character.is_crouching = false
-				animation.un_crouch()
 		elif _character.stamina <= 0 :
 			_character.is_sprinting = false
 		# Sprint only forward
@@ -114,16 +110,13 @@ func _physics_process(delta: float) -> void:
 		if _character.is_on_ceiling() and not _character.is_crouching:
 			_character.is_crouching = true
 			_character.is_sprinting = false
-			animation.crouch()
 
 	if Input.is_action_just_pressed("player_movement_crouch"):
 		if _character.is_crouching:
 			_character.is_crouching = false
-			animation.un_crouch()
 		else:
 			_character.is_crouching = true
 			_character.is_sprinting = false
-			animation.crouch()
 
 	_character.movement(delta)
 
@@ -175,10 +168,7 @@ func _unhandled_key_input(event: InputEvent) -> void:
 
 	# FLASHLIGHT
 	if event.is_action_pressed("player_flashlight"):
-		if character_spot_light_3D.is_visible_in_tree():
-			character_spot_light_3D.hide()
-		else:
-			character_spot_light_3D.show()
+		character_spot_light_3D.toggle()
 
 	# Raycast
 	if event.is_action_released("mouse_mode_switch"):

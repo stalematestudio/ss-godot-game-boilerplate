@@ -1,12 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://bxr1pl5xcwv25"]
+[gd_scene load_steps=10 format=3 uid="uid://bxr1pl5xcwv25"]
 
 [ext_resource type="Script" path="res://components/play_area/play_area.gd" id="1_dnbqi"]
 [ext_resource type="PackedScene" uid="uid://d24o2u6fm810m" path="res://components/base_screen/base_screen.tscn" id="2_5pktj"]
-[ext_resource type="PackedScene" uid="uid://cl2q50u0k226n" path="res://components/props_parent/props_parent.tscn" id="2_a65tn"]
 [ext_resource type="PackedScene" uid="uid://cy4tju4lpdatw" path="res://components/light_control/light_control.tscn" id="2_qnspi"]
 [ext_resource type="PackedScene" uid="uid://bhvq7376kjv1" path="res://components/cardboard_box/cardboard_box.tscn" id="3_t7eiq"]
 [ext_resource type="PackedScene" uid="uid://cm2eldp8ef11y" path="res://components/ground/ground.tscn" id="3_top4j"]
-[ext_resource type="PackedScene" uid="uid://cja34rwtcuq3j" path="res://components/characters_parent/characters_parent.tscn" id="4_riahd"]
 [ext_resource type="PackedScene" uid="uid://cm23m05tb1cp4" path="res://components/structural/wall_full.tscn" id="6_qwaks"]
 [ext_resource type="PackedScene" uid="uid://dxlplqxxf6j1k" path="res://components/structural/platform.tscn" id="7_felvd"]
 [ext_resource type="PackedScene" uid="uid://ba5e17ecsmtdd" path="res://components/structural/wall_part.tscn" id="8_3e717"]
@@ -19,58 +17,6 @@ script = ExtResource("1_dnbqi")
 
 [node name="collision_shape_3d" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_bkf0v")
-
-[node name="props_parent" parent="." instance=ExtResource("2_a65tn")]
-
-[node name="cardboard_box_0" parent="props_parent" instance=ExtResource("3_t7eiq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0.2, 10)
-
-[node name="cardboard_box_1" parent="props_parent" instance=ExtResource("3_t7eiq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0.6, 10)
-
-[node name="cardboard_box_2" parent="props_parent" instance=ExtResource("3_t7eiq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1, 10)
-
-[node name="cardboard_box_3" parent="props_parent" instance=ExtResource("3_t7eiq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1.4, 10)
-
-[node name="cardboard_box_4" parent="props_parent" instance=ExtResource("3_t7eiq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0.2, 10.8)
-
-[node name="cardboard_box_5" parent="props_parent" instance=ExtResource("3_t7eiq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0.6, 10.8)
-
-[node name="cardboard_box_6" parent="props_parent" instance=ExtResource("3_t7eiq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1, 10.8)
-
-[node name="cardboard_box_7" parent="props_parent" instance=ExtResource("3_t7eiq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1.4, 10.8)
-
-[node name="cardboard_box_8" parent="props_parent" instance=ExtResource("3_t7eiq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0.2, 11.6)
-
-[node name="cardboard_box_9" parent="props_parent" instance=ExtResource("3_t7eiq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0.6, 11.6)
-
-[node name="cardboard_box_10" parent="props_parent" instance=ExtResource("3_t7eiq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1, 11.6)
-
-[node name="cardboard_box_11" parent="props_parent" instance=ExtResource("3_t7eiq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1.4, 11.6)
-
-[node name="cardboard_box_12" parent="props_parent" instance=ExtResource("3_t7eiq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0.2, 12.4)
-
-[node name="cardboard_box_13" parent="props_parent" instance=ExtResource("3_t7eiq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0.6, 12.4)
-
-[node name="cardboard_box_14" parent="props_parent" instance=ExtResource("3_t7eiq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1, 12.4)
-
-[node name="cardboard_box_15" parent="props_parent" instance=ExtResource("3_t7eiq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1.4, 12.4)
-
-[node name="character_parent" parent="." instance=ExtResource("4_riahd")]
 
 [node name="ground" parent="." instance=ExtResource("3_top4j")]
 
@@ -182,3 +128,51 @@ light_color = Color(0, 0, 0, 1)
 light_energy = 0.0
 light_indirect_energy = 0.0
 light_volumetric_fog_energy = 0.0
+
+[node name="cardboard_box_0" parent="." instance=ExtResource("3_t7eiq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0.2, 10)
+
+[node name="cardboard_box_1" parent="." instance=ExtResource("3_t7eiq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0.6, 10)
+
+[node name="cardboard_box_2" parent="." instance=ExtResource("3_t7eiq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1, 10)
+
+[node name="cardboard_box_3" parent="." instance=ExtResource("3_t7eiq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1.4, 10)
+
+[node name="cardboard_box_4" parent="." instance=ExtResource("3_t7eiq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0.2, 10.8)
+
+[node name="cardboard_box_5" parent="." instance=ExtResource("3_t7eiq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0.6, 10.8)
+
+[node name="cardboard_box_6" parent="." instance=ExtResource("3_t7eiq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1, 10.8)
+
+[node name="cardboard_box_7" parent="." instance=ExtResource("3_t7eiq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1.4, 10.8)
+
+[node name="cardboard_box_8" parent="." instance=ExtResource("3_t7eiq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0.2, 11.6)
+
+[node name="cardboard_box_9" parent="." instance=ExtResource("3_t7eiq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0.6, 11.6)
+
+[node name="cardboard_box_10" parent="." instance=ExtResource("3_t7eiq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1, 11.6)
+
+[node name="cardboard_box_11" parent="." instance=ExtResource("3_t7eiq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1.4, 11.6)
+
+[node name="cardboard_box_12" parent="." instance=ExtResource("3_t7eiq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0.2, 12.4)
+
+[node name="cardboard_box_13" parent="." instance=ExtResource("3_t7eiq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0.6, 12.4)
+
+[node name="cardboard_box_14" parent="." instance=ExtResource("3_t7eiq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1, 12.4)
+
+[node name="cardboard_box_15" parent="." instance=ExtResource("3_t7eiq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1.4, 12.4)

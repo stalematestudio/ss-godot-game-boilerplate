@@ -143,6 +143,16 @@ var levels_loaded: PackedStringArray:
 		_levels_loaded.append_array(game_map[level_active].neightbours)
 		return _levels_loaded
 
+var active_play_area: PlayArea:
+	get:
+		var maps_manager_children: Array[PlayArea] = active_play_areas
+		if not maps_manager_children:
+			return null
+		for child in maps_manager_children:
+			if (child is PlayArea) and child.name == level_active:
+				return child
+		return maps_manager_children[0]
+
 var _active_play_areas: Array[PlayArea]
 var active_play_areas: Array[PlayArea]:
 	get:
@@ -166,6 +176,8 @@ func _ready() -> void:
 		add_to_group("game_managers", true)
 
 func save_data() -> Dictionary:
+	for play_area in active_play_areas:
+		play_area.save_data()
 	return {
 		"maps": {
 			"level_active": level_active,
@@ -174,6 +186,8 @@ func save_data() -> Dictionary:
 	}
 
 func load_data(maps: Dictionary = Dictionary()) -> void:
+	for play_area in active_play_areas:
+		play_area.load_data()
 	instantiate_map(maps.level_active if maps else _level_active)
 
 func instantiate_maps() -> void:
@@ -187,7 +201,7 @@ func instantiate_maps() -> void:
 		if not level.name in levels_loaded:
 			level.queue_free()
 
-func instantiate_map(map_name: String) -> void:	
+func instantiate_map(map_name: String) -> void:
 	if map_name in active_play_area_names:
 		return
 	var map_instance: Node3D = game_map[map_name].scene.instantiate()

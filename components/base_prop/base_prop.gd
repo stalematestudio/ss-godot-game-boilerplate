@@ -22,11 +22,10 @@ var is_grabbed: bool:
 			initial_parent = get_parent()
 			reparent(interactor.character_spring_arm_3D)
 		else:
-			if is_instance_valid(initial_parent):
-				Helpers.reparent_w_renaming(self, initial_parent)
-			else:
-				# TODO: Find new parent
-				pass
+			print(initial_parent)
+			if ( not is_instance_valid(initial_parent) ) or ( not initial_parent is PlayArea ):
+				initial_parent = Helpers.get_game_manager("maps_manager").active_play_area
+			Helpers.reparent_w_renaming(self, initial_parent)
 		for geometry_instance in geometry_instances:
 			geometry_instance.set_transparency(.75 if _is_grabbed else 0.0)
 		if interactor:
@@ -58,6 +57,8 @@ var secondary_action: String:
 func _ready() -> void:
 	if is_inside_tree() and not is_in_group("game_objects_props"):
 		add_to_group("game_objects_props", true)
+	if is_inside_tree() and not is_in_group("game_objects_savable"):
+		add_to_group("game_objects_savable", true)
 
 	mouse_entered.connect(highlight)
 	mouse_exited.connect(un_highlight)

@@ -36,7 +36,20 @@ var _is_player_controlled: bool = false
 
 var is_jumping: bool = false
 var is_sprinting: bool  = false
-var is_crouching: bool  = false
+
+var _is_crouching: bool  = false
+var is_crouching: bool:
+	get:
+		return _is_crouching
+	set(new_is_crouching):
+		if _is_crouching == new_is_crouching:
+			return
+		_is_crouching = new_is_crouching
+		if _is_crouching:
+			animation.crouch()
+		else:
+			animation.un_crouch()
+
 
 var input_movement_vector: Vector2 = Vector2()
 var input_movement_vector_magnitude: float = float()
@@ -56,6 +69,8 @@ var step_distance: float = float()
 func _ready() -> void:
 	if is_inside_tree() and not is_in_group("chracters"):
 		add_to_group("chracters", true)
+	if is_inside_tree() and not is_in_group("game_objects_savable"):
+		add_to_group("game_objects_savable", true)
 
 func movement(delta: float) -> void:
 	# Basis vectors are normalized
@@ -129,7 +144,7 @@ func save_data() -> Dictionary:
 	"position": position,
 	"rotation":	rotation,
 	"velocity" : velocity,
-	"rotation_head": head.rotation_degrees,
+	"head": head.save_data(),
 	"is_player_controlled": is_player_controlled,
 	}
 
@@ -139,10 +154,14 @@ func load_data(data: Dictionary) -> void:
 	stamina = data.player_stamina if data.has("player_stamina") else stamina
 	is_jumping = data.is_jumping if data.has("is_jumping") else is_jumping
 	is_sprinting = data.is_sprinting if data.has("is_sprinting") else is_sprinting
-	# TODO: crouching doesn't work on load game
-	is_crouching = data.is_crouching if data.has("is_crouching") else is_crouching
+	# TODO: crouching doesn't work on load game / now it should but lets retest it later
+	_is_crouching = data.is_crouching if data.has("is_crouching") else _is_crouching
+	if _is_crouching:
+		animation.imediate_crouch()
+	else:
+		animation.imediate_un_crouch()
 	position = Helpers.string_to_vector(data.position) if data.position is String else data.position
 	rotation = Helpers.string_to_vector(data.rotation) if data.rotation is String else data.rotation
 	velocity = Helpers.string_to_vector(data.velocity) if data.velocity is String else data.velocity
-	head.rotation_degrees = Helpers.string_to_vector(data.rotation_head) if data.rotation_head is String else data.rotation_head
+	head.load_data(data.head)
 	is_player_controlled = data.is_player_controlled if data.has("is_player_controlled") else is_player_controlled

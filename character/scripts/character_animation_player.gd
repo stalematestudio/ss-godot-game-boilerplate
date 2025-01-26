@@ -7,9 +7,7 @@ func un_crouch() -> void:
 	play_backwards("crouch")
 
 func imediate_crouch() -> void:
-	set_current_animation("crouch")
-	seek(current_animation.length(), true)
+	play("crouch", -1, 100, false)
 
 func imediate_un_crouch() -> void:
-	set_current_animation("crouch")
-	seek(0, true)
+	play("crouch", -1, -100, true)
