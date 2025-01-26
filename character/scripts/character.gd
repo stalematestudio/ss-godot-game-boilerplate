@@ -24,8 +24,8 @@ const JUMP_SPEED: float = 6.0
 
 signal is_player_controlled_changed(is_player_controlled: bool)
 
-var _is_player_controlled: bool
-@onready var is_player_controlled: bool:
+var _is_player_controlled: bool = false
+@export var is_player_controlled: bool:
 	get:
 		return _is_player_controlled
 	set(new_is_player_controlled):
