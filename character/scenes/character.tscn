@@ -298,7 +298,6 @@ collide_with_areas = true
 [node name="navigation_agent_3d" type="NavigationAgent3D" parent="."]
 avoidance_enabled = true
 radius = 1.0
-debug_enabled = true
 debug_use_custom = true
 debug_path_custom_color = Color(0, 1, 0, 1)
 debug_path_custom_point_size = 16.0
