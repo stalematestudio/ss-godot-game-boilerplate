@@ -266,10 +266,6 @@ nav_target_set={
 ]
 }
 
-[memory]
-
-limits/message_queue/max_size_kb=16384
-
 [navigation]
 
 3d/default_cell_size=0.15
@@ -284,10 +280,6 @@ common/physics_interpolation=true
 
 [rendering]
 
-driver/threads/thread_model=2
 environment/defaults/default_clear_color=Color(0, 0, 0, 1)
 environment/defaults/default_environment="res://assets/base/default_env.tres"
-quality/driver/fallback_to_gles2=true
-vram_compression/import_etc=true
 lights_and_shadows/shadow_atlas/quadrant_0_subdiv=2
-quality/shadows/filter_mode=2
