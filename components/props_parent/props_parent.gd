@@ -44,7 +44,7 @@ func save_data() -> Array:
 func load_data(props: Array = Array()) -> void:
 	for child in get_children():
 		if child is BaseProp:
-			child.queue_free()
+			child.free()
 	for prop in props:
 		var prop_instance = load(prop.scene).instantiate()
 		add_child(prop_instance)

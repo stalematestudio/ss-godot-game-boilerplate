@@ -22,18 +22,17 @@ const JUMP_SPEED: float = 6.0
 @onready var stamina_max: float = 30
 @onready var stamina: float = 30
 
-var _is_player_controlled: bool = false
-@export var is_player_controlled: bool:
+signal is_player_controlled_changed(is_player_controlled: bool)
+
+var _is_player_controlled: bool
+@onready var is_player_controlled: bool:
 	get:
 		return _is_player_controlled
 	set(new_is_player_controlled):
-		if new_is_player_controlled == _is_player_controlled:
+		if _is_player_controlled == new_is_player_controlled:
 			return
-		var player_control: PlayerController = Helpers.get_character_controler("player_control")
-		# if player_control.character:
-		# 	return
 		_is_player_controlled = new_is_player_controlled
-		player_control.character = self
+		is_player_controlled_changed.emit(_is_player_controlled)
 
 var is_jumping: bool = false
 var is_sprinting: bool  = false

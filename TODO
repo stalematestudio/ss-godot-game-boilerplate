@@ -1,3 +1,6 @@
+The whole parent (prop/character) idea for saving and loading needs to go. Try just using groups.
+    Loading the game while holding a prop deletes the prop.
+    Grabbed prop reparent to player on save.
 Ensure characters are removed before creating new ones.
 Fix player character movement should not be dependant on parent orientation. (I think done)
 All Character input must be handled in one script. Can't be part of character. Almost done but needs refactoring.
@@ -5,7 +8,6 @@ Characters saved and loaded like the props are but now there is a bump up when q
 Figure out NAV.
     Try switching the map manager node type to a navigation region 3d and see if something weird happens.
 Prop reparenting to relevant / closest prop manager.
-Grabbed prop reparent to player on save.
 Save load doors.
 Save load screens.
 Player 3rd person camera goes through walls.

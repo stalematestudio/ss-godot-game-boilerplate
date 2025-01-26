@@ -20,6 +20,12 @@ extends Node
 @onready var player_target_name = $h_box_container/v_box_container/player/HSplitContainer/VBoxContainerL/player_target/player_target_name
 @onready var player_target_distance = $h_box_container/v_box_container/player/HSplitContainer/VBoxContainerL/player_target/player_target_distance
 
+@onready var player_target_top_name = $h_box_container/v_box_container/player/HSplitContainer/VBoxContainerL/player_target_top/player_target_name
+@onready var player_target_top_distance = $h_box_container/v_box_container/player/HSplitContainer/VBoxContainerL/player_target_top/player_target_distance
+
+@onready var player_target_bottom_name = $h_box_container/v_box_container/player/HSplitContainer/VBoxContainerL/player_target_bottom/player_target_name
+@onready var player_target_bottom_distance = $h_box_container/v_box_container/player/HSplitContainer/VBoxContainerL/player_target_bottom/player_target_distance
+
 @onready var player_velocity_vector = $h_box_container/v_box_container/player/HSplitContainer/VBoxContainerL/player_velocity/vector
 @onready var player_velocity_length = $h_box_container/v_box_container/player/HSplitContainer/VBoxContainerL/player_velocity/length
 
@@ -94,6 +100,28 @@ func _process(_delta):
 				else:
 					player_target_name.set_text("")
 					player_target_distance.set_text("")
+			
+			if is_instance_valid(player_control.ray_cast_3d_obstacle_top):
+				if player_control.ray_cast_3d_obstacle_top.is_colliding():
+					player_target_top_name.set_text(player_control.ray_cast_3d_obstacle_top.get_collider().name)
+					player_target_top_distance.set_text(String.num(snapped(
+						player_control.ray_cast_3d_obstacle_top.get_global_transform().origin.distance_to(player_control.ray_cast_3d_obstacle_top.get_collision_point()),
+						0.1
+					)))
+				else:
+					player_target_top_name.set_text("")
+					player_target_top_distance.set_text("")
+
+			if is_instance_valid(player_control.ray_cast_3d_obstacle_bottom):
+				if player_control.ray_cast_3d_obstacle_bottom.is_colliding():
+					player_target_bottom_name.set_text(player_control.ray_cast_3d_obstacle_bottom.get_collider().name)
+					player_target_bottom_distance.set_text(String.num(snapped(
+						player_control.ray_cast_3d_obstacle_bottom.get_global_transform().origin.distance_to(player_control.ray_cast_3d_obstacle_bottom.get_collision_point()),
+						0.1
+					)))
+				else:
+					player_target_bottom_name.set_text("")
+					player_target_bottom_distance.set_text("")
 		else:
 			_on_game_state_changed()
 

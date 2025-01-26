@@ -39,8 +39,6 @@ var character: Character:
 	set(new_character):
 		if new_character == _character:
 			return
-		if _character:
-			camera.set_fov(ConfigManager.config_data.video.fov)
 		_character = new_character
 		if _character:
 			print_debug("Switching to character: ", _character.name)
@@ -74,6 +72,8 @@ func _ready() -> void:
 		add_to_group("character_controlers", true)
 
 func _process(_delta: float) -> void:
+	if not character:
+		character = Helpers.get_player_controlled_character()
 	if not character:
 		return
 	# CAMERA

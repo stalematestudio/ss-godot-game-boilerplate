@@ -153,3 +153,13 @@ func get_character_controler(character_controler_name: String) -> Node:
 		if character_controler.name == character_controler_name:
 			return character_controler
 	return null
+
+func get_player_controlled_character() -> Character:
+	var player_controlled_character: Character = null
+	for character in get_tree().get_nodes_in_group("chracters"):
+		if ( character is Character ) and ( character.is_player_controlled ):
+			if player_controlled_character:
+				character.is_player_controlled = false
+			else:
+				player_controlled_character = character
+	return player_controlled_character

@@ -44,7 +44,7 @@ func save_data() -> Array:
 func load_data(characters: Array = Array()) -> void:
 	for child in get_children():
 		if child is Character:
-			child.queue_free()
+			child.free()
 	for character in characters:
 		var character_instance = load(character.scene).instantiate()
 		add_child(character_instance)

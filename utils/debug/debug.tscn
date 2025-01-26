@@ -149,15 +149,6 @@ layout_mode = 2
 [node name="HSeparator" type="HSeparator" parent="h_box_container/v_box_container/player/HSplitContainer/VBoxContainerL"]
 layout_mode = 2
 
-[node name="player_target" type="HBoxContainer" parent="h_box_container/v_box_container/player/HSplitContainer/VBoxContainerL"]
-layout_mode = 2
-
-[node name="player_target_name" type="Label" parent="h_box_container/v_box_container/player/HSplitContainer/VBoxContainerL/player_target"]
-layout_mode = 2
-
-[node name="player_target_distance" type="Label" parent="h_box_container/v_box_container/player/HSplitContainer/VBoxContainerL/player_target"]
-layout_mode = 2
-
 [node name="player_velocity" type="HBoxContainer" parent="h_box_container/v_box_container/player/HSplitContainer/VBoxContainerL"]
 layout_mode = 2
 
@@ -174,6 +165,45 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="length" type="Label" parent="h_box_container/v_box_container/player/HSplitContainer/VBoxContainerL/player_direction"]
+layout_mode = 2
+
+[node name="player_target" type="HBoxContainer" parent="h_box_container/v_box_container/player/HSplitContainer/VBoxContainerL"]
+layout_mode = 2
+
+[node name="label" type="Label" parent="h_box_container/v_box_container/player/HSplitContainer/VBoxContainerL/player_target"]
+layout_mode = 2
+text = "target: "
+
+[node name="player_target_name" type="Label" parent="h_box_container/v_box_container/player/HSplitContainer/VBoxContainerL/player_target"]
+layout_mode = 2
+
+[node name="player_target_distance" type="Label" parent="h_box_container/v_box_container/player/HSplitContainer/VBoxContainerL/player_target"]
+layout_mode = 2
+
+[node name="player_target_top" type="HBoxContainer" parent="h_box_container/v_box_container/player/HSplitContainer/VBoxContainerL"]
+layout_mode = 2
+
+[node name="label" type="Label" parent="h_box_container/v_box_container/player/HSplitContainer/VBoxContainerL/player_target_top"]
+layout_mode = 2
+text = "top: "
+
+[node name="player_target_name" type="Label" parent="h_box_container/v_box_container/player/HSplitContainer/VBoxContainerL/player_target_top"]
+layout_mode = 2
+
+[node name="player_target_distance" type="Label" parent="h_box_container/v_box_container/player/HSplitContainer/VBoxContainerL/player_target_top"]
+layout_mode = 2
+
+[node name="player_target_bottom" type="HBoxContainer" parent="h_box_container/v_box_container/player/HSplitContainer/VBoxContainerL"]
+layout_mode = 2
+
+[node name="label" type="Label" parent="h_box_container/v_box_container/player/HSplitContainer/VBoxContainerL/player_target_bottom"]
+layout_mode = 2
+text = "bot: "
+
+[node name="player_target_name" type="Label" parent="h_box_container/v_box_container/player/HSplitContainer/VBoxContainerL/player_target_bottom"]
+layout_mode = 2
+
+[node name="player_target_distance" type="Label" parent="h_box_container/v_box_container/player/HSplitContainer/VBoxContainerL/player_target_bottom"]
 layout_mode = 2
 
 [node name="VBoxContainerR" type="VBoxContainer" parent="h_box_container/v_box_container/player/HSplitContainer"]

@@ -59,7 +59,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1.35, 6)
 [node name="character_parent" parent="." instance=ExtResource("4_m5kro")]
 
 [node name="player" parent="character_parent" instance=ExtResource("5_ry273")]
-is_player_controlled = true
 
 [node name="character_0" parent="character_parent" instance=ExtResource("5_ry273")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 8)
