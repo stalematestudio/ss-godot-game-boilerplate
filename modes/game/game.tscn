@@ -1,20 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://dl2qpqv80wqny"]
+[gd_scene load_steps=6 format=3 uid="uid://dl2qpqv80wqny"]
 
 [ext_resource type="Script" path="res://modes/game/game.gd" id="1"]
 [ext_resource type="Script" path="res://modes/game/world_manager.gd" id="2_570dx"]
 [ext_resource type="Script" path="res://modes/game/maps_manager.gd" id="3_d28el"]
-[ext_resource type="Script" path="res://modes/game/nav_manager.gd" id="6_6jb3s"]
+[ext_resource type="Script" path="res://modes/game/npc_manager.gd" id="4_w3ga4"]
 [ext_resource type="Script" path="res://modes/game/player_control.gd" id="7_2jx6x"]
-
-[sub_resource type="NavigationMesh" id="NavigationMesh_fmlex"]
-sample_partition_type = 1
-geometry_parsed_geometry_type = 1
-geometry_source_geometry_mode = 1
-cell_size = 0.15
-cell_height = 0.2
-agent_height = 1.2
-agent_radius = 0.3
-agent_max_climb = 0.4
 
 [node name="game" type="Node"]
 script = ExtResource("1")
@@ -25,10 +15,8 @@ script = ExtResource("2_570dx")
 [node name="maps_manager" type="Node" parent="."]
 script = ExtResource("3_d28el")
 
-[node name="nav_manager" type="NavigationRegion3D" parent="."]
-navigation_mesh = SubResource("NavigationMesh_fmlex")
-use_edge_connections = false
-script = ExtResource("6_6jb3s")
+[node name="npc_manager" type="Node" parent="."]
+script = ExtResource("4_w3ga4")
 
 [node name="player_control" type="Node" parent="."]
 script = ExtResource("7_2jx6x")

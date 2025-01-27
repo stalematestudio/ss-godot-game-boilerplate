@@ -193,6 +193,9 @@ layout_mode = 2
 [node name="player_target_distance" type="Label" parent="h_box_container/v_box_container/player/HSplitContainer/VBoxContainerL/player_target_top"]
 layout_mode = 2
 
+[node name="player_target_can" type="Label" parent="h_box_container/v_box_container/player/HSplitContainer/VBoxContainerL/player_target_top"]
+layout_mode = 2
+
 [node name="player_target_bottom" type="HBoxContainer" parent="h_box_container/v_box_container/player/HSplitContainer/VBoxContainerL"]
 layout_mode = 2
 
@@ -204,6 +207,9 @@ text = "bot: "
 layout_mode = 2
 
 [node name="player_target_distance" type="Label" parent="h_box_container/v_box_container/player/HSplitContainer/VBoxContainerL/player_target_bottom"]
+layout_mode = 2
+
+[node name="player_target_can" type="Label" parent="h_box_container/v_box_container/player/HSplitContainer/VBoxContainerL/player_target_bottom"]
 layout_mode = 2
 
 [node name="VBoxContainerR" type="VBoxContainer" parent="h_box_container/v_box_container/player/HSplitContainer"]

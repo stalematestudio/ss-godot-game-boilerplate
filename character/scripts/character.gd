@@ -66,6 +66,9 @@ var step_distance: float = float()
 @onready var steps_player: AudioStreamPlayer3D = $character_steps_audio_stream_player_3D
 @onready var animation: CharacterAnimationPlayer = $character_animation_player
 
+@onready var ray_cast_3d_obstacle_top: CharacterRayCast3DObstacle = $ray_cast_3d_obstacle_top
+@onready var ray_cast_3d_obstacle_bottom: CharacterRayCast3DObstacle = $ray_cast_3d_obstacle_bottom
+
 func _ready() -> void:
 	if is_inside_tree() and not is_in_group("chracters"):
 		add_to_group("chracters", true)

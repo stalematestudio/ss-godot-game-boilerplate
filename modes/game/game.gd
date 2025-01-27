@@ -2,6 +2,7 @@ class_name GameplayManager extends Node
 
 @onready var world_manager: WorldManager = get_node("world_manager")
 @onready var maps_manager: MapsManager = get_node("maps_manager")
+@onready var npc_manager: NPCManager = get_node("npc_manager")
 
 @onready var player_control: PlayerController = get_node("player_control")
 
@@ -28,6 +29,7 @@ func _on_save_game() -> void:
 	}}, true)
 	game_data.merge(world_manager.save_data(), true)
 	game_data.merge(maps_manager.save_data(), true)
+	game_data.merge(npc_manager.save_data(), true)
 	ProfileManager.save_game(game_data)
 
 func _on_load_game() -> void:
@@ -37,3 +39,4 @@ func _on_load_game() -> void:
 
 	world_manager.load_data(game_data.world if game_data.has("world") else Dictionary())
 	maps_manager.load_data(game_data.maps if game_data.has("maps") else Dictionary())
+	npc_manager.load_data(game_data.npcs if game_data.has("npcs") else Dictionary())

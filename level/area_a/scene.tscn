@@ -1,7 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://c05588m64ut52"]
+[gd_scene load_steps=17 format=3 uid="uid://c05588m64ut52"]
 
 [ext_resource type="Script" path="res://components/play_area/play_area.gd" id="1_cbrly"]
 [ext_resource type="Material" uid="uid://cdmn6q34npg44" path="res://assets/materials/surface_spatialmaterial.tres" id="2_2dsq1"]
+[ext_resource type="PackedScene" uid="uid://dp0460l8vu0at" path="res://components/navigation/navigation.tscn" id="2_n00ks"]
 [ext_resource type="Shape3D" uid="uid://bhlboyoj0hwg4" path="res://level/area_a/surface_boxshape.tres" id="3_pqdh2"]
 [ext_resource type="PackedScene" uid="uid://bhvq7376kjv1" path="res://components/cardboard_box/cardboard_box.tscn" id="5_itvly"]
 [ext_resource type="PackedScene" uid="uid://4vp5srwunvh8" path="res://character/scenes/character.tscn" id="5_ry273"]
@@ -14,7 +15,18 @@
 [ext_resource type="PackedScene" uid="uid://cy4tju4lpdatw" path="res://components/light_control/light_control.tscn" id="12_lbcq6"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_a0myg"]
-size = Vector3(80, 80, 80)
+size = Vector3(78, 78, 78)
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_c66uw"]
+resource_local_to_scene = true
+vertices = PackedVector3Array(-39.7, 0.4, 9.8, -17.95, 0.8, 9.8, -17.95, 0.4, 9.5, -19.69, 0.4, 9.8, -14.2, 0.4, 9.5, -14.2, 0.4, -39.7, -39.7, 0.4, -39.7, -12.85, 0.4, 10.7, -4.6, 0.4, 10.55, -4.6, 0.4, 9.5, -13, 0.4, 9.5, -3.55, 0.4, 9.35, -3.7, 0.4, -39.7, 3.5, 0.4, 9.35, 3.65, 0.4, -39.7, 4.7, 0.4, 14.9, 5.9, 0.4, 14.9, 6.05, 0.4, 13.55, 4.7, 0.4, 9.65, 4.4, 0.4, 9.35, 8.45, 0.4, 13.55, 8.45, 0.8, 13.85, 39.65, 0.4, 13.85, 10.4629, 0.4, 13.85, 39.65, 0.4, -39.7, -17.95, 0.8, 17.9, -16.75, 1.2, 17.9, -16.75, 1.2, 10.1, -17.95, 0.8, 10.1, -39.7, 0.4, 18.2, -19.69, 0.4, 17.924, -19.69, 0.4, 10.076, -17.95, 0.8, 18.2, -4, 4, 17.9, 4.1, 4, 18.05, 4.1, 4, 9.95, -4, 4, 9.95, -4.6, 2, 17.9, -4.6, 2, 10.1, -13.2786, 2, 17.9, -13.2786, 2, 10.1, -3.7, 0.4, 18.05, -1.15, 0.4, 18.2, -1, 0.4, 17.75, 0.350002, 0.4, 12.5, -3.7, 0.4, 12.5, -3.7, 0.4, 10.25, -3.7, 0.4, 11.6, -0.399998, 0.4, 11.6, -0.25, 0.4, 10.7, 3.65, 0.4, 17.75, 3.65, 0.4, 10.25, 0.5, 0.4, 10.85, -12.85, 0.4, 17.3, -4.6, 0.4, 17.45, 8.45, 0.8, 14.15, 6.95, 1.4, 14.15, 6.95, 1.4, 17.9, 8.45, 0.8, 17.9, 39.65, 0.4, 18.2, 10.4629, 0.4, 17.9194, 10.4629, 0.4, 14.1306, 8.45, 0.8, 18.2, 5.9, 0.4, 18.35, 4.7, 0.4, 18.5, 8.45, 0.4, 18.35, 3.35, 0.4, 18.65, 3.35, 0.4, 39.65, 8.75, 0.4, 39.65, -12.85, 0.4, 18.35, -4.6, 0.4, 18.5, -4.15, 0.4, 18.65, -13.9, 0.4, 18.5, -13.75, 0.4, 39.65, -4.15, 0.4, 39.65, -3.7, 0.4, 18.5, -1, 0.4, 18.65, 0.200001, 0.4, 39.65, 0.200001, 0.4, 18.65, -17.2, 0.4, 39.65, -17.05, 0.4, 18.5, -17.95, 0.4, 18.5, -39.7, 0.4, 39.65, 39.65, 0.4, 39.65, 9.485, 0.4, 19.385)
+polygons = [PackedInt32Array(1, 3, 2), PackedInt32Array(2, 3, 0), PackedInt32Array(5, 4, 2), PackedInt32Array(0, 6, 2), PackedInt32Array(2, 6, 5), PackedInt32Array(8, 7, 9), PackedInt32Array(9, 7, 10), PackedInt32Array(10, 4, 11), PackedInt32Array(11, 4, 12), PackedInt32Array(12, 4, 5), PackedInt32Array(11, 9, 10), PackedInt32Array(11, 12, 13), PackedInt32Array(13, 12, 14), PackedInt32Array(16, 15, 17), PackedInt32Array(17, 15, 18), PackedInt32Array(19, 13, 14), PackedInt32Array(20, 17, 18), PackedInt32Array(21, 20, 23), PackedInt32Array(23, 20, 22), PackedInt32Array(22, 20, 18), PackedInt32Array(18, 19, 22), PackedInt32Array(22, 19, 14), PackedInt32Array(22, 14, 24), PackedInt32Array(28, 27, 25), PackedInt32Array(25, 27, 26), PackedInt32Array(25, 30, 28), PackedInt32Array(28, 30, 31), PackedInt32Array(31, 30, 29), PackedInt32Array(31, 29, 0), PackedInt32Array(25, 32, 30), PackedInt32Array(30, 32, 29), PackedInt32Array(28, 31, 1), PackedInt32Array(1, 31, 3), PackedInt32Array(3, 31, 0), PackedInt32Array(36, 35, 33), PackedInt32Array(33, 35, 34), PackedInt32Array(27, 40, 26), PackedInt32Array(26, 40, 39), PackedInt32Array(39, 40, 38), PackedInt32Array(39, 38, 37), PackedInt32Array(42, 41, 43), PackedInt32Array(43, 41, 45), PackedInt32Array(43, 45, 44), PackedInt32Array(48, 47, 49), PackedInt32Array(49, 47, 46), PackedInt32Array(43, 44, 50), PackedInt32Array(50, 44, 51), PackedInt32Array(51, 49, 46), PackedInt32Array(52, 49, 51), PackedInt32Array(44, 52, 51), PackedInt32Array(7, 8, 53), PackedInt32Array(53, 8, 54), PackedInt32Array(58, 57, 55), PackedInt32Array(55, 57, 56), PackedInt32Array(58, 55, 60), PackedInt32Array(60, 55, 61), PackedInt32Array(60, 61, 22), PackedInt32Array(60, 22, 59), PackedInt32Array(55, 21, 61), PackedInt32Array(61, 21, 23), PackedInt32Array(61, 23, 22), PackedInt32Array(58, 60, 62), PackedInt32Array(62, 60, 59), PackedInt32Array(16, 63, 15), PackedInt32Array(15, 63, 64), PackedInt32Array(64, 65, 66), PackedInt32Array(66, 65, 67), PackedInt32Array(67, 65, 68), PackedInt32Array(64, 63, 65), PackedInt32Array(53, 54, 69), PackedInt32Array(69, 54, 70), PackedInt32Array(70, 71, 69), PackedInt32Array(69, 71, 72), PackedInt32Array(72, 71, 73), PackedInt32Array(73, 71, 74), PackedInt32Array(75, 41, 42), PackedInt32Array(42, 76, 75), PackedInt32Array(75, 76, 71), PackedInt32Array(71, 76, 74), PackedInt32Array(74, 76, 77), PackedInt32Array(77, 76, 78), PackedInt32Array(81, 80, 79), PackedInt32Array(29, 32, 81), PackedInt32Array(29, 81, 82), PackedInt32Array(82, 81, 79), PackedInt32Array(83, 84, 59), PackedInt32Array(59, 84, 62), PackedInt32Array(62, 84, 65), PackedInt32Array(65, 84, 68), PackedInt32Array(68, 84, 83), PackedInt32Array(80, 72, 79), PackedInt32Array(79, 72, 73), PackedInt32Array(78, 66, 77), PackedInt32Array(77, 66, 67)]
+geometry_parsed_geometry_type = 1
+cell_size = 0.15
+cell_height = 0.2
+agent_height = 1.2
+agent_radius = 0.3
+agent_max_climb = 0.4
 
 [sub_resource type="BoxMesh" id="BoxMesh_fdsrn"]
 size = Vector3(80, 10, 80)
@@ -25,189 +37,192 @@ script = ExtResource("1_cbrly")
 [node name="collision_shape_3d" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_a0myg")
 
-[node name="SurfaceStaticBody" type="StaticBody3D" parent="."]
+[node name="nav_manager" parent="." instance=ExtResource("2_n00ks")]
+navigation_mesh = SubResource("NavigationMesh_c66uw")
+
+[node name="SurfaceStaticBody" type="StaticBody3D" parent="nav_manager"]
 input_ray_pickable = false
 
-[node name="SurfaceMeshInstance" type="MeshInstance3D" parent="SurfaceStaticBody"]
+[node name="SurfaceMeshInstance" type="MeshInstance3D" parent="nav_manager/SurfaceStaticBody"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 0)
 cast_shadow = 2
 mesh = SubResource("BoxMesh_fdsrn")
 surface_material_override/0 = ExtResource("2_2dsq1")
 
-[node name="SurfaceCollisionShape" type="CollisionShape3D" parent="SurfaceStaticBody"]
+[node name="SurfaceCollisionShape" type="CollisionShape3D" parent="nav_manager/SurfaceStaticBody"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 0)
 shape = ExtResource("3_pqdh2")
 
-[node name="Structure" type="Node3D" parent="."]
+[node name="Structure" type="Node3D" parent="nav_manager"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 14)
 
-[node name="WallStaticBody_1" type="StaticBody3D" parent="Structure"]
+[node name="WallStaticBody_1" type="StaticBody3D" parent="nav_manager/Structure"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.2, 0, 2.1)
 input_ray_pickable = false
 
-[node name="WallCollisionShape" type="CollisionShape3D" parent="Structure/WallStaticBody_1"]
+[node name="WallCollisionShape" type="CollisionShape3D" parent="nav_manager/Structure/WallStaticBody_1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 shape = ExtResource("6_bhugi")
 
-[node name="WallMeshInstance" type="MeshInstance3D" parent="Structure/WallStaticBody_1"]
+[node name="WallMeshInstance" type="MeshInstance3D" parent="nav_manager/Structure/WallStaticBody_1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 mesh = ExtResource("7_40ve8")
 surface_material_override/0 = ExtResource("2_2dsq1")
 
-[node name="WallStaticBody_2" type="StaticBody3D" parent="Structure"]
+[node name="WallStaticBody_2" type="StaticBody3D" parent="nav_manager/Structure"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.2, 0, -2.1)
 input_ray_pickable = false
 
-[node name="WallCollisionShape" type="CollisionShape3D" parent="Structure/WallStaticBody_2"]
+[node name="WallCollisionShape" type="CollisionShape3D" parent="nav_manager/Structure/WallStaticBody_2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 shape = ExtResource("6_bhugi")
 
-[node name="WallMeshInstance" type="MeshInstance3D" parent="Structure/WallStaticBody_2"]
+[node name="WallMeshInstance" type="MeshInstance3D" parent="nav_manager/Structure/WallStaticBody_2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 mesh = ExtResource("7_40ve8")
 surface_material_override/0 = ExtResource("2_2dsq1")
 
-[node name="WallStaticBody_3" type="StaticBody3D" parent="Structure"]
+[node name="WallStaticBody_3" type="StaticBody3D" parent="nav_manager/Structure"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.2, 0, -2.1)
 input_ray_pickable = false
 
-[node name="WallCollisionShape" type="CollisionShape3D" parent="Structure/WallStaticBody_3"]
+[node name="WallCollisionShape" type="CollisionShape3D" parent="nav_manager/Structure/WallStaticBody_3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 shape = ExtResource("6_bhugi")
 
-[node name="WallMeshInstance" type="MeshInstance3D" parent="Structure/WallStaticBody_3"]
+[node name="WallMeshInstance" type="MeshInstance3D" parent="nav_manager/Structure/WallStaticBody_3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 mesh = ExtResource("7_40ve8")
 surface_material_override/0 = ExtResource("2_2dsq1")
 
-[node name="WallStaticBody_4" type="StaticBody3D" parent="Structure"]
+[node name="WallStaticBody_4" type="StaticBody3D" parent="nav_manager/Structure"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.2, 0, 2.1)
 input_ray_pickable = false
 
-[node name="WallCollisionShape" type="CollisionShape3D" parent="Structure/WallStaticBody_4"]
+[node name="WallCollisionShape" type="CollisionShape3D" parent="nav_manager/Structure/WallStaticBody_4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 shape = ExtResource("6_bhugi")
 
-[node name="WallMeshInstance" type="MeshInstance3D" parent="Structure/WallStaticBody_4"]
+[node name="WallMeshInstance" type="MeshInstance3D" parent="nav_manager/Structure/WallStaticBody_4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 mesh = ExtResource("7_40ve8")
 surface_material_override/0 = ExtResource("2_2dsq1")
 
-[node name="WallStaticBody_5" type="StaticBody3D" parent="Structure"]
+[node name="WallStaticBody_5" type="StaticBody3D" parent="nav_manager/Structure"]
 transform = Transform3D(-1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, -2.10042, 0, -4.2)
 input_ray_pickable = false
 
-[node name="WallCollisionShape" type="CollisionShape3D" parent="Structure/WallStaticBody_5"]
+[node name="WallCollisionShape" type="CollisionShape3D" parent="nav_manager/Structure/WallStaticBody_5"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 shape = ExtResource("6_bhugi")
 
-[node name="WallMeshInstance" type="MeshInstance3D" parent="Structure/WallStaticBody_5"]
+[node name="WallMeshInstance" type="MeshInstance3D" parent="nav_manager/Structure/WallStaticBody_5"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 mesh = ExtResource("7_40ve8")
 surface_material_override/0 = ExtResource("2_2dsq1")
 
-[node name="WallStaticBody_6" type="StaticBody3D" parent="Structure"]
+[node name="WallStaticBody_6" type="StaticBody3D" parent="nav_manager/Structure"]
 transform = Transform3D(-1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 2.1, 0, -4.2)
 input_ray_pickable = false
 
-[node name="WallCollisionShape" type="CollisionShape3D" parent="Structure/WallStaticBody_6"]
+[node name="WallCollisionShape" type="CollisionShape3D" parent="nav_manager/Structure/WallStaticBody_6"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 shape = ExtResource("6_bhugi")
 
-[node name="WallMeshInstance" type="MeshInstance3D" parent="Structure/WallStaticBody_6"]
+[node name="WallMeshInstance" type="MeshInstance3D" parent="nav_manager/Structure/WallStaticBody_6"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 mesh = ExtResource("7_40ve8")
 surface_material_override/0 = ExtResource("2_2dsq1")
 
-[node name="WallStaticBody_7" type="StaticBody3D" parent="Structure"]
+[node name="WallStaticBody_7" type="StaticBody3D" parent="nav_manager/Structure"]
 transform = Transform3D(-1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 2.1, 0, 4.2)
 input_ray_pickable = false
 
-[node name="WallCollisionShape" type="CollisionShape3D" parent="Structure/WallStaticBody_7"]
+[node name="WallCollisionShape" type="CollisionShape3D" parent="nav_manager/Structure/WallStaticBody_7"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 shape = ExtResource("6_bhugi")
 
-[node name="WallMeshInstance" type="MeshInstance3D" parent="Structure/WallStaticBody_7"]
+[node name="WallMeshInstance" type="MeshInstance3D" parent="nav_manager/Structure/WallStaticBody_7"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 mesh = ExtResource("7_40ve8")
 
-[node name="WallStaticBody_8" type="StaticBody3D" parent="Structure"]
+[node name="WallStaticBody_8" type="StaticBody3D" parent="nav_manager/Structure"]
 transform = Transform3D(-1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, -2, 0, -2)
 input_ray_pickable = false
 
-[node name="WallCollisionShape" type="CollisionShape3D" parent="Structure/WallStaticBody_8"]
+[node name="WallCollisionShape" type="CollisionShape3D" parent="nav_manager/Structure/WallStaticBody_8"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 shape = ExtResource("6_bhugi")
 
-[node name="WallMeshInstance" type="MeshInstance3D" parent="Structure/WallStaticBody_8"]
+[node name="WallMeshInstance" type="MeshInstance3D" parent="nav_manager/Structure/WallStaticBody_8"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 mesh = ExtResource("7_40ve8")
 surface_material_override/0 = ExtResource("2_2dsq1")
 
-[node name="WallStaticBody_9" type="StaticBody3D" parent="Structure"]
+[node name="WallStaticBody_9" type="StaticBody3D" parent="nav_manager/Structure"]
 transform = Transform3D(0.707107, -0.707107, 0, 0.707107, 0.707107, 0, 0, 0, 1, 6.775, 0.983, 2)
 input_ray_pickable = false
 
-[node name="WallCollisionShape" type="CollisionShape3D" parent="Structure/WallStaticBody_9"]
+[node name="WallCollisionShape" type="CollisionShape3D" parent="nav_manager/Structure/WallStaticBody_9"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 shape = ExtResource("6_bhugi")
 
-[node name="WallMeshInstance" type="MeshInstance3D" parent="Structure/WallStaticBody_9"]
+[node name="WallMeshInstance" type="MeshInstance3D" parent="nav_manager/Structure/WallStaticBody_9"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 mesh = ExtResource("7_40ve8")
 surface_material_override/0 = ExtResource("2_2dsq1")
 
-[node name="WallStaticBody_10" type="StaticBody3D" parent="Structure"]
+[node name="WallStaticBody_10" type="StaticBody3D" parent="nav_manager/Structure"]
 transform = Transform3D(0.300706, -0.953717, 0, 0.953717, 0.300706, 0, 0, 0, 1, 8.45147, 0.442833, 2)
 input_ray_pickable = false
 
-[node name="WallCollisionShape" type="CollisionShape3D" parent="Structure/WallStaticBody_10"]
+[node name="WallCollisionShape" type="CollisionShape3D" parent="nav_manager/Structure/WallStaticBody_10"]
 shape = ExtResource("6_bhugi")
 
-[node name="WallMeshInstance" type="MeshInstance3D" parent="Structure/WallStaticBody_10"]
+[node name="WallMeshInstance" type="MeshInstance3D" parent="nav_manager/Structure/WallStaticBody_10"]
 mesh = ExtResource("7_40ve8")
 surface_material_override/0 = ExtResource("2_2dsq1")
 
-[node name="RoofStaticBody_1" type="StaticBody3D" parent="Structure"]
+[node name="RoofStaticBody_1" type="StaticBody3D" parent="nav_manager/Structure"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.4, 0)
 
-[node name="RoofCollisionShape" type="CollisionShape3D" parent="Structure/RoofStaticBody_1"]
+[node name="RoofCollisionShape" type="CollisionShape3D" parent="nav_manager/Structure/RoofStaticBody_1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
 shape = ExtResource("8_yqfuq")
 
-[node name="RoofMeshInstance" type="MeshInstance3D" parent="Structure/RoofStaticBody_1"]
+[node name="RoofMeshInstance" type="MeshInstance3D" parent="nav_manager/Structure/RoofStaticBody_1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
 mesh = ExtResource("9_bl802")
 surface_material_override/0 = ExtResource("2_2dsq1")
 
-[node name="RoofStaticBody_2" type="StaticBody3D" parent="Structure"]
+[node name="RoofStaticBody_2" type="StaticBody3D" parent="nav_manager/Structure"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.4, 1.55, 0)
 
-[node name="RoofCollisionShape" type="CollisionShape3D" parent="Structure/RoofStaticBody_2"]
+[node name="RoofCollisionShape" type="CollisionShape3D" parent="nav_manager/Structure/RoofStaticBody_2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
 shape = ExtResource("8_yqfuq")
 
-[node name="RoofMeshInstance" type="MeshInstance3D" parent="Structure/RoofStaticBody_2"]
+[node name="RoofMeshInstance" type="MeshInstance3D" parent="nav_manager/Structure/RoofStaticBody_2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
 mesh = ExtResource("9_bl802")
 surface_material_override/0 = ExtResource("2_2dsq1")
 
-[node name="RoofStaticBody_3" type="StaticBody3D" parent="Structure"]
+[node name="RoofStaticBody_3" type="StaticBody3D" parent="nav_manager/Structure"]
 transform = Transform3D(0.976296, -0.21644, 0, 0.21644, 0.976296, 0, 0, 0, 1, -16.4594, 0.666617, 0)
 
-[node name="RoofCollisionShape" type="CollisionShape3D" parent="Structure/RoofStaticBody_3"]
+[node name="RoofCollisionShape" type="CollisionShape3D" parent="nav_manager/Structure/RoofStaticBody_3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
 shape = ExtResource("8_yqfuq")
 
-[node name="RoofMeshInstance" type="MeshInstance3D" parent="Structure/RoofStaticBody_3"]
+[node name="RoofMeshInstance" type="MeshInstance3D" parent="nav_manager/Structure/RoofStaticBody_3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
 mesh = ExtResource("9_bl802")
 surface_material_override/0 = ExtResource("2_2dsq1")
 
-[node name="base_door" parent="Structure" instance=ExtResource("10_3or3l")]
+[node name="base_door" parent="nav_manager/Structure" instance=ExtResource("10_3or3l")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, -2.6)
 
-[node name="base_door_2" parent="Structure" instance=ExtResource("10_3or3l")]
+[node name="base_door_2" parent="nav_manager/Structure" instance=ExtResource("10_3or3l")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0, 4.2)
 is_open = true
 

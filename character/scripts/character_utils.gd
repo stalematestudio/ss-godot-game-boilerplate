@@ -8,7 +8,7 @@ func get_move_vector() -> Vector2:
 	input_movement_vector.y = input_movement_vector.y * ConfigManager.config_data.controller.left_y_sensitivity
 	if ConfigManager.config_data.controller.left_y_inverted:
 		input_movement_vector.y = input_movement_vector.y * -1
-	
+
 	input_movement_vector.x = input_movement_vector.x * ConfigManager.config_data.controller.left_x_sensitivity
 	if ConfigManager.config_data.controller.left_x_inverted:
 		input_movement_vector.x = input_movement_vector.x * -1

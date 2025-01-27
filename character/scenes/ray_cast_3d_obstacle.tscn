@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://ceqfcutkuw16r"]
+
+[ext_resource type="Script" path="res://character/scripts/character_ray_cast_3d_obstacle.gd" id="1_7dbdt"]
+
+[node name="ray_cast_3d_obstacle" type="RayCast3D"]
+target_position = Vector3(0, 0, 0)
+hit_back_faces = false
+script = ExtResource("1_7dbdt")

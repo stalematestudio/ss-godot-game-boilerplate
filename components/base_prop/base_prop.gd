@@ -22,7 +22,7 @@ var is_grabbed: bool:
 			initial_parent = get_parent()
 			reparent(interactor.character_spring_arm_3D)
 		else:
-			print(initial_parent)
+			print_debug(name, " initial parent: ", initial_parent)
 			if ( not is_instance_valid(initial_parent) ) or ( not initial_parent is PlayArea ):
 				initial_parent = Helpers.get_game_manager("maps_manager").active_play_area
 			Helpers.reparent_w_renaming(self, initial_parent)
@@ -31,9 +31,13 @@ var is_grabbed: bool:
 		if interactor:
 			if _is_grabbed:
 				add_collision_exception_with(interactor.character_instance)
+				interactor.character_instance.ray_cast_3d_obstacle_top.add_exception(self)
+				interactor.character_instance.ray_cast_3d_obstacle_bottom.add_exception(self)
 				interactor.character_spring_arm_3D.add_excluded_object(get_rid())
 			else:
 				remove_collision_exception_with(interactor.character_instance)
+				interactor.character_instance.ray_cast_3d_obstacle_top.remove_exception(self)
+				interactor.character_instance.ray_cast_3d_obstacle_bottom.remove_exception(self)
 				interactor.character_spring_arm_3D.remove_excluded_object(get_rid())
 
 var rotate_vector: Vector2 = Vector2()

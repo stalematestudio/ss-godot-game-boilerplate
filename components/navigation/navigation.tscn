@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://dp0460l8vu0at"]
+
+[ext_resource type="Script" path="res://components/navigation/navigation.gd" id="1_jw5ln"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_ur0et"]
+resource_local_to_scene = true
+geometry_parsed_geometry_type = 1
+cell_size = 0.15
+cell_height = 0.2
+agent_height = 1.2
+agent_radius = 0.3
+agent_max_climb = 0.4
+
+[node name="nav_manager" type="NavigationRegion3D"]
+navigation_mesh = SubResource("NavigationMesh_ur0et")
+script = ExtResource("1_jw5ln")

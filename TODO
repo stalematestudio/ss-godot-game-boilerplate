@@ -1,3 +1,4 @@
+Obstacle raycast should avoid props when grabed.
 The whole parent (prop/character) idea for saving and loading needs to go. Try just using groups.
     Loading the game while holding a prop deletes the prop.
     Grabbed prop reparent to player on save.
