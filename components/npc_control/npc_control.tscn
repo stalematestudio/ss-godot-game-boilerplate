@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bowhi7xwq8sn5"]
+
+[ext_resource type="Script" path="res://components/npc_control/npc_control.gd" id="1_uai18"]
+
+[node name="npc_control" type="Node3D"]
+script = ExtResource("1_uai18")

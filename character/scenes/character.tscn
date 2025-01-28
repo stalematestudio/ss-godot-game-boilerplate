@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://4vp5srwunvh8"]
+[gd_scene load_steps=19 format=3 uid="uid://4vp5srwunvh8"]
 
 [ext_resource type="Script" path="res://character/scripts/character.gd" id="1_dm3xb"]
 [ext_resource type="Script" path="res://character/scripts/character_animation_player.gd" id="2_s8sgh"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://character/scripts/character_ray_cast.gd" id="7_a0gct"]
 [ext_resource type="PackedScene" uid="uid://cxmdiyhhxo5gj" path="res://character/scenes/character_hud.tscn" id="10_2yhi3"]
 [ext_resource type="PackedScene" uid="uid://ceqfcutkuw16r" path="res://character/scenes/ray_cast_3d_obstacle.tscn" id="11_upv56"]
+[ext_resource type="Script" path="res://character/scripts/character_navigation_agent_3d.gd" id="11_vxpyi"]
 
 [sub_resource type="Animation" id="Animation_4i510"]
 length = 0.001
@@ -180,7 +181,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 script = ExtResource("3_msplp")
 
 [node name="character_ray_cast_3D" type="RayCast3D" parent="character_head"]
-target_position = Vector3(0, 0, 1.5)
+target_position = Vector3(0, 0, 30)
 hit_back_faces = false
 collide_with_areas = true
 script = ExtResource("7_a0gct")
@@ -219,6 +220,7 @@ debug_enabled = true
 debug_use_custom = true
 debug_path_custom_color = Color(0, 1, 0, 1)
 debug_path_custom_point_size = 16.0
+script = ExtResource("11_vxpyi")
 
 [node name="ray_cast_3d_obstacle_top" parent="." instance=ExtResource("11_upv56")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 1.7, 0.5)

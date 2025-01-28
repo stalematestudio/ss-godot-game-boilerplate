@@ -9,9 +9,9 @@ var character_ray_cast_3D: CharacterRayCast3D = null
 
 var steps_player: AudioStreamPlayer3D = null
 
-var navigation: NavigationAgent3D = null
-var ray_cast_3d_obstacle_top: RayCast3D = null
-var ray_cast_3d_obstacle_bottom: RayCast3D = null
+var navigation: CharacterNavigationAgent3D = null
+var ray_cast_3d_obstacle_top: CharacterRayCast3DObstacle = null
+var ray_cast_3d_obstacle_bottom: CharacterRayCast3DObstacle = null
 
 var _mouse_mode_current: String = "ray_cast"
 var mouse_mode_current: String:
@@ -38,8 +38,9 @@ var character: Character:
 	set(new_character):
 		if new_character == _character:
 			return
-		_character = new_character
-		if _character:
+		if new_character:
+			_character = new_character
+			_character.is_player_controlled_changed.connect(on_character_is_player_controlled_changed)
 			# print_debug("Switching to character: ", _character.name)
 			character_hud = _character.get_node("character_hud")
 			character_hud.show()
@@ -63,6 +64,8 @@ var character: Character:
 			navigation = null
 			ray_cast_3d_obstacle_top = null
 			ray_cast_3d_obstacle_bottom = null
+			_character.is_player_controlled_changed.disconnect(on_character_is_player_controlled_changed)
+			_character = new_character
 
 func _ready() -> void:
 	if is_inside_tree() and not is_in_group("character_controlers"):
@@ -182,3 +185,7 @@ func _on_interaction_end() -> void:
 	character_ray_cast_3D.active_screen.mouse_exited_area.disconnect(_on_interaction_end)
 	character_ray_cast_3D.active_screen = null
 	mouse_mode_current = "ray_cast"
+
+func on_character_is_player_controlled_changed(is_player_controlled: bool) -> void:
+	if not is_player_controlled:
+		character = null

@@ -1,9 +1,9 @@
 class_name Character extends CharacterBody3D
 
-# Environmental Variables will be moved to level scene or game state
+# TODO: Make gravity dynamic
 var default_gravity = ProjectSettings.get_setting("physics/3d/default_gravity", 9.8)
 
-# Player stats
+# TODO: Move player stats to a stats component and make them dynamic
 const MAX_WALK_SPEED: float = 4.5
 const WALK_ACCEL: float = 0.8
 
@@ -69,11 +69,15 @@ var step_distance: float = float()
 @onready var ray_cast_3d_obstacle_top: CharacterRayCast3DObstacle = $ray_cast_3d_obstacle_top
 @onready var ray_cast_3d_obstacle_bottom: CharacterRayCast3DObstacle = $ray_cast_3d_obstacle_bottom
 
+@export var npc_control_scene: Resource = preload("res://components/npc_control/npc_control.tscn")
+@onready var npc_control: NPCController = npc_control_scene.instantiate()
+
 func _ready() -> void:
 	if is_inside_tree() and not is_in_group("chracters"):
 		add_to_group("chracters", true)
 	if is_inside_tree() and not is_in_group("game_objects_savable"):
 		add_to_group("game_objects_savable", true)
+	add_child(npc_control)
 
 func movement(delta: float) -> void:
 	# Basis vectors are normalized
@@ -148,6 +152,7 @@ func save_data() -> Dictionary:
 	"rotation":	rotation,
 	"velocity" : velocity,
 	"head": head.save_data(),
+	"npc_control": npc_control.save_data(),
 	"is_player_controlled": is_player_controlled,
 	}
 
@@ -167,4 +172,5 @@ func load_data(data: Dictionary) -> void:
 	rotation = Helpers.string_to_vector(data.rotation) if data.rotation is String else data.rotation
 	velocity = Helpers.string_to_vector(data.velocity) if data.velocity is String else data.velocity
 	head.load_data(data.head)
+	npc_control.load_data(data.npc_control)
 	is_player_controlled = data.is_player_controlled if data.has("is_player_controlled") else is_player_controlled

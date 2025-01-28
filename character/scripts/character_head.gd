@@ -13,6 +13,14 @@ var input_look_vector: Vector2 = Vector2()
 func _ready() -> void:
 	character_spring_arm_3D.interactor = character_ray_cast_3D
 
+func reset_rotation() -> void:
+	rotation = Vector3.ZERO
+
+func rotate_and_look_at(target: Node3D, head_only: bool = false) -> void:
+	look_at(target.head.global_position if target is Character else target.global_position, Vector3.UP, true)
+	if not head_only:
+		character.rotate_y(rotation.y)
+
 func freelook() -> void:
 	rotate_x(deg_to_rad( input_look_vector.y ))
 	character.rotate_y(deg_to_rad( input_look_vector.x ))

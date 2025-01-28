@@ -1,3 +1,4 @@
+Start splitting colliders into layers. Play area specifically should not be coliding with ray casts.
 Obstacle raycast should avoid props when grabed.
 The whole parent (prop/character) idea for saving and loading needs to go. Try just using groups.
     Loading the game while holding a prop deletes the prop.
