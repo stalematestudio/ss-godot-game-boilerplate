@@ -4,5 +4,6 @@
 
 [node name="ray_cast_3d_obstacle" type="RayCast3D"]
 target_position = Vector3(0, 0, 0)
+collision_mask = 16
 hit_back_faces = false
 script = ExtResource("1_7dbdt")

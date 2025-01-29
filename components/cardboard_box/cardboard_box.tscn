@@ -20,6 +20,8 @@ _surfaces = [{
 }]
 
 [node name="cardboard_box" type="RigidBody3D"]
+collision_layer = 20
+collision_mask = 54
 mass = 0.5
 sleeping = true
 script = ExtResource("1_mhb7c")

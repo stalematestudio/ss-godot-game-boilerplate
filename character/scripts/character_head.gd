@@ -16,8 +16,13 @@ func _ready() -> void:
 func reset_rotation() -> void:
 	rotation = Vector3.ZERO
 
-func rotate_and_look_at(target: Node3D, head_only: bool = false) -> void:
+func rotate_and_look_at_object(target: Node3D, head_only: bool = false) -> void:
 	look_at(target.head.global_position if target is Character else target.global_position, Vector3.UP, true)
+	if not head_only:
+		character.rotate_y(rotation.y)
+
+func rotate_and_look_at_vector(target: Vector3, head_only: bool = false) -> void:
+	look_at(target, Vector3.UP, true)
 	if not head_only:
 		character.rotate_y(rotation.y)
 

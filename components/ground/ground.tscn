@@ -11,6 +11,8 @@ size = Vector2(80, 80)
 orientation = 1
 
 [node name="ground" type="StaticBody3D"]
+collision_layer = 16
+collision_mask = 6
 
 [node name="collision_shape_3d" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.5, 0)

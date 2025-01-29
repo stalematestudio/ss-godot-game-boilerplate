@@ -3,6 +3,9 @@ class_name CharacterRayCast3D extends RayCast3D
 @onready var character_instance: Character = get_parent().get_parent()
 @onready var character_spring_arm_3D: CharacterSpringArm3D = get_parent().get_node("character_spring_arm_3D")
 
+var raycast_collision_point: Vector3 = Vector3()
+var raycast_target_distance: float = float()
+
 var _raycast_target: Node
 var raycast_target: Node:
 	get:
@@ -10,19 +13,19 @@ var raycast_target: Node:
 	set(new_raycast_target):
 		if _raycast_target == new_raycast_target:
 			return
+
 		if is_instance_valid(_raycast_target):
 			if _raycast_target.has_method("_mouse_exited_area"):
 				_raycast_target._mouse_exited_area()
+
 		_raycast_target = new_raycast_target
 		raycast_target_changed.emit(_raycast_target)
+
 		if is_instance_valid(_raycast_target):
 			if _raycast_target.has_method("_mouse_entered_area"):
 				_raycast_target._mouse_entered_area()
 			if raycast_target.has_method("activate"):
 				raycast_target.activate(self)
-
-var raycast_target_distance: float = 0.0
-var raycast_collision_point: Vector3 = Vector3()
 
 const OBJECT_INTERACT_DISTANCE: float = 1.5
 const OBJECT_GRAB_MAX_MASS: float = 0.5

@@ -60,6 +60,8 @@ _data = {
 }
 
 [node name="base_door" type="AnimatableBody3D"]
+collision_layer = 24
+collision_mask = 6
 script = ExtResource("1_ypy04")
 
 [node name="collision_shape_3d" type="CollisionShape3D" parent="."]

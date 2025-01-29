@@ -1,15 +1,15 @@
-[gd_scene load_steps=17 format=3 uid="uid://c05588m64ut52"]
+[gd_scene load_steps=16 format=3 uid="uid://c05588m64ut52"]
 
 [ext_resource type="Script" path="res://components/play_area/play_area.gd" id="1_cbrly"]
 [ext_resource type="Material" uid="uid://cdmn6q34npg44" path="res://assets/materials/surface_spatialmaterial.tres" id="2_2dsq1"]
 [ext_resource type="PackedScene" uid="uid://dp0460l8vu0at" path="res://components/navigation/navigation.tscn" id="2_n00ks"]
-[ext_resource type="Shape3D" uid="uid://bhlboyoj0hwg4" path="res://level/area_a/surface_boxshape.tres" id="3_pqdh2"]
 [ext_resource type="PackedScene" uid="uid://bhvq7376kjv1" path="res://components/cardboard_box/cardboard_box.tscn" id="5_itvly"]
 [ext_resource type="PackedScene" uid="uid://4vp5srwunvh8" path="res://character/scenes/character.tscn" id="5_ry273"]
 [ext_resource type="Shape3D" path="res://level/area_a/wall_boxshape.tres" id="6_bhugi"]
 [ext_resource type="BoxMesh" uid="uid://h8bu6xhgegb5" path="res://level/area_a/wall_cubemesh.tres" id="7_40ve8"]
 [ext_resource type="Shape3D" path="res://level/area_a/roof_boxshape.tres" id="8_yqfuq"]
 [ext_resource type="BoxMesh" path="res://level/area_a/roof_cubemesh.tres" id="9_bl802"]
+[ext_resource type="PackedScene" uid="uid://cm2eldp8ef11y" path="res://components/ground/ground.tscn" id="9_ob7ov"]
 [ext_resource type="PackedScene" uid="uid://wiqqgakbjh8t" path="res://components/base_door/base_door.tscn" id="10_3or3l"]
 [ext_resource type="PackedScene" uid="uid://d24o2u6fm810m" path="res://components/base_screen/base_screen.tscn" id="11_ufeia"]
 [ext_resource type="PackedScene" uid="uid://cy4tju4lpdatw" path="res://components/light_control/light_control.tscn" id="12_lbcq6"]
@@ -28,10 +28,9 @@ agent_height = 1.2
 agent_radius = 0.3
 agent_max_climb = 0.4
 
-[sub_resource type="BoxMesh" id="BoxMesh_fdsrn"]
-size = Vector3(80, 10, 80)
-
 [node name="play_area" type="Area3D"]
+collision_layer = 32
+collision_mask = 6
 script = ExtResource("1_cbrly")
 
 [node name="collision_shape_3d" type="CollisionShape3D" parent="."]
@@ -40,24 +39,13 @@ shape = SubResource("BoxShape3D_a0myg")
 [node name="nav_manager" parent="." instance=ExtResource("2_n00ks")]
 navigation_mesh = SubResource("NavigationMesh_c66uw")
 
-[node name="SurfaceStaticBody" type="StaticBody3D" parent="nav_manager"]
-input_ray_pickable = false
-
-[node name="SurfaceMeshInstance" type="MeshInstance3D" parent="nav_manager/SurfaceStaticBody"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 0)
-cast_shadow = 2
-mesh = SubResource("BoxMesh_fdsrn")
-surface_material_override/0 = ExtResource("2_2dsq1")
-
-[node name="SurfaceCollisionShape" type="CollisionShape3D" parent="nav_manager/SurfaceStaticBody"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 0)
-shape = ExtResource("3_pqdh2")
-
 [node name="Structure" type="Node3D" parent="nav_manager"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 14)
 
 [node name="WallStaticBody_1" type="StaticBody3D" parent="nav_manager/Structure"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.2, 0, 2.1)
+collision_layer = 16
+collision_mask = 6
 input_ray_pickable = false
 
 [node name="WallCollisionShape" type="CollisionShape3D" parent="nav_manager/Structure/WallStaticBody_1"]
@@ -71,6 +59,8 @@ surface_material_override/0 = ExtResource("2_2dsq1")
 
 [node name="WallStaticBody_2" type="StaticBody3D" parent="nav_manager/Structure"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.2, 0, -2.1)
+collision_layer = 16
+collision_mask = 6
 input_ray_pickable = false
 
 [node name="WallCollisionShape" type="CollisionShape3D" parent="nav_manager/Structure/WallStaticBody_2"]
@@ -84,6 +74,8 @@ surface_material_override/0 = ExtResource("2_2dsq1")
 
 [node name="WallStaticBody_3" type="StaticBody3D" parent="nav_manager/Structure"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.2, 0, -2.1)
+collision_layer = 16
+collision_mask = 6
 input_ray_pickable = false
 
 [node name="WallCollisionShape" type="CollisionShape3D" parent="nav_manager/Structure/WallStaticBody_3"]
@@ -97,6 +89,8 @@ surface_material_override/0 = ExtResource("2_2dsq1")
 
 [node name="WallStaticBody_4" type="StaticBody3D" parent="nav_manager/Structure"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.2, 0, 2.1)
+collision_layer = 16
+collision_mask = 6
 input_ray_pickable = false
 
 [node name="WallCollisionShape" type="CollisionShape3D" parent="nav_manager/Structure/WallStaticBody_4"]
@@ -110,6 +104,8 @@ surface_material_override/0 = ExtResource("2_2dsq1")
 
 [node name="WallStaticBody_5" type="StaticBody3D" parent="nav_manager/Structure"]
 transform = Transform3D(-1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, -2.10042, 0, -4.2)
+collision_layer = 16
+collision_mask = 6
 input_ray_pickable = false
 
 [node name="WallCollisionShape" type="CollisionShape3D" parent="nav_manager/Structure/WallStaticBody_5"]
@@ -123,6 +119,8 @@ surface_material_override/0 = ExtResource("2_2dsq1")
 
 [node name="WallStaticBody_6" type="StaticBody3D" parent="nav_manager/Structure"]
 transform = Transform3D(-1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 2.1, 0, -4.2)
+collision_layer = 16
+collision_mask = 6
 input_ray_pickable = false
 
 [node name="WallCollisionShape" type="CollisionShape3D" parent="nav_manager/Structure/WallStaticBody_6"]
@@ -136,6 +134,8 @@ surface_material_override/0 = ExtResource("2_2dsq1")
 
 [node name="WallStaticBody_7" type="StaticBody3D" parent="nav_manager/Structure"]
 transform = Transform3D(-1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 2.1, 0, 4.2)
+collision_layer = 16
+collision_mask = 6
 input_ray_pickable = false
 
 [node name="WallCollisionShape" type="CollisionShape3D" parent="nav_manager/Structure/WallStaticBody_7"]
@@ -148,6 +148,8 @@ mesh = ExtResource("7_40ve8")
 
 [node name="WallStaticBody_8" type="StaticBody3D" parent="nav_manager/Structure"]
 transform = Transform3D(-1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, -2, 0, -2)
+collision_layer = 16
+collision_mask = 6
 input_ray_pickable = false
 
 [node name="WallCollisionShape" type="CollisionShape3D" parent="nav_manager/Structure/WallStaticBody_8"]
@@ -161,6 +163,8 @@ surface_material_override/0 = ExtResource("2_2dsq1")
 
 [node name="WallStaticBody_9" type="StaticBody3D" parent="nav_manager/Structure"]
 transform = Transform3D(0.707107, -0.707107, 0, 0.707107, 0.707107, 0, 0, 0, 1, 6.775, 0.983, 2)
+collision_layer = 16
+collision_mask = 6
 input_ray_pickable = false
 
 [node name="WallCollisionShape" type="CollisionShape3D" parent="nav_manager/Structure/WallStaticBody_9"]
@@ -174,6 +178,8 @@ surface_material_override/0 = ExtResource("2_2dsq1")
 
 [node name="WallStaticBody_10" type="StaticBody3D" parent="nav_manager/Structure"]
 transform = Transform3D(0.300706, -0.953717, 0, 0.953717, 0.300706, 0, 0, 0, 1, 8.45147, 0.442833, 2)
+collision_layer = 16
+collision_mask = 6
 input_ray_pickable = false
 
 [node name="WallCollisionShape" type="CollisionShape3D" parent="nav_manager/Structure/WallStaticBody_10"]
@@ -185,6 +191,8 @@ surface_material_override/0 = ExtResource("2_2dsq1")
 
 [node name="RoofStaticBody_1" type="StaticBody3D" parent="nav_manager/Structure"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.4, 0)
+collision_layer = 16
+collision_mask = 6
 
 [node name="RoofCollisionShape" type="CollisionShape3D" parent="nav_manager/Structure/RoofStaticBody_1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
@@ -197,6 +205,8 @@ surface_material_override/0 = ExtResource("2_2dsq1")
 
 [node name="RoofStaticBody_2" type="StaticBody3D" parent="nav_manager/Structure"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.4, 1.55, 0)
+collision_layer = 16
+collision_mask = 6
 
 [node name="RoofCollisionShape" type="CollisionShape3D" parent="nav_manager/Structure/RoofStaticBody_2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
@@ -209,6 +219,8 @@ surface_material_override/0 = ExtResource("2_2dsq1")
 
 [node name="RoofStaticBody_3" type="StaticBody3D" parent="nav_manager/Structure"]
 transform = Transform3D(0.976296, -0.21644, 0, 0.21644, 0.976296, 0, 0, 0, 1, -16.4594, 0.666617, 0)
+collision_layer = 16
+collision_mask = 6
 
 [node name="RoofCollisionShape" type="CollisionShape3D" parent="nav_manager/Structure/RoofStaticBody_3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
@@ -225,6 +237,8 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 
 [node name="base_door_2" parent="nav_manager/Structure" instance=ExtResource("10_3or3l")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0, 4.2)
 is_open = true
+
+[node name="ground" parent="nav_manager" instance=ExtResource("9_ob7ov")]
 
 [node name="lighting" type="Node3D" parent="."]
 
@@ -271,29 +285,50 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, 8)
 [node name="character_2" parent="." instance=ExtResource("5_ry273")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 8)
 
+[node name="cardboard_box_0" parent="." instance=ExtResource("5_itvly")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.2, 6)
+
 [node name="cardboard_box_1" parent="." instance=ExtResource("5_itvly")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.35, 6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.6, 6)
 
 [node name="cardboard_box_2" parent="." instance=ExtResource("5_itvly")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, 6)
 
 [node name="cardboard_box_3" parent="." instance=ExtResource("5_itvly")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.35, 6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1.4, 6)
 
 [node name="cardboard_box_4" parent="." instance=ExtResource("5_itvly")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.85, 6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0.2, 6)
 
 [node name="cardboard_box_5" parent="." instance=ExtResource("5_itvly")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 6)
-
-[node name="cardboard_box_8" parent="." instance=ExtResource("5_itvly")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1.35, 6)
-
-[node name="cardboard_box_9" parent="." instance=ExtResource("5_itvly")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, 6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0.6, 6)
 
 [node name="cardboard_box_6" parent="." instance=ExtResource("5_itvly")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.85, 6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 1, 6)
 
 [node name="cardboard_box_7" parent="." instance=ExtResource("5_itvly")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1.35, 6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 1.4, 6)
+
+[node name="cardboard_box_8" parent="." instance=ExtResource("5_itvly")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.2, 6)
+
+[node name="cardboard_box_9" parent="." instance=ExtResource("5_itvly")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.6, 6)
+
+[node name="cardboard_box_10" parent="." instance=ExtResource("5_itvly")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 6)
+
+[node name="cardboard_box_11" parent="." instance=ExtResource("5_itvly")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1.4, 6)
+
+[node name="cardboard_box_12" parent="." instance=ExtResource("5_itvly")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.2, 6)
+
+[node name="cardboard_box_13" parent="." instance=ExtResource("5_itvly")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.6, 6)
+
+[node name="cardboard_box_14" parent="." instance=ExtResource("5_itvly")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, 6)
+
+[node name="cardboard_box_15" parent="." instance=ExtResource("5_itvly")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1.4, 6)

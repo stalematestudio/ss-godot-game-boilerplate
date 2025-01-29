@@ -266,6 +266,15 @@ nav_target_set={
 ]
 }
 
+[layer_names]
+
+3d_physics/layer_1="global"
+3d_physics/layer_2="characters"
+3d_physics/layer_3="props"
+3d_physics/layer_4="interactive"
+3d_physics/layer_5="traversable"
+3d_physics/layer_6="triggers"
+
 [navigation]
 
 3d/default_cell_size=0.15

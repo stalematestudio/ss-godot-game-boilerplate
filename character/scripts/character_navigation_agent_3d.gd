@@ -11,10 +11,12 @@ func _process(_delta: float) -> void:
 	pass
 
 func _physics_process(_delta: float) -> void:
-	get_next_path_position()
+	pass
 
 func on_target_reached() -> void:
+	# print_debug(character.name, " on_target_reached")
 	pass
 
 func on_navigation_finished() -> void:
+	# print_debug(character.name, " on_navigation_finished")
 	pass

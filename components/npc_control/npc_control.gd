@@ -19,6 +19,7 @@ class_name NPCController extends Node3D
 const State = {
 	IDLE = 0,
 	TRACK = 1,
+	FOLLOW = 2,
 }
 var state: int:
 	get:
@@ -27,8 +28,11 @@ var state: int:
 		if new_state in State.values():
 			state = new_state
 
-var target: Node3D
-var target_last_known_possition: Vector3
+var target: Node3D = null
+var target_last_known_possition: Vector3 = Vector3.ZERO
+
+var target_line_of_sight_interval: float = 5
+var target_line_of_sight_timer: float = target_line_of_sight_interval
 var target_line_of_sight: bool:
 	get:
 		if not character_ray_cast_3D.is_colliding():
@@ -55,9 +59,11 @@ func _physics_process(delta: float) -> void:
 		State.IDLE:
 			do_idle()
 		State.TRACK:
-			do_track()
+			do_track(delta)
+		State.FOLLOW:
+			do_follow()
 		_:
-			pass
+			do_reset()
 
 	if character.is_on_floor():
 		# Jumping
@@ -88,20 +94,26 @@ func on_character_ray_cast_3D_raycast_target_changed(raycast_target: Node) -> vo
 	if character.is_player_controlled:
 		return
 	if raycast_target:
-		print_debug(raycast_target.name)
-	if ( raycast_target is Character ) and ( raycast_target.is_player_controlled ):
-		target = raycast_target
-		state = State.TRACK
+		# print_debug(raycast_target.name)
+		if ( raycast_target is Character ) and ( raycast_target.is_player_controlled ):
+			target = raycast_target
+			state = State.FOLLOW
 
 func do_idle() -> void:
 	character.input_movement_vector = Vector2.ZERO
+	head.reset_rotation()
 
-func do_track() -> void:
+func do_track(delta: float) -> void:
 	if target_line_of_sight:
-		head.rotate_and_look_at(target)
+		target_line_of_sight_timer = target_line_of_sight_interval
 		target_last_known_possition = target.global_position
 	else:
-		head.reset_rotation()
+		target_line_of_sight_timer -= delta
+
+	if target_line_of_sight_timer > 0:
+		head.rotate_and_look_at_object(target)
+	else:
+		head.rotate_and_look_at_vector(target_last_known_possition)
 
 	navigation.target_position = target_last_known_possition
 	var target_direction = to_local(navigation.get_next_path_position())
@@ -109,6 +121,24 @@ func do_track() -> void:
 		target_direction.x,
 		target_direction.z,
 	)
+
+	if navigation.is_navigation_finished():
+		target = null
+		state = State.IDLE
+
+func do_follow() -> void:
+	head.rotate_and_look_at_object(target)
+	if global_position.distance_to(target.global_position) > 3:
+		navigation.target_position = target.global_position
+		var target_direction = to_local(navigation.get_next_path_position())
+		character.input_movement_vector = Vector2(
+			target_direction.x,
+			target_direction.z,
+		)
+
+func do_reset() -> void:
+	target = null
+	state = State.IDLE
 
 func save_data() -> Dictionary:
 	return {}

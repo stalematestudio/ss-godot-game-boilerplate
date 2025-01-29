@@ -3,5 +3,7 @@
 [ext_resource type="Script" path="res://components/base_prop/base_prop.gd" id="1_lc4sg"]
 
 [node name="base_prop" type="RigidBody3D"]
+collision_layer = 20
+collision_mask = 54
 sleeping = true
 script = ExtResource("1_lc4sg")

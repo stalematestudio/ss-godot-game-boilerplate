@@ -1,5 +1,7 @@
 class_name PlayArea extends Area3D
 
+# Collision layers: triggers / mask: characters props
+
 @onready var maps_manager: MapsManager = get_parent()
 
 var _game_objects_savable: Array[Node]

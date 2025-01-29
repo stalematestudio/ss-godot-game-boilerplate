@@ -50,6 +50,15 @@ var is_crouching: bool:
 		else:
 			animation.un_crouch()
 
+@export var interactive: bool = true
+var interactor: CharacterRayCast3D = null
+var primary_action: String:
+	get:
+		return "HI"
+
+var secondary_action: String:
+	get:
+		return "BYE"
 
 var input_movement_vector: Vector2 = Vector2()
 var input_movement_vector_magnitude: float = float()
@@ -72,11 +81,17 @@ var step_distance: float = float()
 @export var npc_control_scene: Resource = preload("res://components/npc_control/npc_control.tscn")
 @onready var npc_control: NPCController = npc_control_scene.instantiate()
 
+@onready var outline_mesh_array: Array[Node] = find_children("outline_mesh*", "MeshInstance3D")
+
 func _ready() -> void:
 	if is_inside_tree() and not is_in_group("chracters"):
 		add_to_group("chracters", true)
 	if is_inside_tree() and not is_in_group("game_objects_savable"):
 		add_to_group("game_objects_savable", true)
+	
+	mouse_entered.connect(highlight)
+	mouse_exited.connect(un_highlight)
+	
 	add_child(npc_control)
 
 func movement(delta: float) -> void:
@@ -122,6 +137,8 @@ func movement(delta: float) -> void:
 	
 	move_and_slide()
 	
+	input_movement_vector = Vector2.ZERO
+
 	# Steps audio control needs to be moved out of here
 	if is_on_floor():
 		if is_jumping:
@@ -174,3 +191,61 @@ func load_data(data: Dictionary) -> void:
 	head.load_data(data.head)
 	npc_control.load_data(data.npc_control)
 	is_player_controlled = data.is_player_controlled if data.has("is_player_controlled") else is_player_controlled
+
+func activate(new_interactor: CharacterRayCast3D) -> void:
+	interactor = new_interactor
+	if not interactor.raycast_target_changed.is_connected(_on_interactor_raycast_target_changed):
+		interactor.raycast_target_changed.connect(_on_interactor_raycast_target_changed)
+	if not interactor.raycast_primary_action.is_connected(_on_interactor_raycast_primary_action):
+		interactor.raycast_primary_action.connect(_on_interactor_raycast_primary_action)
+	if not interactor.raycast_secondary_action.is_connected(_on_interactor_raycast_secondary_action):
+		interactor.raycast_secondary_action.connect(_on_interactor_raycast_secondary_action)
+	if not interactor.raycast_in_action.is_connected(_on_interactor_raycast_in_action):	
+		interactor.raycast_in_action.connect(_on_interactor_raycast_in_action)
+	if not interactor.raycast_out_action.is_connected(_on_interactor_raycast_out_action):
+		interactor.raycast_out_action.connect(_on_interactor_raycast_out_action)
+	highlight()
+
+
+func deactivate() -> void:
+	if interactor:
+		if interactor.raycast_target_changed.is_connected(_on_interactor_raycast_target_changed):
+			interactor.raycast_target_changed.disconnect(_on_interactor_raycast_target_changed)
+		if interactor.raycast_primary_action.is_connected(_on_interactor_raycast_primary_action):
+			interactor.raycast_primary_action.disconnect(_on_interactor_raycast_primary_action)
+		if interactor.raycast_secondary_action.is_connected(_on_interactor_raycast_secondary_action):
+			interactor.raycast_secondary_action.disconnect(_on_interactor_raycast_secondary_action)
+		if interactor.raycast_in_action.is_connected(_on_interactor_raycast_in_action):
+			interactor.raycast_in_action.disconnect(_on_interactor_raycast_in_action)
+		if interactor.raycast_out_action.is_connected(_on_interactor_raycast_out_action):
+			interactor.raycast_out_action.disconnect(_on_interactor_raycast_out_action)
+		interactor = null
+	un_highlight()
+
+
+func _on_interactor_raycast_target_changed(new_target: Node) -> void:
+	if self == new_target:
+		return
+	deactivate()
+
+func _on_interactor_raycast_primary_action() -> void:
+	pass
+
+func _on_interactor_raycast_secondary_action() -> void:
+	pass
+
+func _on_interactor_raycast_in_action() -> void:
+	pass
+
+func _on_interactor_raycast_out_action() -> void:
+	pass
+
+func highlight() -> void:
+	if is_player_controlled or ( not interactor.character_instance.is_player_controlled ):
+		return
+	for outline_mesh in outline_mesh_array:
+		outline_mesh.show()
+
+func un_highlight() -> void:
+	for outline_mesh in outline_mesh_array:
+		outline_mesh.hide()

@@ -34,7 +34,7 @@ func activate(new_interactor: CharacterRayCast3D) -> void:
 
 func deactivate() -> void:
 	un_highlight()
-	interactor.raycast_target_changed.disconnect(_on_interactor_raycast_target_changed)
+	interactor.raycasta_target_changed.disconnect(_on_interactor_raycast_target_changed)
 	interactor.raycast_primary_action.disconnect(_on_interactor_raycast_primary_action)
 	interactor.raycast_in_action.disconnect(_on_interactor_raycast_in_action)
 	interactor.raycast_out_action.disconnect(_on_interactor_raycast_out_action)
