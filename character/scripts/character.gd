@@ -179,7 +179,6 @@ func load_data(data: Dictionary) -> void:
 	stamina = data.player_stamina if data.has("player_stamina") else stamina
 	is_jumping = data.is_jumping if data.has("is_jumping") else is_jumping
 	is_sprinting = data.is_sprinting if data.has("is_sprinting") else is_sprinting
-	# TODO: crouching doesn't work on load game / now it should but lets retest it later
 	_is_crouching = data.is_crouching if data.has("is_crouching") else _is_crouching
 	if _is_crouching:
 		animation.imediate_crouch()
@@ -241,7 +240,7 @@ func _on_interactor_raycast_out_action() -> void:
 	pass
 
 func highlight() -> void:
-	if is_player_controlled or ( not interactor.character_instance.is_player_controlled ):
+	if is_player_controlled or ( not interactor ) or ( not interactor.character_instance.is_player_controlled ):
 		return
 	for outline_mesh in outline_mesh_array:
 		outline_mesh.show()

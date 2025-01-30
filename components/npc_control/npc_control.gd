@@ -1,7 +1,5 @@
 class_name NPCController extends Node3D
 
-# TODO: get logic from https://github.com/stalematestudio/ss-godot-game-boilerplate/blob/18e4bb579b1d9bedbe5d4cad6505a5b6382d1ebb/modes/game/non_player_control.gd
-
 @onready var character: Character = get_parent()
 @onready var character_hud: CharacterHud = character.get_node("character_hud")
 @onready var head: CharacterHead = character.get_node("character_head")
@@ -128,8 +126,9 @@ func do_track(delta: float) -> void:
 
 func do_follow() -> void:
 	head.rotate_and_look_at_object(target)
-	if global_position.distance_to(target.global_position) > 3:
-		navigation.target_position = target.global_position
+	var in_front_of_target: Vector3 = target.to_global(Vector3(0,0,1.5))
+	if global_position.distance_to(in_front_of_target) > 0.1:
+		navigation.target_position = in_front_of_target
 		var target_direction = to_local(navigation.get_next_path_position())
 		character.input_movement_vector = Vector2(
 			target_direction.x,

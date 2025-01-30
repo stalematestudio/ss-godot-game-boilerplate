@@ -1,21 +1,34 @@
-Start splitting colliders into layers. Play area specifically should not be coliding with ray casts.
-Obstacle raycast should avoid props when grabed.
-The whole parent (prop/character) idea for saving and loading needs to go. Try just using groups.
-    Loading the game while holding a prop deletes the prop.
-    Grabbed prop reparent to player on save.
-Nav mesh rebaking makes the game unplayable in the browser.
-    Nav mesh rebake only when needed.
-Ensure characters are removed before creating new ones.
-Fix player character movement should not be dependant on parent orientation. (I think done)
-All Character input must be handled in one script. Can't be part of character. Almost done but needs refactoring.
-Characters saved and loaded like the props are but now there is a bump up when quick loading (maybe even if normal loading).
-Figure out NAV.
-    Try switching the map manager node type to a navigation region 3d and see if something weird happens.
-Prop reparenting to relevant / closest prop manager.
-Save load doors.
-Save load screens.
-Player 3rd person camera goes through walls.
-    One mode on a spring.
-    One mode with transparency.
-A litle bit of in air control for the player.
+General
+    Different interactions should require different distances to the interactor.
+    Start splitting colliders into layers. Play area specifically should not be coliding with ray casts.
+Character
+    All Character input must be handled in one script.
+        Can't be part of character.
     If you jump high enough straight up next to a ledge you should be able to step on it.
+        A litle bit of in air control for the player.    
+    Player 3rd person camera goes through walls.
+        One mode on a spring.
+        One mode with transparency.
+    Stats component.
+NPC
+    Interaction.
+    Movement modes.
+        ROAM
+        FOLLOW
+        TRACK
+    Sprinting.
+    Detect being stuck movement vector > 0 but velocity == 0 maybe.
+    Unstucking.
+Navigation
+    Nav mesh rebaking makes the game unplayable in the browser.
+    Nav mesh rebake only when needed?
+Doors
+    Fix doors
+    Save load doors.
+Screens
+    Different screen types.
+    Some screens should have no transparency depth test.
+    Some screens should have be transparent.
+    Save load screens.
+Dialogue trees.
+    Start prototyping.
