@@ -43,7 +43,6 @@ var character: Character:
 			_character.is_player_controlled_changed.connect(on_character_is_player_controlled_changed)
 			# print_debug("Switching to character: ", _character.name)
 			character_hud = _character.get_node("character_hud")
-			character_hud.show()
 			head = _character.get_node("character_head")
 			camera = head.get_node("character_camera_3D")
 			character_spot_light_3D = head.get_node("character_spot_light_3D")
@@ -54,7 +53,6 @@ var character: Character:
 			ray_cast_3d_obstacle_bottom = _character.get_node("ray_cast_3d_obstacle_bottom")
 		else:
 			# print_debug("Switching to character: null")
-			character_hud.hide()
 			character_hud = null
 			head = null
 			camera = null

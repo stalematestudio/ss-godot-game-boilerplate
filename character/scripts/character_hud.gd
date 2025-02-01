@@ -18,8 +18,12 @@ func _ready() -> void:
 	character_ray_cast_3D.raycast_target_changed.connect(_on_raycast_target_changed)
 
 func _process(_delta: float) -> void:
-	stats_health.set_value(character.health)
-	stats_stamina.set_value(character.stamina)
+	if character.is_player_controlled:
+		show()
+		stats_health.set_value(character.health)
+		stats_stamina.set_value(character.stamina)
+	else:
+		hide()
 
 func _on_raycast_target_changed(raycast_target: Node) -> void:
 	if raycast_target and ("interactive" in raycast_target) and (raycast_target.interactive):

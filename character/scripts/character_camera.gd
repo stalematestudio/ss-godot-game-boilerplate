@@ -15,14 +15,15 @@ var camera_position_selected: int:
 		_camera_position_selected = _camera_position_selected + 1 if _camera_position_selected < camera_position.size() - 1 else 0
 		position = camera_position[_camera_position_selected]
 
-@onready var character_instance: Character = get_parent().get_parent()
+@onready var character: Character = get_parent().get_parent()
 
 func _ready() -> void:
+	await character.ready
 	VideoManager.camera_config_changed.connect(_on_camera_config_changed)
 	_on_camera_config_changed()
 
 func _process(_delta: float) -> void:
-	set_current(character_instance.is_player_controlled)
+	set_current(character.is_player_controlled)
 
 func _on_camera_config_changed() -> void:
 	set_fov(ConfigManager.config_data.video.fov)
