@@ -22,7 +22,7 @@ var is_grabbed: bool:
 			initial_parent = get_parent()
 			reparent(interactor.character_spring_arm_3D)
 		else:
-			print_debug(name, " initial parent: ", initial_parent)
+			# print_debug(name, " initial parent: ", initial_parent)
 			if ( not is_instance_valid(initial_parent) ) or ( not initial_parent is PlayArea ):
 				initial_parent = Helpers.get_game_manager("maps_manager").active_play_area
 			Helpers.reparent_w_renaming(self, initial_parent)

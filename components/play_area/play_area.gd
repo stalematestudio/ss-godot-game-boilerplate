@@ -36,7 +36,7 @@ func _process(delta: float) -> void:
 		body_handler(body)
 
 func adopt_game_objects_savable(objects_savable: Node) -> void:
-	print_debug(name, " adopting ", objects_savable.name)
+	# print_debug(name, " adopting ", objects_savable.name)
 	Helpers.reparent_w_renaming(objects_savable, self)
 
 func save_data() -> void:
