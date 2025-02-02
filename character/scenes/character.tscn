@@ -259,6 +259,7 @@ collide_with_areas = true
 script = ExtResource("7_a0gct")
 
 [node name="character_spring_arm_3D" type="SpringArm3D" parent="character_head"]
+collision_mask = 16
 script = ExtResource("5_1afhw")
 
 [node name="character_spot_light_3D" type="SpotLight3D" parent="character_head"]

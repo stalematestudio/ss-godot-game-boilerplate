@@ -63,5 +63,5 @@ func body_handler(body: Node3D) -> void:
 	if ( body is Character ) and ( not body in game_objects_savable ):
 		adopt_game_objects_savable(body)
 
-	if ( body is BaseProp ) and ( not body._is_grabbed ) and ( not body in game_objects_savable ):
+	if ( body is BaseProp ) and ( not body.is_grabbed ) and ( not body in game_objects_savable ):
 		adopt_game_objects_savable(body)

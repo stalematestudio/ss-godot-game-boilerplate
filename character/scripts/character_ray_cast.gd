@@ -3,29 +3,27 @@ class_name CharacterRayCast3D extends RayCast3D
 @onready var character_instance: Character = get_parent().get_parent()
 @onready var character_spring_arm_3D: CharacterSpringArm3D = get_parent().get_node("character_spring_arm_3D")
 
-var raycast_collision_point: Vector3 = Vector3()
-var raycast_target_distance: float = float()
+var collision_point: Vector3 = Vector3()
+var target_distance: float = float()
 
-var _raycast_target: Node
-var raycast_target: Node:
+var _target: Node
+var target: Node:
 	get:
-		return _raycast_target
-	set(new_raycast_target):
-		if _raycast_target == new_raycast_target:
+		return _target
+	set(new_target):
+		if _target == new_target:
 			return
 
-		if is_instance_valid(_raycast_target):
-			if _raycast_target.has_method("_mouse_exited_area"):
-				_raycast_target._mouse_exited_area()
+		if is_instance_valid(_target):
+			if _target.has_method("on_mouse_exited"):
+				_target.on_mouse_exited()
 
-		_raycast_target = new_raycast_target
-		raycast_target_changed.emit(_raycast_target)
+		_target = new_target
+		target_changed.emit(_target)
 
-		if is_instance_valid(_raycast_target):
-			if _raycast_target.has_method("_mouse_entered_area"):
-				_raycast_target._mouse_entered_area()
-			if raycast_target.has_method("activate"):
-				raycast_target.activate(self)
+		if is_instance_valid(_target):
+			if _target.has_method("on_mouse_entered"):
+				_target.on_mouse_entered()
 
 const OBJECT_INTERACT_DISTANCE: float = 1.5
 const OBJECT_GRAB_MAX_MASS: float = 0.5
@@ -33,12 +31,7 @@ const OBJECT_THROW_FORCE: float = 10
 
 var active_screen: Node
 
-signal raycast_target_changed
-signal raycast_primary_action
-signal raycast_secondary_action
-signal raycast_mode_action
-signal raycast_in_action
-signal raycast_out_action
+signal target_changed
 
 func _ready() -> void:
 	add_exception(character_instance)
@@ -46,10 +39,30 @@ func _ready() -> void:
 # func _physics_process(_delta: float) -> void:
 func _process(_delta: float) -> void:
 	if is_colliding():
-		raycast_target = get_collider()
-		raycast_collision_point = get_collision_point()
-		raycast_target_distance = get_global_transform().origin.distance_to(raycast_collision_point)
+		target = get_collider()
+		collision_point = get_collision_point()
+		target_distance = get_global_transform().origin.distance_to(collision_point)
 	else:
-		raycast_target = null
-		raycast_collision_point = Vector3()
-		raycast_target_distance = float()
+		target = null
+		collision_point = Vector3()
+		target_distance = float()
+
+func primary_action() -> void:
+	if target and target.has_method("call_primary_action"):
+		target.call_primary_action(character_instance, self)
+
+func secondary_action() -> void:
+	if target and target.has_method("call_secondary_action"):
+		target.call_secondary_action(character_instance, self)
+
+func mode_action(input_vector: Vector2) -> void:
+	if target and target.has_method("call_mode_action"):
+		target.call_mode_action(character_instance, self, input_vector)
+
+func in_action() -> void:
+	if target and target.has_method("call_in_action"):
+		target.call_in_action(character_instance, self)
+
+func out_action() -> void:
+	if target and target.has_method("call_out_action"):
+		target.call_out_action(character_instance, self)

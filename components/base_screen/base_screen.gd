@@ -35,16 +35,16 @@ func _ready() -> void:
 	sub_viewport_control.display_parent = get_parent()
 	sub_viewport.add_child(sub_viewport_control)
 
-	mouse_entered.connect(_mouse_entered_area)
-	mouse_exited.connect(_mouse_exited_area)
-	input_event.connect(_mouse_input_event)
+	mouse_entered.connect(on_mouse_entered)
+	mouse_exited.connect(on_mouse_exited)
+	input_event.connect(on_mouse_input_event)
 
-func _mouse_entered_area() -> void:
+func on_mouse_entered() -> void:
 	is_mouse_inside = true
 	sub_viewport.notification(NOTIFICATION_VP_MOUSE_ENTER)
 	mouse_entered_area.emit()
 
-func _mouse_exited_area() -> void:
+func on_mouse_exited() -> void:
 	sub_viewport.notification(NOTIFICATION_VP_MOUSE_EXIT)
 	is_mouse_inside = false
 	mouse_exited_area.emit()
@@ -53,7 +53,7 @@ func _mouse_exited_area() -> void:
 	last_event_pos2D = Vector2()
 	last_event_time= -1.0
 
-func _mouse_input_event(_camera: Camera3D, event: InputEvent, event_position: Vector3, _normal: Vector3, _shape_idx: int) -> void:
+func on_mouse_input_event(_camera: Camera3D, event: InputEvent, event_position: Vector3, _normal: Vector3, _shape_idx: int) -> void:
 	now = Time.get_ticks_msec() / 1000.0
 	event_pos2D = Vector2()
 	event_pos3D = display.global_transform.affine_inverse() * event_position

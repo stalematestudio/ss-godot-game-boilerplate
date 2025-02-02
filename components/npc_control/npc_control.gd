@@ -42,7 +42,7 @@ var target_line_of_sight: bool:
 func _ready() -> void:
 	if is_inside_tree() and not is_in_group("character_controlers"):
 		add_to_group("character_controlers", true)
-	character_ray_cast_3D.raycast_target_changed.connect(on_character_ray_cast_3D_raycast_target_changed)
+	character_ray_cast_3D.target_changed.connect(on_character_ray_cast_3D_raycast_target_changed)
 
 func _process(_delta: float) -> void:
 	if character.is_player_controlled:

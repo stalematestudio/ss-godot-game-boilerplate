@@ -15,7 +15,7 @@ func _ready() -> void:
 	await character.ready
 	stats_health.set_max(character.health_max)
 	stats_stamina.set_max(character.stamina_max)
-	character_ray_cast_3D.raycast_target_changed.connect(_on_raycast_target_changed)
+	character_ray_cast_3D.target_changed.connect(_on_raycast_target_changed)
 
 func _process(_delta: float) -> void:
 	if character.is_player_controlled:
