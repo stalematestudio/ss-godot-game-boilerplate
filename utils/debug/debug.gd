@@ -96,9 +96,9 @@ func _process(_delta):
 				player_collider.set_text(list_of_colliders)
 
 			if is_instance_valid(player_control.character_ray_cast_3D):
-				if player_control.character_ray_cast_3D.raycast_target:
-					player_target_name.set_text(player_control.character_ray_cast_3D.raycast_target.name)
-					player_target_distance.set_text(String.num(snapped(player_control.character_ray_cast_3D.raycast_target_distance, 0.1)))
+				if player_control.character_ray_cast_3D.target:
+					player_target_name.set_text(player_control.character_ray_cast_3D.target.name)
+					player_target_distance.set_text(String.num(snapped(player_control.character_ray_cast_3D.target_distance, 0.1)))
 				else:
 					player_target_name.set_text("")
 					player_target_distance.set_text("")

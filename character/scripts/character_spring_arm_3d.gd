@@ -19,6 +19,6 @@ func load_data(data: Dictionary) -> void:
 		var child_instance = load(data.child.scene).instantiate()
 		add_child(child_instance)
 		child_instance.load_data(data.child)
-		child_instance.activate(interactor)
-		child_instance.get_grabbed()
+		child_instance.on_mouse_entered()
+		child_instance.get_grabbed(interactor.character_instance, interactor)
 	spring_length = data.spring_length

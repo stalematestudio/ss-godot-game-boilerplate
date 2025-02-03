@@ -215,18 +215,17 @@ unit_size = 3.0
 bus = &"FX"
 
 [node name="ray_cast_3d_obstacle_top" parent="." instance=ExtResource("11_upv56")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
 target_position = Vector3(0, -1.6, 0)
-height = 1.4
+height = 1.6
 
 [node name="ray_cast_3d_obstacle_bottom" parent="." instance=ExtResource("11_upv56")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
 target_position = Vector3(0, 1.6, 0)
 height = 1.2
 checking_mode = "BOTTOM_UP"
 
 [node name="navigation_agent_3d" type="NavigationAgent3D" parent="."]
-path_max_distance = 2.01
 avoidance_enabled = true
 radius = 1.0
 debug_enabled = true

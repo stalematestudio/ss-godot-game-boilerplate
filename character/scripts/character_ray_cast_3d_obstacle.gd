@@ -27,6 +27,10 @@ var clearance: float:
 			_:
 				return height
 
+var jump_strength: float:
+	get:
+		return 1.0
+
 var can: bool:
 	get:
 		if not is_colliding():
@@ -38,6 +42,13 @@ var can: bool:
 				return height < clearance
 			_:
 				return false
+
+var input_movement_vector: Vector2:
+	get:
+		return Vector2.ZERO
+	set(input_movement_vector_in):
+		position.x = input_movement_vector_in.x * 0.5
+		position.z = input_movement_vector_in.y * 0.5
 
 func _ready() -> void:
 	add_exception(character_instance)

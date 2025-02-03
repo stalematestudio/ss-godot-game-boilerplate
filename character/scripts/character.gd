@@ -34,6 +34,10 @@ var _is_player_controlled: bool = false
 		_is_player_controlled = new_is_player_controlled
 		is_player_controlled_changed.emit(_is_player_controlled)
 
+var is_stuck: bool:
+	get:
+		return ( velocity.z == 0 ) and ( input_movement_vector.y != 0 )
+
 var is_jumping: bool = false
 var is_sprinting: bool  = false
 
@@ -94,10 +98,19 @@ func _ready() -> void:
 	
 	add_child(npc_control)
 
+func jump(strength: float = 1) -> void:
+	if is_on_floor():
+		is_jumping = true
+		velocity.y = JUMP_SPEED * strength
+
+
 func movement(delta: float) -> void:
 	# Basis vectors are normalized
 	input_movement_vector_magnitude = min(input_movement_vector.length(), 1)
 	input_movement_vector = input_movement_vector.normalized()
+
+	ray_cast_3d_obstacle_top.input_movement_vector = input_movement_vector
+	ray_cast_3d_obstacle_bottom.input_movement_vector = input_movement_vector
 
 	movement_direction = (global_basis * Vector3(input_movement_vector.x, 0, input_movement_vector.y)).normalized()
 	
@@ -125,7 +138,7 @@ func movement(delta: float) -> void:
 		movement_accel = DEACCEL
 		is_sprinting = false
 		stamina = clamp( stamina + delta / 2 , 0 ,  stamina_max )
-	
+
 	if is_on_floor():
 		horizontal_velocity = horizontal_velocity.lerp(movement_target_speed, movement_accel * delta)
 	else:
@@ -136,7 +149,7 @@ func movement(delta: float) -> void:
 	velocity.z = horizontal_velocity.z
 	
 	move_and_slide()
-	
+
 	input_movement_vector = Vector2.ZERO
 
 	# Steps audio control needs to be moved out of here

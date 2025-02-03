@@ -104,8 +104,7 @@ func _physics_process(delta: float) -> void:
 	if _character.is_on_floor():
 		# Jumping
 		if Input.is_action_just_pressed("player_movement_jump"):
-			_character.is_jumping = true
-			_character.velocity.y = _character.JUMP_SPEED * Input.get_action_strength("player_movement_jump")
+			_character.jump(Input.get_action_strength("player_movement_jump"))
 
 		# Sprinting
 		if Input.is_action_just_pressed("player_movement_sprint") and ( _character.stamina >= _character.stamina_max / 2.0 ):

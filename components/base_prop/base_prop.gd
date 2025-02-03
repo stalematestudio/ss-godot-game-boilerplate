@@ -89,7 +89,11 @@ func get_grabbed(character: Character, interactor: CharacterRayCast3D) -> void:
 	character.ray_cast_3d_obstacle_bottom.add_exception(self)
 	interactor.character_spring_arm_3D.add_excluded_object(get_rid())
 
-	interactor.character_spring_arm_3D.spring_length = interactor.target_distance
+	interactor.character_spring_arm_3D.spring_length = clamp(
+		interactor.target_distance,
+		0.5,
+		1
+	)
 	interactor.target = null
 
 func get_dropped(character: Character, interactor: CharacterRayCast3D) -> void:
@@ -114,7 +118,10 @@ func get_thrown(character: Character, interactor: CharacterRayCast3D) -> void:
 	apply_central_impulse(interactor.global_transform.basis.z.normalized() * 5)
 
 func get_pushed(_character: Character, interactor: CharacterRayCast3D) -> void:
-	apply_central_impulse(interactor.global_transform.basis.z.normalized() * 5)
+	apply_impulse(
+		interactor.global_transform.basis.z.normalized() / interactor.target_distance,
+		to_local(interactor.collision_point),
+	)
 
 func save_data() -> Dictionary:
 	return {

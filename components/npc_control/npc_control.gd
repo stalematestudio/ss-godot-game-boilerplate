@@ -65,19 +65,18 @@ func _physics_process(delta: float) -> void:
 
 	if character.is_on_floor():
 		# Jumping
-		if ray_cast_3d_obstacle_top.can:
-			character.is_jumping = true
-			character.velocity.y = character.JUMP_SPEED # * ray_cast_3d_obstacle_top clearance to get jump strength
+		if character.is_stuck and ray_cast_3d_obstacle_top.can:
+			character.jump(character.ray_cast_3d_obstacle_top.jump_strength)
 
 		# Sprinting
-		# if Input.is_action_just_pressed("player_movement_sprint") and ( _character.stamina >= _character.stamina_max / 2.0 ):
-		# 	_character.is_sprinting = ( _character.input_movement_vector.y > 0 )
-		# 	if _character.is_crouching:
-		# 		_character.is_crouching = false
-		# elif _character.stamina <= 0 :
-		# 	_character.is_sprinting = false
-		# # Sprint only forward
-		# _character.is_sprinting = _character.is_sprinting and ( _character.input_movement_vector.y > 0 )
+		if character.stamina >= character.stamina_max / 2.0:
+			character.is_sprinting = character.input_movement_vector.y > 0
+			if character.is_crouching:
+				character.is_crouching = false
+		elif character.stamina <= 0 :
+			character.is_sprinting = false
+		# Sprint only forward
+		character.is_sprinting = character.is_sprinting and ( character.input_movement_vector.y > 0 )
 
 		# Crouching
 		if character.is_on_ceiling() and not character.is_crouching:
