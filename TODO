@@ -19,6 +19,7 @@ NPC
     Sprinting.
     Detect being stuck movement vector > 0 but velocity == 0 maybe.
     Unstucking.
+    Stuck crouched under a collider.
 Navigation
     Nav mesh rebaking makes the game unplayable in the browser.
     Nav mesh rebake only when needed?
@@ -28,7 +29,7 @@ Doors
 Screens
     Different screen types.
     Some screens should have no transparency depth test.
-    Some screens should have be transparent.
+    Some screens should be transparent.
     Save load screens.
 Dialogue trees.
     Start prototyping.
