@@ -148,7 +148,15 @@ func movement(delta: float) -> void:
 
 	velocity.x = horizontal_velocity.x
 	velocity.z = horizontal_velocity.z
-	
+
+	# Sprint only forward
+	is_sprinting = is_sprinting and ( input_movement_vector.y > 0 )
+
+	# Crouching
+	if is_on_ceiling() and not is_crouching:
+		is_crouching = true
+		is_sprinting = false
+
 	move_and_slide()
 
 	input_movement_vector = Vector2.ZERO

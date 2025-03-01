@@ -113,13 +113,6 @@ func _physics_process(delta: float) -> void:
 				_character.is_crouching = false
 		elif _character.stamina <= 0 :
 			_character.is_sprinting = false
-		# Sprint only forward
-		_character.is_sprinting = _character.is_sprinting and ( _character.input_movement_vector.y > 0 )
-
-		# Crouching
-		if _character.is_on_ceiling() and not _character.is_crouching:
-			_character.is_crouching = true
-			_character.is_sprinting = false
 
 	if Input.is_action_just_pressed("player_movement_crouch"):
 		if _character.is_crouching:

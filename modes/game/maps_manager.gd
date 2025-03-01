@@ -12,14 +12,22 @@ Map:
 
 var area_a: PackedScene = preload("res://level/area_a/scene.tscn")
 var area_b: PackedScene = preload("res://level/area_b/scene.tscn")
+var exterior: PackedScene = preload("res://level/exterior/exterior.tscn")
 
 var game_map: Dictionary = {
+	"exterior": {
+		"scene": exterior,
+		"name": "exterior",
+		"position": Vector3(-240,0,120),
+		"rotation_degrees": Vector3(),
+		"neightbours": ["demo_0A","demo_0B","demo_0C","demo_0D"]
+		},
 	"demo_0A": {
 		"scene": area_a,
 		"name": "demo_0A",
 		"position": Vector3(0,0,0),
 		"rotation_degrees": Vector3(),
-		"neightbours": ["demo_1A","demo_0B","demo_1B"]
+		"neightbours": ["demo_1A","demo_0B","demo_1B","exterior"]
 		},
 	"demo_1A": {
 		"scene": area_b,
@@ -47,7 +55,7 @@ var game_map: Dictionary = {
 		"name": "demo_0B",
 		"position": Vector3(0,0,80),
 		"rotation_degrees": Vector3(),
-		"neightbours": ["demo_0A","demo_1A","demo_1B","demo_0C","demo_1C"]
+		"neightbours": ["demo_0A","demo_1A","demo_1B","demo_0C","demo_1C","exterior"]
 		},
 	"demo_1B": {
 		"scene": area_b,
@@ -75,7 +83,7 @@ var game_map: Dictionary = {
 		"name": "demo_0C",
 		"position": Vector3(0,0,160),
 		"rotation_degrees": Vector3(),
-		"neightbours": ["demo_0B","demo_1B","demo_1C","demo_0D","demo_1D"]
+		"neightbours": ["demo_0B","demo_1B","demo_1C","demo_0D","demo_1D","exterior"]
 		},
 	"demo_1C": {
 		"scene": area_b,
@@ -103,7 +111,7 @@ var game_map: Dictionary = {
 		"name": "demo_0D",
 		"position": Vector3(0,0,240),
 		"rotation_degrees": Vector3(),
-		"neightbours": ["demo_0C","demo_1C","demo_1D"]
+		"neightbours": ["demo_0C","demo_1C","demo_1D","exterior"]
 		},
 	"demo_1D": {
 		"scene": area_b,

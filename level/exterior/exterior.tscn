@@ -1,0 +1,69 @@
+[gd_scene load_steps=5 format=3 uid="uid://c7vbjrwaq3xey"]
+
+[ext_resource type="Script" path="res://components/play_area/play_area.gd" id="1_o4mjr"]
+[ext_resource type="PackedScene" uid="uid://dp0460l8vu0at" path="res://components/navigation/navigation.tscn" id="2_413yb"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bhxvc"]
+size = Vector3(398, 201, 398)
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_e3vyx"]
+resource_local_to_scene = true
+vertices = PackedVector3Array(199.75, 0.4, -150.35, 170.5, 0.4, -150.5, 170.35, 0.4, -149.45, 199.75, 0.4, 199.75, 149.5, 0.4, -170.3, 150.55, 0.4, -170.45, 150.4, 0.4, -199.7, -199.7, 0.4, -199.7, 149.5, 0.4, -149.6, -199.7, 0.4, 199.75, 178.6, 0.4, -170.3, 178.6, 0.4, -199.7, 179.8, 0.4, -170.3, 179.95, 0.6, -168.95, 199.75, 0.4, -168.95, 199.75, 0.4, -199.7, 150.1, 10.4, -169.85, 150.1, 10.4, -150.05, 169.9, 10.4, -150.05, 169.9, 10.4, -169.85, 170.05, 0.4, -157.4, 170.05, 0.8, -162.8, 169.6, 0.4, -162.8, 169.6, 0.4, -157.25, 150.4, 0.4, -169.55, 150.4, 0.4, -150.35, 169.6, 0.4, -169.55, 169.6, 0.4, -150.35, 170.35, 0.4, -169.55, 170.35, 0.4, -166.4, 178.45, 0.4, -166.4, 178.45, 0.4, -169.55, 179.95, 0.6, -167.15, 199.75, 0.4, -167.15, 170.5, 0.4, -162.8, 170.5, 0.4, -157.25, 179.8, 0.4, -165.65, 170.5, 0.4, -165.65)
+polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 3), PackedInt32Array(5, 4, 6), PackedInt32Array(6, 4, 7), PackedInt32Array(8, 2, 3), PackedInt32Array(7, 8, 9), PackedInt32Array(9, 8, 3), PackedInt32Array(7, 4, 8), PackedInt32Array(6, 11, 5), PackedInt32Array(5, 11, 10), PackedInt32Array(13, 12, 14), PackedInt32Array(14, 12, 15), PackedInt32Array(15, 12, 11), PackedInt32Array(12, 10, 11), PackedInt32Array(19, 18, 16), PackedInt32Array(16, 18, 17), PackedInt32Array(21, 20, 22), PackedInt32Array(22, 20, 23), PackedInt32Array(22, 23, 24), PackedInt32Array(24, 23, 25), PackedInt32Array(24, 26, 22), PackedInt32Array(23, 27, 25), PackedInt32Array(31, 30, 28), PackedInt32Array(28, 30, 29), PackedInt32Array(13, 14, 32), PackedInt32Array(32, 14, 33), PackedInt32Array(20, 21, 34), PackedInt32Array(20, 34, 35), PackedInt32Array(35, 34, 36), PackedInt32Array(34, 37, 36), PackedInt32Array(36, 32, 33), PackedInt32Array(35, 36, 1), PackedInt32Array(1, 36, 33), PackedInt32Array(1, 33, 0)]
+geometry_parsed_geometry_type = 1
+cell_size = 0.15
+cell_height = 0.2
+agent_height = 1.2
+agent_radius = 0.3
+agent_max_climb = 0.4
+
+[node name="play_area" type="Area3D"]
+collision_layer = 32
+collision_mask = 6
+script = ExtResource("1_o4mjr")
+
+[node name="collision_shape_3d" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 99.5, 0)
+shape = SubResource("BoxShape3D_bhxvc")
+
+[node name="nav_manager" parent="." instance=ExtResource("2_413yb")]
+navigation_mesh = SubResource("NavigationMesh_e3vyx")
+
+[node name="navigation_link_3d" type="NavigationLink3D" parent="nav_manager"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 182, 0, -168)
+start_position = Vector3(0, 0.4, 0)
+end_position = Vector3(-13, 10.4, 0)
+
+[node name="csg_box_3d" type="CSGBox3D" parent="nav_manager"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.5, 0)
+use_collision = true
+collision_layer = 16
+collision_mask = 6
+size = Vector3(400, 5, 400)
+
+[node name="csg_combiner_3d" type="CSGCombiner3D" parent="nav_manager"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 160, 0, -160)
+use_collision = true
+collision_layer = 16
+collision_mask = 6
+
+[node name="csg_box_3d_ext" type="CSGBox3D" parent="nav_manager/csg_combiner_3d"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.05, 0)
+size = Vector3(20.2, 10.1, 20.2)
+
+[node name="csg_box_3d_int" type="CSGBox3D" parent="nav_manager/csg_combiner_3d"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
+operation = 2
+size = Vector3(20, 10, 20)
+
+[node name="csg_cylinder_ent" type="CSGCylinder3D" parent="nav_manager/csg_combiner_3d"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 3, -10)
+operation = 2
+radius = 4.0
+height = 0.5
+
+[node name="csg_polygon_3d" type="CSGPolygon3D" parent="nav_manager/csg_combiner_3d"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -10, 0, -20.2)
+polygon = PackedVector2Array(0, 0, 10.1, 0, 10.1, 10.1)
+depth = 4.0
+smooth_faces = true

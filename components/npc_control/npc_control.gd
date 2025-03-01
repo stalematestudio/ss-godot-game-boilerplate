@@ -75,14 +75,8 @@ func _physics_process(delta: float) -> void:
 				character.is_crouching = false
 		elif character.stamina <= 0 :
 			character.is_sprinting = false
-		# Sprint only forward
-		character.is_sprinting = character.is_sprinting and ( character.input_movement_vector.y > 0 )
 
 		# Crouching
-		if character.is_on_ceiling() and not character.is_crouching:
-			character.is_crouching = true
-			character.is_sprinting = false
-
 		character.is_crouching = ray_cast_3d_obstacle_bottom.can
 
 	character.movement(delta)
