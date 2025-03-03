@@ -1,6 +1,6 @@
 [gd_scene load_steps=17 format=3 uid="uid://cru8pff6vp31v"]
 
-[ext_resource type="Script" path="res://modes/main/main.gd" id="1_tdg1b"]
+[ext_resource type="Script" uid="uid://gyq7ffnn121m" path="res://modes/main/main.gd" id="1_tdg1b"]
 [ext_resource type="PackedScene" path="res://modes/intro/intro.tscn" id="2_iugek"]
 [ext_resource type="PackedScene" uid="uid://betheslgffy6l" path="res://modes/title/title.tscn" id="3_eafdj"]
 [ext_resource type="PackedScene" path="res://modes/credits/credits.tscn" id="4_iwcea"]
@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://16dat6l4kb1o" path="res://modes/pause/pause.tscn" id="8_04kg6"]
 [ext_resource type="Environment" uid="uid://bi1vmxatm5tjq" path="res://assets/base/default_env.tres" id="9_l6lsn"]
 [ext_resource type="AudioStream" uid="uid://45xcngosyca0" path="res://assets/audio/music/test_music.ogg" id="10_nlrrd"]
-[ext_resource type="Script" path="res://modes/main/sun.gd" id="10_s5li4"]
+[ext_resource type="Script" uid="uid://bunp5c1c7n45v" path="res://modes/main/sun.gd" id="10_s5li4"]
 [ext_resource type="PackedScene" uid="uid://bfx1xmorf1a8r" path="res://utils/ui/message_display/message_display.tscn" id="11_m06xe"]
 
 [sub_resource type="Animation" id="Animation_fqju2"]
@@ -246,9 +246,9 @@ tracks/5/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_filtf"]
 _data = {
-"RESET": SubResource("Animation_fqju2"),
-"day": SubResource("Animation_igufh"),
-"just_day": SubResource("Animation_jj75c")
+&"RESET": SubResource("Animation_fqju2"),
+&"day": SubResource("Animation_igufh"),
+&"just_day": SubResource("Animation_jj75c")
 }
 
 [node name="main" type="Node"]
@@ -278,7 +278,7 @@ script = ExtResource("10_s5li4")
 
 [node name="day_cycle_animation_player" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_filtf")
+&"": SubResource("AnimationLibrary_filtf")
 }
 autoplay = "day"
 

@@ -1,18 +1,18 @@
 [gd_scene load_steps=22 format=4 uid="uid://4vp5srwunvh8"]
 
-[ext_resource type="Script" path="res://character/scripts/character.gd" id="1_dm3xb"]
-[ext_resource type="Script" path="res://character/scripts/character_animation_player.gd" id="2_s8sgh"]
-[ext_resource type="Script" path="res://character/scripts/character_head.gd" id="3_msplp"]
-[ext_resource type="Script" path="res://character/scripts/character_camera.gd" id="4_gq4hp"]
-[ext_resource type="Script" path="res://character/scripts/character_spring_arm_3d.gd" id="5_1afhw"]
-[ext_resource type="Script" path="res://character/scripts/character_light.gd" id="5_tsgpj"]
+[ext_resource type="Script" uid="uid://bu33qc2xwrdbk" path="res://character/scripts/character.gd" id="1_dm3xb"]
+[ext_resource type="Script" uid="uid://dgmmq7i5elo8g" path="res://character/scripts/character_animation_player.gd" id="2_s8sgh"]
+[ext_resource type="Script" uid="uid://3pa2if58lm75" path="res://character/scripts/character_head.gd" id="3_msplp"]
+[ext_resource type="Script" uid="uid://bsdvh6w7njefp" path="res://character/scripts/character_camera.gd" id="4_gq4hp"]
+[ext_resource type="Script" uid="uid://b2i2kjxr7pu8t" path="res://character/scripts/character_spring_arm_3d.gd" id="5_1afhw"]
+[ext_resource type="Script" uid="uid://bc4lwaw5px6hg" path="res://character/scripts/character_light.gd" id="5_tsgpj"]
 [ext_resource type="Material" uid="uid://dmqe65362q88x" path="res://assets/materials/agent_material_0.tres" id="6_oibuc"]
 [ext_resource type="AudioStream" uid="uid://b4nciekqn81lu" path="res://assets/audio/collision_effects/166506__yoyodaman234__concrete-footstep-4.wav" id="7_2gnjy"]
-[ext_resource type="Script" path="res://character/scripts/character_ray_cast.gd" id="7_a0gct"]
+[ext_resource type="Script" uid="uid://c8ly4172nr20w" path="res://character/scripts/character_ray_cast.gd" id="7_a0gct"]
 [ext_resource type="Material" uid="uid://bn47l102fwgcq" path="res://assets/materials/outline_material.tres" id="8_ukx37"]
 [ext_resource type="PackedScene" uid="uid://cxmdiyhhxo5gj" path="res://character/scenes/character_hud.tscn" id="10_2yhi3"]
 [ext_resource type="PackedScene" uid="uid://ceqfcutkuw16r" path="res://character/scenes/ray_cast_3d_obstacle.tscn" id="11_upv56"]
-[ext_resource type="Script" path="res://character/scripts/character_navigation_agent_3d.gd" id="11_vxpyi"]
+[ext_resource type="Script" uid="uid://cykhdcuw6c4xb" path="res://character/scripts/character_navigation_agent_3d.gd" id="11_vxpyi"]
 
 [sub_resource type="Animation" id="Animation_4i510"]
 length = 0.001
@@ -142,8 +142,8 @@ tracks/4/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gdv1m"]
 _data = {
-"RESET": SubResource("Animation_4i510"),
-"crouch": SubResource("Animation_vyv8v")
+&"RESET": SubResource("Animation_4i510"),
+&"crouch": SubResource("Animation_vyv8v")
 }
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_dv8kr"]
@@ -201,7 +201,7 @@ script = ExtResource("1_dm3xb")
 
 [node name="character_animation_player" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_gdv1m")
+&"": SubResource("AnimationLibrary_gdv1m")
 }
 script = ExtResource("2_s8sgh")
 
