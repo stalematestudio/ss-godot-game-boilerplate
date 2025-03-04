@@ -17,6 +17,7 @@ NPC
         FOLLOW
         TRACK
     Sprinting.
+        They only use half the stamina.
     Detect being stuck movement vector > 0 but velocity == 0 maybe.
     Unstucking.
     Stuck crouched under a collider.
